@@ -7,15 +7,31 @@
 //
 
 #import "AppDelegate.h"
+#import "AFNetworking.h"
 
 @implementation AppDelegate
+
+@synthesize rootController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    // Init user interface
+    self.rootController = [[UINavigationController alloc] initWithRootViewController:[[RootViewController alloc] initWithStyle:UITableViewStylePlain]];
+    self.window.rootViewController = self.rootController;
+
+    // Get csrf token from server
+    [[NetworkClient sharedNetworkClient] getCsrfToken];
+    
+#ifdef DEBUG
+    [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:SETTINGS_DID_LOGIN];
+#endif
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+    
     return YES;
 }
 
