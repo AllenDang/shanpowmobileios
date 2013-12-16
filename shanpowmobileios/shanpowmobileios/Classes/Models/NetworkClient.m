@@ -33,6 +33,7 @@ SINGLETON_GCD(NetworkClient);
 - (void)handleResponse:(id)responseObject success:(void(^)(NSDictionary *data))success failure:(void(^)(NSDictionary *ErrorMsg))failure
 {
     BOOL result = [[responseObject objectForKey:@"Result"] boolValue];
+    
     if (result) {
         if (success) {
             NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[responseObject objectForKey:@"Data"] forKey:@"data"];
@@ -63,6 +64,12 @@ SINGLETON_GCD(NetworkClient);
                             // Save token for later use
                             [[NSUserDefaults standardUserDefaults] setObject:token forKey:SETTINGS_CSRF_TOKEN];
                             [[NSUserDefaults standardUserDefaults] synchronize];
+                            
+#ifdef DEBUG
+                            if (isLogin()) {
+                                [[NetworkClient sharedNetworkClient] logout];
+                            }
+#endif
                             
                             [[NSNotificationCenter defaultCenter] postNotificationName:MSG_GOT_TOKEN object:me];
                         } 
@@ -114,20 +121,13 @@ SINGLETON_GCD(NetworkClient);
     
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
-    [manager POST:[[NSURL URLWithString:@"/account/mobilelogout" relativeToURL:self.baseURL] absoluteString]
+    [manager GET:[[NSURL URLWithString:@"/account/mobilelogout" relativeToURL:self.baseURL] absoluteString]
        parameters:parameters
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              [me handleResponse:responseObject 
-                         success:^(NSDictionary *data){
-                             [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGOUT 
-                                                                                 object:me 
-                                                                               userInfo:data];
-                         } 
-                         failure:^(NSDictionary *ErrorMsg){
-                             [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_LOGOUT 
-                                                                                 object:me 
-                                                                               userInfo:ErrorMsg];
-                         }];
+              [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:SETTINGS_DID_LOGIN];
+              [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGOUT 
+                                                                  object:me 
+                                                                userInfo:nil];
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               NSLog(@"ErrorOnLogout: %@", error);
@@ -158,6 +158,39 @@ SINGLETON_GCD(NetworkClient);
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               NSLog(@"ErrorOnLogout: %@", error);
+          }];
+}
+
+- (void)registerWithNickname:(NSString *)nickname email:(NSString *)email password:(NSString *)password gender:(BOOL)isMan
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{
+                                 @"nickname": nickname,
+                                 @"email": email,
+                                 @"password": password,
+                                 @"sex": isMan ? @YES : @NO,
+                                 @"csrf_token": self.csrfToken
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [manager POST:[[NSURL URLWithString:@"/account/mobileregister" relativeToURL:self.baseURL] absoluteString]
+       parameters:parameters
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              [me handleResponse:responseObject 
+                         success:^(NSDictionary *data){
+                             [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_REGISTER 
+                                                                                 object:me 
+                                                                               userInfo:data];
+                         } 
+                         failure:^(NSDictionary *ErrorMsg){
+                             [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_REGISTER 
+                                                                                 object:me 
+                                                                               userInfo:ErrorMsg];
+                         }];
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"ErrorOnRegister: %@", error);
           }];
 }
 

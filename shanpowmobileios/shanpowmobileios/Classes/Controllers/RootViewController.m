@@ -38,8 +38,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    BOOL didLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_DID_LOGIN] boolValue];
-    if (!didLogin) {
+    
+    if (!isLogin()) {
         [self showLoginView];
     }
 }
@@ -114,7 +114,6 @@
 #pragma mark - Notification handlers
 - (void)didLogin:(NSNotification *)notification
 {
-    [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:SETTINGS_DID_LOGIN];
     [self dismissViewControllerAnimated:YES completion:^(){
         [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_LOGIN object:nil];
     }];

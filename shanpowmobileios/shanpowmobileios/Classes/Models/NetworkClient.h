@@ -22,5 +22,6 @@
 - (void)loginWithLoginname:(NSString *)loginname password:(NSString *)password;
 - (void)logout;
 - (void)getHotBooks;
+- (void)registerWithNickname:(NSString *)nickname email:(NSString *)email password:(NSString *)password gender:(BOOL)isMan;
 
 @end

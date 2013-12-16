@@ -40,30 +40,34 @@
     
     UIColor *placeholderColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:0.5];
     
-    float screenRatio = [[UIScreen mainScreen] bounds].size.height / 568.0;
+    float screenRatio = self.view.bounds.size.height / 568.0;
     
     // Background view for username text field
     UIImageView *usernameTextFieldBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Login_TextField"]];
     usernameTextFieldBackground.frame = CGRectMake(32.0, 57.0 * screenRatio, 256.0, 50.0);
+    usernameTextFieldBackground.userInteractionEnabled = YES;
     [self.adjustView addSubview:usernameTextFieldBackground];
     
     // Username text field
-    self.usernameTextField = [[UITextField alloc] initWithFrame:CGRectMake(45.0, 72.0 * screenRatio, 230.0, 30.0)];
+    self.usernameTextField = [[UITextField alloc] initWithFrame:CGRectMake(13.0, 13, 230.0, 24.0)];
     self.usernameTextField.textColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.7];
     self.usernameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"输入电子邮件地址或者昵称" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
-    [self.adjustView addSubview:self.usernameTextField];
+    self.usernameTextField.delegate = self;
+    [usernameTextFieldBackground addSubview:self.usernameTextField];
     
     // Background view for password text field
     UIImageView *passwordTextFieldBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Login_TextField"]];
     passwordTextFieldBackground.frame = CGRectMake(32.0, 135.0 * screenRatio, 256.0, 50.0);
+    passwordTextFieldBackground.userInteractionEnabled = YES;
     [self.adjustView addSubview:passwordTextFieldBackground];
     
     // Password text field
-    self.passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(45.0, 150.0 * screenRatio, 230.0, 30.0)];
+    self.passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(13.0, 13, 230.0, 24.0)];
     self.passwordTextField.secureTextEntry = YES;
     self.passwordTextField.textColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.7];
     self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"输入密码" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
-    [self.adjustView addSubview:self.passwordTextField];
+    self.passwordTextField.delegate = self;
+    [passwordTextFieldBackground addSubview:self.passwordTextField];
     
     // Login button
     self.loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -107,12 +111,21 @@
     self.registerButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [self.registerButton setTitle:@"立即注册" forState:UIControlStateNormal];
     [self.registerButton setBackgroundImage:[UIImage imageNamed:@"Login_LoginButton"] forState:UIControlStateHighlighted];
+    [self.registerButton addTarget:self action:@selector(showRegisterView) forControlEvents:UIControlEventTouchUpInside];
     [self.adjustView addSubview:self.registerButton];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.registerViewController clearControls];
+        [self.registerViewController.view setFrame:CGRectMake(0.0, self.view.frame.size.height, 320.0, self.view.frame.size.height)];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -158,6 +171,24 @@
 {
     [self.usernameTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
+}
+
+- (void)showRegisterView
+{
+    self.registerViewController = [[RegisterViewController alloc] init];
+    self.registerViewController.view.frame = CGRectMake(0.0, [[UIScreen mainScreen] bounds].size.height, 320.0, [[UIScreen mainScreen] bounds].size.height);
+    [self.view addSubview:self.registerViewController.view];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.registerViewController.view setFrame:CGRectMake(0.0, 0.0, 320.0, [[UIScreen mainScreen] bounds].size.height)];
+    }];
+}
+
+#pragma mark - UITextField delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end

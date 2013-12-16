@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Common.h"
 #import "NetworkClient.h"
 #import "RootViewController.h"
 

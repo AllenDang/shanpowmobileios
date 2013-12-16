@@ -26,11 +26,9 @@
     // Get csrf token from server
     [[NetworkClient sharedNetworkClient] getCsrfToken];
     
-#ifdef DEBUG
-    [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:SETTINGS_DID_LOGIN];
-#endif
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+    }
     
     return YES;
 }

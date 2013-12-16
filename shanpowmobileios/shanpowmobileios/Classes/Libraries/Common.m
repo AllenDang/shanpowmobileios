@@ -8,11 +8,26 @@
 
 #import "Common.h"
 
-@implementation Common
+#pragma mark - Global Functions
 
-@end
+BOOL isLogin()
+{
+    NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    for (NSHTTPCookie *cookie in cookies) {
+        if ([[cookie name] isEqualToString:@"REVEL_SESSION"]) {
+            if ([[cookie value] rangeOfString:@"nickname"].location != NSNotFound) {
+                return YES;
+            }
+            else {
+                return NO;
+            }
+        }
+    }
+    
+    return NO;
+}
 
-static void * const kMyPropertyAssociatedStorageKey = (void*)&kMyPropertyAssociatedStorageKey;
+#pragma mark - UIViewController category
 
 @implementation UIViewController (ScreenAdapter)
 
@@ -35,6 +50,9 @@ static void * const kMyPropertyAssociatedStorageKey = (void*)&kMyPropertyAssocia
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:image];
     backgroundView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height );
     [self.view addSubview:backgroundView];
+    [self.view sendSubviewToBack:backgroundView];
 }
 
 @end
+
+#pragma mark -

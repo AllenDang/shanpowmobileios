@@ -46,14 +46,18 @@ return shared##classname;                               \
 #define MSG_FAIL_LOGOUT             @"SMNC_FailedLogout"
 #define MSG_DID_GET_HOTBOOKS        @"SMNC_GotHotBooks"
 #define MSG_FAIL_GET_HOTBOOKS       @"SMNC_FailedGetHotBooks"
+#define MSG_DID_REGISTER            @"SMNC_DidRegister"
+#define MSG_FAIL_REGISTER           @"SMNC_FailRegister"
 
 #pragma mark - Setting to save
 #define SETTINGS_CSRF_TOKEN         @"csrfToken"
 #define SETTINGS_DID_LOGIN          @"didLogin"
 
-@interface Common : NSObject
+#pragma mark - Global Functions
 
-@end
+extern BOOL isLogin();
+
+#pragma mark - UIViewController category
 
 @interface UIViewController (ScreenAdapter)
 
@@ -61,3 +65,5 @@ return shared##classname;                               \
 - (void)setBackgroundImage:(UIImage *)image;
 
 @end
+
+#pragma mark -
