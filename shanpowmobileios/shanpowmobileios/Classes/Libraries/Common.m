@@ -15,7 +15,9 @@ BOOL isLogin()
     NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
     for (NSHTTPCookie *cookie in cookies) {
         if ([[cookie name] isEqualToString:@"REVEL_SESSION"]) {
-            if ([[cookie value] rangeOfString:@"nickname"].location != NSNotFound) {
+            if ([[cookie value] rangeOfString:@"nickname"].location != NSNotFound && 
+                [[cookie value] rangeOfString:@"email"].location != NSNotFound && 
+                [[cookie value] rangeOfString:@"userId"].location != NSNotFound) {
                 return YES;
             }
             else {

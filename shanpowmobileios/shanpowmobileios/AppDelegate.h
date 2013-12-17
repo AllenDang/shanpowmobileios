@@ -10,6 +10,8 @@
 #import "Common.h"
 #import "NetworkClient.h"
 #import "RootViewController.h"
+#import "NSData+Base64.h"
+#import <TencentOpenAPI/TencentOAuth.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

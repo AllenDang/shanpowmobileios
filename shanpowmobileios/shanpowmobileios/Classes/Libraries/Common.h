@@ -39,19 +39,36 @@ return shared##classname;                               \
 #define ADAPT_VIEW_TAG              529
 
 #pragma mark - Notifications
-#define MSG_GOT_TOKEN               @"SMNC_GotCsrfToken"
-#define MSG_DID_LOGIN               @"SMNC_DidLogin"
-#define MSG_FAIL_LOGIN              @"SMNC_FailedLogin"
-#define MSG_DID_LOGOUT              @"SMNC_DidLogout"
-#define MSG_FAIL_LOGOUT             @"SMNC_FailedLogout"
-#define MSG_DID_GET_HOTBOOKS        @"SMNC_GotHotBooks"
-#define MSG_FAIL_GET_HOTBOOKS       @"SMNC_FailedGetHotBooks"
-#define MSG_DID_REGISTER            @"SMNC_DidRegister"
-#define MSG_FAIL_REGISTER           @"SMNC_FailRegister"
 
-#pragma mark - Setting to save
-#define SETTINGS_CSRF_TOKEN         @"csrfToken"
-#define SETTINGS_DID_LOGIN          @"didLogin"
+#define MSG_ERROR                           @"SMNC_Error"
+#define MSG_GOT_TOKEN                       @"SMNC_GotCsrfToken"
+#define MSG_FAIL_GET_TOKEN                  @"SMNC_FailGetCsrfToken"
+#define MSG_DID_LOGIN                       @"SMNC_DidLogin"
+#define MSG_FAIL_LOGIN                      @"SMNC_FailedLogin"
+#define MSG_DID_LOGOUT                      @"SMNC_DidLogout"
+#define MSG_FAIL_LOGOUT                     @"SMNC_FailedLogout"
+#define MSG_DID_GET_HOTBOOKS                @"SMNC_GotHotBooks"
+#define MSG_FAIL_GET_HOTBOOKS               @"SMNC_FailedGetHotBooks"
+#define MSG_DID_REGISTER                    @"SMNC_DidRegister"
+#define MSG_FAIL_REGISTER                   @"SMNC_FailRegister"
+#define MSG_DID_QQ_LOGIN                    @"SMNC_DidQQLogin"
+#define MSG_FAIL_QQ_LOGIN                   @"SMNC_FailQQLogin"
+#define MSG_CANCEL_QQ_LOGIN                 @"SMNC_CancelQQLogin"
+#define MSG_DID_GET_QQ_USER_INFO            @"SMNC_DidGetQQUserInfo"
+#define MSG_QQ_LOGIN_NOT_FOUND              @"SMNC_QQLoginNotFound"
+
+#pragma mark - Errors
+
+#define ERR_CANT_CONNECT_TO_SERVER          @"无法连接到服务器"
+
+#pragma mark - Settings to save
+
+#define SETTINGS_CSRF_TOKEN                 @"csrfToken"
+#define SETTINGS_CURRENT_USER               @"currentUser"
+#define SETTINGS_CURRENT_PWD                @"currentPassword"
+#define SETTINGS_CURRENT_QQ_OPENID          @"currentQQOpenId"
+#define SETTINGS_CURRENT_QQ_ACCESSTOKEN     @"currentQQAccessToken"
+#define SETTINGS_CURRENT_QQ_USER_INFO       @"currentQQUserInfo"
 
 #pragma mark - Global Functions
 

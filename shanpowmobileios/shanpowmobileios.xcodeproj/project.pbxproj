@@ -17,6 +17,17 @@
 		642BEB69184DF3F800E1A0B3 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB61184DF3F800E1A0B3 /* UIProgressView+AFNetworking.m */; };
 		642BEB6A184DF3F800E1A0B3 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB63184DF3F800E1A0B3 /* UIWebView+AFNetworking.m */; };
 		643A0DA8184C65CA00A1FEAF /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 643A0DA7184C65CA00A1FEAF /* Common.m */; };
+		6440D7241860288B008D9C59 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D7231860288B008D9C59 /* TencentOpenAPI.framework */; };
+		6440D726186028C1008D9C59 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D725186028C1008D9C59 /* Security.framework */; };
+		6440D728186028C9008D9C59 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D727186028C9008D9C59 /* libiconv.dylib */; };
+		6440D72A186028D9008D9C59 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D729186028D9008D9C59 /* SystemConfiguration.framework */; };
+		6440D72C186028E5008D9C59 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D72B186028E5008D9C59 /* libsqlite3.dylib */; };
+		6440D72E186028F0008D9C59 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D72D186028F0008D9C59 /* CoreTelephony.framework */; };
+		6440D730186028FB008D9C59 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D72F186028FB008D9C59 /* libstdc++.dylib */; };
+		6440D73218602904008D9C59 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D73118602904008D9C59 /* libz.dylib */; };
+		6440D7341860292D008D9C59 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6440D7331860292D008D9C59 /* TencentOpenApi_IOS_Bundle.bundle */; };
+		6440D73718602BEA008D9C59 /* QQLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D73618602BEA008D9C59 /* QQLogin.m */; };
+		6440D73A1860537A008D9C59 /* QQRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D7391860537A008D9C59 /* QQRegisterViewController.m */; };
 		645FB9BF184C2C0C00BB2325 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9AD184C2C0C00BB2325 /* AFHTTPRequestOperation.m */; };
 		645FB9C0184C2C0C00BB2325 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9AF184C2C0C00BB2325 /* AFHTTPRequestOperationManager.m */; };
 		645FB9C1184C2C0C00BB2325 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9B1184C2C0C00BB2325 /* AFHTTPSessionManager.m */; };
@@ -48,6 +59,7 @@
 		646529B5184C617000C3D613 /* NetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 646529B4184C617000C3D613 /* NetworkClient.m */; };
 		649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649BA57C185AA6350096DD8D /* RegisterViewController.m */; };
 		64B9A5BB185024C3001D482D /* shanpow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 64B9A5BA185024C3001D482D /* shanpow.jpg */; };
+		64FFD93B185FEDD2002F93C0 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 64FFD93A185FEDD2002F93C0 /* NSData+Base64.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +94,19 @@
 		642BEB63184DF3F800E1A0B3 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		643A0DA6184C65CA00A1FEAF /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		643A0DA7184C65CA00A1FEAF /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
+		6440D7231860288B008D9C59 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = shanpowmobileios/Frameworks/TencentOpenAPI.framework; sourceTree = "<group>"; };
+		6440D725186028C1008D9C59 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		6440D727186028C9008D9C59 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		6440D729186028D9008D9C59 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		6440D72B186028E5008D9C59 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		6440D72D186028F0008D9C59 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		6440D72F186028FB008D9C59 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		6440D73118602904008D9C59 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		6440D7331860292D008D9C59 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TencentOpenApi_IOS_Bundle.bundle; path = Frameworks/TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
+		6440D73518602BEA008D9C59 /* QQLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQLogin.h; sourceTree = "<group>"; };
+		6440D73618602BEA008D9C59 /* QQLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQLogin.m; sourceTree = "<group>"; };
+		6440D7381860537A008D9C59 /* QQRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQRegisterViewController.h; sourceTree = "<group>"; };
+		6440D7391860537A008D9C59 /* QQRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQRegisterViewController.m; sourceTree = "<group>"; };
 		645FB9AC184C2C0C00BB2325 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		645FB9AD184C2C0C00BB2325 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		645FB9AE184C2C0C00BB2325 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -130,6 +155,8 @@
 		649BA57B185AA6350096DD8D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		649BA57C185AA6350096DD8D /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		64B9A5BA185024C3001D482D /* shanpow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = shanpow.jpg; sourceTree = "<group>"; };
+		64FFD939185FEDD2002F93C0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		64FFD93A185FEDD2002F93C0 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +164,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6440D73218602904008D9C59 /* libz.dylib in Frameworks */,
+				6440D730186028FB008D9C59 /* libstdc++.dylib in Frameworks */,
+				6440D72E186028F0008D9C59 /* CoreTelephony.framework in Frameworks */,
+				6440D72C186028E5008D9C59 /* libsqlite3.dylib in Frameworks */,
+				6440D72A186028D9008D9C59 /* SystemConfiguration.framework in Frameworks */,
+				6440D728186028C9008D9C59 /* libiconv.dylib in Frameworks */,
+				6440D726186028C1008D9C59 /* Security.framework in Frameworks */,
 				646132B9184872F300A0BBF0 /* CoreGraphics.framework in Frameworks */,
+				6440D7241860288B008D9C59 /* TencentOpenAPI.framework in Frameworks */,
 				646132BB184872F300A0BBF0 /* UIKit.framework in Frameworks */,
 				646132B7184872F300A0BBF0 /* Foundation.framework in Frameworks */,
 			);
@@ -202,6 +237,8 @@
 				6461C58518504981006D3736 /* HotBooksViewController.m */,
 				649BA57B185AA6350096DD8D /* RegisterViewController.h */,
 				649BA57C185AA6350096DD8D /* RegisterViewController.m */,
+				6440D7381860537A008D9C59 /* QQRegisterViewController.h */,
+				6440D7391860537A008D9C59 /* QQRegisterViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -225,10 +262,13 @@
 		645FB9AA184C2BD000BB2325 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				64FFD938185FEDB6002F93C0 /* Categories */,
 				642BEB54184DF3F800E1A0B3 /* UIKit+AFNetworking */,
 				645FB9AB184C2C0C00BB2325 /* AFNetworking */,
 				643A0DA6184C65CA00A1FEAF /* Common.h */,
 				643A0DA7184C65CA00A1FEAF /* Common.m */,
+				6440D73518602BEA008D9C59 /* QQLogin.h */,
+				6440D73618602BEA008D9C59 /* QQLogin.m */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -281,6 +321,14 @@
 		646132B5184872F300A0BBF0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6440D73118602904008D9C59 /* libz.dylib */,
+				6440D72F186028FB008D9C59 /* libstdc++.dylib */,
+				6440D72D186028F0008D9C59 /* CoreTelephony.framework */,
+				6440D72B186028E5008D9C59 /* libsqlite3.dylib */,
+				6440D729186028D9008D9C59 /* SystemConfiguration.framework */,
+				6440D727186028C9008D9C59 /* libiconv.dylib */,
+				6440D725186028C1008D9C59 /* Security.framework */,
+				6440D7231860288B008D9C59 /* TencentOpenAPI.framework */,
 				646132B6184872F300A0BBF0 /* Foundation.framework */,
 				646132B8184872F300A0BBF0 /* CoreGraphics.framework */,
 				646132BA184872F300A0BBF0 /* UIKit.framework */,
@@ -303,6 +351,7 @@
 		646132BD184872F300A0BBF0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6440D7331860292D008D9C59 /* TencentOpenApi_IOS_Bundle.bundle */,
 				646132BE184872F300A0BBF0 /* shanpowmobileios-Info.plist */,
 				646132BF184872F300A0BBF0 /* InfoPlist.strings */,
 				646132C2184872F300A0BBF0 /* main.m */,
@@ -349,6 +398,15 @@
 				64B9A5BA185024C3001D482D /* shanpow.jpg */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		64FFD938185FEDB6002F93C0 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				64FFD939185FEDD2002F93C0 /* NSData+Base64.h */,
+				64FFD93A185FEDD2002F93C0 /* NSData+Base64.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -426,6 +484,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6440D7341860292D008D9C59 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				6463584C185B231E00172760 /* Login_TextField@2x.png in Resources */,
 				64635848185B231E00172760 /* Login_Background@2x.png in Resources */,
 				646132C1184872F300A0BBF0 /* InfoPlist.strings in Resources */,
@@ -455,6 +514,7 @@
 			files = (
 				645FB9C5184C2C0C00BB2325 /* AFURLRequestSerialization.m in Sources */,
 				645FB9C4184C2C0C00BB2325 /* AFURLConnectionOperation.m in Sources */,
+				64FFD93B185FEDD2002F93C0 /* NSData+Base64.m in Sources */,
 				645FB9C3184C2C0C00BB2325 /* AFSecurityPolicy.m in Sources */,
 				645FB9BF184C2C0C00BB2325 /* AFHTTPRequestOperation.m in Sources */,
 				642BEB64184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -467,11 +527,13 @@
 				642BEB50184DAF5200E1A0B3 /* RootViewController.m in Sources */,
 				642BEB67184DF3F800E1A0B3 /* UIButton+AFNetworking.m in Sources */,
 				642BEB68184DF3F800E1A0B3 /* UIImageView+AFNetworking.m in Sources */,
+				6440D73718602BEA008D9C59 /* QQLogin.m in Sources */,
 				645FB9C0184C2C0C00BB2325 /* AFHTTPRequestOperationManager.m in Sources */,
 				6461C58618504981006D3736 /* HotBooksViewController.m in Sources */,
 				646529B5184C617000C3D613 /* NetworkClient.m in Sources */,
 				642BEB66184DF3F800E1A0B3 /* UIAlertView+AFNetworking.m in Sources */,
 				642BEB6A184DF3F800E1A0B3 /* UIWebView+AFNetworking.m in Sources */,
+				6440D73A1860537A008D9C59 /* QQRegisterViewController.m in Sources */,
 				642BEB65184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				643A0DA8184C65CA00A1FEAF /* Common.m in Sources */,
 				645FB9C2184C2C0C00BB2325 /* AFNetworkReachabilityManager.m in Sources */,
@@ -597,10 +659,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/celtavonce/Dropbox/Development/Project_Shanpow/MobileSource/develop/shanpowmobileios/shanpowmobileios/Frameworks,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shanpowmobileios/shanpowmobileios-Prefix.pch";
 				INFOPLIST_FILE = "shanpowmobileios/shanpowmobileios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -611,10 +678,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/celtavonce/Dropbox/Development/Project_Shanpow/MobileSource/develop/shanpowmobileios/shanpowmobileios/Frameworks,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shanpowmobileios/shanpowmobileios-Prefix.pch";
 				INFOPLIST_FILE = "shanpowmobileios/shanpowmobileios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

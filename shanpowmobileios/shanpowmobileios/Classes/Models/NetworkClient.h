@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "UIKit+AFNetworking.h"
 #import "Common.h"
+#import "NSData+Base64.h"
 
 @interface NetworkClient : NSObject
 
@@ -18,10 +19,20 @@
 
 + (NetworkClient *)sharedNetworkClient;
 
+- (void)sendRequestWithType:(NSString *)type
+                        url:(NSString *)url
+                 parameters:(NSDictionary *)param
+                    success:(void(^)(AFHTTPRequestOperation *operation, id responseObject))success
+                    failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 - (void)getCsrfToken;
 - (void)loginWithLoginname:(NSString *)loginname password:(NSString *)password;
+- (void)loginWithQQOpenId:(NSString *)openId;
+- (void)relogin;
 - (void)logout;
 - (void)getHotBooks;
 - (void)registerWithNickname:(NSString *)nickname email:(NSString *)email password:(NSString *)password gender:(BOOL)isMan;
+- (void)registerWithQQNickname:(NSString *)nickname email:(NSString *)email openId:(NSString *)openId accessToken:(NSString *)accessToken avatarUrl:(NSString *)avatarUrl sex:(BOOL)isMan;
+
 
 @end

@@ -10,6 +10,10 @@
 
 @interface LoginViewController ()
 
+@property (nonatomic, assign) LoginServiceType loginType;
+
+- (void)login;
+
 @end
 
 @implementation LoginViewController
@@ -74,7 +78,7 @@
     self.loginButton.frame = CGRectMake(32.0, 240.0 * screenRatio, 256.0, 50.0);
     [self.loginButton setBackgroundImage:[UIImage imageNamed:@"Login_LoginButton"] forState:UIControlStateNormal];
     [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
-    [self.loginButton addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    [self.loginButton addTarget:self action:@selector(getToken) forControlEvents:UIControlEventTouchUpInside];
     [self.adjustView addSubview:self.loginButton];
     
     // Lines
@@ -103,6 +107,7 @@
     self.loginWithOtherServicesButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [self.loginWithOtherServicesButton setTitle:@"使用合作网站帐号登录" forState:UIControlStateNormal];
     [self.loginWithOtherServicesButton setBackgroundImage:[UIImage imageNamed:@"Login_LoginButton"] forState:UIControlStateHighlighted];
+    [self.loginWithOtherServicesButton addTarget:self action:@selector(serviceLogin) forControlEvents:UIControlEventTouchUpInside];
     [self.adjustView addSubview:self.loginWithOtherServicesButton];
     
     // Register button
@@ -132,6 +137,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)getToken
+{
+    [[NetworkClient sharedNetworkClient] getCsrfToken];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetToken:) name:MSG_GOT_TOKEN object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetToken:) name:MSG_FAIL_GET_TOKEN object:nil];
 }
 
 - (void)login
@@ -167,6 +179,21 @@
     [alert show];
 }
 
+- (void)serviceLogin
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"使用合作网站帐号登录" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"QQ登录", @"微信登录", @"微博登录", nil];
+    [actionSheet showInView:self.view];
+}
+
+- (void)qqLogin
+{
+    QQLogin *qq = [QQLogin sharedQQLogin];
+    [qq loginWithQQ];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didQQLogin:) name:MSG_DID_QQ_LOGIN object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failQQLogin:) name:MSG_FAIL_QQ_LOGIN object:nil];
+}
+
 - (void)dismissKeyboardButtonClicked
 {
     [self.usernameTextField resignFirstResponder];
@@ -184,11 +211,76 @@
     }];
 }
 
+- (void)showQQRegisterView
+{
+    self.qqRegisterViewController = [[QQRegisterViewController alloc] init];
+    self.qqRegisterViewController.view.frame = CGRectMake(0.0, [[UIScreen mainScreen] bounds].size.height, 320.0, [[UIScreen mainScreen] bounds].size.height);
+    [self.view addSubview:self.qqRegisterViewController.view];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.qqRegisterViewController.view setFrame:CGRectMake(0.0, 0.0, 320.0, [[UIScreen mainScreen] bounds].size.height)];
+    }];
+}
+
 #pragma mark - UITextField delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+#pragma mark - ActionSheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    self.loginType = buttonIndex;
+    if (buttonIndex < actionSheet.numberOfButtons - 1) {
+        [self getToken];
+    }
+}
+
+#pragma mark - Event handler
+
+- (void)didGetToken:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_GOT_TOKEN object:nil];
+    switch (self.loginType) {
+        case LoginType_QQ:
+            [self qqLogin];
+            break;
+        case LoginType_WeiXin:
+            break;
+        case LoginType_WeiBo:
+            break;
+        default:
+            [self login];
+            break;
+    }
+}
+
+- (void)failGetToken:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_TOKEN object:nil];
+    [self getToken];
+}
+
+-(void)didQQLogin:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_QQ_LOGIN object:nil];
+    
+    NSDictionary *userInfo = [notification userInfo];
+    NSString *openId = [userInfo objectForKey:@"openId"];
+    
+    [[QQLogin sharedQQLogin] getUserInfo];
+    
+    [[NetworkClient sharedNetworkClient] loginWithQQOpenId:openId];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showQQRegisterView) name:MSG_QQ_LOGIN_NOT_FOUND object:nil];
+}
+
+-(void)failQQLogin:(NSNotification *)notification
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"登录失败" message:@"请重新尝试用QQ登录" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
+    [alert show];
 }
 
 @end

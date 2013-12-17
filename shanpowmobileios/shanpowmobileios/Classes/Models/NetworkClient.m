@@ -10,7 +10,11 @@
 
 @interface NetworkClient ()
 
+@property (atomic, strong) NSMutableArray *pendingOperationQueue;
+
 - (void)handleResponse:(id)responseObject success:(void(^)(NSDictionary *data))success failure:(void(^)(NSDictionary *ErrorMsg))failure;
+- (void)handleError:(NSError *)error onRequest:(AFHTTPRequestOperation *)request;
+- (void)handleFailureFromRequest:(AFHTTPRequestOperation *)operation;
 
 @end
 
@@ -23,13 +27,14 @@ SINGLETON_GCD(NetworkClient);
 - (id) init {
     if ( (self = [super init]) ) {
         self.baseURL = [NSURL URLWithString:BASE_URL];
+        self.pendingOperationQueue = [NSMutableArray arrayWithCapacity:40];
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     }
     return self;
 }
 
-#pragma mark -
-#pragma mark Handle response from server
+#pragma mark - Handle response from server
+
 - (void)handleResponse:(id)responseObject success:(void(^)(NSDictionary *data))success failure:(void(^)(NSDictionary *ErrorMsg))failure
 {
     BOOL result = [[responseObject objectForKey:@"Result"] boolValue];
@@ -47,13 +52,81 @@ SINGLETON_GCD(NetworkClient);
     }
 }
 
-#pragma mark -
-#pragma mark Transform data with server
-- (void)getCsrfToken
+- (void)handleError:(NSError *)error onRequest:(AFHTTPRequestOperation *)request
+{
+    if (request.response.statusCode == 403) {
+        AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request.request];
+        [op setCompletionBlock:request.completionBlock];
+        [self.pendingOperationQueue addObject:op];
+        
+        [self getCsrfToken];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetToken:) name:MSG_GOT_TOKEN object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetToken:) name:MSG_FAIL_GET_TOKEN object:nil];
+    }
+    
+    switch (error.code) {
+        case -1004:
+            [[NSNotificationCenter defaultCenter] postNotificationName:MSG_ERROR object:self userInfo:@{@"ErrorMsg": ERR_CANT_CONNECT_TO_SERVER}];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)handleFailureFromRequest:(AFHTTPRequestOperation *)operation
+{
+    if (!isLogin()) {
+        [self.pendingOperationQueue addObject:operation];
+        [self getCsrfToken];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloginToSendRequest:) name:MSG_GOT_TOKEN object:nil];
+    }
+}
+
+#pragma mark - Boxed network interface method
+
+- (void)sendRequestWithType:(NSString *)type
+                        url:(NSString *)url
+                 parameters:(NSDictionary *)param 
+                    success:(void(^)(AFHTTPRequestOperation *operation, id responseObject))success 
+                    failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:param];
+    if (self.csrfToken) {
+        [parameters setObject:self.csrfToken forKey:@"csrf_token"];
+    }
+    
+    if ([[type uppercaseString] isEqualToString:@"GET"]) {
+        [manager GET:url
+          parameters:parameters
+             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                 success(operation, responseObject);
+             }
+             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 failure(operation, error);
+             }];
+    } else if ([[type uppercaseString] isEqualToString:@"POST"]) {
+        [manager POST:url 
+           parameters:parameters
+              success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                  success(operation, responseObject);
+              }
+              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                  failure(operation, error);
+              }];
+    }
+}
 
+#pragma mark - Transform data with server
+
+- (void)getCsrfToken
+{
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
     [manager GET:[[NSURL URLWithString:@"/token" relativeToURL:self.baseURL] absoluteString]
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -65,84 +138,112 @@ SINGLETON_GCD(NetworkClient);
                             [[NSUserDefaults standardUserDefaults] setObject:token forKey:SETTINGS_CSRF_TOKEN];
                             [[NSUserDefaults standardUserDefaults] synchronize];
                             
-#ifdef DEBUG
-                            if (isLogin()) {
-                                [[NetworkClient sharedNetworkClient] logout];
-                            }
-#endif
-                            
                             [[NSNotificationCenter defaultCenter] postNotificationName:MSG_GOT_TOKEN object:me];
                         } 
                         failure:^(NSDictionary *ErrorMsg){
-                            NSLog(@"Error: %@", ErrorMsg);
+                            [self handleFailureFromRequest:operation];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_TOKEN object:me];
                         }];
-         }
+         } 
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"ErrorOnGetToken: %@", error);
+             [self handleError:error onRequest:operation];
          }];
 }
 
 - (void)loginWithLoginname:(NSString *)loginname password:(NSString *)password
 {
-    if (self.csrfToken == nil) {
-        [self getCsrfToken];
-        return;
-    }
-
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *parameters = @{@"email": loginname, @"password": password, @"csrf_token": self.csrfToken};
+    NSDictionary *parameters = @{@"email": loginname, @"password": password};
 
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
-    [manager POST:[[NSURL URLWithString:@"/account/mobilelogin" relativeToURL:self.baseURL] absoluteString]
-       parameters:parameters
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              [me handleResponse:responseObject 
-                         success:^(NSDictionary *data){
-                             [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGIN 
-                                                                                 object:me 
-                                                                               userInfo:data];
-                         } 
-                         failure:^(NSDictionary *ErrorMsg){
-                             [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_LOGIN 
-                                                                                 object:me 
-                                                                               userInfo:ErrorMsg];
-                         }];
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"ErrorOnLogin: %@", error);
-          }];
+    [self sendRequestWithType:@"POST"
+                          url:[[NSURL URLWithString:@"/account/mobilelogin" relativeToURL:self.baseURL] absoluteString] 
+                   parameters:parameters 
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject 
+                                     success:^(NSDictionary *data){
+                                         [[NSUserDefaults standardUserDefaults] setObject:loginname forKey:SETTINGS_CURRENT_USER];
+                                         [[NSUserDefaults standardUserDefaults] setObject:[[password dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString] forKey:SETTINGS_CURRENT_PWD];
+                                         [[NSUserDefaults standardUserDefaults] synchronize];
+                                         
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGIN 
+                                                                                             object:me 
+                                                                                           userInfo:data];
+                                     } 
+                                     failure:^(NSDictionary *ErrorMsg){
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_LOGIN 
+                                                                                             object:me 
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      } 
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)loginWithQQOpenId:(NSString *)openId
+{
+    NSDictionary *parameters = @{@"openId": openId};
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"POST"
+                          url:[[NSURL URLWithString:@"/cooperate/mobileqqlogin" relativeToURL:self.baseURL] absoluteString] 
+                   parameters:parameters 
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject success:^(NSDictionary *data) {
+                              [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGIN object:self];
+                          } failure:^(NSDictionary *ErrorMsg) {
+                              NSString *errorMsg = [ErrorMsg objectForKey:@"ErrorMsg"];
+                              if ([errorMsg isEqualToString:@"not found"]) {
+                                  [[NSNotificationCenter defaultCenter] postNotificationName:MSG_QQ_LOGIN_NOT_FOUND object:me];
+                              }
+                          }];
+                      } 
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)relogin
+{
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER];
+    NSString *encodedPassword = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_PWD];
+    NSData *decodedData = [NSData dataFromBase64String:encodedPassword];
+    NSString *password = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
+    
+    [self loginWithLoginname:username password:password];
 }
 
 - (void)logout
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *parameters = @{@"csrf_token": self.csrfToken};
+    if (!isLogin()) {
+        return;
+    }
     
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
-    [manager GET:[[NSURL URLWithString:@"/account/mobilelogout" relativeToURL:self.baseURL] absoluteString]
-       parameters:parameters
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:SETTINGS_DID_LOGIN];
-              [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGOUT 
-                                                                  object:me 
-                                                                userInfo:nil];
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"ErrorOnLogout: %@", error);
-          }];
+    [self sendRequestWithType:@"GET" 
+                          url:[[NSURL URLWithString:@"/account/mobilelogout" relativeToURL:self.baseURL] absoluteString]
+                   parameters:nil
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGOUT 
+                                                                              object:me 
+                                                                            userInfo:nil];
+                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
 }
 
 - (void)getHotBooks
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *parameters = @{@"csrf_token": self.csrfToken};
     
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [manager POST:[[NSURL URLWithString:@"/book/gethotcategories" relativeToURL:self.baseURL] absoluteString]
-       parameters:parameters
+       parameters:nil
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               [me handleResponse:responseObject 
                          success:^(NSDictionary *data){
@@ -151,47 +252,123 @@ SINGLETON_GCD(NetworkClient);
                                                                                userInfo:data];
                          } 
                          failure:^(NSDictionary *ErrorMsg){
+                             [self handleFailureFromRequest:operation];
                              [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_HOTBOOKS 
                                                                                  object:me 
                                                                                userInfo:ErrorMsg];
                          }];
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"ErrorOnLogout: %@", error);
+              [self handleError:error onRequest:operation];
           }];
 }
 
 - (void)registerWithNickname:(NSString *)nickname email:(NSString *)email password:(NSString *)password gender:(BOOL)isMan
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{
                                  @"nickname": nickname,
                                  @"email": email,
                                  @"password": password,
-                                 @"sex": isMan ? @YES : @NO,
-                                 @"csrf_token": self.csrfToken
+                                 @"sex": isMan ? @YES : @NO
                                  };
     
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
-    [manager POST:[[NSURL URLWithString:@"/account/mobileregister" relativeToURL:self.baseURL] absoluteString]
-       parameters:parameters
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              [me handleResponse:responseObject 
-                         success:^(NSDictionary *data){
-                             [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_REGISTER 
-                                                                                 object:me 
-                                                                               userInfo:data];
-                         } 
-                         failure:^(NSDictionary *ErrorMsg){
-                             [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_REGISTER 
-                                                                                 object:me 
-                                                                               userInfo:ErrorMsg];
-                         }];
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"ErrorOnRegister: %@", error);
-          }];
+    [self sendRequestWithType:@"POST"
+                          url:[[NSURL URLWithString:@"/account/mobileregister" relativeToURL:self.baseURL] absoluteString]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject 
+                                     success:^(NSDictionary *data){
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_REGISTER 
+                                                                                             object:me 
+                                                                                           userInfo:data];
+                                     } 
+                                     failure:^(NSDictionary *ErrorMsg){
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_REGISTER 
+                                                                                             object:me 
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)registerWithQQNickname:(NSString *)nickname email:(NSString *)email openId:(NSString *)openId accessToken:(NSString *)accessToken avatarUrl:(NSString *)avatarUrl sex:(BOOL)isMan
+{
+    NSDictionary *parameters = @{
+                                 @"nickname": nickname,
+                                 @"email": email,
+                                 @"openId": openId,
+                                 @"accessToken": accessToken,
+                                 @"avatarUrl": avatarUrl,
+                                 @"sex": isMan ? @YES : @NO
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"POST"
+                          url:[[NSURL URLWithString:@"/cooperate/mobileqqregister" relativeToURL:self.baseURL] absoluteString]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_REGISTER 
+                                                                                             object:me 
+                                                                                           userInfo:data];
+                                     } 
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_REGISTER 
+                                                                                             object:me 
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      } 
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+#pragma mark - Event handler
+
+- (void)didGetToken:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_GOT_TOKEN object:nil];
+    
+    [self logout];
+    [self resendRequest:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout:) name:MSG_DID_LOGOUT object:nil];
+}
+
+- (void)failGetToken:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_TOKEN object:nil];
+    [self getCsrfToken];
+}
+
+- (void)didLogout:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_LOGOUT object:nil];
+    [self relogin];
+}
+
+- (void)reloginToSendRequest:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_GOT_TOKEN object:nil];
+    
+    [self relogin];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resendRequest:) name:MSG_DID_LOGIN object:nil];
+}
+
+- (void)resendRequest:(NSNotification *)notification
+{
+    for (AFHTTPRequestOperation *op in self.pendingOperationQueue) {
+        [[AFHTTPRequestOperationManager manager].operationQueue addOperation:op];
+    }
 }
 
 @end

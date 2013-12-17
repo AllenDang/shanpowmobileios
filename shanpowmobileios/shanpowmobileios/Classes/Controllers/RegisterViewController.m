@@ -12,6 +12,9 @@
 
 @property (nonatomic, assign) CGRect adjustViewOriginalFrame;
 
+- (void)registerNewAccount;
+- (void)getToken;
+
 @end
 
 @implementation RegisterViewController
@@ -117,7 +120,7 @@
     self.registerButton.frame = CGRectMake(32.0, 410.0 * screenRatio, 256.0, 50.0);
     [self.registerButton setBackgroundImage:[UIImage imageNamed:@"Login_LoginButton"] forState:UIControlStateNormal];
     [self.registerButton setTitle:@"注册" forState:UIControlStateNormal];
-    [self.registerButton addTarget:self action:@selector(register) forControlEvents:UIControlEventTouchUpInside];
+    [self.registerButton addTarget:self action:@selector(getToken) forControlEvents:UIControlEventTouchUpInside];
     [self.adjustView addSubview:self.registerButton];
     
     // Cancel button
@@ -132,6 +135,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRegister:) name:MSG_DID_REGISTER object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failRegister:) name:MSG_FAIL_REGISTER object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(errorHandler:) name:MSG_ERROR object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -172,7 +176,15 @@
 }
 
 #pragma mark -
-- (void)register
+
+- (void)getToken
+{
+    [[NetworkClient sharedNetworkClient] getCsrfToken];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetToken:) name:MSG_GOT_TOKEN object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetToken:) name:MSG_FAIL_GET_TOKEN object:nil];
+}
+
+- (void)registerNewAccount
 {
     NSString *nickname = self.usernameTextField.text;
     NSString *email = self.emailTextField.text;
@@ -214,6 +226,18 @@
     }];
 }
 
+- (void)didGetToken:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_GOT_TOKEN object:nil];
+    [self registerNewAccount];
+}
+
+- (void)failGetToken:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_TOKEN object:nil];
+    [self getToken];
+}
+
 - (void)didRegister:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGIN object:self];
@@ -223,6 +247,13 @@
 {
     NSString *errMsg = [notification.userInfo objectForKey:@"ErrorMsg"];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注册错误" message:errMsg delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void)errorHandler:(NSNotification *)notification
+{
+    NSString *errMsg = [notification.userInfo objectForKey:@"ErrorMsg"];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"出现问题" message:errMsg delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
     [alert show];
 }
 

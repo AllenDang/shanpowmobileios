@@ -22,14 +22,15 @@
     // Init user interface
     self.rootController = [[UINavigationController alloc] initWithRootViewController:[[RootViewController alloc] initWithStyle:UITableViewStylePlain]];
     self.window.rootViewController = self.rootController;
-
-    // Get csrf token from server
-    [[NetworkClient sharedNetworkClient] getCsrfToken];
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
     }
     
+#ifdef DEBUG
+    [[NetworkClient sharedNetworkClient] logout];
+#endif
+
     return YES;
 }
 
@@ -58,6 +59,16 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
   // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotatio
+{
+    return [TencentOAuth HandleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [TencentOAuth HandleOpenURL:url];
 }
 
 @end
