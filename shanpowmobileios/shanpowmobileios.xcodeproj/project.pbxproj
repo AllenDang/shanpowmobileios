@@ -16,6 +16,7 @@
 		642BEB68184DF3F800E1A0B3 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB5E184DF3F800E1A0B3 /* UIImageView+AFNetworking.m */; };
 		642BEB69184DF3F800E1A0B3 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB61184DF3F800E1A0B3 /* UIProgressView+AFNetworking.m */; };
 		642BEB6A184DF3F800E1A0B3 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB63184DF3F800E1A0B3 /* UIWebView+AFNetworking.m */; };
+		642C790C1867DDB9007C61AD /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 642C790B1867DDB9007C61AD /* Book.m */; };
 		643A0DA8184C65CA00A1FEAF /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 643A0DA7184C65CA00A1FEAF /* Common.m */; };
 		6440D7241860288B008D9C59 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D7231860288B008D9C59 /* TencentOpenAPI.framework */; };
 		6440D726186028C1008D9C59 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D725186028C1008D9C59 /* Security.framework */; };
@@ -28,6 +29,11 @@
 		6440D7341860292D008D9C59 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6440D7331860292D008D9C59 /* TencentOpenApi_IOS_Bundle.bundle */; };
 		6440D73718602BEA008D9C59 /* QQLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D73618602BEA008D9C59 /* QQLogin.m */; };
 		6440D73A1860537A008D9C59 /* QQRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D7391860537A008D9C59 /* QQRegisterViewController.m */; };
+		6440D73F18606A35008D9C59 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D73C18606A35008D9C59 /* libWeiboSDK.a */; };
+		6440D74018606A35008D9C59 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6440D73D18606A35008D9C59 /* WeiboSDK.bundle */; };
+		6440D74318606DF9008D9C59 /* WeiboLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D74218606DF9008D9C59 /* WeiboLogin.m */; };
+		64546E9B1869638D001CCE5B /* HC_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 64546E991869638D001CCE5B /* HC_Background.png */; };
+		64546E9C1869638D001CCE5B /* HC_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64546E9A1869638D001CCE5B /* HC_Background@2x.png */; };
 		645FB9BF184C2C0C00BB2325 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9AD184C2C0C00BB2325 /* AFHTTPRequestOperation.m */; };
 		645FB9C0184C2C0C00BB2325 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9AF184C2C0C00BB2325 /* AFHTTPRequestOperationManager.m */; };
 		645FB9C1184C2C0C00BB2325 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9B1184C2C0C00BB2325 /* AFHTTPSessionManager.m */; };
@@ -56,9 +62,29 @@
 		6463584A185B231E00172760 /* Login_LoginButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64635844185B231E00172760 /* Login_LoginButton@2x.png */; };
 		6463584B185B231E00172760 /* Login_TextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 64635845185B231E00172760 /* Login_TextField.png */; };
 		6463584C185B231E00172760 /* Login_TextField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64635846185B231E00172760 /* Login_TextField@2x.png */; };
+		64641084186AA57F005D92F3 /* NSStringCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 64641083186AA57F005D92F3 /* NSStringCategory.m */; };
 		646529B5184C617000C3D613 /* NetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 646529B4184C617000C3D613 /* NetworkClient.m */; };
+		64781466186D4D980059F008 /* Main_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 64781464186D4D980059F008 /* Main_Background.png */; };
+		64781467186D4D980059F008 /* Main_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64781465186D4D980059F008 /* Main_Background@2x.png */; };
+		6478146A186D4F7A0059F008 /* Main_HeaderText.png in Resources */ = {isa = PBXBuildFile; fileRef = 64781468186D4F7A0059F008 /* Main_HeaderText.png */; };
+		6478146B186D4F7A0059F008 /* Main_HeaderText@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64781469186D4F7A0059F008 /* Main_HeaderText@2x.png */; };
+		6478146E186D53810059F008 /* Main_MenuBkg.png in Resources */ = {isa = PBXBuildFile; fileRef = 6478146C186D53810059F008 /* Main_MenuBkg.png */; };
+		6478146F186D53810059F008 /* Main_MenuBkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6478146D186D53810059F008 /* Main_MenuBkg@2x.png */; };
+		64781472186D5A5B0059F008 /* Main_MenuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 64781470186D5A5B0059F008 /* Main_MenuButton.png */; };
+		64781473186D5A5B0059F008 /* Main_MenuButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64781471186D5A5B0059F008 /* Main_MenuButton@2x.png */; };
+		648799DB186A735300CD32D0 /* SPLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 648799DA186A735300CD32D0 /* SPLabel.m */; };
+		649311A51862C68C00315DB0 /* BookInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649311A41862C68C00315DB0 /* BookInfoView.m */; };
 		649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649BA57C185AA6350096DD8D /* RegisterViewController.m */; };
+		64A80B0D186813F10039BBA2 /* BookInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A80B0C186813F10039BBA2 /* BookInfoCell.m */; };
 		64B9A5BB185024C3001D482D /* shanpow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 64B9A5BA185024C3001D482D /* shanpow.jpg */; };
+		64C66383186D1BE700B18236 /* Login_EmailTextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C66381186D1BE700B18236 /* Login_EmailTextField.png */; };
+		64C66384186D1BE700B18236 /* Login_EmailTextField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C66382186D1BE700B18236 /* Login_EmailTextField@2x.png */; };
+		64C66387186D1C7400B18236 /* Login_PasswordTextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C66385186D1C7400B18236 /* Login_PasswordTextField.png */; };
+		64C66388186D1C7400B18236 /* Login_PasswordTextField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C66386186D1C7400B18236 /* Login_PasswordTextField@2x.png */; };
+		64C6638B186D1EC800B18236 /* Login_LoginButton_Highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C66389186D1EC800B18236 /* Login_LoginButton_Highlight.png */; };
+		64C6638C186D1EC800B18236 /* Login_LoginButton_Highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C6638A186D1EC800B18236 /* Login_LoginButton_Highlight@2x.png */; };
+		64C6638F186D298F00B18236 /* Login_MailTextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C6638D186D298F00B18236 /* Login_MailTextField.png */; };
+		64C66390186D298F00B18236 /* Login_MailTextField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C6638E186D298F00B18236 /* Login_MailTextField@2x.png */; };
 		64FFD93B185FEDD2002F93C0 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 64FFD93A185FEDD2002F93C0 /* NSData+Base64.m */; };
 /* End PBXBuildFile section */
 
@@ -92,6 +118,8 @@
 		642BEB61184DF3F800E1A0B3 /* UIProgressView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIProgressView+AFNetworking.m"; sourceTree = "<group>"; };
 		642BEB62184DF3F800E1A0B3 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		642BEB63184DF3F800E1A0B3 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		642C790A1867DDB9007C61AD /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
+		642C790B1867DDB9007C61AD /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		643A0DA6184C65CA00A1FEAF /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		643A0DA7184C65CA00A1FEAF /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		6440D7231860288B008D9C59 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = shanpowmobileios/Frameworks/TencentOpenAPI.framework; sourceTree = "<group>"; };
@@ -107,6 +135,13 @@
 		6440D73618602BEA008D9C59 /* QQLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQLogin.m; sourceTree = "<group>"; };
 		6440D7381860537A008D9C59 /* QQRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQRegisterViewController.h; sourceTree = "<group>"; };
 		6440D7391860537A008D9C59 /* QQRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQRegisterViewController.m; sourceTree = "<group>"; };
+		6440D73C18606A35008D9C59 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = shanpowmobileios/Frameworks/libWeiboSDK.a; sourceTree = SOURCE_ROOT; };
+		6440D73D18606A35008D9C59 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = WeiboSDK.bundle; path = shanpowmobileios/Frameworks/WeiboSDK.bundle; sourceTree = SOURCE_ROOT; };
+		6440D73E18606A35008D9C59 /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboSDK.h; path = shanpowmobileios/Frameworks/WeiboSDK.h; sourceTree = SOURCE_ROOT; };
+		6440D74118606DF9008D9C59 /* WeiboLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboLogin.h; sourceTree = "<group>"; };
+		6440D74218606DF9008D9C59 /* WeiboLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiboLogin.m; sourceTree = "<group>"; };
+		64546E991869638D001CCE5B /* HC_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HC_Background.png; sourceTree = "<group>"; };
+		64546E9A1869638D001CCE5B /* HC_Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HC_Background@2x.png"; sourceTree = "<group>"; };
 		645FB9AC184C2C0C00BB2325 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		645FB9AD184C2C0C00BB2325 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		645FB9AE184C2C0C00BB2325 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -150,11 +185,35 @@
 		64635844185B231E00172760 /* Login_LoginButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_LoginButton@2x.png"; sourceTree = "<group>"; };
 		64635845185B231E00172760 /* Login_TextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_TextField.png; sourceTree = "<group>"; };
 		64635846185B231E00172760 /* Login_TextField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_TextField@2x.png"; sourceTree = "<group>"; };
+		64641082186AA57F005D92F3 /* NSStringCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringCategory.h; sourceTree = "<group>"; };
+		64641083186AA57F005D92F3 /* NSStringCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringCategory.m; sourceTree = "<group>"; };
 		646529B3184C617000C3D613 /* NetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkClient.h; sourceTree = "<group>"; };
 		646529B4184C617000C3D613 /* NetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkClient.m; sourceTree = "<group>"; };
+		64781464186D4D980059F008 /* Main_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_Background.png; sourceTree = "<group>"; };
+		64781465186D4D980059F008 /* Main_Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_Background@2x.png"; sourceTree = "<group>"; };
+		64781468186D4F7A0059F008 /* Main_HeaderText.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_HeaderText.png; sourceTree = "<group>"; };
+		64781469186D4F7A0059F008 /* Main_HeaderText@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_HeaderText@2x.png"; sourceTree = "<group>"; };
+		6478146C186D53810059F008 /* Main_MenuBkg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_MenuBkg.png; sourceTree = "<group>"; };
+		6478146D186D53810059F008 /* Main_MenuBkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_MenuBkg@2x.png"; sourceTree = "<group>"; };
+		64781470186D5A5B0059F008 /* Main_MenuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Main_MenuButton.png; sourceTree = "<group>"; };
+		64781471186D5A5B0059F008 /* Main_MenuButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Main_MenuButton@2x.png"; sourceTree = "<group>"; };
+		648799D9186A735300CD32D0 /* SPLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLabel.h; sourceTree = "<group>"; };
+		648799DA186A735300CD32D0 /* SPLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLabel.m; sourceTree = "<group>"; };
+		649311A31862C68C00315DB0 /* BookInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoView.h; sourceTree = "<group>"; };
+		649311A41862C68C00315DB0 /* BookInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoView.m; sourceTree = "<group>"; };
 		649BA57B185AA6350096DD8D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		649BA57C185AA6350096DD8D /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		64A80B0B186813F10039BBA2 /* BookInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoCell.h; sourceTree = "<group>"; };
+		64A80B0C186813F10039BBA2 /* BookInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoCell.m; sourceTree = "<group>"; };
 		64B9A5BA185024C3001D482D /* shanpow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = shanpow.jpg; sourceTree = "<group>"; };
+		64C66381186D1BE700B18236 /* Login_EmailTextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_EmailTextField.png; sourceTree = "<group>"; };
+		64C66382186D1BE700B18236 /* Login_EmailTextField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_EmailTextField@2x.png"; sourceTree = "<group>"; };
+		64C66385186D1C7400B18236 /* Login_PasswordTextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_PasswordTextField.png; sourceTree = "<group>"; };
+		64C66386186D1C7400B18236 /* Login_PasswordTextField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_PasswordTextField@2x.png"; sourceTree = "<group>"; };
+		64C66389186D1EC800B18236 /* Login_LoginButton_Highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_LoginButton_Highlight.png; sourceTree = "<group>"; };
+		64C6638A186D1EC800B18236 /* Login_LoginButton_Highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_LoginButton_Highlight@2x.png"; sourceTree = "<group>"; };
+		64C6638D186D298F00B18236 /* Login_MailTextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_MailTextField.png; sourceTree = "<group>"; };
+		64C6638E186D298F00B18236 /* Login_MailTextField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_MailTextField@2x.png"; sourceTree = "<group>"; };
 		64FFD939185FEDD2002F93C0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		64FFD93A185FEDD2002F93C0 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -171,6 +230,7 @@
 				6440D72A186028D9008D9C59 /* SystemConfiguration.framework in Frameworks */,
 				6440D728186028C9008D9C59 /* libiconv.dylib in Frameworks */,
 				6440D726186028C1008D9C59 /* Security.framework in Frameworks */,
+				6440D73F18606A35008D9C59 /* libWeiboSDK.a in Frameworks */,
 				646132B9184872F300A0BBF0 /* CoreGraphics.framework in Frameworks */,
 				6440D7241860288B008D9C59 /* TencentOpenAPI.framework in Frameworks */,
 				646132BB184872F300A0BBF0 /* UIKit.framework in Frameworks */,
@@ -213,6 +273,25 @@
 			path = "UIKit+AFNetworking";
 			sourceTree = "<group>";
 		};
+		6440D73B18606A20008D9C59 /* WeiboSDK */ = {
+			isa = PBXGroup;
+			children = (
+				6440D73C18606A35008D9C59 /* libWeiboSDK.a */,
+				6440D73D18606A35008D9C59 /* WeiboSDK.bundle */,
+				6440D73E18606A35008D9C59 /* WeiboSDK.h */,
+			);
+			name = WeiboSDK;
+			sourceTree = "<group>";
+		};
+		64546E981869638D001CCE5B /* HotCategories */ = {
+			isa = PBXGroup;
+			children = (
+				64546E991869638D001CCE5B /* HC_Background.png */,
+				64546E9A1869638D001CCE5B /* HC_Background@2x.png */,
+			);
+			path = HotCategories;
+			sourceTree = "<group>";
+		};
 		645FB989184C2AF500BB2325 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +327,8 @@
 			children = (
 				646529B3184C617000C3D613 /* NetworkClient.h */,
 				646529B4184C617000C3D613 /* NetworkClient.m */,
+				642C790A1867DDB9007C61AD /* Book.h */,
+				642C790B1867DDB9007C61AD /* Book.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -255,6 +336,10 @@
 		645FB9A9184C2B9700BB2325 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				649311A31862C68C00315DB0 /* BookInfoView.h */,
+				649311A41862C68C00315DB0 /* BookInfoView.m */,
+				64A80B0B186813F10039BBA2 /* BookInfoCell.h */,
+				64A80B0C186813F10039BBA2 /* BookInfoCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -262,6 +347,7 @@
 		645FB9AA184C2BD000BB2325 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				6440D73B18606A20008D9C59 /* WeiboSDK */,
 				64FFD938185FEDB6002F93C0 /* Categories */,
 				642BEB54184DF3F800E1A0B3 /* UIKit+AFNetworking */,
 				645FB9AB184C2C0C00BB2325 /* AFNetworking */,
@@ -269,6 +355,10 @@
 				643A0DA7184C65CA00A1FEAF /* Common.m */,
 				6440D73518602BEA008D9C59 /* QQLogin.h */,
 				6440D73618602BEA008D9C59 /* QQLogin.m */,
+				6440D74118606DF9008D9C59 /* WeiboLogin.h */,
+				6440D74218606DF9008D9C59 /* WeiboLogin.m */,
+				648799D9186A735300CD32D0 /* SPLabel.h */,
+				648799DA186A735300CD32D0 /* SPLabel.m */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -381,6 +471,14 @@
 		64635840185B231E00172760 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				64C6638D186D298F00B18236 /* Login_MailTextField.png */,
+				64C6638E186D298F00B18236 /* Login_MailTextField@2x.png */,
+				64C66389186D1EC800B18236 /* Login_LoginButton_Highlight.png */,
+				64C6638A186D1EC800B18236 /* Login_LoginButton_Highlight@2x.png */,
+				64C66385186D1C7400B18236 /* Login_PasswordTextField.png */,
+				64C66386186D1C7400B18236 /* Login_PasswordTextField@2x.png */,
+				64C66381186D1BE700B18236 /* Login_EmailTextField.png */,
+				64C66382186D1BE700B18236 /* Login_EmailTextField@2x.png */,
 				64635841185B231E00172760 /* Login_Background.png */,
 				64635842185B231E00172760 /* Login_Background@2x.png */,
 				64635843185B231E00172760 /* Login_LoginButton.png */,
@@ -391,9 +489,26 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		64781463186D4D980059F008 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				64781470186D5A5B0059F008 /* Main_MenuButton.png */,
+				64781471186D5A5B0059F008 /* Main_MenuButton@2x.png */,
+				6478146C186D53810059F008 /* Main_MenuBkg.png */,
+				6478146D186D53810059F008 /* Main_MenuBkg@2x.png */,
+				64781468186D4F7A0059F008 /* Main_HeaderText.png */,
+				64781469186D4F7A0059F008 /* Main_HeaderText@2x.png */,
+				64781464186D4D980059F008 /* Main_Background.png */,
+				64781465186D4D980059F008 /* Main_Background@2x.png */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		64B9A5B9185024C3001D482D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				64781463186D4D980059F008 /* Main */,
+				64546E981869638D001CCE5B /* HotCategories */,
 				64635840185B231E00172760 /* Login */,
 				64B9A5BA185024C3001D482D /* shanpow.jpg */,
 			);
@@ -405,6 +520,8 @@
 			children = (
 				64FFD939185FEDD2002F93C0 /* NSData+Base64.h */,
 				64FFD93A185FEDD2002F93C0 /* NSData+Base64.m */,
+				64641082186AA57F005D92F3 /* NSStringCategory.h */,
+				64641083186AA57F005D92F3 /* NSStringCategory.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -484,16 +601,35 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64C6638B186D1EC800B18236 /* Login_LoginButton_Highlight.png in Resources */,
 				6440D7341860292D008D9C59 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				64C6638F186D298F00B18236 /* Login_MailTextField.png in Resources */,
+				64C66388186D1C7400B18236 /* Login_PasswordTextField@2x.png in Resources */,
+				64781473186D5A5B0059F008 /* Main_MenuButton@2x.png in Resources */,
 				6463584C185B231E00172760 /* Login_TextField@2x.png in Resources */,
+				64C6638C186D1EC800B18236 /* Login_LoginButton_Highlight@2x.png in Resources */,
+				64C66387186D1C7400B18236 /* Login_PasswordTextField.png in Resources */,
+				6478146F186D53810059F008 /* Main_MenuBkg@2x.png in Resources */,
+				64C66384186D1BE700B18236 /* Login_EmailTextField@2x.png in Resources */,
 				64635848185B231E00172760 /* Login_Background@2x.png in Resources */,
 				646132C1184872F300A0BBF0 /* InfoPlist.strings in Resources */,
 				6463584A185B231E00172760 /* Login_LoginButton@2x.png in Resources */,
+				6478146B186D4F7A0059F008 /* Main_HeaderText@2x.png in Resources */,
 				646132C9184872F300A0BBF0 /* Images.xcassets in Resources */,
+				64C66383186D1BE700B18236 /* Login_EmailTextField.png in Resources */,
 				64635849185B231E00172760 /* Login_LoginButton.png in Resources */,
+				64781466186D4D980059F008 /* Main_Background.png in Resources */,
 				64B9A5BB185024C3001D482D /* shanpow.jpg in Resources */,
+				6478146A186D4F7A0059F008 /* Main_HeaderText.png in Resources */,
+				6478146E186D53810059F008 /* Main_MenuBkg.png in Resources */,
+				6440D74018606A35008D9C59 /* WeiboSDK.bundle in Resources */,
+				64546E9B1869638D001CCE5B /* HC_Background.png in Resources */,
+				64781467186D4D980059F008 /* Main_Background@2x.png in Resources */,
 				64635847185B231E00172760 /* Login_Background.png in Resources */,
 				6463584B185B231E00172760 /* Login_TextField.png in Resources */,
+				64C66390186D298F00B18236 /* Login_MailTextField@2x.png in Resources */,
+				64546E9C1869638D001CCE5B /* HC_Background@2x.png in Resources */,
+				64781472186D5A5B0059F008 /* Main_MenuButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,11 +653,15 @@
 				64FFD93B185FEDD2002F93C0 /* NSData+Base64.m in Sources */,
 				645FB9C3184C2C0C00BB2325 /* AFSecurityPolicy.m in Sources */,
 				645FB9BF184C2C0C00BB2325 /* AFHTTPRequestOperation.m in Sources */,
+				64641084186AA57F005D92F3 /* NSStringCategory.m in Sources */,
 				642BEB64184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				645FB9C7184C2C0C00BB2325 /* AFURLSessionManager.m in Sources */,
+				648799DB186A735300CD32D0 /* SPLabel.m in Sources */,
 				645FB9C6184C2C0C00BB2325 /* AFURLResponseSerialization.m in Sources */,
 				649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */,
 				642BEB69184DF3F800E1A0B3 /* UIProgressView+AFNetworking.m in Sources */,
+				642C790C1867DDB9007C61AD /* Book.m in Sources */,
+				64A80B0D186813F10039BBA2 /* BookInfoCell.m in Sources */,
 				646132C7184872F300A0BBF0 /* AppDelegate.m in Sources */,
 				645FB9C1184C2C0C00BB2325 /* AFHTTPSessionManager.m in Sources */,
 				642BEB50184DAF5200E1A0B3 /* RootViewController.m in Sources */,
@@ -534,6 +674,8 @@
 				642BEB66184DF3F800E1A0B3 /* UIAlertView+AFNetworking.m in Sources */,
 				642BEB6A184DF3F800E1A0B3 /* UIWebView+AFNetworking.m in Sources */,
 				6440D73A1860537A008D9C59 /* QQRegisterViewController.m in Sources */,
+				6440D74318606DF9008D9C59 /* WeiboLogin.m in Sources */,
+				649311A51862C68C00315DB0 /* BookInfoView.m in Sources */,
 				642BEB65184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				643A0DA8184C65CA00A1FEAF /* Common.m in Sources */,
 				645FB9C2184C2C0C00BB2325 /* AFNetworkReachabilityManager.m in Sources */,
@@ -667,7 +809,14 @@
 				GCC_PREFIX_HEADER = "shanpowmobileios/shanpowmobileios-Prefix.pch";
 				INFOPLIST_FILE = "shanpowmobileios/shanpowmobileios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				OTHER_LDFLAGS = "-fobjc-arc";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/celtavonce/Dropbox/Development/Project_Shanpow/MobileSource/develop/shanpowmobileios/shanpowmobileios/Frameworks,
+				);
+				OTHER_LDFLAGS = (
+					"-fobjc-arc",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -686,7 +835,14 @@
 				GCC_PREFIX_HEADER = "shanpowmobileios/shanpowmobileios-Prefix.pch";
 				INFOPLIST_FILE = "shanpowmobileios/shanpowmobileios-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				OTHER_LDFLAGS = "-fobjc-arc";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/celtavonce/Dropbox/Development/Project_Shanpow/MobileSource/develop/shanpowmobileios/shanpowmobileios/Frameworks,
+				);
+				OTHER_LDFLAGS = (
+					"-fobjc-arc",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

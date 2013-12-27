@@ -12,12 +12,13 @@
 #import "RegisterViewController.h"
 #import "QQLogin.h"
 #import "QQRegisterViewController.h"
+#import "WeiboLogin.h"
 
 typedef enum
 {
+    LoginType_Normal = -1,
     LoginType_QQ = 0,
-    LoginType_WeiXin = 1,
-    LoginType_WeiBo = 2
+    LoginType_WeiBo = 1
 } LoginServiceType;
 
 @interface LoginViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate>

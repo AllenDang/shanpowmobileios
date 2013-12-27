@@ -12,7 +12,7 @@
 #import "LoginViewController.h"
 #import "HotBooksViewController.h"
 
-@interface RootViewController : UITableViewController
+@interface RootViewController : UIViewController
 
 @property (strong, nonatomic) LoginViewController *loginViewController;
 @property (strong, nonatomic) HotBooksViewController *hotBooksViewController;

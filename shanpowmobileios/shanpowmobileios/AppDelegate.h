@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <TencentOpenAPI/TencentOAuth.h>
 #import "Common.h"
 #import "NetworkClient.h"
 #import "RootViewController.h"
 #import "NSData+Base64.h"
-#import <TencentOpenAPI/TencentOAuth.h>
+#import "WeiboSDK.h"
+#import "WeiboLogin.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

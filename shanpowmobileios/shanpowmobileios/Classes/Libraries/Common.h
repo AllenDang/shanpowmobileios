@@ -56,6 +56,9 @@ return shared##classname;                               \
 #define MSG_CANCEL_QQ_LOGIN                 @"SMNC_CancelQQLogin"
 #define MSG_DID_GET_QQ_USER_INFO            @"SMNC_DidGetQQUserInfo"
 #define MSG_QQ_LOGIN_NOT_FOUND              @"SMNC_QQLoginNotFound"
+#define MSG_WEIBO_LOGIN                     @"SMNC_WeiboLogin"
+
+#define MSG_HC_BOOK_SELECTED                @"SMNC_HotCategories_Book_Selected"
 
 #pragma mark - Errors
 
@@ -69,6 +72,11 @@ return shared##classname;                               \
 #define SETTINGS_CURRENT_QQ_OPENID          @"currentQQOpenId"
 #define SETTINGS_CURRENT_QQ_ACCESSTOKEN     @"currentQQAccessToken"
 #define SETTINGS_CURRENT_QQ_USER_INFO       @"currentQQUserInfo"
+
+#pragma mark - Constants
+
+#define weiboAppKey                         @"1250697727"
+#define weiboRedirectURI                    @"https://api.weibo.com/oauth2/default.html"
 
 #pragma mark - Global Functions
 

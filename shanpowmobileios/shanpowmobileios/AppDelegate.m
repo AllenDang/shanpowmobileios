@@ -20,16 +20,19 @@
     [self.window makeKeyAndVisible];
     
     // Init user interface
-    self.rootController = [[UINavigationController alloc] initWithRootViewController:[[RootViewController alloc] initWithStyle:UITableViewStylePlain]];
+    self.rootController = [[UINavigationController alloc] initWithRootViewController:[[RootViewController alloc] init]];
     self.window.rootViewController = self.rootController;
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
     }
     
+    // WeiboSDK
 #ifdef DEBUG
-    [[NetworkClient sharedNetworkClient] logout];
+    [WeiboSDK enableDebugMode:YES];
+//    [[NetworkClient sharedNetworkClient] logout];
 #endif
+    [WeiboSDK registerApp:weiboAppKey];
 
     return YES;
 }
@@ -63,12 +66,28 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotatio
 {
-    return [TencentOAuth HandleOpenURL:url];
+    if ([[url absoluteString] rangeOfString:@"tencent"].location == 0) {
+        return [TencentOAuth HandleOpenURL:url];
+    }
+    
+    if ([[url absoluteString] rangeOfString:@"wb"].location == 0) {
+        return [WeiboSDK handleOpenURL:url delegate:[WeiboLogin sharedWeiboLogin]];
+    }
+    
+    return YES;
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    return [TencentOAuth HandleOpenURL:url];
+    if ([[url absoluteString] rangeOfString:@"tencent"].location == 0) {
+        return [TencentOAuth HandleOpenURL:url];
+    }
+    
+    if ([[url absoluteString] rangeOfString:@"wb"].location == 0) {
+        return [WeiboSDK handleOpenURL:url delegate:[WeiboLogin sharedWeiboLogin]];
+    }
+    
+    return YES;
 }
 
 @end

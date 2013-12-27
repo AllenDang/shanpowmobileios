@@ -49,10 +49,7 @@ BOOL isLogin()
 
 - (void)setBackgroundImage:(UIImage *)image
 {
-    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:image];
-    backgroundView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height );
-    [self.view addSubview:backgroundView];
-    [self.view sendSubviewToBack:backgroundView];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:image];
 }
 
 @end

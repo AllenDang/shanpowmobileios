@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "NetworkClient.h"
 #import "UIKit+AFNetworking.h"
+#import "Common.h"
+#import "BookInfoCell.h"
 
 @interface HotBooksViewController : UITableViewController
 

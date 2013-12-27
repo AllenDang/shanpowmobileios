@@ -64,14 +64,16 @@ SINGLETON_GCD(NetworkClient);
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetToken:) name:MSG_FAIL_GET_TOKEN object:nil];
     }
     
+    NSDictionary *errInfo = @{};
     switch (error.code) {
         case -1004:
-            [[NSNotificationCenter defaultCenter] postNotificationName:MSG_ERROR object:self userInfo:@{@"ErrorMsg": ERR_CANT_CONNECT_TO_SERVER}];
+            errInfo = @{@"ErrorMsg": ERR_CANT_CONNECT_TO_SERVER};
             break;
-            
         default:
             break;
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_ERROR object:self userInfo:errInfo];
 }
 
 - (void)handleFailureFromRequest:(AFHTTPRequestOperation *)operation
@@ -238,29 +240,28 @@ SINGLETON_GCD(NetworkClient);
 
 - (void)getHotBooks
 {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
-    [manager POST:[[NSURL URLWithString:@"/book/gethotcategories" relativeToURL:self.baseURL] absoluteString]
-       parameters:nil
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              [me handleResponse:responseObject 
-                         success:^(NSDictionary *data){
-                             [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_HOTBOOKS 
-                                                                                 object:me 
-                                                                               userInfo:data];
-                         } 
-                         failure:^(NSDictionary *ErrorMsg){
-                             [self handleFailureFromRequest:operation];
-                             [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_HOTBOOKS 
-                                                                                 object:me 
-                                                                               userInfo:ErrorMsg];
-                         }];
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              [self handleError:error onRequest:operation];
-          }];
+    [self sendRequestWithType:@"GET"
+                          url:[[NSURL URLWithString:@"/book/gethotcategories" relativeToURL:self.baseURL] absoluteString]
+                   parameters:nil 
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject 
+                                     success:^(NSDictionary *data){
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_HOTBOOKS 
+                                                                                             object:me 
+                                                                                           userInfo:data];
+                                     } 
+                                     failure:^(NSDictionary *ErrorMsg){
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_HOTBOOKS 
+                                                                                             object:me 
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      } 
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
 }
 
 - (void)registerWithNickname:(NSString *)nickname email:(NSString *)email password:(NSString *)password gender:(BOOL)isMan
