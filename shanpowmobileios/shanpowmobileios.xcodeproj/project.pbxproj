@@ -76,7 +76,6 @@
 		649311A51862C68C00315DB0 /* BookInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649311A41862C68C00315DB0 /* BookInfoView.m */; };
 		649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649BA57C185AA6350096DD8D /* RegisterViewController.m */; };
 		64A80B0D186813F10039BBA2 /* BookInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A80B0C186813F10039BBA2 /* BookInfoCell.m */; };
-		64B9A5BB185024C3001D482D /* shanpow.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 64B9A5BA185024C3001D482D /* shanpow.jpg */; };
 		64C66383186D1BE700B18236 /* Login_EmailTextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C66381186D1BE700B18236 /* Login_EmailTextField.png */; };
 		64C66384186D1BE700B18236 /* Login_EmailTextField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C66382186D1BE700B18236 /* Login_EmailTextField@2x.png */; };
 		64C66387186D1C7400B18236 /* Login_PasswordTextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C66385186D1C7400B18236 /* Login_PasswordTextField.png */; };
@@ -85,6 +84,10 @@
 		64C6638C186D1EC800B18236 /* Login_LoginButton_Highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C6638A186D1EC800B18236 /* Login_LoginButton_Highlight@2x.png */; };
 		64C6638F186D298F00B18236 /* Login_MailTextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C6638D186D298F00B18236 /* Login_MailTextField.png */; };
 		64C66390186D298F00B18236 /* Login_MailTextField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C6638E186D298F00B18236 /* Login_MailTextField@2x.png */; };
+		64F05CF5187506C000FB7A3A /* Calibri Bold Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */; };
+		64F05CF6187506C000FB7A3A /* Calibri Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */; };
+		64F05CF7187506C000FB7A3A /* Calibri Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */; };
+		64F05CF8187506C000FB7A3A /* Calibri.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF4187506C000FB7A3A /* Calibri.ttf */; };
 		64FFD93B185FEDD2002F93C0 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 64FFD93A185FEDD2002F93C0 /* NSData+Base64.m */; };
 /* End PBXBuildFile section */
 
@@ -205,7 +208,6 @@
 		649BA57C185AA6350096DD8D /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		64A80B0B186813F10039BBA2 /* BookInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoCell.h; sourceTree = "<group>"; };
 		64A80B0C186813F10039BBA2 /* BookInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoCell.m; sourceTree = "<group>"; };
-		64B9A5BA185024C3001D482D /* shanpow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = shanpow.jpg; sourceTree = "<group>"; };
 		64C66381186D1BE700B18236 /* Login_EmailTextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_EmailTextField.png; sourceTree = "<group>"; };
 		64C66382186D1BE700B18236 /* Login_EmailTextField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_EmailTextField@2x.png"; sourceTree = "<group>"; };
 		64C66385186D1C7400B18236 /* Login_PasswordTextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_PasswordTextField.png; sourceTree = "<group>"; };
@@ -214,6 +216,10 @@
 		64C6638A186D1EC800B18236 /* Login_LoginButton_Highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_LoginButton_Highlight@2x.png"; sourceTree = "<group>"; };
 		64C6638D186D298F00B18236 /* Login_MailTextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_MailTextField.png; sourceTree = "<group>"; };
 		64C6638E186D298F00B18236 /* Login_MailTextField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_MailTextField@2x.png"; sourceTree = "<group>"; };
+		64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold Italic.ttf"; sourceTree = "<group>"; };
+		64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold.ttf"; sourceTree = "<group>"; };
+		64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Italic.ttf"; sourceTree = "<group>"; };
+		64F05CF4187506C000FB7A3A /* Calibri.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Calibri.ttf; sourceTree = "<group>"; };
 		64FFD939185FEDD2002F93C0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		64FFD93A185FEDD2002F93C0 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -430,6 +436,7 @@
 		646132BC184872F300A0BBF0 /* shanpowmobileios */ = {
 			isa = PBXGroup;
 			children = (
+				64F05CEF187506C000FB7A3A /* Fonts */,
 				64B9A5B9185024C3001D482D /* Images */,
 				645FB989184C2AF500BB2325 /* Classes */,
 				646132C8184872F300A0BBF0 /* Images.xcassets */,
@@ -510,9 +517,27 @@
 				64781463186D4D980059F008 /* Main */,
 				64546E981869638D001CCE5B /* HotCategories */,
 				64635840185B231E00172760 /* Login */,
-				64B9A5BA185024C3001D482D /* shanpow.jpg */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		64F05CEF187506C000FB7A3A /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				64F05CF0187506C000FB7A3A /* Calibri */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		64F05CF0187506C000FB7A3A /* Calibri */ = {
+			isa = PBXGroup;
+			children = (
+				64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */,
+				64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */,
+				64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */,
+				64F05CF4187506C000FB7A3A /* Calibri.ttf */,
+			);
+			path = Calibri;
 			sourceTree = "<group>";
 		};
 		64FFD938185FEDB6002F93C0 /* Categories */ = {
@@ -612,6 +637,7 @@
 				6478146F186D53810059F008 /* Main_MenuBkg@2x.png in Resources */,
 				64C66384186D1BE700B18236 /* Login_EmailTextField@2x.png in Resources */,
 				64635848185B231E00172760 /* Login_Background@2x.png in Resources */,
+				64F05CF6187506C000FB7A3A /* Calibri Bold.ttf in Resources */,
 				646132C1184872F300A0BBF0 /* InfoPlist.strings in Resources */,
 				6463584A185B231E00172760 /* Login_LoginButton@2x.png in Resources */,
 				6478146B186D4F7A0059F008 /* Main_HeaderText@2x.png in Resources */,
@@ -619,12 +645,14 @@
 				64C66383186D1BE700B18236 /* Login_EmailTextField.png in Resources */,
 				64635849185B231E00172760 /* Login_LoginButton.png in Resources */,
 				64781466186D4D980059F008 /* Main_Background.png in Resources */,
-				64B9A5BB185024C3001D482D /* shanpow.jpg in Resources */,
+				64F05CF5187506C000FB7A3A /* Calibri Bold Italic.ttf in Resources */,
 				6478146A186D4F7A0059F008 /* Main_HeaderText.png in Resources */,
 				6478146E186D53810059F008 /* Main_MenuBkg.png in Resources */,
 				6440D74018606A35008D9C59 /* WeiboSDK.bundle in Resources */,
 				64546E9B1869638D001CCE5B /* HC_Background.png in Resources */,
+				64F05CF8187506C000FB7A3A /* Calibri.ttf in Resources */,
 				64781467186D4D980059F008 /* Main_Background@2x.png in Resources */,
+				64F05CF7187506C000FB7A3A /* Calibri Italic.ttf in Resources */,
 				64635847185B231E00172760 /* Login_Background.png in Resources */,
 				6463584B185B231E00172760 /* Login_TextField.png in Resources */,
 				64C66390186D298F00B18236 /* Login_MailTextField@2x.png in Resources */,

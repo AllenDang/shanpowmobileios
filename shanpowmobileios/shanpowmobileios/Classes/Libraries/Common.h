@@ -91,4 +91,10 @@ extern BOOL isLogin();
 
 @end
 
+@interface UIImage (extended)
+
++ (UIImage *)imageWithColor:(UIColor *)color;
+
+@end
+
 #pragma mark -

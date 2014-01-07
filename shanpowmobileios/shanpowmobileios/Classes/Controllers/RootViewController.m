@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIButton *reviewsButton;
 @property (nonatomic, strong) UIButton *asksButton;
 @property (nonatomic, strong) UIButton *booklistsButton;
+@property (nonatomic, strong) NSArray *tableColor;
 
 - (void)showLoginView;
 
@@ -40,99 +41,47 @@
   [self setBackgroundImage:[UIImage imageNamed:@"Main_Background"]];
   self.title = @"山坡网";
   
-  self.navigationController.navigationBar.backgroundColor = self.view.backgroundColor;
+  self.edgesForExtendedLayout = UIRectEdgeNone;
   
-  UIImageView *header = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Main_HeaderText"]];
-  header.frame = CGRectMake(35.0, 120.0, 247.0, 81.0);
-  [self.view addSubview:header];
+  UIColor *headColor = [UIColor colorWithRed:0.129 green:0.180 blue:0.196 alpha:1.0];
   
-  float screenRatio = self.view.bounds.size.height / 568.0;
+  UIView *placeHolderView = [[UIView alloc] initWithFrame:[[UIApplication sharedApplication] statusBarFrame]];
+  placeHolderView.backgroundColor = headColor;
+  [self.view addSubview:placeHolderView];
   
-  self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height)];
-  self.scrollView.backgroundColor = [UIColor clearColor];
-  self.scrollView.scrollsToTop = NO;
-  self.scrollView.scrollEnabled = YES;
-  self.scrollView.userInteractionEnabled = YES;
-  self.scrollView.showsHorizontalScrollIndicator = NO;
-  self.scrollView.showsVerticalScrollIndicator = NO;
-  self.scrollView.canCancelContentTouches = NO;
-  self.scrollView.bounces = YES;
-  [self.view addSubview:self.scrollView];
+  if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:0.129 green:0.180 blue:0.196 alpha:1.0]] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+  } else {
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithWhite:0.3 alpha:1.0];
+  }
   
-  self.menuView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 260.0 * screenRatio, self.view.bounds.size.width, self.view.bounds.size.height)];
-  self.menuView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Main_MenuBkg"]];
-  [self.scrollView addSubview:self.menuView];
+  CGRect tableFrame = CGRectMake(0.0, placeHolderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height);
+  self.mainTable = [[UITableView alloc] initWithFrame:tableFrame style:UITableViewStylePlain];
+  self.mainTable.delegate = self;
+  self.mainTable.dataSource = self;
+  self.mainTable.scrollEnabled = NO;
+  self.mainTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+  [self.view addSubview:self.mainTable];
   
-  // Modify content size to limit scroll area
-  self.scrollView.contentSize = CGSizeMake(self.menuView.bounds.size.width, self.menuView.bounds.size.height + self.menuView.frame.origin.y);
-  
-  UIImage *bkgImage = [[UIImage imageNamed:@"Main_MenuButton"] resizableImageWithCapInsets:UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0)];
-  CGFloat buttonHeight = (self.view.bounds.size.height - self.menuView.frame.origin.y) / 3;
-  
-  // Hot Categories Button
-  self.hotCategoriesButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  self.hotCategoriesButton.frame = CGRectMake(-1.0, 
-                                              18.0 * screenRatio, 
-                                              320.0 + 2, 
-                                              buttonHeight);
-  [self.hotCategoriesButton setBackgroundImage:bkgImage forState:UIControlStateNormal];
-  [self.hotCategoriesButton setBackgroundImage:[UIImage imageNamed:@"Login_LoginButton_Highlight"] forState:UIControlStateHighlighted];
-  [self.hotCategoriesButton setTitle:@"注册" forState:UIControlStateNormal];
-  [self.hotCategoriesButton addTarget:self action:@selector(showHotCategoriesView) forControlEvents:UIControlEventTouchUpInside];
-  [self.menuView addSubview:self.hotCategoriesButton];
-  
-  // Wizard Button
-  self.wizardButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  self.wizardButton.frame = CGRectMake(-1.0, 
-                                       18.0 * screenRatio + buttonHeight - 1, 
-                                       320.0 / 2 + 1, 
-                                       buttonHeight);
-  [self.wizardButton setBackgroundImage:bkgImage forState:UIControlStateNormal];
-  [self.wizardButton setBackgroundImage:[UIImage imageNamed:@"Login_LoginButton_Highlight"] forState:UIControlStateHighlighted];
-  [self.wizardButton setTitle:@"注册" forState:UIControlStateNormal];
-  [self.menuView addSubview:self.wizardButton];
-  
-  // Reviews Button
-  self.reviewsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  self.reviewsButton.frame = CGRectMake(320.0 / 2 - 1, 
-                                        18.0 * screenRatio + buttonHeight - 1, 
-                                        320.0 / 2 + 2, 
-                                        buttonHeight);
-  [self.reviewsButton setBackgroundImage:bkgImage forState:UIControlStateNormal];
-  [self.reviewsButton setBackgroundImage:[UIImage imageNamed:@"Login_LoginButton_Highlight"] forState:UIControlStateHighlighted];
-  [self.reviewsButton setTitle:@"注册" forState:UIControlStateNormal];
-  [self.menuView addSubview:self.reviewsButton];
-  
-  // Asks Button
-  self.asksButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  self.asksButton.frame = CGRectMake(-1.0, 
-                                     18.0 * screenRatio + buttonHeight * 2 - 2, 
-                                     320.0 / 2 + 1, 
-                                     buttonHeight);
-  [self.asksButton setBackgroundImage:bkgImage forState:UIControlStateNormal];
-  [self.asksButton setBackgroundImage:[UIImage imageNamed:@"Login_LoginButton_Highlight"] forState:UIControlStateHighlighted];
-  [self.asksButton setTitle:@"注册" forState:UIControlStateNormal];
-  [self.menuView addSubview:self.asksButton];
-  
-  // Booklists Button
-  self.booklistsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-  self.booklistsButton.frame = CGRectMake(320.0 / 2 - 1, 
-                                          18.0 * screenRatio + buttonHeight * 2 - 2, 
-                                          320.0 / 2 + 2, 
-                                          buttonHeight);
-  [self.booklistsButton setBackgroundImage:bkgImage forState:UIControlStateNormal];
-  [self.booklistsButton setBackgroundImage:[UIImage imageNamed:@"Login_LoginButton_Highlight"] forState:UIControlStateHighlighted];
-  [self.booklistsButton setTitle:@"注册" forState:UIControlStateNormal];
-  [self.menuView addSubview:self.booklistsButton];
+  self.tableData = @[@"继续阅读", @"书库", @"热门书籍", @"一键治书荒", @"看书评", @"看书单", @"分类", @"用户"];
+  self.tableColor = @[headColor,
+                      [UIColor colorWithRed:0.522 green:0.576 blue:0.478 alpha:1.0],
+                      [UIColor colorWithRed:0.349 green:0.428 blue:0.368 alpha:1.0],
+                      [UIColor colorWithRed:0.663 green:0.686 blue:0.565 alpha:1.0],
+                      [UIColor colorWithRed:0.302 green:0.329 blue:0.298 alpha:1.0],
+                      [UIColor colorWithRed:0.745 green:0.739 blue:0.641 alpha:1.0],
+                      [UIColor colorWithRed:0.595 green:0.667 blue:0.549 alpha:1.0],
+                      [UIColor colorWithRed:0.323 green:0.333 blue:0.287 alpha:1.0]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
   
-  [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"Main_Background"] forBarMetrics:UIBarMetricsDefault];
-  self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-//  self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+  self.navigationController.navigationBar.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -184,5 +133,56 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_LOGIN object:nil];
   }];
 }
+
+#pragma mark - Table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  CGFloat statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+  
+  return (tableView.bounds.size.height - statusBarHeight) / [self.tableData count];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  
+  NSLog(@"TableCell %d.%d Tapped!", indexPath.section, indexPath.row);
+  
+  switch (indexPath.row) {
+    case 0:
+      [self showHotCategoriesView];
+      break;
+      
+    default:
+      break;
+  }
+  
+  return;
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+  return [self.tableData count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  static NSString *CellIdentifier = @"Cell";
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+  
+  if (cell == nil) {
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+  }
+  
+  cell.textLabel.text = [self.tableData objectAtIndex:indexPath.row];
+  cell.textLabel.textColor = [UIColor whiteColor];
+  cell.backgroundColor = [self.tableColor objectAtIndex:indexPath.row];
+  
+  return cell;
+}
+
 
 @end

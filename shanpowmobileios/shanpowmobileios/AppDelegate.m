@@ -15,26 +15,28 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-    
-    // Init user interface
-    self.rootController = [[UINavigationController alloc] initWithRootViewController:[[RootViewController alloc] init]];
-    self.window.rootViewController = self.rootController;
-    
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
-    }
-    
-    // WeiboSDK
+  self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+  self.window.backgroundColor = [UIColor whiteColor];
+  [self.window makeKeyAndVisible];
+  
+  // Init user interface
+  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+  
+  self.rootController = [[UINavigationController alloc] initWithRootViewController:[[RootViewController alloc] init]];
+  self.window.rootViewController = self.rootController;
+  
+  if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+  }
+  
+  // WeiboSDK
 #ifdef DEBUG
-    [WeiboSDK enableDebugMode:YES];
-//    [[NetworkClient sharedNetworkClient] logout];
+  [WeiboSDK enableDebugMode:YES];
+//  [[NetworkClient sharedNetworkClient] logout];
 #endif
-    [WeiboSDK registerApp:weiboAppKey];
-
-    return YES;
+  [WeiboSDK registerApp:weiboAppKey];
+  
+  return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -66,28 +68,28 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotatio
 {
-    if ([[url absoluteString] rangeOfString:@"tencent"].location == 0) {
-        return [TencentOAuth HandleOpenURL:url];
-    }
-    
-    if ([[url absoluteString] rangeOfString:@"wb"].location == 0) {
-        return [WeiboSDK handleOpenURL:url delegate:[WeiboLogin sharedWeiboLogin]];
-    }
-    
-    return YES;
+  if ([[url absoluteString] rangeOfString:@"tencent"].location == 0) {
+    return [TencentOAuth HandleOpenURL:url];
+  }
+  
+  if ([[url absoluteString] rangeOfString:@"wb"].location == 0) {
+    return [WeiboSDK handleOpenURL:url delegate:[WeiboLogin sharedWeiboLogin]];
+  }
+  
+  return YES;
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    if ([[url absoluteString] rangeOfString:@"tencent"].location == 0) {
-        return [TencentOAuth HandleOpenURL:url];
-    }
-    
-    if ([[url absoluteString] rangeOfString:@"wb"].location == 0) {
-        return [WeiboSDK handleOpenURL:url delegate:[WeiboLogin sharedWeiboLogin]];
-    }
-    
-    return YES;
+  if ([[url absoluteString] rangeOfString:@"tencent"].location == 0) {
+    return [TencentOAuth HandleOpenURL:url];
+  }
+  
+  if ([[url absoluteString] rangeOfString:@"wb"].location == 0) {
+    return [WeiboSDK handleOpenURL:url delegate:[WeiboLogin sharedWeiboLogin]];
+  }
+  
+  return YES;
 }
 
 @end

@@ -109,9 +109,9 @@
   
   switch (self.colorStyle) {
     case BookInfoViewColorStyleDefault:
-      self.mainFontColor = [UIColor blackColor];
-      self.mutedFontColor = [UIColor grayColor];
-      self.highlightFontColor = [UIColor lightGrayColor];
+      self.mainFontColor = [UIColor colorWithRed:0.129 green:0.180 blue:0.196 alpha:1.0];
+      self.mutedFontColor = [UIColor colorWithRed:0.345 green:0.424 blue:0.365 alpha:0.6];
+      self.highlightFontColor = [UIColor colorWithRed:0.345 green:0.424 blue:0.365 alpha:1.0];
       break;
     case BookInfoViewColorStyleWhiteFont:
       self.mainFontColor = [UIColor whiteColor];
@@ -297,7 +297,7 @@
   self.authorLabel.textColor = self.mutedFontColor;
   
   // Score label
-  self.scoreLabel.font = [UIFont italicSystemFontOfSize:32.0];
+  self.scoreLabel.font = [UIFont fontWithName:@"Calibri-BoldItalic" size:32.0];
   CGSize scoreSize = [self.scoreLabel.text sizeWithFont:self.scoreLabel.font];
   self.scoreLabel.frame = CGRectMake(self.frame.size.width - scoreSize.width - self.scoreLabel.edgeInsets.left - self.scoreLabel.edgeInsets.right, 
                                      self.titleLabel.frame.origin.y - (scoreSize.height - titleSize.height) / 2, 

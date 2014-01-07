@@ -127,6 +127,8 @@
   [self.adjustView addSubview:self.registerButton];
   
   self.loginType = LoginType_Normal;
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -264,6 +266,13 @@
 }
 
 #pragma mark - Event handler
+
+- (void)handleError:(NSNotification *)notification
+{
+  NSString *errorMsg = [[notification userInfo] objectForKey:@"ErrorMsg"];
+  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络问题" message:errorMsg delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
+  [alert show];
+}
 
 - (void)didGetToken:(NSNotification *)notification
 {

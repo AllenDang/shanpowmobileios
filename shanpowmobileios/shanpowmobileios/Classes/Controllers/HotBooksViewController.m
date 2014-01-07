@@ -34,8 +34,8 @@
   [super viewDidLoad];
   
   self.title = @"热门书籍";
-  [self setBackgroundImage:[UIImage imageNamed:@"HC_Background"]];
-  self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HC_Background"]];
+  [self.view setBackgroundColor:[UIColor colorWithRed:0.937 green:0.933 blue:0.890 alpha:1.0]];
+  self.tableView.backgroundColor = self.view.backgroundColor;
   
   self.headerHeight = 40.0;
   
@@ -43,11 +43,11 @@
     self.tableView.separatorInset = UIEdgeInsetsZero;
   }
   
-  self.tableView.separatorColor = self.view.backgroundColor;
+  self.tableView.separatorColor = [UIColor clearColor];
   self.tableView.opaque = NO;
   
   if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"HC_Background"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:0.302 green:0.329 blue:0.298 alpha:1.0]] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
   } else {
@@ -63,6 +63,18 @@
   self.refreshControl.layer.zPosition = self.tableView.backgroundView.layer.zPosition + 1;
   
   [self loadHotBooks];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  
+  self.navigationController.navigationBar.hidden = NO;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+  return UIStatusBarStyleLightContent;
 }
 
 - (void)refreshData:(UIRefreshControl *)refresh
@@ -83,6 +95,8 @@
 
 - (void)didGetHotBooks:(NSNotification *)notification
 {
+  self.tableView.separatorColor = [UIColor colorWithRed:0.843 green:0.835 blue:0.722 alpha:1.0];
+  
   NSDictionary *userInfo = [notification userInfo];
   NSArray *data = [userInfo objectForKey:@"data"];
   self.categories = data;
@@ -154,12 +168,12 @@
 {
   UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.frame.size.width - 20, self.headerHeight)];
   headerLabel.text = [[self.categories objectAtIndex:section] objectForKey:@"Category"];
-  headerLabel.textColor = [UIColor whiteColor];
-  headerLabel.backgroundColor=  [UIColor clearColor];
+  headerLabel.textColor = [UIColor colorWithRed:0.129 green:0.180 blue:0.196 alpha:1.0];
+  headerLabel.backgroundColor= [UIColor clearColor];
   
   UIView *headerView = [[UIView alloc] initWithFrame:CGRectZero];
   [headerView addSubview:headerLabel];
-  headerView.backgroundColor = self.view.backgroundColor;
+  headerView.backgroundColor = [UIColor colorWithRed:0.843 green:0.835 blue:0.722 alpha:1.0];
   
   return headerView;
 }
@@ -210,7 +224,7 @@
   if (cell == nil) {
     cell = [[BookInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     cell.bookInfoView.style = BookInfoViewStyleMedium;
-    cell.bookInfoView.colorStyle = BookInfoViewColorStyleWhiteFont;
+    cell.bookInfoView.colorStyle = BookInfoViewColorStyleDefault;
   }
   
   Book *book = [Book bookFromDictionary:bookInfo];
