@@ -159,8 +159,6 @@
 {
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
   
-  NSLog(@"TableCell %d.%d Tapped!", indexPath.section, indexPath.row);
-  
   return;
 }
 
