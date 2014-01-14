@@ -37,6 +37,8 @@
   [self.view setBackgroundColor:[UIColor colorWithRed:0.937 green:0.933 blue:0.890 alpha:1.0]];
   self.tableView.backgroundColor = self.view.backgroundColor;
   
+  self.categories = @[];
+  
   self.headerHeight = 40.0;
   
   if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
@@ -98,7 +100,7 @@
   self.tableView.separatorColor = [UIColor colorWithRed:0.843 green:0.835 blue:0.722 alpha:1.0];
   
   NSDictionary *userInfo = [notification userInfo];
-  NSArray *data = [userInfo objectForKey:@"data"];
+  NSArray *data = [[userInfo objectForKey:@"data"] class] == [NSNull class] ? nil : [userInfo objectForKey:@"data"];
   self.categories = data;
   
   [self.tableView reloadData];
