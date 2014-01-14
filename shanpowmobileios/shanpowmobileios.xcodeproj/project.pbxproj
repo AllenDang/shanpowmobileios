@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		642391951884D4EC0049BE8B /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 642391941884D4EC0049BE8B /* TencentOpenAPI.framework */; };
+		642391971884D5350049BE8B /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642391961884D5350049BE8B /* libWeiboSDK.a */; };
+		6423919A1884DE830049BE8B /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 642391981884DE6E0049BE8B /* TencentOpenApi_IOS_Bundle.bundle */; };
+		6423919D1884DEBC0049BE8B /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6423919B1884DEBC0049BE8B /* WeiboSDK.bundle */; };
 		642BEB50184DAF5200E1A0B3 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB4F184DAF5200E1A0B3 /* RootViewController.m */; };
 		642BEB53184DB7FC00E1A0B3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB52184DB7FC00E1A0B3 /* LoginViewController.m */; };
 		642BEB64184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB56184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m */; };
@@ -18,7 +22,6 @@
 		642BEB6A184DF3F800E1A0B3 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB63184DF3F800E1A0B3 /* UIWebView+AFNetworking.m */; };
 		642C790C1867DDB9007C61AD /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 642C790B1867DDB9007C61AD /* Book.m */; };
 		643A0DA8184C65CA00A1FEAF /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 643A0DA7184C65CA00A1FEAF /* Common.m */; };
-		6440D7241860288B008D9C59 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D7231860288B008D9C59 /* TencentOpenAPI.framework */; };
 		6440D726186028C1008D9C59 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D725186028C1008D9C59 /* Security.framework */; };
 		6440D728186028C9008D9C59 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D727186028C9008D9C59 /* libiconv.dylib */; };
 		6440D72A186028D9008D9C59 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D729186028D9008D9C59 /* SystemConfiguration.framework */; };
@@ -26,11 +29,8 @@
 		6440D72E186028F0008D9C59 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D72D186028F0008D9C59 /* CoreTelephony.framework */; };
 		6440D730186028FB008D9C59 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D72F186028FB008D9C59 /* libstdc++.dylib */; };
 		6440D73218602904008D9C59 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D73118602904008D9C59 /* libz.dylib */; };
-		6440D7341860292D008D9C59 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6440D7331860292D008D9C59 /* TencentOpenApi_IOS_Bundle.bundle */; };
 		6440D73718602BEA008D9C59 /* QQLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D73618602BEA008D9C59 /* QQLogin.m */; };
 		6440D73A1860537A008D9C59 /* QQRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D7391860537A008D9C59 /* QQRegisterViewController.m */; };
-		6440D73F18606A35008D9C59 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6440D73C18606A35008D9C59 /* libWeiboSDK.a */; };
-		6440D74018606A35008D9C59 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6440D73D18606A35008D9C59 /* WeiboSDK.bundle */; };
 		6440D74318606DF9008D9C59 /* WeiboLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D74218606DF9008D9C59 /* WeiboLogin.m */; };
 		64546E9B1869638D001CCE5B /* HC_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 64546E991869638D001CCE5B /* HC_Background.png */; };
 		64546E9C1869638D001CCE5B /* HC_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64546E9A1869638D001CCE5B /* HC_Background@2x.png */; };
@@ -102,6 +102,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		642391941884D4EC0049BE8B /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = shanpowmobileios/Frameworks/TencentOpenAPI.framework; sourceTree = "<group>"; };
+		642391961884D5350049BE8B /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = shanpowmobileios/Frameworks/libWeiboSDK.a; sourceTree = SOURCE_ROOT; };
+		642391981884DE6E0049BE8B /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TencentOpenApi_IOS_Bundle.bundle; path = shanpowmobileios/Frameworks/TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
+		6423919B1884DEBC0049BE8B /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = WeiboSDK.bundle; path = shanpowmobileios/Frameworks/WeiboSDK.bundle; sourceTree = SOURCE_ROOT; };
+		6423919C1884DEBC0049BE8B /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboSDK.h; path = shanpowmobileios/Frameworks/WeiboSDK.h; sourceTree = SOURCE_ROOT; };
 		642BEB4E184DAF5200E1A0B3 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		642BEB4F184DAF5200E1A0B3 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		642BEB51184DB7FC00E1A0B3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -125,7 +130,6 @@
 		642C790B1867DDB9007C61AD /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		643A0DA6184C65CA00A1FEAF /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		643A0DA7184C65CA00A1FEAF /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
-		6440D7231860288B008D9C59 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = shanpowmobileios/Frameworks/TencentOpenAPI.framework; sourceTree = "<group>"; };
 		6440D725186028C1008D9C59 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6440D727186028C9008D9C59 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		6440D729186028D9008D9C59 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -138,9 +142,6 @@
 		6440D73618602BEA008D9C59 /* QQLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQLogin.m; sourceTree = "<group>"; };
 		6440D7381860537A008D9C59 /* QQRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QQRegisterViewController.h; sourceTree = "<group>"; };
 		6440D7391860537A008D9C59 /* QQRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQRegisterViewController.m; sourceTree = "<group>"; };
-		6440D73C18606A35008D9C59 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = shanpowmobileios/Frameworks/libWeiboSDK.a; sourceTree = SOURCE_ROOT; };
-		6440D73D18606A35008D9C59 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = WeiboSDK.bundle; path = shanpowmobileios/Frameworks/WeiboSDK.bundle; sourceTree = SOURCE_ROOT; };
-		6440D73E18606A35008D9C59 /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboSDK.h; path = shanpowmobileios/Frameworks/WeiboSDK.h; sourceTree = SOURCE_ROOT; };
 		6440D74118606DF9008D9C59 /* WeiboLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboLogin.h; sourceTree = "<group>"; };
 		6440D74218606DF9008D9C59 /* WeiboLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiboLogin.m; sourceTree = "<group>"; };
 		64546E991869638D001CCE5B /* HC_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HC_Background.png; sourceTree = "<group>"; };
@@ -230,15 +231,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				6440D73218602904008D9C59 /* libz.dylib in Frameworks */,
+				642391951884D4EC0049BE8B /* TencentOpenAPI.framework in Frameworks */,
 				6440D730186028FB008D9C59 /* libstdc++.dylib in Frameworks */,
 				6440D72E186028F0008D9C59 /* CoreTelephony.framework in Frameworks */,
 				6440D72C186028E5008D9C59 /* libsqlite3.dylib in Frameworks */,
 				6440D72A186028D9008D9C59 /* SystemConfiguration.framework in Frameworks */,
 				6440D728186028C9008D9C59 /* libiconv.dylib in Frameworks */,
+				642391971884D5350049BE8B /* libWeiboSDK.a in Frameworks */,
 				6440D726186028C1008D9C59 /* Security.framework in Frameworks */,
-				6440D73F18606A35008D9C59 /* libWeiboSDK.a in Frameworks */,
 				646132B9184872F300A0BBF0 /* CoreGraphics.framework in Frameworks */,
-				6440D7241860288B008D9C59 /* TencentOpenAPI.framework in Frameworks */,
 				646132BB184872F300A0BBF0 /* UIKit.framework in Frameworks */,
 				646132B7184872F300A0BBF0 /* Foundation.framework in Frameworks */,
 			);
@@ -282,9 +283,9 @@
 		6440D73B18606A20008D9C59 /* WeiboSDK */ = {
 			isa = PBXGroup;
 			children = (
-				6440D73C18606A35008D9C59 /* libWeiboSDK.a */,
-				6440D73D18606A35008D9C59 /* WeiboSDK.bundle */,
-				6440D73E18606A35008D9C59 /* WeiboSDK.h */,
+				6423919B1884DEBC0049BE8B /* WeiboSDK.bundle */,
+				6423919C1884DEBC0049BE8B /* WeiboSDK.h */,
+				642391961884D5350049BE8B /* libWeiboSDK.a */,
 			);
 			name = WeiboSDK;
 			sourceTree = "<group>";
@@ -417,6 +418,8 @@
 		646132B5184872F300A0BBF0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				642391981884DE6E0049BE8B /* TencentOpenApi_IOS_Bundle.bundle */,
+				642391941884D4EC0049BE8B /* TencentOpenAPI.framework */,
 				6440D73118602904008D9C59 /* libz.dylib */,
 				6440D72F186028FB008D9C59 /* libstdc++.dylib */,
 				6440D72D186028F0008D9C59 /* CoreTelephony.framework */,
@@ -424,7 +427,6 @@
 				6440D729186028D9008D9C59 /* SystemConfiguration.framework */,
 				6440D727186028C9008D9C59 /* libiconv.dylib */,
 				6440D725186028C1008D9C59 /* Security.framework */,
-				6440D7231860288B008D9C59 /* TencentOpenAPI.framework */,
 				646132B6184872F300A0BBF0 /* Foundation.framework */,
 				646132B8184872F300A0BBF0 /* CoreGraphics.framework */,
 				646132BA184872F300A0BBF0 /* UIKit.framework */,
@@ -626,8 +628,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6423919A1884DE830049BE8B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				64C6638B186D1EC800B18236 /* Login_LoginButton_Highlight.png in Resources */,
-				6440D7341860292D008D9C59 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				64C6638F186D298F00B18236 /* Login_MailTextField.png in Resources */,
 				64C66388186D1C7400B18236 /* Login_PasswordTextField@2x.png in Resources */,
 				64781473186D5A5B0059F008 /* Main_MenuButton@2x.png in Resources */,
@@ -641,6 +643,7 @@
 				646132C1184872F300A0BBF0 /* InfoPlist.strings in Resources */,
 				6463584A185B231E00172760 /* Login_LoginButton@2x.png in Resources */,
 				6478146B186D4F7A0059F008 /* Main_HeaderText@2x.png in Resources */,
+				6423919D1884DEBC0049BE8B /* WeiboSDK.bundle in Resources */,
 				646132C9184872F300A0BBF0 /* Images.xcassets in Resources */,
 				64C66383186D1BE700B18236 /* Login_EmailTextField.png in Resources */,
 				64635849185B231E00172760 /* Login_LoginButton.png in Resources */,
@@ -648,7 +651,6 @@
 				64F05CF5187506C000FB7A3A /* Calibri Bold Italic.ttf in Resources */,
 				6478146A186D4F7A0059F008 /* Main_HeaderText.png in Resources */,
 				6478146E186D53810059F008 /* Main_MenuBkg.png in Resources */,
-				6440D74018606A35008D9C59 /* WeiboSDK.bundle in Resources */,
 				64546E9B1869638D001CCE5B /* HC_Background.png in Resources */,
 				64F05CF8187506C000FB7A3A /* Calibri.ttf in Resources */,
 				64781467186D4D980059F008 /* Main_Background@2x.png in Resources */,
@@ -831,7 +833,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/celtavonce/Dropbox/Development/Project_Shanpow/MobileSource/develop/shanpowmobileios/shanpowmobileios/Frameworks,
+					"./shanpowmobileios/Frameworks/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shanpowmobileios/shanpowmobileios-Prefix.pch";
@@ -839,7 +841,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/celtavonce/Dropbox/Development/Project_Shanpow/MobileSource/develop/shanpowmobileios/shanpowmobileios/Frameworks,
+					"./shanpowmobileios/Frameworks/**",
 				);
 				OTHER_LDFLAGS = (
 					"-fobjc-arc",
@@ -857,7 +859,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/celtavonce/Dropbox/Development/Project_Shanpow/MobileSource/develop/shanpowmobileios/shanpowmobileios/Frameworks,
+					"./shanpowmobileios/Frameworks/**",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shanpowmobileios/shanpowmobileios-Prefix.pch";
@@ -865,7 +867,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/celtavonce/Dropbox/Development/Project_Shanpow/MobileSource/develop/shanpowmobileios/shanpowmobileios/Frameworks,
+					"./shanpowmobileios/Frameworks/**",
 				);
 				OTHER_LDFLAGS = (
 					"-fobjc-arc",
