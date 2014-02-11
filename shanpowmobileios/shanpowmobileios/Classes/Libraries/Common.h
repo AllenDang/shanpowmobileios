@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#pragma mark Singleton GCD Macro
+#pragma mark - Singleton GCD Macro
 #ifndef SINGLETON_GCD
 #define SINGLETON_GCD(classname)                        \
 \
@@ -25,18 +25,16 @@ return shared##classname;                               \
 #pragma mark - Disable NSLog on release
 #ifdef DEBUG
 #   define NSLog(...) NSLog(__VA_ARGS__)
-#else 
+#else
 #   define NSLog(...)
 #endif
 
 #pragma mark - Basic settings
 #ifdef DEBUG
-#   define BASE_URL                 @"http://127.0.0.1"
+#   define BASE_URL                         @"http://127.0.0.1"
 #else
-#   define BASE_URL                 @"http://www.shanpow.com"
+#   define BASE_URL                         @"http://www.shanpow.com"
 #endif
-
-#define ADAPT_VIEW_TAG              529
 
 #pragma mark - Notifications
 
@@ -78,7 +76,20 @@ return shared##classname;                               \
 #define weiboAppKey                         @"1250697727"
 #define weiboRedirectURI                    @"https://api.weibo.com/oauth2/default.html"
 
+#pragma mark - UI Related
+#pragma mark — Colors
+#define UIC_BRIGHT_GRAY(x)                  [UIColor colorWithRed:0.192 green:0.224 blue:0.267 alpha:(x)]
+#define UIC_CERULEAN(x)                     [UIColor colorWithRed:0.000 green:0.671 blue:0.839 alpha:(x)]
+#define UIC_CYAN(x)                         [UIColor colorWithRed:0.004 green:0.792 blue:1.000 alpha:(x)]
+#define UIC_WHISPER(x)                      [UIColor colorWithRed:0.953 green:0.945 blue:0.965 alpha:(x)]
+#define UIC_ALMOSTWHITE(x)                  [UIColor colorWithRed:0.996 green:0.996 blue:0.996 alpha:(x)]
+
+#pragma mark — UIView
+#define ADAPT_VIEW_TAG                      529
+
 #pragma mark - Global Functions
+
+#define isSysVerGTE(ver)                    ([[[UIDevice currentDevice] systemVersion] floatValue] >= (ver))
 
 extern BOOL isLogin();
 

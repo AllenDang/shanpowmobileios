@@ -75,6 +75,7 @@
 		648799DB186A735300CD32D0 /* SPLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 648799DA186A735300CD32D0 /* SPLabel.m */; };
 		649311A51862C68C00315DB0 /* BookInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649311A41862C68C00315DB0 /* BookInfoView.m */; };
 		649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649BA57C185AA6350096DD8D /* RegisterViewController.m */; };
+		649F6EB918A8B8DE00E17B3E /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */; };
 		64A80B0D186813F10039BBA2 /* BookInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A80B0C186813F10039BBA2 /* BookInfoCell.m */; };
 		64C66383186D1BE700B18236 /* Login_EmailTextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C66381186D1BE700B18236 /* Login_EmailTextField.png */; };
 		64C66384186D1BE700B18236 /* Login_EmailTextField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C66382186D1BE700B18236 /* Login_EmailTextField@2x.png */; };
@@ -207,6 +208,8 @@
 		649311A41862C68C00315DB0 /* BookInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoView.m; sourceTree = "<group>"; };
 		649BA57B185AA6350096DD8D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		649BA57C185AA6350096DD8D /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		649F6EB718A8B8DE00E17B3E /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
+		649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		64A80B0B186813F10039BBA2 /* BookInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoCell.h; sourceTree = "<group>"; };
 		64A80B0C186813F10039BBA2 /* BookInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoCell.m; sourceTree = "<group>"; };
 		64C66381186D1BE700B18236 /* Login_EmailTextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_EmailTextField.png; sourceTree = "<group>"; };
@@ -325,6 +328,8 @@
 				649BA57C185AA6350096DD8D /* RegisterViewController.m */,
 				6440D7381860537A008D9C59 /* QQRegisterViewController.h */,
 				6440D7391860537A008D9C59 /* QQRegisterViewController.m */,
+				649F6EB718A8B8DE00E17B3E /* MainMenuViewController.h */,
+				649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -704,6 +709,7 @@
 				642BEB66184DF3F800E1A0B3 /* UIAlertView+AFNetworking.m in Sources */,
 				642BEB6A184DF3F800E1A0B3 /* UIWebView+AFNetworking.m in Sources */,
 				6440D73A1860537A008D9C59 /* QQRegisterViewController.m in Sources */,
+				649F6EB918A8B8DE00E17B3E /* MainMenuViewController.m in Sources */,
 				6440D74318606DF9008D9C59 /* WeiboLogin.m in Sources */,
 				649311A51862C68C00315DB0 /* BookInfoView.m in Sources */,
 				642BEB65184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
