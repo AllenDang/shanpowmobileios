@@ -9,13 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Common.h"
 #import "NetworkClient.h"
+#import "MainMenuViewController.h"
 #import "LoginViewController.h"
-#import "HotBooksViewController.h"
 
-@interface RootViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface RootViewController : UIViewController
 
-@property (strong, nonatomic) LoginViewController *loginViewController;
-@property (strong, nonatomic) HotBooksViewController *hotBooksViewController;
 @property (strong, nonatomic) UITableView *mainTable;
 @property (strong, nonatomic) NSArray *tableData;
 

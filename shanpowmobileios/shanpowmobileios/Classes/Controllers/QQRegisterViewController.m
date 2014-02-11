@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self setBackgroundImage:[UIImage imageNamed:@"Login_Background"]];
+    [self setBackgroundImage:[UIImage imageWithColor:UIC_WHISPER(1.0)]];
     
     [self addAdjustView];
     
@@ -43,12 +43,10 @@
     [dismissKeyboardButton addTarget:self action:@selector(dismissKeyboardButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.adjustView addSubview:dismissKeyboardButton];
     
-    UIColor *placeholderColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:0.5];
-    
-    float screenRatio = [[UIScreen mainScreen] bounds].size.height / 568.0;
+    UIColor *placeholderColor = UIC_ALMOSTWHITE(0.65);
     
     // Background view for username text field
-    UILabel *qqRegisterTip = [[UILabel alloc] initWithFrame:CGRectMake(32.0, 80.0 * screenRatio, 256.0, 50.0)];
+    UILabel *qqRegisterTip = [[UILabel alloc] initWithFrame:CGRectMake(32.0, 80.0 * SCREEN_RATIO, 256.0, 50.0)];
     qqRegisterTip.backgroundColor = [UIColor clearColor];
     qqRegisterTip.textColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
     qqRegisterTip.text = @"由于您是第一次登录，需要补填一些信息才能正常使用";
@@ -58,42 +56,44 @@
     
     // Background view for email text field
     UIImageView *emailTextFieldBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Login_TextField"]];
-    emailTextFieldBackground.frame = CGRectMake(32.0, 175.0 * screenRatio, 256.0, 50.0);
+    emailTextFieldBackground.frame = CGRectMake(32.0, 175.0 * SCREEN_RATIO, 256.0, 50.0);
     emailTextFieldBackground.userInteractionEnabled = YES;
     [self.adjustView addSubview:emailTextFieldBackground];
     
     // Email text field
     self.emailTextField = [[UITextField alloc] initWithFrame:CGRectMake(13.0, 13.0, 230.0, 24.0)];
-    self.emailTextField.textColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.7];
+    self.emailTextField.textColor = UIC_ALMOSTWHITE(1.0);
     self.emailTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"输入您的电子邮件地址" attributes:@{NSForegroundColorAttributeName: placeholderColor}];
     self.emailTextField.delegate = self;
     [emailTextFieldBackground addSubview:self.emailTextField];
     
     // Gender Switch
-    UILabel *genderTip = [[UILabel alloc] initWithFrame:CGRectMake(32.0, 280.0 * screenRatio, 100.0, 30.0)];
+    UILabel *genderTip = [[UILabel alloc] initWithFrame:CGRectMake(32.0, 280.0 * SCREEN_RATIO, 100.0, 30.0)];
     genderTip.text = @"性别";
     genderTip.textColor = [UIColor whiteColor];
     genderTip.backgroundColor = [UIColor clearColor];
     [self.adjustView addSubview:genderTip];
     
     self.genderSwitch = [[UISegmentedControl alloc] initWithItems:@[@"男", @"女"]];
-    self.genderSwitch.frame = CGRectMake(188.0, 280.0 * screenRatio, 100.0, 30.0);
-    self.genderSwitch.tintColor = [UIColor whiteColor];
+    self.genderSwitch.frame = CGRectMake(188.0, 280.0 * SCREEN_RATIO, 100.0, 30.0);
+    self.genderSwitch.tintColor = UIC_CYAN(1.0);
     self.genderSwitch.selectedSegmentIndex = 0;
     [self.adjustView addSubview:self.genderSwitch];
     
     // Register button
     self.registerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.registerButton.frame = CGRectMake(32.0, 410.0 * screenRatio, 256.0, 50.0);
-    [self.registerButton setBackgroundImage:[UIImage imageNamed:@"Login_LoginButton"] forState:UIControlStateNormal];
+    self.registerButton.frame = CGRectMake(32.0, 410.0 * SCREEN_RATIO, 256.0, 50.0);
+    [self.registerButton setBackgroundImage:[UIImage imageWithColor:UIC_CYAN(1.0)] forState:UIControlStateNormal];
+    [self.registerButton setBackgroundImage:[UIImage imageWithColor:UIC_CERULEAN(1.0)] forState:UIControlStateHighlighted];
     [self.registerButton setTitle:@"注册" forState:UIControlStateNormal];
     [self.registerButton addTarget:self action:@selector(registerNewAccount) forControlEvents:UIControlEventTouchUpInside];
     [self.adjustView addSubview:self.registerButton];
     
     // Cancel button
     self.cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.cancelButton.frame = CGRectMake(32.0, 490.0 * screenRatio, 256.0, 50.0);
-    [self.cancelButton setBackgroundImage:[UIImage imageNamed:@"Login_TextField"] forState:UIControlStateNormal];
+    self.cancelButton.frame = CGRectMake(32.0, 490.0 * SCREEN_RATIO, 256.0, 50.0);
+    [self.cancelButton setBackgroundImage:[UIImage imageWithColor:UIC_BRIGHT_GRAY(0.2)] forState:UIControlStateNormal];
+    [self.cancelButton setBackgroundImage:[UIImage imageWithColor:UIC_BRIGHT_GRAY(0.5)] forState:UIControlStateHighlighted];
     [self.cancelButton setTitle:@"取消" forState:UIControlStateNormal];
     [self.cancelButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
     [self.adjustView addSubview:self.cancelButton];
