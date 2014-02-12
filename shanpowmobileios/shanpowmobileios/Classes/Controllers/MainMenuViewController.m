@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSArray *menuItemImages;
 @property (nonatomic, assign) CGFloat cellHeight;
 @property (nonatomic, strong) UITableView *mainMenuTable;
+@property (nonatomic, strong) HotBooksViewController *hotBookController;
 
 @end
 
@@ -82,7 +83,8 @@
     
     switch (indexPath.row) {
         case 0:
-            
+            self.hotBookController = [[HotBooksViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            [self.navigationController pushViewController:self.hotBookController animated:YES];
             break;
             
         default:

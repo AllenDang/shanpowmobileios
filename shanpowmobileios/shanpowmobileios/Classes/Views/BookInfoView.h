@@ -32,6 +32,7 @@ typedef enum
 @property (nonatomic, strong) Book *book;
 @property (nonatomic, assign) BOOL hasBookDescription;
 @property (nonatomic, assign) BOOL hasBookComment;
+@property (nonatomic, assign) NSInteger bookCommentPageCount;
 @property (nonatomic, assign) NSInteger currentPage;
 
 - (id)initWithStyle:(BookInfoViewStyle)style frame:(CGRect)frame;

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Common.h"
+#import "HotBooksViewController.h"
 
 @interface MainMenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

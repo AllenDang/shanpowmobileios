@@ -11,6 +11,7 @@
 		641637C818AA0713009A774A /* Home.png in Resources */ = {isa = PBXBuildFile; fileRef = 641637C618AA0713009A774A /* Home.png */; };
 		641637C918AA0713009A774A /* User.png in Resources */ = {isa = PBXBuildFile; fileRef = 641637C718AA0713009A774A /* User.png */; };
 		641637CB18AA0769009A774A /* Home_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 641637CA18AA0769009A774A /* Home_Selected@2x.png */; };
+		641637CE18AB061E009A774A /* BookGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 641637CD18AB061E009A774A /* BookGridViewController.m */; };
 		642391951884D4EC0049BE8B /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 642391941884D4EC0049BE8B /* TencentOpenAPI.framework */; };
 		642391971884D5350049BE8B /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642391961884D5350049BE8B /* libWeiboSDK.a */; };
 		6423919A1884DE830049BE8B /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 642391981884DE6E0049BE8B /* TencentOpenApi_IOS_Bundle.bundle */; };
@@ -116,6 +117,8 @@
 		641637C618AA0713009A774A /* Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Home.png; sourceTree = "<group>"; };
 		641637C718AA0713009A774A /* User.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = User.png; sourceTree = "<group>"; };
 		641637CA18AA0769009A774A /* Home_Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home_Selected@2x.png"; sourceTree = "<group>"; };
+		641637CC18AB061E009A774A /* BookGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookGridViewController.h; sourceTree = "<group>"; };
+		641637CD18AB061E009A774A /* BookGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookGridViewController.m; sourceTree = "<group>"; };
 		642391941884D4EC0049BE8B /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = shanpowmobileios/Frameworks/TencentOpenAPI.framework; sourceTree = "<group>"; };
 		642391961884D5350049BE8B /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = shanpowmobileios/Frameworks/libWeiboSDK.a; sourceTree = SOURCE_ROOT; };
 		642391981884DE6E0049BE8B /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TencentOpenApi_IOS_Bundle.bundle; path = shanpowmobileios/Frameworks/TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
@@ -348,6 +351,8 @@
 				6440D7391860537A008D9C59 /* QQRegisterViewController.m */,
 				649F6EB718A8B8DE00E17B3E /* MainMenuViewController.h */,
 				649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */,
+				641637CC18AB061E009A774A /* BookGridViewController.h */,
+				641637CD18AB061E009A774A /* BookGridViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -736,6 +741,7 @@
 				642BEB64184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				645FB9C7184C2C0C00BB2325 /* AFURLSessionManager.m in Sources */,
 				648799DB186A735300CD32D0 /* SPLabel.m in Sources */,
+				641637CE18AB061E009A774A /* BookGridViewController.m in Sources */,
 				645FB9C6184C2C0C00BB2325 /* AFURLResponseSerialization.m in Sources */,
 				649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */,
 				642BEB69184DF3F800E1A0B3 /* UIProgressView+AFNetworking.m in Sources */,
