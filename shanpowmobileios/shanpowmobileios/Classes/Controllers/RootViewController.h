@@ -11,10 +11,8 @@
 #import "NetworkClient.h"
 #import "MainMenuViewController.h"
 #import "LoginViewController.h"
+#import "SearchViewController.h"
 
 @interface RootViewController : UIViewController
-
-@property (strong, nonatomic) UITableView *mainTable;
-@property (strong, nonatomic) NSArray *tableData;
 
 @end

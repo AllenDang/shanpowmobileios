@@ -11,8 +11,11 @@
 @interface RootViewController ()
 
 @property (nonatomic, strong) UITabBarController *mainTabBar;
+@property (nonatomic, strong) UIBarButtonItem *searchButton;
+
 @property (nonatomic, strong) MainMenuViewController *mainMenuController;
 @property (nonatomic, strong) LoginViewController *loginController;
+@property (nonatomic, strong) SearchViewController *searchController;
 
 @end
 
@@ -61,6 +64,9 @@
         self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
         self.navigationController.navigationBar.tintColor = [UIColor colorWithWhite:0.3 alpha:1.0];
     }
+    
+    self.searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchView:)];
+    [self.navigationItem setRightBarButtonItem:self.searchButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -87,5 +93,10 @@
 
 #pragma mark -
 
+- (void)showSearchView:(id)sender
+{
+    self.searchController = [[SearchViewController alloc] init];
+    [MAIN_NAVIGATION_CONTROLLER pushViewController:self.searchController animated:YES];
+}
 
 @end

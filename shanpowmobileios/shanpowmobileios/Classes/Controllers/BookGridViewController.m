@@ -30,7 +30,9 @@
     [super viewDidLoad];
 
     self.headerHeight = 40.0;
-    self.tableView.separatorInset = UIEdgeInsetsZero;
+    if (isSysVerGTE(7.0)) {
+        self.tableView.separatorInset = UIEdgeInsetsZero;
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectTableCell:) name:MSG_HC_BOOK_SELECTED object:nil];
 }

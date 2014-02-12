@@ -12,6 +12,10 @@
 		641637C918AA0713009A774A /* User.png in Resources */ = {isa = PBXBuildFile; fileRef = 641637C718AA0713009A774A /* User.png */; };
 		641637CB18AA0769009A774A /* Home_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 641637CA18AA0769009A774A /* Home_Selected@2x.png */; };
 		641637CE18AB061E009A774A /* BookGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 641637CD18AB061E009A774A /* BookGridViewController.m */; };
+		641637D218AB1F32009A774A /* SearchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 641637D018AB1F32009A774A /* SearchIcon.png */; };
+		641637D318AB1F32009A774A /* SearchIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 641637D118AB1F32009A774A /* SearchIcon@2x.png */; };
+		641637D618AB201E009A774A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 641637D518AB201E009A774A /* SearchViewController.m */; };
+		641637E218AB22C0009A774A /* SPLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 641637E118AB22C0009A774A /* SPLabel.m */; };
 		642391951884D4EC0049BE8B /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 642391941884D4EC0049BE8B /* TencentOpenAPI.framework */; };
 		642391971884D5350049BE8B /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642391961884D5350049BE8B /* libWeiboSDK.a */; };
 		6423919A1884DE830049BE8B /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 642391981884DE6E0049BE8B /* TencentOpenApi_IOS_Bundle.bundle */; };
@@ -69,7 +73,6 @@
 		6463584C185B231E00172760 /* Login_TextField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64635846185B231E00172760 /* Login_TextField@2x.png */; };
 		64641084186AA57F005D92F3 /* NSStringCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 64641083186AA57F005D92F3 /* NSStringCategory.m */; };
 		646529B5184C617000C3D613 /* NetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 646529B4184C617000C3D613 /* NetworkClient.m */; };
-		648799DB186A735300CD32D0 /* SPLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 648799DA186A735300CD32D0 /* SPLabel.m */; };
 		649311A51862C68C00315DB0 /* BookInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649311A41862C68C00315DB0 /* BookInfoView.m */; };
 		649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649BA57C185AA6350096DD8D /* RegisterViewController.m */; };
 		649F6EB918A8B8DE00E17B3E /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */; };
@@ -119,6 +122,12 @@
 		641637CA18AA0769009A774A /* Home_Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home_Selected@2x.png"; sourceTree = "<group>"; };
 		641637CC18AB061E009A774A /* BookGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookGridViewController.h; sourceTree = "<group>"; };
 		641637CD18AB061E009A774A /* BookGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookGridViewController.m; sourceTree = "<group>"; };
+		641637D018AB1F32009A774A /* SearchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SearchIcon.png; sourceTree = "<group>"; };
+		641637D118AB1F32009A774A /* SearchIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SearchIcon@2x.png"; sourceTree = "<group>"; };
+		641637D418AB201E009A774A /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		641637D518AB201E009A774A /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		641637E018AB22C0009A774A /* SPLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLabel.h; sourceTree = "<group>"; };
+		641637E118AB22C0009A774A /* SPLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLabel.m; sourceTree = "<group>"; };
 		642391941884D4EC0049BE8B /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = shanpowmobileios/Frameworks/TencentOpenAPI.framework; sourceTree = "<group>"; };
 		642391961884D5350049BE8B /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = shanpowmobileios/Frameworks/libWeiboSDK.a; sourceTree = SOURCE_ROOT; };
 		642391981884DE6E0049BE8B /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TencentOpenApi_IOS_Bundle.bundle; path = shanpowmobileios/Frameworks/TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
@@ -210,8 +219,6 @@
 		64641083186AA57F005D92F3 /* NSStringCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringCategory.m; sourceTree = "<group>"; };
 		646529B3184C617000C3D613 /* NetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkClient.h; sourceTree = "<group>"; };
 		646529B4184C617000C3D613 /* NetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkClient.m; sourceTree = "<group>"; };
-		648799D9186A735300CD32D0 /* SPLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLabel.h; sourceTree = "<group>"; };
-		648799DA186A735300CD32D0 /* SPLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLabel.m; sourceTree = "<group>"; };
 		649311A31862C68C00315DB0 /* BookInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoView.h; sourceTree = "<group>"; };
 		649311A41862C68C00315DB0 /* BookInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoView.m; sourceTree = "<group>"; };
 		649BA57B185AA6350096DD8D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -282,6 +289,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		641637CF18AB1F32009A774A /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				641637D018AB1F32009A774A /* SearchIcon.png */,
+				641637D118AB1F32009A774A /* SearchIcon@2x.png */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		641637DF18AB22C0009A774A /* SPLabel */ = {
+			isa = PBXGroup;
+			children = (
+				641637E018AB22C0009A774A /* SPLabel.h */,
+				641637E118AB22C0009A774A /* SPLabel.m */,
+			);
+			path = SPLabel;
+			sourceTree = "<group>";
+		};
 		642BEB54184DF3F800E1A0B3 /* UIKit+AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,6 +378,8 @@
 				649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */,
 				641637CC18AB061E009A774A /* BookGridViewController.h */,
 				641637CD18AB061E009A774A /* BookGridViewController.m */,
+				641637D418AB201E009A774A /* SearchViewController.h */,
+				641637D518AB201E009A774A /* SearchViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -382,6 +409,7 @@
 		645FB9AA184C2BD000BB2325 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				641637DF18AB22C0009A774A /* SPLabel */,
 				6440D73B18606A20008D9C59 /* WeiboSDK */,
 				64FFD938185FEDB6002F93C0 /* Categories */,
 				642BEB54184DF3F800E1A0B3 /* UIKit+AFNetworking */,
@@ -392,8 +420,6 @@
 				6440D73618602BEA008D9C59 /* QQLogin.m */,
 				6440D74118606DF9008D9C59 /* WeiboLogin.h */,
 				6440D74218606DF9008D9C59 /* WeiboLogin.m */,
-				648799D9186A735300CD32D0 /* SPLabel.h */,
-				648799DA186A735300CD32D0 /* SPLabel.m */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -529,6 +555,7 @@
 		64B9A5B9185024C3001D482D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				641637CF18AB1F32009A774A /* Root */,
 				64CD28B018AA01280050BE63 /* Tabbar */,
 				64CD289718A9F68F0050BE63 /* MainMenu */,
 				64546E981869638D001CCE5B /* HotCategories */,
@@ -682,9 +709,11 @@
 				6463584C185B231E00172760 /* Login_TextField@2x.png in Resources */,
 				64C6638C186D1EC800B18236 /* Login_LoginButton_Highlight@2x.png in Resources */,
 				64C66387186D1C7400B18236 /* Login_PasswordTextField.png in Resources */,
+				641637D318AB1F32009A774A /* SearchIcon@2x.png in Resources */,
 				64CD28AE18A9FB980050BE63 /* Category.png in Resources */,
 				64C66384186D1BE700B18236 /* Login_EmailTextField@2x.png in Resources */,
 				64635848185B231E00172760 /* Login_Background@2x.png in Resources */,
+				641637D218AB1F32009A774A /* SearchIcon.png in Resources */,
 				64F05CF6187506C000FB7A3A /* Calibri Bold.ttf in Resources */,
 				64CD28AF18A9FB980050BE63 /* Category@2x.png in Resources */,
 				641637CB18AA0769009A774A /* Home_Selected@2x.png in Resources */,
@@ -740,7 +769,6 @@
 				64641084186AA57F005D92F3 /* NSStringCategory.m in Sources */,
 				642BEB64184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				645FB9C7184C2C0C00BB2325 /* AFURLSessionManager.m in Sources */,
-				648799DB186A735300CD32D0 /* SPLabel.m in Sources */,
 				641637CE18AB061E009A774A /* BookGridViewController.m in Sources */,
 				645FB9C6184C2C0C00BB2325 /* AFURLResponseSerialization.m in Sources */,
 				649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */,
@@ -754,6 +782,7 @@
 				642BEB68184DF3F800E1A0B3 /* UIImageView+AFNetworking.m in Sources */,
 				6440D73718602BEA008D9C59 /* QQLogin.m in Sources */,
 				645FB9C0184C2C0C00BB2325 /* AFHTTPRequestOperationManager.m in Sources */,
+				641637D618AB201E009A774A /* SearchViewController.m in Sources */,
 				6461C58618504981006D3736 /* HotBooksViewController.m in Sources */,
 				646529B5184C617000C3D613 /* NetworkClient.m in Sources */,
 				642BEB66184DF3F800E1A0B3 /* UIAlertView+AFNetworking.m in Sources */,
@@ -764,6 +793,7 @@
 				649311A51862C68C00315DB0 /* BookInfoView.m in Sources */,
 				642BEB65184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				643A0DA8184C65CA00A1FEAF /* Common.m in Sources */,
+				641637E218AB22C0009A774A /* SPLabel.m in Sources */,
 				645FB9C2184C2C0C00BB2325 /* AFNetworkReachabilityManager.m in Sources */,
 				646132C3184872F300A0BBF0 /* main.m in Sources */,
 				642BEB53184DB7FC00E1A0B3 /* LoginViewController.m in Sources */,

@@ -33,7 +33,9 @@
     [super viewDidLoad];
     
     self.title = @"热门书籍";
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    if (isSysVerGTE(7.0)) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     
     self.bookGridController = [[BookGridViewController alloc] initWithStyle:UITableViewStylePlain];
     self.bookGridController.view.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height);
