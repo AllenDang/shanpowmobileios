@@ -83,8 +83,8 @@
     
     switch (indexPath.row) {
         case 0:
-            self.hotBookController = [[HotBooksViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            [self.navigationController pushViewController:self.hotBookController animated:YES];
+            self.hotBookController = [[HotBooksViewController alloc] init];
+            [MAIN_NAVIGATION_CONTROLLER pushViewController:self.hotBookController animated:YES];
             break;
             
         default:

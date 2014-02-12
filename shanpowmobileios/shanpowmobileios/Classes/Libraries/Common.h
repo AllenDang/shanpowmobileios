@@ -31,7 +31,7 @@ return shared##classname;                               \
 
 #pragma mark - Basic settings
 #ifdef DEBUG
-#   define BASE_URL                         @"http://127.0.0.1"
+#   define BASE_URL                         @"http://www.shanpow.com"
 #else
 #   define BASE_URL                         @"http://www.shanpow.com"
 #endif
@@ -84,9 +84,10 @@ return shared##classname;                               \
 #define UIC_WHISPER(x)                      [UIColor colorWithRed:0.953 green:0.945 blue:0.965 alpha:(x)]
 #define UIC_ALMOSTWHITE(x)                  [UIColor colorWithRed:0.996 green:0.996 blue:0.996 alpha:(x)]
 
-#pragma mark — UIView
+#pragma mark — Apperance
 #define ADAPT_VIEW_TAG                      529
 #define SCREEN_RATIO                        (self.view.bounds.size.height / 568.0)
+#define MAIN_NAVIGATION_CONTROLLER          (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController
 
 #define UINAVIGATIONBAR_HEIGHT              64.0
 

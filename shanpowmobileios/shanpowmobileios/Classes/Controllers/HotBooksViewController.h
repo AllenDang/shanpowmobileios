@@ -10,9 +10,9 @@
 #import "NetworkClient.h"
 #import "UIKit+AFNetworking.h"
 #import "Common.h"
-#import "BookInfoCell.h"
+#import "BookGridViewController.h"
 
-@interface HotBooksViewController : UITableViewController
+@interface HotBooksViewController : UIViewController
 
 @property (strong, nonatomic) NSArray *categories;
 

@@ -30,12 +30,30 @@
     [super viewDidLoad];
 
     self.headerHeight = 40.0;
+    self.tableView.separatorInset = UIEdgeInsetsZero;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectTableCell:) name:MSG_HC_BOOK_SELECTED object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Event handler
+
+- (void)didSelectTableCell:(NSNotification *)notification
+{
+    NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
+    
+    // Show table item selected animate
+    for (BookInfoCell *cell in self.tableView.visibleCells) {
+        if ([cell.bookInfoView.book.Id isEqualToString:bookId]) {
+            [self.tableView selectRowAtIndexPath:cell.indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+            [self.tableView deselectRowAtIndexPath:cell.indexPath animated:YES];
+        }
+    }
 }
 
 #pragma mark - Table view delegate
@@ -66,7 +84,7 @@
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectZero];
     [headerView addSubview:headerLabel];
-    headerView.backgroundColor = [UIColor colorWithRed:0.843 green:0.835 blue:0.722 alpha:1.0];
+    headerView.backgroundColor = UIC_WHISPER(1.0);
     
     return headerView;
 }
