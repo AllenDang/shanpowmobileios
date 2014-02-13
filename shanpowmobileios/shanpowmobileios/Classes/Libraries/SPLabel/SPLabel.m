@@ -8,6 +8,12 @@
 
 #import "SPLabel.h"
 
+@interface SPLabel ()
+
+@property (nonatomic, strong) NSMutableParagraphStyle *paragraphStyle;
+
+@end
+
 @implementation SPLabel
 
 - (id)initWithFrame:(CGRect)frame
@@ -16,6 +22,8 @@
     if (self) {
         // Initialization code
         self.edgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        self.backgroundColor = [UIColor clearColor];
+        self.paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     }
     return self;
 }
@@ -53,6 +61,24 @@
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
+}
+
+- (void)setLineHeight:(float)lineHeight
+{
+    [self.paragraphStyle setLineSpacing:lineHeight];
+    
+    self.attributedText = [[NSAttributedString alloc] initWithString:(self.text ? self.text : @"") attributes:@{NSParagraphStyleAttributeName: self.paragraphStyle}];
+}
+
+- (void)setTextAlignment:(NSTextAlignment)textAlignment
+{
+    [super setTextAlignment:textAlignment];
+    
+    self.paragraphStyle.alignment = textAlignment;
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
+    [string addAttributes:@{NSParagraphStyleAttributeName: self.paragraphStyle} range:NSMakeRange(0, self.text.length)];
+    self.attributedText = string;
 }
 
 @end

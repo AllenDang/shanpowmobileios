@@ -12,4 +12,6 @@
 
 @property (nonatomic, assign) UIEdgeInsets edgeInsets;
 
+- (void)setLineHeight:(float)lineHeight;
+
 @end
