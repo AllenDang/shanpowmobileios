@@ -84,8 +84,12 @@
 
 - (void)showSearchView:(id)sender
 {
+    self.hidesBottomBarWhenPushed = YES;
+    
     self.searchController = [[SearchViewController alloc] init];
     [self.navigationController pushViewController:self.searchController animated:YES];
+    
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 - (void)showHotBooks
@@ -98,17 +102,6 @@
 {
     self.categoriesController = [[CategoriesViewController alloc] init];
     [self.navigationController pushViewController:self.categoriesController animated:YES];
-}
-
-#pragma mark - UINavigationController delegate
-
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    if ([viewController isEqual:self]) {
-        self.hidesBottomBarWhenPushed = YES;
-    } else {
-        self.hidesBottomBarWhenPushed = NO;
-    }
 }
 
 

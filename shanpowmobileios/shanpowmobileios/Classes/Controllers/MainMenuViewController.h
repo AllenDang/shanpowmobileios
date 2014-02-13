@@ -12,6 +12,6 @@
 #import "CategoriesViewController.h"
 #import "SearchViewController.h"
 
-@interface MainMenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate>
+@interface MainMenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

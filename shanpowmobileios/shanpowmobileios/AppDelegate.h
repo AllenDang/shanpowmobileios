@@ -21,8 +21,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) UITabBarController *mainTabBar;
-@property (strong, nonatomic) UINavigationController *rootController;
-@property (strong, nonatomic) MainMenuViewController *mainMenuController;
-@property (strong, nonatomic) UserProfileViewController *userController;
+@property (strong, nonatomic) UINavigationController *mainMenuController;
+@property (strong, nonatomic) UINavigationController *userProfileController;
 
 @end
