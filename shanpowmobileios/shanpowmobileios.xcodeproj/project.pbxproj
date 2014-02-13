@@ -26,6 +26,9 @@
 		642723E518AC6578002609F4 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 642723E418AC6578002609F4 /* UIImage+ImageEffects.m */; };
 		642723E818AC7694002609F4 /* Plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723E618AC7694002609F4 /* Plus.png */; };
 		642723E918AC7694002609F4 /* Plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723E718AC7694002609F4 /* Plus@2x.png */; };
+		642723EB18AC936A002609F4 /* Avatar_Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723EA18AC936A002609F4 /* Avatar_Small.png */; };
+		642723EE18ACA54C002609F4 /* CheckMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723EC18ACA54C002609F4 /* CheckMark.png */; };
+		642723EF18ACA54C002609F4 /* CheckMark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723ED18ACA54C002609F4 /* CheckMark@2x.png */; };
 		642BEB53184DB7FC00E1A0B3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB52184DB7FC00E1A0B3 /* LoginViewController.m */; };
 		642BEB64184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB56184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m */; };
 		642BEB65184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB58184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m */; };
@@ -147,6 +150,9 @@
 		642723E418AC6578002609F4 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		642723E618AC7694002609F4 /* Plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Plus.png; sourceTree = "<group>"; };
 		642723E718AC7694002609F4 /* Plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Plus@2x.png"; sourceTree = "<group>"; };
+		642723EA18AC936A002609F4 /* Avatar_Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Avatar_Small.png; sourceTree = "<group>"; };
+		642723EC18ACA54C002609F4 /* CheckMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CheckMark.png; sourceTree = "<group>"; };
+		642723ED18ACA54C002609F4 /* CheckMark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CheckMark@2x.png"; sourceTree = "<group>"; };
 		642BEB51184DB7FC00E1A0B3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		642BEB52184DB7FC00E1A0B3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		642BEB55184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -322,9 +328,12 @@
 		642723DF18AC62BA002609F4 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
+				642723EC18ACA54C002609F4 /* CheckMark.png */,
+				642723ED18ACA54C002609F4 /* CheckMark@2x.png */,
+				642723EA18AC936A002609F4 /* Avatar_Small.png */,
+				642723E018AC62BA002609F4 /* Avatar.png */,
 				642723E618AC7694002609F4 /* Plus.png */,
 				642723E718AC7694002609F4 /* Plus@2x.png */,
-				642723E018AC62BA002609F4 /* Avatar.png */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -737,6 +746,7 @@
 			files = (
 				64CD289918A9F68F0050BE63 /* TitlePlaceholder.png in Resources */,
 				6423919A1884DE830049BE8B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				642723EB18AC936A002609F4 /* Avatar_Small.png in Resources */,
 				64C6638B186D1EC800B18236 /* Login_LoginButton_Highlight.png in Resources */,
 				64C6638F186D298F00B18236 /* Login_MailTextField.png in Resources */,
 				64C66388186D1C7400B18236 /* Login_PasswordTextField@2x.png in Resources */,
@@ -775,10 +785,12 @@
 				64F05CF8187506C000FB7A3A /* Calibri.ttf in Resources */,
 				64F05CF7187506C000FB7A3A /* Calibri Italic.ttf in Resources */,
 				64635847185B231E00172760 /* Login_Background.png in Resources */,
+				642723EE18ACA54C002609F4 /* CheckMark.png in Resources */,
 				64CD28A618A9FB1E0050BE63 /* MinNa.png in Resources */,
 				641637C918AA0713009A774A /* User.png in Resources */,
 				64CD289B18A9F79B0050BE63 /* TitlePlaceholder@2x.png in Resources */,
 				6463584B185B231E00172760 /* Login_TextField.png in Resources */,
+				642723EF18ACA54C002609F4 /* CheckMark@2x.png in Resources */,
 				64C66390186D298F00B18236 /* Login_MailTextField@2x.png in Resources */,
 				64546E9C1869638D001CCE5B /* HC_Background@2x.png in Resources */,
 			);

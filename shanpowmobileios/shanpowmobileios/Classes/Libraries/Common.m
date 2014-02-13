@@ -74,4 +74,31 @@ BOOL isLogin()
     return image;
 }
 
+- (UIImage *)makeRoundedImageWithRadius:(float)radius
+{
+    CALayer *imageLayer = [CALayer layer];
+    imageLayer.frame = CGRectMake(0, 0, self.size.width, self.size.height);
+    imageLayer.contents = (id)self.CGImage;
+    
+    imageLayer.masksToBounds = YES;
+    imageLayer.cornerRadius = radius;
+    
+    UIGraphicsBeginImageContext(self.size);
+    [imageLayer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *roundedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return roundedImage;
+}
+
++ (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
+{
+    UIGraphicsBeginImageContext( newSize );
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 @end
