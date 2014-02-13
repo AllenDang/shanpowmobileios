@@ -22,12 +22,42 @@
     // Init user interface
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    self.rootController = [[UINavigationController alloc] initWithRootViewController:[[RootViewController alloc] init]];
-    self.window.rootViewController = self.rootController;
+    // Prepare view controllers
+    self.mainMenuController = [[MainMenuViewController alloc] init];
     
+    self.rootController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuController];
+    self.rootController.delegate = self.mainMenuController;
+    
+    self.userController = [[UserProfileViewController alloc] init];
+    self.userController.isSelf = YES;
+    
+    // Prepare tab bar controller
+    UITabBarItem *homeItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[UIImage imageNamed:@"Home"] tag:1];
+    UITabBarItem *userItem = [[UITabBarItem alloc] initWithTitle:@"用户" image:[UIImage imageNamed:@"User"] tag:2];
+    
+    self.rootController.tabBarItem = homeItem;
+    self.userController.tabBarItem = userItem;
+    
+    self.mainTabBar = [[UITabBarController alloc] init];
+    [self.mainTabBar setViewControllers:@[self.rootController, self.userController]];
+    
+    // Add tab bar controller to window
+    self.window.rootViewController = self.mainTabBar;
+    
+    // Customize the appearance of uinavigationbar and uitabbar
     if (isSysVerGTE(7.0)) {
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
         [[UITabBar appearance] setTintColor:UIC_CYAN(1.0)];
+        
+        [self.rootController.navigationBar setBackgroundImage:[UIImage imageWithColor:UIC_CERULEAN(1.0)] forBarMetrics:UIBarMetricsDefault];
+        self.rootController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+        self.rootController.navigationBar.tintColor = [UIColor whiteColor];
+        
+        self.mainTabBar.tabBar.barTintColor = UIC_BRIGHT_GRAY(1.0);
+        [self.mainTabBar.tabBar setTranslucent:NO];
+    } else {
+        self.rootController.navigationBar.barStyle = UIBarStyleDefault;
+        self.rootController.navigationBar.tintColor = [UIColor colorWithWhite:0.3 alpha:1.0];
     }
     
     // WeiboSDK

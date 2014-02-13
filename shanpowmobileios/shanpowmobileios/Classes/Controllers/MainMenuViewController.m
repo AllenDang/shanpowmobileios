@@ -14,7 +14,12 @@
 @property (nonatomic, strong) NSArray *menuItemImages;
 @property (nonatomic, assign) CGFloat cellHeight;
 @property (nonatomic, strong) UITableView *mainMenuTable;
+
+@property (nonatomic, strong) SearchViewController *searchController;
 @property (nonatomic, strong) HotBooksViewController *hotBookController;
+@property (nonatomic, strong) CategoriesViewController *categoriesController;
+
+@property (nonatomic, strong) UIBarButtonItem *searchButton;
 
 @end
 
@@ -33,7 +38,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.title = @"首页";
+    self.title = @"专治书荒";
+    if (isSysVerGTE(7.0)) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     self.view.backgroundColor = UIC_WHISPER(1.0);
     
     self.menuItemTexts = @[@"热门书籍", @"一键治书荒", @"大家都在看", @"书评", @"分类"];
@@ -41,7 +49,7 @@
     
     self.cellHeight = 55.0;
     
-    CGFloat visibleHeight = self.view.bounds.size.height - UINAVIGATIONBAR_HEIGHT - self.tabBarController.tabBar.bounds.size.height;
+    CGFloat visibleHeight = self.view.bounds.size.height - UINAVIGATIONBAR_HEIGHT - UISTATUSBAR_HEIGHT - self.tabBarController.tabBar.bounds.size.height;
     
     self.mainMenuTable = [[UITableView alloc] initWithFrame:CGRectMake(0.0,
                                                                        visibleHeight - [self.menuItemTexts count] * self.cellHeight,
@@ -61,12 +69,46 @@
     UIImageView *titlePlaceholder = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TitlePlaceholder"]];
     titlePlaceholder.frame = CGRectMake(40.0, 60.0, 232.0, 29.0);
     [self.view addSubview:titlePlaceholder];
+    
+    self.searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchView:)];
+    [self.navigationItem setRightBarButtonItem:self.searchButton];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Show sub-level views
+
+- (void)showSearchView:(id)sender
+{
+    self.searchController = [[SearchViewController alloc] init];
+    [self.navigationController pushViewController:self.searchController animated:YES];
+}
+
+- (void)showHotBooks
+{
+    self.hotBookController = [[HotBooksViewController alloc] init];
+    [self.navigationController pushViewController:self.hotBookController animated:YES];
+}
+
+- (void)showCategories
+{
+    self.categoriesController = [[CategoriesViewController alloc] init];
+    [self.navigationController pushViewController:self.categoriesController animated:YES];
+}
+
+#pragma mark - UINavigationController delegate
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if ([viewController isEqual:self]) {
+        self.hidesBottomBarWhenPushed = YES;
+    } else {
+        self.hidesBottomBarWhenPushed = NO;
+    }
 }
 
 
@@ -83,10 +125,11 @@
     
     switch (indexPath.row) {
         case 0:
-            self.hotBookController = [[HotBooksViewController alloc] init];
-            [MAIN_NAVIGATION_CONTROLLER pushViewController:self.hotBookController animated:YES];
+            [self showHotBooks];
             break;
-            
+        case 4:
+            [self showCategories];
+            break;
         default:
             break;
     }

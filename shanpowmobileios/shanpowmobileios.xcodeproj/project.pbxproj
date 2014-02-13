@@ -16,11 +16,16 @@
 		641637D318AB1F32009A774A /* SearchIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 641637D118AB1F32009A774A /* SearchIcon@2x.png */; };
 		641637D618AB201E009A774A /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 641637D518AB201E009A774A /* SearchViewController.m */; };
 		641637E218AB22C0009A774A /* SPLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 641637E118AB22C0009A774A /* SPLabel.m */; };
+		641637E818AB3657009A774A /* CategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 641637E718AB3657009A774A /* CategoriesViewController.m */; };
 		642391951884D4EC0049BE8B /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 642391941884D4EC0049BE8B /* TencentOpenAPI.framework */; };
 		642391971884D5350049BE8B /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 642391961884D5350049BE8B /* libWeiboSDK.a */; };
 		6423919A1884DE830049BE8B /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 642391981884DE6E0049BE8B /* TencentOpenApi_IOS_Bundle.bundle */; };
 		6423919D1884DEBC0049BE8B /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6423919B1884DEBC0049BE8B /* WeiboSDK.bundle */; };
-		642BEB50184DAF5200E1A0B3 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB4F184DAF5200E1A0B3 /* RootViewController.m */; };
+		642723DE18AC5F0C002609F4 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642723DD18AC5F0C002609F4 /* UserProfileViewController.m */; };
+		642723E118AC62BA002609F4 /* Avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723E018AC62BA002609F4 /* Avatar.png */; };
+		642723E518AC6578002609F4 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 642723E418AC6578002609F4 /* UIImage+ImageEffects.m */; };
+		642723E818AC7694002609F4 /* Plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723E618AC7694002609F4 /* Plus.png */; };
+		642723E918AC7694002609F4 /* Plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723E718AC7694002609F4 /* Plus@2x.png */; };
 		642BEB53184DB7FC00E1A0B3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB52184DB7FC00E1A0B3 /* LoginViewController.m */; };
 		642BEB64184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB56184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m */; };
 		642BEB65184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB58184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m */; };
@@ -128,13 +133,20 @@
 		641637D518AB201E009A774A /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		641637E018AB22C0009A774A /* SPLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLabel.h; sourceTree = "<group>"; };
 		641637E118AB22C0009A774A /* SPLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLabel.m; sourceTree = "<group>"; };
+		641637E618AB3657009A774A /* CategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesViewController.h; sourceTree = "<group>"; };
+		641637E718AB3657009A774A /* CategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesViewController.m; sourceTree = "<group>"; };
 		642391941884D4EC0049BE8B /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = shanpowmobileios/Frameworks/TencentOpenAPI.framework; sourceTree = "<group>"; };
 		642391961884D5350049BE8B /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = shanpowmobileios/Frameworks/libWeiboSDK.a; sourceTree = SOURCE_ROOT; };
 		642391981884DE6E0049BE8B /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TencentOpenApi_IOS_Bundle.bundle; path = shanpowmobileios/Frameworks/TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		6423919B1884DEBC0049BE8B /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = WeiboSDK.bundle; path = shanpowmobileios/Frameworks/WeiboSDK.bundle; sourceTree = SOURCE_ROOT; };
 		6423919C1884DEBC0049BE8B /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboSDK.h; path = shanpowmobileios/Frameworks/WeiboSDK.h; sourceTree = SOURCE_ROOT; };
-		642BEB4E184DAF5200E1A0B3 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		642BEB4F184DAF5200E1A0B3 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		642723DC18AC5F0C002609F4 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
+		642723DD18AC5F0C002609F4 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
+		642723E018AC62BA002609F4 /* Avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Avatar.png; sourceTree = "<group>"; };
+		642723E318AC6578002609F4 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		642723E418AC6578002609F4 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		642723E618AC7694002609F4 /* Plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Plus.png; sourceTree = "<group>"; };
+		642723E718AC7694002609F4 /* Plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Plus@2x.png"; sourceTree = "<group>"; };
 		642BEB51184DB7FC00E1A0B3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		642BEB52184DB7FC00E1A0B3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		642BEB55184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -307,6 +319,25 @@
 			path = SPLabel;
 			sourceTree = "<group>";
 		};
+		642723DF18AC62BA002609F4 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				642723E618AC7694002609F4 /* Plus.png */,
+				642723E718AC7694002609F4 /* Plus@2x.png */,
+				642723E018AC62BA002609F4 /* Avatar.png */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		642723E218AC6578002609F4 /* UIImageEffects */ = {
+			isa = PBXGroup;
+			children = (
+				642723E318AC6578002609F4 /* UIImage+ImageEffects.h */,
+				642723E418AC6578002609F4 /* UIImage+ImageEffects.m */,
+			);
+			path = UIImageEffects;
+			sourceTree = "<group>";
+		};
 		642BEB54184DF3F800E1A0B3 /* UIKit+AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,8 +395,6 @@
 		645FB9A7184C2B8B00BB2325 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				642BEB4E184DAF5200E1A0B3 /* RootViewController.h */,
-				642BEB4F184DAF5200E1A0B3 /* RootViewController.m */,
 				642BEB51184DB7FC00E1A0B3 /* LoginViewController.h */,
 				642BEB52184DB7FC00E1A0B3 /* LoginViewController.m */,
 				6461C58418504981006D3736 /* HotBooksViewController.h */,
@@ -380,6 +409,10 @@
 				641637CD18AB061E009A774A /* BookGridViewController.m */,
 				641637D418AB201E009A774A /* SearchViewController.h */,
 				641637D518AB201E009A774A /* SearchViewController.m */,
+				641637E618AB3657009A774A /* CategoriesViewController.h */,
+				641637E718AB3657009A774A /* CategoriesViewController.m */,
+				642723DC18AC5F0C002609F4 /* UserProfileViewController.h */,
+				642723DD18AC5F0C002609F4 /* UserProfileViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -409,6 +442,7 @@
 		645FB9AA184C2BD000BB2325 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				642723E218AC6578002609F4 /* UIImageEffects */,
 				641637DF18AB22C0009A774A /* SPLabel */,
 				6440D73B18606A20008D9C59 /* WeiboSDK */,
 				64FFD938185FEDB6002F93C0 /* Categories */,
@@ -555,6 +589,7 @@
 		64B9A5B9185024C3001D482D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				642723DF18AC62BA002609F4 /* UserProfile */,
 				641637CF18AB1F32009A774A /* Root */,
 				64CD28B018AA01280050BE63 /* Tabbar */,
 				64CD289718A9F68F0050BE63 /* MainMenu */,
@@ -716,16 +751,19 @@
 				641637D218AB1F32009A774A /* SearchIcon.png in Resources */,
 				64F05CF6187506C000FB7A3A /* Calibri Bold.ttf in Resources */,
 				64CD28AF18A9FB980050BE63 /* Category@2x.png in Resources */,
+				642723E118AC62BA002609F4 /* Avatar.png in Resources */,
 				641637CB18AA0769009A774A /* Home_Selected@2x.png in Resources */,
 				641637C818AA0713009A774A /* Home.png in Resources */,
 				64CD28A218A9FA7C0050BE63 /* Wizard.png in Resources */,
 				646132C1184872F300A0BBF0 /* InfoPlist.strings in Resources */,
 				6463584A185B231E00172760 /* Login_LoginButton@2x.png in Resources */,
+				642723E918AC7694002609F4 /* Plus@2x.png in Resources */,
 				64CD289E18A9F9660050BE63 /* Hot.png in Resources */,
 				6423919D1884DEBC0049BE8B /* WeiboSDK.bundle in Resources */,
 				64CD289F18A9F9660050BE63 /* Hot@2x.png in Resources */,
 				64CD28A718A9FB1E0050BE63 /* MinNa@2x.png in Resources */,
 				646132C9184872F300A0BBF0 /* Images.xcassets in Resources */,
+				642723E818AC7694002609F4 /* Plus.png in Resources */,
 				64C66383186D1BE700B18236 /* Login_EmailTextField.png in Resources */,
 				64635849185B231E00172760 /* Login_LoginButton.png in Resources */,
 				64CD28A318A9FA7C0050BE63 /* Wizard@2x.png in Resources */,
@@ -775,9 +813,9 @@
 				642BEB69184DF3F800E1A0B3 /* UIProgressView+AFNetworking.m in Sources */,
 				642C790C1867DDB9007C61AD /* Book.m in Sources */,
 				64A80B0D186813F10039BBA2 /* BookInfoCell.m in Sources */,
+				642723E518AC6578002609F4 /* UIImage+ImageEffects.m in Sources */,
 				646132C7184872F300A0BBF0 /* AppDelegate.m in Sources */,
 				645FB9C1184C2C0C00BB2325 /* AFHTTPSessionManager.m in Sources */,
-				642BEB50184DAF5200E1A0B3 /* RootViewController.m in Sources */,
 				642BEB67184DF3F800E1A0B3 /* UIButton+AFNetworking.m in Sources */,
 				642BEB68184DF3F800E1A0B3 /* UIImageView+AFNetworking.m in Sources */,
 				6440D73718602BEA008D9C59 /* QQLogin.m in Sources */,
@@ -788,11 +826,13 @@
 				642BEB66184DF3F800E1A0B3 /* UIAlertView+AFNetworking.m in Sources */,
 				642BEB6A184DF3F800E1A0B3 /* UIWebView+AFNetworking.m in Sources */,
 				6440D73A1860537A008D9C59 /* QQRegisterViewController.m in Sources */,
+				642723DE18AC5F0C002609F4 /* UserProfileViewController.m in Sources */,
 				649F6EB918A8B8DE00E17B3E /* MainMenuViewController.m in Sources */,
 				6440D74318606DF9008D9C59 /* WeiboLogin.m in Sources */,
 				649311A51862C68C00315DB0 /* BookInfoView.m in Sources */,
 				642BEB65184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				643A0DA8184C65CA00A1FEAF /* Common.m in Sources */,
+				641637E818AB3657009A774A /* CategoriesViewController.m in Sources */,
 				641637E218AB22C0009A774A /* SPLabel.m in Sources */,
 				645FB9C2184C2C0C00BB2325 /* AFNetworkReachabilityManager.m in Sources */,
 				646132C3184872F300A0BBF0 /* main.m in Sources */,

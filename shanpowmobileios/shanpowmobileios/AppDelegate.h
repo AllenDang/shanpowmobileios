@@ -10,14 +10,19 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "Common.h"
 #import "NetworkClient.h"
-#import "RootViewController.h"
 #import "NSData+Base64.h"
 #import "WeiboSDK.h"
 #import "WeiboLogin.h"
+#import "MainMenuViewController.h"
+#import "UserProfileViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (strong, nonatomic) UITabBarController *mainTabBar;
 @property (strong, nonatomic) UINavigationController *rootController;
+@property (strong, nonatomic) MainMenuViewController *mainMenuController;
+@property (strong, nonatomic) UserProfileViewController *userController;
 
 @end

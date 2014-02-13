@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Common.h"
 #import "HotBooksViewController.h"
+#import "CategoriesViewController.h"
+#import "SearchViewController.h"
 
-@interface MainMenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MainMenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate>
 
 @end
