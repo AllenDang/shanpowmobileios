@@ -325,7 +325,7 @@
 {
     self.sendMessageButton.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, 45.0);
     [self.sendMessageButton setBackgroundImage:[UIImage imageWithColor:UIC_CYAN(1.0)] forState:UIControlStateNormal];
-    [self.sendMessageButton setBackgroundImage:[UIImage imageWithColor:UIC_CERULEAN(1.0)] forState:UIControlStateNormal];
+    [self.sendMessageButton setBackgroundImage:[UIImage imageWithColor:UIC_CERULEAN(1.0)] forState:UIControlStateHighlighted];
     [self.sendMessageButton setTitle:@"发消息" forState:UIControlStateNormal];
     [self.sendMessageButton addTarget:self action:@selector(followedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 }
