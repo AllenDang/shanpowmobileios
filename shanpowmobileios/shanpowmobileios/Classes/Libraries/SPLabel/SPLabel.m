@@ -81,4 +81,15 @@
     self.attributedText = string;
 }
 
+- (void)setLineBreakMode:(NSLineBreakMode)lineBreakMode
+{
+    [super setLineBreakMode:lineBreakMode];
+    
+    self.paragraphStyle.lineBreakMode = lineBreakMode;
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
+    [string addAttributes:@{NSParagraphStyleAttributeName: self.paragraphStyle} range:NSMakeRange(0, self.text.length)];
+    self.attributedText = string;
+}
+
 @end
