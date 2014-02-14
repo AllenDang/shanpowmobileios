@@ -98,7 +98,6 @@
 {
     NSDictionary *userInfo = [notification userInfo];
     CGRect keyboardBounds = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    NSLog(@"%f", keyboardBounds.size.height);
     
     [UIView animateWithDuration:0.25 animations:^{
         self.booklistDescriptionTextView.frame = CGRectMake(self.booklistDescriptionTextView.frame.origin.x,

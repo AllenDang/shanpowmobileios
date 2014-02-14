@@ -29,6 +29,10 @@
 		642723EB18AC936A002609F4 /* Avatar_Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723EA18AC936A002609F4 /* Avatar_Small.png */; };
 		642723EE18ACA54C002609F4 /* CheckMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723EC18ACA54C002609F4 /* CheckMark.png */; };
 		642723EF18ACA54C002609F4 /* CheckMark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723ED18ACA54C002609F4 /* CheckMark@2x.png */; };
+		642723F218ACBE2C002609F4 /* CreateBookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642723F118ACBE2C002609F4 /* CreateBookListViewController.m */; };
+		642723F618ACC3F0002609F4 /* Dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723F418ACC3F0002609F4 /* Dot.png */; };
+		642723F718ACC3F0002609F4 /* Dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723F518ACC3F0002609F4 /* Dot@2x.png */; };
+		642723FB18ACCA3A002609F4 /* SPTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 642723FA18ACCA3A002609F4 /* SPTextView.m */; };
 		642BEB53184DB7FC00E1A0B3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB52184DB7FC00E1A0B3 /* LoginViewController.m */; };
 		642BEB64184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB56184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m */; };
 		642BEB65184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB58184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m */; };
@@ -106,6 +110,12 @@
 		64CD28AE18A9FB980050BE63 /* Category.png in Resources */ = {isa = PBXBuildFile; fileRef = 64CD28AC18A9FB980050BE63 /* Category.png */; };
 		64CD28AF18A9FB980050BE63 /* Category@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64CD28AD18A9FB980050BE63 /* Category@2x.png */; };
 		64CD28B218AA01280050BE63 /* Home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64CD28B118AA01280050BE63 /* Home@2x.png */; };
+		64D35F4218ADC2B900999CED /* WriteCommentReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D35F4118ADC2B900999CED /* WriteCommentReviewViewController.m */; };
+		64D35F4618ADCE0800999CED /* AMRatingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D35F4518ADCE0800999CED /* AMRatingControl.m */; };
+		64D35F4B18ADF09E00999CED /* Star_Gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4718ADF09E00999CED /* Star_Gray.png */; };
+		64D35F4C18ADF09E00999CED /* Star_Gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4818ADF09E00999CED /* Star_Gray@2x.png */; };
+		64D35F4D18ADF09E00999CED /* Star_Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4918ADF09E00999CED /* Star_Red.png */; };
+		64D35F4E18ADF09E00999CED /* Star_Red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4A18ADF09E00999CED /* Star_Red@2x.png */; };
 		64F05CF5187506C000FB7A3A /* Calibri Bold Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */; };
 		64F05CF6187506C000FB7A3A /* Calibri Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */; };
 		64F05CF7187506C000FB7A3A /* Calibri Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */; };
@@ -153,6 +163,12 @@
 		642723EA18AC936A002609F4 /* Avatar_Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Avatar_Small.png; sourceTree = "<group>"; };
 		642723EC18ACA54C002609F4 /* CheckMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CheckMark.png; sourceTree = "<group>"; };
 		642723ED18ACA54C002609F4 /* CheckMark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CheckMark@2x.png"; sourceTree = "<group>"; };
+		642723F018ACBE2C002609F4 /* CreateBookListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateBookListViewController.h; sourceTree = "<group>"; };
+		642723F118ACBE2C002609F4 /* CreateBookListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateBookListViewController.m; sourceTree = "<group>"; };
+		642723F418ACC3F0002609F4 /* Dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dot.png; sourceTree = "<group>"; };
+		642723F518ACC3F0002609F4 /* Dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dot@2x.png"; sourceTree = "<group>"; };
+		642723F918ACCA3A002609F4 /* SPTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPTextView.h; path = SPTextView/SPTextView.h; sourceTree = "<group>"; };
+		642723FA18ACCA3A002609F4 /* SPTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPTextView.m; path = SPTextView/SPTextView.m; sourceTree = "<group>"; };
 		642BEB51184DB7FC00E1A0B3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		642BEB52184DB7FC00E1A0B3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		642BEB55184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -266,6 +282,14 @@
 		64CD28AC18A9FB980050BE63 /* Category.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Category.png; sourceTree = "<group>"; };
 		64CD28AD18A9FB980050BE63 /* Category@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Category@2x.png"; sourceTree = "<group>"; };
 		64CD28B118AA01280050BE63 /* Home@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home@2x.png"; sourceTree = "<group>"; };
+		64D35F4018ADC2B900999CED /* WriteCommentReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteCommentReviewViewController.h; sourceTree = "<group>"; };
+		64D35F4118ADC2B900999CED /* WriteCommentReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteCommentReviewViewController.m; sourceTree = "<group>"; };
+		64D35F4418ADCE0800999CED /* AMRatingControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMRatingControl.h; sourceTree = "<group>"; };
+		64D35F4518ADCE0800999CED /* AMRatingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMRatingControl.m; sourceTree = "<group>"; };
+		64D35F4718ADF09E00999CED /* Star_Gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star_Gray.png; sourceTree = "<group>"; };
+		64D35F4818ADF09E00999CED /* Star_Gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Gray@2x.png"; sourceTree = "<group>"; };
+		64D35F4918ADF09E00999CED /* Star_Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star_Red.png; sourceTree = "<group>"; };
+		64D35F4A18ADF09E00999CED /* Star_Red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Red@2x.png"; sourceTree = "<group>"; };
 		64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold Italic.ttf"; sourceTree = "<group>"; };
 		64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold.ttf"; sourceTree = "<group>"; };
 		64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Italic.ttf"; sourceTree = "<group>"; };
@@ -347,6 +371,28 @@
 			path = UIImageEffects;
 			sourceTree = "<group>";
 		};
+		642723F318ACC3F0002609F4 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				64D35F4718ADF09E00999CED /* Star_Gray.png */,
+				64D35F4818ADF09E00999CED /* Star_Gray@2x.png */,
+				64D35F4918ADF09E00999CED /* Star_Red.png */,
+				64D35F4A18ADF09E00999CED /* Star_Red@2x.png */,
+				642723F418ACC3F0002609F4 /* Dot.png */,
+				642723F518ACC3F0002609F4 /* Dot@2x.png */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		642723F818ACCA09002609F4 /* SPTextView */ = {
+			isa = PBXGroup;
+			children = (
+				642723F918ACCA3A002609F4 /* SPTextView.h */,
+				642723FA18ACCA3A002609F4 /* SPTextView.m */,
+			);
+			name = SPTextView;
+			sourceTree = "<group>";
+		};
 		642BEB54184DF3F800E1A0B3 /* UIKit+AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,6 +468,10 @@
 				641637E718AB3657009A774A /* CategoriesViewController.m */,
 				642723DC18AC5F0C002609F4 /* UserProfileViewController.h */,
 				642723DD18AC5F0C002609F4 /* UserProfileViewController.m */,
+				642723F018ACBE2C002609F4 /* CreateBookListViewController.h */,
+				642723F118ACBE2C002609F4 /* CreateBookListViewController.m */,
+				64D35F4018ADC2B900999CED /* WriteCommentReviewViewController.h */,
+				64D35F4118ADC2B900999CED /* WriteCommentReviewViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -451,6 +501,8 @@
 		645FB9AA184C2BD000BB2325 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				64D35F4318ADCE0800999CED /* AMRatingControl */,
+				642723F818ACCA09002609F4 /* SPTextView */,
 				642723E218AC6578002609F4 /* UIImageEffects */,
 				641637DF18AB22C0009A774A /* SPLabel */,
 				6440D73B18606A20008D9C59 /* WeiboSDK */,
@@ -598,6 +650,7 @@
 		64B9A5B9185024C3001D482D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				642723F318ACC3F0002609F4 /* Common */,
 				642723DF18AC62BA002609F4 /* UserProfile */,
 				641637CF18AB1F32009A774A /* Root */,
 				64CD28B018AA01280050BE63 /* Tabbar */,
@@ -637,6 +690,15 @@
 				64CD28B118AA01280050BE63 /* Home@2x.png */,
 			);
 			path = Tabbar;
+			sourceTree = "<group>";
+		};
+		64D35F4318ADCE0800999CED /* AMRatingControl */ = {
+			isa = PBXGroup;
+			children = (
+				64D35F4418ADCE0800999CED /* AMRatingControl.h */,
+				64D35F4518ADCE0800999CED /* AMRatingControl.m */,
+			);
+			path = AMRatingControl;
 			sourceTree = "<group>";
 		};
 		64F05CEF187506C000FB7A3A /* Fonts */ = {
@@ -745,6 +807,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				64CD289918A9F68F0050BE63 /* TitlePlaceholder.png in Resources */,
+				642723F618ACC3F0002609F4 /* Dot.png in Resources */,
+				64D35F4C18ADF09E00999CED /* Star_Gray@2x.png in Resources */,
 				6423919A1884DE830049BE8B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				642723EB18AC936A002609F4 /* Avatar_Small.png in Resources */,
 				64C6638B186D1EC800B18236 /* Login_LoginButton_Highlight.png in Resources */,
@@ -755,6 +819,7 @@
 				64C6638C186D1EC800B18236 /* Login_LoginButton_Highlight@2x.png in Resources */,
 				64C66387186D1C7400B18236 /* Login_PasswordTextField.png in Resources */,
 				641637D318AB1F32009A774A /* SearchIcon@2x.png in Resources */,
+				642723F718ACC3F0002609F4 /* Dot@2x.png in Resources */,
 				64CD28AE18A9FB980050BE63 /* Category.png in Resources */,
 				64C66384186D1BE700B18236 /* Login_EmailTextField@2x.png in Resources */,
 				64635848185B231E00172760 /* Login_Background@2x.png in Resources */,
@@ -766,6 +831,7 @@
 				641637C818AA0713009A774A /* Home.png in Resources */,
 				64CD28A218A9FA7C0050BE63 /* Wizard.png in Resources */,
 				646132C1184872F300A0BBF0 /* InfoPlist.strings in Resources */,
+				64D35F4B18ADF09E00999CED /* Star_Gray.png in Resources */,
 				6463584A185B231E00172760 /* Login_LoginButton@2x.png in Resources */,
 				642723E918AC7694002609F4 /* Plus@2x.png in Resources */,
 				64CD289E18A9F9660050BE63 /* Hot.png in Resources */,
@@ -777,6 +843,7 @@
 				64C66383186D1BE700B18236 /* Login_EmailTextField.png in Resources */,
 				64635849185B231E00172760 /* Login_LoginButton.png in Resources */,
 				64CD28A318A9FA7C0050BE63 /* Wizard@2x.png in Resources */,
+				64D35F4D18ADF09E00999CED /* Star_Red.png in Resources */,
 				64CD28B218AA01280050BE63 /* Home@2x.png in Resources */,
 				64F05CF5187506C000FB7A3A /* Calibri Bold Italic.ttf in Resources */,
 				64CD28AB18A9FB580050BE63 /* Review@2x.png in Resources */,
@@ -790,6 +857,7 @@
 				641637C918AA0713009A774A /* User.png in Resources */,
 				64CD289B18A9F79B0050BE63 /* TitlePlaceholder@2x.png in Resources */,
 				6463584B185B231E00172760 /* Login_TextField.png in Resources */,
+				64D35F4E18ADF09E00999CED /* Star_Red@2x.png in Resources */,
 				642723EF18ACA54C002609F4 /* CheckMark@2x.png in Resources */,
 				64C66390186D298F00B18236 /* Login_MailTextField@2x.png in Resources */,
 				64546E9C1869638D001CCE5B /* HC_Background@2x.png in Resources */,
@@ -818,10 +886,12 @@
 				645FB9BF184C2C0C00BB2325 /* AFHTTPRequestOperation.m in Sources */,
 				64641084186AA57F005D92F3 /* NSStringCategory.m in Sources */,
 				642BEB64184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				64D35F4218ADC2B900999CED /* WriteCommentReviewViewController.m in Sources */,
 				645FB9C7184C2C0C00BB2325 /* AFURLSessionManager.m in Sources */,
 				641637CE18AB061E009A774A /* BookGridViewController.m in Sources */,
 				645FB9C6184C2C0C00BB2325 /* AFURLResponseSerialization.m in Sources */,
 				649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */,
+				64D35F4618ADCE0800999CED /* AMRatingControl.m in Sources */,
 				642BEB69184DF3F800E1A0B3 /* UIProgressView+AFNetworking.m in Sources */,
 				642C790C1867DDB9007C61AD /* Book.m in Sources */,
 				64A80B0D186813F10039BBA2 /* BookInfoCell.m in Sources */,
@@ -829,9 +899,11 @@
 				646132C7184872F300A0BBF0 /* AppDelegate.m in Sources */,
 				645FB9C1184C2C0C00BB2325 /* AFHTTPSessionManager.m in Sources */,
 				642BEB67184DF3F800E1A0B3 /* UIButton+AFNetworking.m in Sources */,
+				642723FB18ACCA3A002609F4 /* SPTextView.m in Sources */,
 				642BEB68184DF3F800E1A0B3 /* UIImageView+AFNetworking.m in Sources */,
 				6440D73718602BEA008D9C59 /* QQLogin.m in Sources */,
 				645FB9C0184C2C0C00BB2325 /* AFHTTPRequestOperationManager.m in Sources */,
+				642723F218ACBE2C002609F4 /* CreateBookListViewController.m in Sources */,
 				641637D618AB201E009A774A /* SearchViewController.m in Sources */,
 				6461C58618504981006D3736 /* HotBooksViewController.m in Sources */,
 				646529B5184C617000C3D613 /* NetworkClient.m in Sources */,

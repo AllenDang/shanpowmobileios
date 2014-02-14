@@ -103,7 +103,7 @@
 
 - (void)showWizard
 {
-    CreateBookListViewController *cbl = [[CreateBookListViewController alloc] init];
+    WriteCommentReviewViewController *cbl = [[WriteCommentReviewViewController alloc] init];
     [self.navigationController pushViewController:cbl animated:YES];
 }
 

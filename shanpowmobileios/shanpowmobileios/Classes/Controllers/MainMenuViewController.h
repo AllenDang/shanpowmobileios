@@ -11,7 +11,7 @@
 #import "HotBooksViewController.h"
 #import "CategoriesViewController.h"
 #import "SearchViewController.h"
-#import "CreateBookListViewController.h"
+#import "WriteCommentReviewViewController.h"
 
 @interface MainMenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
