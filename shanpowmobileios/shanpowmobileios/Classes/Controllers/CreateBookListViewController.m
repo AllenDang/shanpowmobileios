@@ -10,8 +10,8 @@
 
 @interface CreateBookListViewController ()
 
-@property (nonatomic, strong) UITextField *booklistTitle;
-@property (nonatomic, strong) SPTextView *booklistDescription;
+@property (nonatomic, strong) UITextField *booklistTitleTextView;
+@property (nonatomic, strong) SPTextView *booklistDescriptionTextView;
 @property (nonatomic, strong) UIBarButtonItem *done;
 
 @end
@@ -38,30 +38,30 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    self.done = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(doneCreateBookList)];
+    self.done = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(doneCreateBookList:)];
     [self.navigationItem setRightBarButtonItem:self.done];
     
-    self.booklistTitle = [[UITextField alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.bounds.size.width - 20, 40.0)];
-    self.booklistTitle.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"书单名（必填）"
+    self.booklistTitleTextView = [[UITextField alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.bounds.size.width - 20, 40.0)];
+    self.booklistTitleTextView.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"书单名（必填）"
                                                                                attributes:@{NSForegroundColorAttributeName: UIC_BRIGHT_GRAY(0.3)}];
-    self.booklistTitle.font = MEDIUM_FONT;
-    [self.view addSubview:self.booklistTitle];
+    self.booklistTitleTextView.font = MEDIUM_FONT;
+    [self.view addSubview:self.booklistTitleTextView];
     
-    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.booklistTitle.bounds.size.height, self.view.bounds.size.width, 1.0)];
+    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.booklistTitleTextView.bounds.size.height, self.view.bounds.size.width, 1.0)];
     divider.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Dot"]];
     divider.alpha = 0.2;
     [self.view addSubview:divider];
     
-    self.booklistDescription = [[SPTextView alloc] initWithFrame:CGRectMake(5.0,
-                                                                            self.booklistTitle.frame.size.height + 5.0,
+    self.booklistDescriptionTextView = [[SPTextView alloc] initWithFrame:CGRectMake(5.0,
+                                                                            self.booklistTitleTextView.frame.size.height + 5.0,
                                                                             self.view.bounds.size.width - 10,
-                                                                            self.view.bounds.size.height - self.booklistTitle.frame.size.height - self.tabBarController.tabBar.frame.size.height - UINAVIGATIONBAR_HEIGHT - UISTATUSBAR_HEIGHT - 10)];
-    self.booklistDescription.placeholder = @"书单描述（可选）";
-    self.booklistDescription.placeholderColor = UIC_BRIGHT_GRAY(0.3);
-    self.booklistDescription.font = MEDIUM_FONT;
-    self.booklistDescription.backgroundColor = UIC_WHISPER(1.0);
-    self.booklistDescription.delegate = self;
-    [self.view addSubview:self.booklistDescription];
+                                                                            self.view.bounds.size.height - self.booklistTitleTextView.frame.size.height - self.tabBarController.tabBar.frame.size.height - UINAVIGATIONBAR_HEIGHT - UISTATUSBAR_HEIGHT - 10)];
+    self.booklistDescriptionTextView.placeholder = @"书单描述（可选）";
+    self.booklistDescriptionTextView.placeholderColor = UIC_BRIGHT_GRAY(0.3);
+    self.booklistDescriptionTextView.font = MEDIUM_FONT;
+    self.booklistDescriptionTextView.backgroundColor = [UIColor clearColor];
+    self.booklistDescriptionTextView.delegate = self;
+    [self.view addSubview:self.booklistDescriptionTextView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -73,7 +73,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)doneCreateBookList
+- (void)doneCreateBookList:(UIBarButtonItem *)sender
 {
     
 }
@@ -85,12 +85,12 @@
     CGRect keyboardBounds = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     [UIView animateWithDuration:0.25 animations:^{
-        self.booklistDescription.frame = CGRectMake(self.booklistDescription.frame.origin.x,
-                                                    self.booklistDescription.frame.origin.y,
-                                                    self.booklistDescription.frame.size.width,
-                                                    self.booklistDescription.frame.size.height - keyboardBounds.size.height + self.tabBarController.tabBar.frame.size.height);
+        self.booklistDescriptionTextView.frame = CGRectMake(self.booklistDescriptionTextView.frame.origin.x,
+                                                    self.booklistDescriptionTextView.frame.origin.y,
+                                                    self.booklistDescriptionTextView.frame.size.width,
+                                                    self.booklistDescriptionTextView.frame.size.height - keyboardBounds.size.height + self.tabBarController.tabBar.frame.size.height);
     } completion:^(BOOL finished) {
-        [self.booklistDescription scrollRangeToVisible:NSMakeRange((self.booklistDescription.text.length > 0 ? self.booklistDescription.text.length : 0), 0)];
+        [self.booklistDescriptionTextView scrollRangeToVisible:NSMakeRange((self.booklistDescriptionTextView.text.length > 0 ? self.booklistDescriptionTextView.text.length : 0), 0)];
     }];
 }
 
@@ -101,10 +101,10 @@
     NSLog(@"%f", keyboardBounds.size.height);
     
     [UIView animateWithDuration:0.25 animations:^{
-        self.booklistDescription.frame = CGRectMake(self.booklistDescription.frame.origin.x,
-                                                    self.booklistDescription.frame.origin.y,
-                                                    self.booklistDescription.frame.size.width,
-                                                    self.booklistDescription.frame.size.height + keyboardBounds.size.height - self.tabBarController.tabBar.frame.size.height);
+        self.booklistDescriptionTextView.frame = CGRectMake(self.booklistDescriptionTextView.frame.origin.x,
+                                                    self.booklistDescriptionTextView.frame.origin.y,
+                                                    self.booklistDescriptionTextView.frame.size.width,
+                                                    self.booklistDescriptionTextView.frame.size.height + keyboardBounds.size.height - self.tabBarController.tabBar.frame.size.height);
     } completion:^(BOOL finished) {
         
     }];
