@@ -1,0 +1,134 @@
+//
+//  CreateBookListViewController.m
+//  shanpowmobileios
+//
+//  Created by Marvin Gu on 14-2-13.
+//  Copyright (c) 2014年 木一. All rights reserved.
+//
+
+#import "CreateBookListViewController.h"
+
+@interface CreateBookListViewController ()
+
+@property (nonatomic, strong) UITextField *booklistTitle;
+@property (nonatomic, strong) SPTextView *booklistDescription;
+@property (nonatomic, strong) UIBarButtonItem *done;
+
+@end
+
+@implementation CreateBookListViewController
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
+    self.title = @"创建书单";
+    self.view.backgroundColor = UIC_ALMOSTWHITE(1.0);
+    
+    if (isSysVerGTE(7.0)) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+    
+    self.done = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(doneCreateBookList)];
+    [self.navigationItem setRightBarButtonItem:self.done];
+    
+    self.booklistTitle = [[UITextField alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.bounds.size.width - 20, 40.0)];
+    self.booklistTitle.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"书单名（必填）"
+                                                                               attributes:@{NSForegroundColorAttributeName: UIC_BRIGHT_GRAY(0.3)}];
+    self.booklistTitle.font = MEDIUM_FONT;
+    [self.view addSubview:self.booklistTitle];
+    
+    UIView *divider = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.booklistTitle.bounds.size.height, self.view.bounds.size.width, 1.0)];
+    divider.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Dot"]];
+    divider.alpha = 0.2;
+    [self.view addSubview:divider];
+    
+    self.booklistDescription = [[SPTextView alloc] initWithFrame:CGRectMake(5.0,
+                                                                            self.booklistTitle.frame.size.height + 5.0,
+                                                                            self.view.bounds.size.width - 10,
+                                                                            self.view.bounds.size.height - self.booklistTitle.frame.size.height - self.tabBarController.tabBar.frame.size.height - UINAVIGATIONBAR_HEIGHT - UISTATUSBAR_HEIGHT - 10)];
+    self.booklistDescription.placeholder = @"书单描述（可选）";
+    self.booklistDescription.placeholderColor = UIC_BRIGHT_GRAY(0.3);
+    self.booklistDescription.font = MEDIUM_FONT;
+    self.booklistDescription.backgroundColor = UIC_WHISPER(1.0);
+    self.booklistDescription.delegate = self;
+    [self.view addSubview:self.booklistDescription];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)doneCreateBookList
+{
+    
+}
+
+#pragma mark - Event handler
+- (void)handleKeyboardWillShow:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    CGRect keyboardBounds = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.booklistDescription.frame = CGRectMake(self.booklistDescription.frame.origin.x,
+                                                    self.booklistDescription.frame.origin.y,
+                                                    self.booklistDescription.frame.size.width,
+                                                    self.booklistDescription.frame.size.height - keyboardBounds.size.height + self.tabBarController.tabBar.frame.size.height);
+    } completion:^(BOOL finished) {
+        [self.booklistDescription scrollRangeToVisible:NSMakeRange((self.booklistDescription.text.length > 0 ? self.booklistDescription.text.length : 0), 0)];
+    }];
+}
+
+- (void)handleKeyboardWillHide:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    CGRect keyboardBounds = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSLog(@"%f", keyboardBounds.size.height);
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.booklistDescription.frame = CGRectMake(self.booklistDescription.frame.origin.x,
+                                                    self.booklistDescription.frame.origin.y,
+                                                    self.booklistDescription.frame.size.width,
+                                                    self.booklistDescription.frame.size.height + keyboardBounds.size.height - self.tabBarController.tabBar.frame.size.height);
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+#pragma mark - UITextView delegate
+- (BOOL)textView:(UITextView *)tView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    CGRect textRect = [tView.layoutManager usedRectForTextContainer:tView.textContainer];
+    CGFloat sizeAdjustment = tView.font.lineHeight * [UIScreen mainScreen].scale;
+    
+    if (textRect.size.height >= tView.frame.size.height - sizeAdjustment) {
+        if ([text isEqualToString:@"\n"]) {
+            [UIView animateWithDuration:0.2 animations:^{
+                [tView setContentOffset:CGPointMake(tView.contentOffset.x, tView.contentOffset.y + sizeAdjustment)];
+            }];
+        }
+    }
+    
+    return YES;
+}
+
+- (void)textViewDidChangeSelection:(UITextView *)textView {
+    [textView scrollRangeToVisible:textView.selectedRange];
+}
+
+@end

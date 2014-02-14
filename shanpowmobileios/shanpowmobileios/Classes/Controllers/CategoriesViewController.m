@@ -34,7 +34,9 @@
     
     self.title = @"分类";
     self.view.backgroundColor = UIC_ALMOSTWHITE(1.0);
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    if (isSysVerGTE(7.0)) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     
     self.cellHeight = MAX((self.view.bounds.size.height - UINAVIGATIONBAR_HEIGHT) / (int)(([self.categories count] + 1) / 2), 60.0);
     
@@ -104,6 +106,7 @@
         leftButton.frame = CGRectMake(0.0, 0.0, cell.bounds.size.width / 2, self.cellHeight);
         leftButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         leftButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 0.0, 0.0);
+        leftButton.backgroundColor = [UIColor clearColor];
         [leftButton setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor]] forState:UIControlStateNormal];
         [leftButton setBackgroundImage:[UIImage imageWithColor:UIC_BRIGHT_GRAY(0.1)] forState:UIControlStateHighlighted];
         [leftButton setTitle:[self.categories objectAtIndex:indexPath.row * 2] forState:UIControlStateNormal];
@@ -116,6 +119,7 @@
         rightButton.frame = CGRectMake(cell.bounds.size.width / 2, 0.0, cell.bounds.size.width / 2, self.cellHeight);
         rightButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         rightButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 20.0, 0.0, 0.0);
+        rightButton.backgroundColor = [UIColor clearColor];
         [rightButton setBackgroundImage:[UIImage imageWithColor:[UIColor clearColor]] forState:UIControlStateNormal];
         [rightButton setBackgroundImage:[UIImage imageWithColor:UIC_BRIGHT_GRAY(0.1)] forState:UIControlStateHighlighted];
         [rightButton setTitle:[self.categories objectAtIndex:indexPath.row * 2 + 1] forState:UIControlStateNormal];

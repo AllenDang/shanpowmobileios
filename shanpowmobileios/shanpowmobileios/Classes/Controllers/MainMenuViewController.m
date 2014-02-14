@@ -50,6 +50,9 @@
     self.cellHeight = 55.0;
     
     CGFloat visibleHeight = self.view.bounds.size.height - UINAVIGATIONBAR_HEIGHT - UISTATUSBAR_HEIGHT - self.tabBarController.tabBar.bounds.size.height;
+    if (!isSysVerGTE(7.0)) {
+        visibleHeight += UISTATUSBAR_HEIGHT;
+    }
     
     self.mainMenuTable = [[UITableView alloc] initWithFrame:CGRectMake(0.0,
                                                                        visibleHeight - [self.menuItemTexts count] * self.cellHeight,
@@ -98,6 +101,12 @@
     [self.navigationController pushViewController:self.hotBookController animated:YES];
 }
 
+- (void)showWizard
+{
+    CreateBookListViewController *cbl = [[CreateBookListViewController alloc] init];
+    [self.navigationController pushViewController:cbl animated:YES];
+}
+
 - (void)showCategories
 {
     self.categoriesController = [[CategoriesViewController alloc] init];
@@ -119,6 +128,9 @@
     switch (indexPath.row) {
         case 0:
             [self showHotBooks];
+            break;
+        case 1:
+            [self showWizard];
             break;
         case 4:
             [self showCategories];
