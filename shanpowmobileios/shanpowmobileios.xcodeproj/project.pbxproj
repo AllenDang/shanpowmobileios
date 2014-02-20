@@ -22,11 +22,9 @@
 		6423919A1884DE830049BE8B /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 642391981884DE6E0049BE8B /* TencentOpenApi_IOS_Bundle.bundle */; };
 		6423919D1884DEBC0049BE8B /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6423919B1884DEBC0049BE8B /* WeiboSDK.bundle */; };
 		642723DE18AC5F0C002609F4 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642723DD18AC5F0C002609F4 /* UserProfileViewController.m */; };
-		642723E118AC62BA002609F4 /* Avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723E018AC62BA002609F4 /* Avatar.png */; };
 		642723E518AC6578002609F4 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 642723E418AC6578002609F4 /* UIImage+ImageEffects.m */; };
 		642723E818AC7694002609F4 /* Plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723E618AC7694002609F4 /* Plus.png */; };
 		642723E918AC7694002609F4 /* Plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723E718AC7694002609F4 /* Plus@2x.png */; };
-		642723EB18AC936A002609F4 /* Avatar_Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723EA18AC936A002609F4 /* Avatar_Small.png */; };
 		642723EE18ACA54C002609F4 /* CheckMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723EC18ACA54C002609F4 /* CheckMark.png */; };
 		642723EF18ACA54C002609F4 /* CheckMark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723ED18ACA54C002609F4 /* CheckMark@2x.png */; };
 		642723F218ACBE2C002609F4 /* CreateBookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642723F118ACBE2C002609F4 /* CreateBookListViewController.m */; };
@@ -53,6 +51,8 @@
 		6440D73718602BEA008D9C59 /* QQLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D73618602BEA008D9C59 /* QQLogin.m */; };
 		6440D73A1860537A008D9C59 /* QQRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D7391860537A008D9C59 /* QQRegisterViewController.m */; };
 		6440D74318606DF9008D9C59 /* WeiboLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D74218606DF9008D9C59 /* WeiboLogin.m */; };
+		6441B9DA18B373180061D00C /* DefaultUser50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6441B9D918B373180061D00C /* DefaultUser50@2x.png */; };
+		6441B9DC18B373240061D00C /* DefaultUser50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6441B9DB18B373240061D00C /* DefaultUser50.png */; };
 		64546E9B1869638D001CCE5B /* HC_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 64546E991869638D001CCE5B /* HC_Background.png */; };
 		64546E9C1869638D001CCE5B /* HC_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64546E9A1869638D001CCE5B /* HC_Background@2x.png */; };
 		645FB9BF184C2C0C00BB2325 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9AD184C2C0C00BB2325 /* AFHTTPRequestOperation.m */; };
@@ -85,6 +85,9 @@
 		6463584C185B231E00172760 /* Login_TextField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64635846185B231E00172760 /* Login_TextField@2x.png */; };
 		64641084186AA57F005D92F3 /* NSStringCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 64641083186AA57F005D92F3 /* NSStringCategory.m */; };
 		646529B5184C617000C3D613 /* NetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 646529B4184C617000C3D613 /* NetworkClient.m */; };
+		6468EFEE18B2F7D600A9DA92 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6468EFED18B2F7D600A9DA92 /* SearchResultViewController.m */; };
+		6468EFF118B3014F00A9DA92 /* BooklistGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6468EFF018B3014F00A9DA92 /* BooklistGridViewController.m */; };
+		6468EFF418B3029100A9DA92 /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6468EFF318B3029100A9DA92 /* UserListViewController.m */; };
 		649311A51862C68C00315DB0 /* BookInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649311A41862C68C00315DB0 /* BookInfoView.m */; };
 		649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649BA57C185AA6350096DD8D /* RegisterViewController.m */; };
 		649F6EB918A8B8DE00E17B3E /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */; };
@@ -120,6 +123,7 @@
 		64F05CF6187506C000FB7A3A /* Calibri Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */; };
 		64F05CF7187506C000FB7A3A /* Calibri Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */; };
 		64F05CF8187506C000FB7A3A /* Calibri.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF4187506C000FB7A3A /* Calibri.ttf */; };
+		64FC60CE18B59B3800D7D8E6 /* BookDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64FC60CD18B59B3800D7D8E6 /* BookDetailViewController.m */; };
 		64FFD93B185FEDD2002F93C0 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 64FFD93A185FEDD2002F93C0 /* NSData+Base64.m */; };
 /* End PBXBuildFile section */
 
@@ -155,12 +159,10 @@
 		6423919C1884DEBC0049BE8B /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboSDK.h; path = shanpowmobileios/Frameworks/WeiboSDK.h; sourceTree = SOURCE_ROOT; };
 		642723DC18AC5F0C002609F4 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
 		642723DD18AC5F0C002609F4 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
-		642723E018AC62BA002609F4 /* Avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Avatar.png; sourceTree = "<group>"; };
 		642723E318AC6578002609F4 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		642723E418AC6578002609F4 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		642723E618AC7694002609F4 /* Plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Plus.png; sourceTree = "<group>"; };
 		642723E718AC7694002609F4 /* Plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Plus@2x.png"; sourceTree = "<group>"; };
-		642723EA18AC936A002609F4 /* Avatar_Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Avatar_Small.png; sourceTree = "<group>"; };
 		642723EC18ACA54C002609F4 /* CheckMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CheckMark.png; sourceTree = "<group>"; };
 		642723ED18ACA54C002609F4 /* CheckMark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CheckMark@2x.png"; sourceTree = "<group>"; };
 		642723F018ACBE2C002609F4 /* CreateBookListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateBookListViewController.h; sourceTree = "<group>"; };
@@ -204,6 +206,8 @@
 		6440D7391860537A008D9C59 /* QQRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQRegisterViewController.m; sourceTree = "<group>"; };
 		6440D74118606DF9008D9C59 /* WeiboLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboLogin.h; sourceTree = "<group>"; };
 		6440D74218606DF9008D9C59 /* WeiboLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiboLogin.m; sourceTree = "<group>"; };
+		6441B9D918B373180061D00C /* DefaultUser50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DefaultUser50@2x.png"; sourceTree = "<group>"; };
+		6441B9DB18B373240061D00C /* DefaultUser50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultUser50.png; sourceTree = "<group>"; };
 		64546E991869638D001CCE5B /* HC_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HC_Background.png; sourceTree = "<group>"; };
 		64546E9A1869638D001CCE5B /* HC_Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HC_Background@2x.png"; sourceTree = "<group>"; };
 		645FB9AC184C2C0C00BB2325 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -253,6 +257,12 @@
 		64641083186AA57F005D92F3 /* NSStringCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringCategory.m; sourceTree = "<group>"; };
 		646529B3184C617000C3D613 /* NetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkClient.h; sourceTree = "<group>"; };
 		646529B4184C617000C3D613 /* NetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkClient.m; sourceTree = "<group>"; };
+		6468EFEC18B2F7D600A9DA92 /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
+		6468EFED18B2F7D600A9DA92 /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
+		6468EFEF18B3014F00A9DA92 /* BooklistGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistGridViewController.h; sourceTree = "<group>"; };
+		6468EFF018B3014F00A9DA92 /* BooklistGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooklistGridViewController.m; sourceTree = "<group>"; };
+		6468EFF218B3029100A9DA92 /* UserListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListViewController.h; sourceTree = "<group>"; };
+		6468EFF318B3029100A9DA92 /* UserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewController.m; sourceTree = "<group>"; };
 		649311A31862C68C00315DB0 /* BookInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoView.h; sourceTree = "<group>"; };
 		649311A41862C68C00315DB0 /* BookInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoView.m; sourceTree = "<group>"; };
 		649BA57B185AA6350096DD8D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -294,6 +304,8 @@
 		64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold.ttf"; sourceTree = "<group>"; };
 		64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Italic.ttf"; sourceTree = "<group>"; };
 		64F05CF4187506C000FB7A3A /* Calibri.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Calibri.ttf; sourceTree = "<group>"; };
+		64FC60CC18B59B3800D7D8E6 /* BookDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookDetailViewController.h; sourceTree = "<group>"; };
+		64FC60CD18B59B3800D7D8E6 /* BookDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookDetailViewController.m; sourceTree = "<group>"; };
 		64FFD939185FEDD2002F93C0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		64FFD93A185FEDD2002F93C0 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -352,10 +364,10 @@
 		642723DF18AC62BA002609F4 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
+				6441B9DB18B373240061D00C /* DefaultUser50.png */,
+				6441B9D918B373180061D00C /* DefaultUser50@2x.png */,
 				642723EC18ACA54C002609F4 /* CheckMark.png */,
 				642723ED18ACA54C002609F4 /* CheckMark@2x.png */,
-				642723EA18AC936A002609F4 /* Avatar_Small.png */,
-				642723E018AC62BA002609F4 /* Avatar.png */,
 				642723E618AC7694002609F4 /* Plus.png */,
 				642723E718AC7694002609F4 /* Plus@2x.png */,
 			);
@@ -462,8 +474,6 @@
 				649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */,
 				641637CC18AB061E009A774A /* BookGridViewController.h */,
 				641637CD18AB061E009A774A /* BookGridViewController.m */,
-				641637D418AB201E009A774A /* SearchViewController.h */,
-				641637D518AB201E009A774A /* SearchViewController.m */,
 				641637E618AB3657009A774A /* CategoriesViewController.h */,
 				641637E718AB3657009A774A /* CategoriesViewController.m */,
 				642723DC18AC5F0C002609F4 /* UserProfileViewController.h */,
@@ -472,6 +482,16 @@
 				642723F118ACBE2C002609F4 /* CreateBookListViewController.m */,
 				64D35F4018ADC2B900999CED /* WriteCommentReviewViewController.h */,
 				64D35F4118ADC2B900999CED /* WriteCommentReviewViewController.m */,
+				641637D418AB201E009A774A /* SearchViewController.h */,
+				641637D518AB201E009A774A /* SearchViewController.m */,
+				6468EFEC18B2F7D600A9DA92 /* SearchResultViewController.h */,
+				6468EFED18B2F7D600A9DA92 /* SearchResultViewController.m */,
+				6468EFEF18B3014F00A9DA92 /* BooklistGridViewController.h */,
+				6468EFF018B3014F00A9DA92 /* BooklistGridViewController.m */,
+				6468EFF218B3029100A9DA92 /* UserListViewController.h */,
+				6468EFF318B3029100A9DA92 /* UserListViewController.m */,
+				64FC60CC18B59B3800D7D8E6 /* BookDetailViewController.h */,
+				64FC60CD18B59B3800D7D8E6 /* BookDetailViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -810,10 +830,10 @@
 				642723F618ACC3F0002609F4 /* Dot.png in Resources */,
 				64D35F4C18ADF09E00999CED /* Star_Gray@2x.png in Resources */,
 				6423919A1884DE830049BE8B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
-				642723EB18AC936A002609F4 /* Avatar_Small.png in Resources */,
 				64C6638B186D1EC800B18236 /* Login_LoginButton_Highlight.png in Resources */,
 				64C6638F186D298F00B18236 /* Login_MailTextField.png in Resources */,
 				64C66388186D1C7400B18236 /* Login_PasswordTextField@2x.png in Resources */,
+				6441B9DA18B373180061D00C /* DefaultUser50@2x.png in Resources */,
 				641637C518AA05EE009A774A /* User@2x.png in Resources */,
 				6463584C185B231E00172760 /* Login_TextField@2x.png in Resources */,
 				64C6638C186D1EC800B18236 /* Login_LoginButton_Highlight@2x.png in Resources */,
@@ -826,7 +846,6 @@
 				641637D218AB1F32009A774A /* SearchIcon.png in Resources */,
 				64F05CF6187506C000FB7A3A /* Calibri Bold.ttf in Resources */,
 				64CD28AF18A9FB980050BE63 /* Category@2x.png in Resources */,
-				642723E118AC62BA002609F4 /* Avatar.png in Resources */,
 				641637CB18AA0769009A774A /* Home_Selected@2x.png in Resources */,
 				641637C818AA0713009A774A /* Home.png in Resources */,
 				64CD28A218A9FA7C0050BE63 /* Wizard.png in Resources */,
@@ -846,6 +865,7 @@
 				64D35F4D18ADF09E00999CED /* Star_Red.png in Resources */,
 				64CD28B218AA01280050BE63 /* Home@2x.png in Resources */,
 				64F05CF5187506C000FB7A3A /* Calibri Bold Italic.ttf in Resources */,
+				6441B9DC18B373240061D00C /* DefaultUser50.png in Resources */,
 				64CD28AB18A9FB580050BE63 /* Review@2x.png in Resources */,
 				64546E9B1869638D001CCE5B /* HC_Background.png in Resources */,
 				64CD28AA18A9FB580050BE63 /* Review.png in Resources */,
@@ -881,6 +901,7 @@
 			files = (
 				645FB9C5184C2C0C00BB2325 /* AFURLRequestSerialization.m in Sources */,
 				645FB9C4184C2C0C00BB2325 /* AFURLConnectionOperation.m in Sources */,
+				6468EFEE18B2F7D600A9DA92 /* SearchResultViewController.m in Sources */,
 				64FFD93B185FEDD2002F93C0 /* NSData+Base64.m in Sources */,
 				645FB9C3184C2C0C00BB2325 /* AFSecurityPolicy.m in Sources */,
 				645FB9BF184C2C0C00BB2325 /* AFHTTPRequestOperation.m in Sources */,
@@ -889,6 +910,8 @@
 				64D35F4218ADC2B900999CED /* WriteCommentReviewViewController.m in Sources */,
 				645FB9C7184C2C0C00BB2325 /* AFURLSessionManager.m in Sources */,
 				641637CE18AB061E009A774A /* BookGridViewController.m in Sources */,
+				6468EFF418B3029100A9DA92 /* UserListViewController.m in Sources */,
+				6468EFF118B3014F00A9DA92 /* BooklistGridViewController.m in Sources */,
 				645FB9C6184C2C0C00BB2325 /* AFURLResponseSerialization.m in Sources */,
 				649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */,
 				64D35F4618ADCE0800999CED /* AMRatingControl.m in Sources */,
@@ -918,6 +941,7 @@
 				643A0DA8184C65CA00A1FEAF /* Common.m in Sources */,
 				641637E818AB3657009A774A /* CategoriesViewController.m in Sources */,
 				641637E218AB22C0009A774A /* SPLabel.m in Sources */,
+				64FC60CE18B59B3800D7D8E6 /* BookDetailViewController.m in Sources */,
 				645FB9C2184C2C0C00BB2325 /* AFNetworkReachabilityManager.m in Sources */,
 				646132C3184872F300A0BBF0 /* main.m in Sources */,
 				642BEB53184DB7FC00E1A0B3 /* LoginViewController.m in Sources */,

@@ -53,6 +53,15 @@ BOOL isLogin()
     self.view.backgroundColor = [UIColor colorWithPatternImage:image];
 }
 
+- (void)pushViewController:(UIViewController *)controller
+{
+    self.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
+    
+    self.hidesBottomBarWhenPushed = NO;
+}
+
 @end
 
 #pragma mark - UIImage category
@@ -91,11 +100,44 @@ BOOL isLogin()
     return roundedImage;
 }
 
-+ (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
++ (UIImage *)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
 {
     UIGraphicsBeginImageContext( newSize );
     [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+- (UIImage *)scaledToSize:(CGSize)newSize
+{
+    UIGraphicsBeginImageContext( newSize );
+    [self drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
+- (UIImage *)imageByApplyingAlpha:(CGFloat)alpha
+{
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, 0.0f);
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGRect area = CGRectMake(0, 0, self.size.width, self.size.height);
+    
+    CGContextScaleCTM(ctx, 1, -1);
+    CGContextTranslateCTM(ctx, 0, -area.size.height);
+    
+    CGContextSetBlendMode(ctx, kCGBlendModeMultiply);
+    
+    CGContextSetAlpha(ctx, alpha);
+    
+    CGContextDrawImage(ctx, area, self.CGImage);
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
     UIGraphicsEndImageContext();
     
     return newImage;

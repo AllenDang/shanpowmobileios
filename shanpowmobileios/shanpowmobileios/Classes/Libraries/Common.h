@@ -39,29 +39,37 @@ return shared##classname;                               \
 
 #pragma mark - Notifications
 
-#define MSG_ERROR                           @"SMNC_Error"
-#define MSG_GOT_TOKEN                       @"SMNC_GotCsrfToken"
-#define MSG_FAIL_GET_TOKEN                  @"SMNC_FailGetCsrfToken"
-#define MSG_DID_LOGIN                       @"SMNC_DidLogin"
-#define MSG_FAIL_LOGIN                      @"SMNC_FailedLogin"
-#define MSG_DID_LOGOUT                      @"SMNC_DidLogout"
-#define MSG_FAIL_LOGOUT                     @"SMNC_FailedLogout"
-#define MSG_DID_GET_HOTBOOKS                @"SMNC_GotHotBooks"
-#define MSG_FAIL_GET_HOTBOOKS               @"SMNC_FailedGetHotBooks"
-#define MSG_DID_REGISTER                    @"SMNC_DidRegister"
-#define MSG_FAIL_REGISTER                   @"SMNC_FailRegister"
-#define MSG_DID_QQ_LOGIN                    @"SMNC_DidQQLogin"
-#define MSG_FAIL_QQ_LOGIN                   @"SMNC_FailQQLogin"
-#define MSG_CANCEL_QQ_LOGIN                 @"SMNC_CancelQQLogin"
-#define MSG_DID_GET_QQ_USER_INFO            @"SMNC_DidGetQQUserInfo"
-#define MSG_QQ_LOGIN_NOT_FOUND              @"SMNC_QQLoginNotFound"
-#define MSG_WEIBO_LOGIN                     @"SMNC_WeiboLogin"
+#define MSG_ERROR                           @"SMNC_0"
+#define MSG_GOT_TOKEN                       @"SMNC_1"
+#define MSG_FAIL_GET_TOKEN                  @"SMNC_2"
+#define MSG_DID_LOGIN                       @"SMNC_3"
+#define MSG_FAIL_LOGIN                      @"SMNC_4"
+#define MSG_DID_LOGOUT                      @"SMNC_5"
+#define MSG_FAIL_LOGOUT                     @"SMNC_6"
+#define MSG_DID_GET_HOTBOOKS                @"SMNC_7"
+#define MSG_FAIL_GET_HOTBOOKS               @"SMNC_8"
+#define MSG_DID_REGISTER                    @"SMNC_9"
+#define MSG_FAIL_REGISTER                   @"SMNC_10"
+#define MSG_DID_QQ_LOGIN                    @"SMNC_11"
+#define MSG_FAIL_QQ_LOGIN                   @"SMNC_12"
+#define MSG_CANCEL_QQ_LOGIN                 @"SMNC_13"
+#define MSG_DID_GET_QQ_USER_INFO            @"SMNC_14"
+#define MSG_QQ_LOGIN_NOT_FOUND              @"SMNC_15"
+#define MSG_WEIBO_LOGIN                     @"SMNC_16"
+#define MSG_DID_GET_SEARCH_RESULT           @"SMNC_17"
+#define MSG_FAIL_GET_SEARCH_RESULT          @"SMNC_18"
+#define MSG_DID_GET_BASIC_USER_INFO         @"SMNC_19"
+#define MSG_FAIL_GET_BASIC_USER_INFO        @"SMNC_20"
+#define MSG_DID_GET_BOOK_DETAIL             @"SMNC_21"
+#define MSG_FAIL_GET_BOOK_DETAIL            @"SMNC_22"
 
-#define MSG_HC_BOOK_SELECTED                @"SMNC_HotCategories_Book_Selected"
+#define MSG_HC_BOOK_SELECTED                @"SMNC_999"
 
 #pragma mark - Errors
 
+#define ERR_TITLE                           @"错误"
 #define ERR_CANT_CONNECT_TO_SERVER          @"无法连接到服务器"
+#define ERR_FAIL_GET_DATA                   @"无法获取数据"
 
 #pragma mark - Settings to save
 
@@ -96,16 +104,18 @@ return shared##classname;                               \
 #define UISTATUSBAR_HEIGHT                  20.0
 
 #pragma mark — UIFont
-#define SMALL_FONT                          [UIFont systemFontOfSize:12.0]
-#define SMALL_BOLD_FONT                     [UIFont boldSystemFontOfSize:12.0]
-#define MEDIUM_FONT                         [UIFont systemFontOfSize:15.0]
-#define MEDIUM_BOLD_FONT                    [UIFont boldSystemFontOfSize:15.0]
+#define SMALL_FONT                          [UIFont systemFontOfSize:14.0]
+#define SMALL_BOLD_FONT                     [UIFont boldSystemFontOfSize:14.0]
+#define MEDIUM_FONT                         [UIFont systemFontOfSize:16.0]
+#define MEDIUM_BOLD_FONT                    [UIFont boldSystemFontOfSize:16.0]
 #define LARGE_FONT                          [UIFont systemFontOfSize:18.0]
 #define LARGE_BOLD_FONT                     [UIFont boldSystemFontOfSize:18.0]
 #define XLARGE_FONT                         [UIFont systemFontOfSize:24.0]
 #define XLARGE_BOLD_FONT                    [UIFont boldSystemFontOfSize:24.0]
-#define XXLARGE_FONT                         [UIFont systemFontOfSize:36.0]
-#define XXLARGE_BOLD_FONT                    [UIFont boldSystemFontOfSize:36.0]
+#define XXLARGE_FONT                        [UIFont systemFontOfSize:36.0]
+#define XXLARGE_BOLD_FONT                   [UIFont boldSystemFontOfSize:36.0]
+#define FONT_WITH_SIZE(x)                   [UIFont systemFontOfSize:(x)]
+#define BOLD_FONT_WITH_SIZE(x)              [UIFont boldSystemFontOfSize:(x)]
 
 #pragma mark - Global Functions
 
@@ -119,14 +129,17 @@ extern BOOL isLogin();
 
 - (void)addAdjustView;
 - (void)setBackgroundImage:(UIImage *)image;
+- (void)pushViewController:(UIViewController *)controller;
 
 @end
 
 @interface UIImage (extended)
 
 + (UIImage *)imageWithColor:(UIColor *)color;
-- (UIImage *)makeRoundedImageWithRadius:(float)radius;
 + (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize;
+- (UIImage *)makeRoundedImageWithRadius:(float)radius;
+- (UIImage *)scaledToSize:(CGSize)newSize;
+- (UIImage *)imageByApplyingAlpha:(CGFloat)alpha;
 
 @end
 

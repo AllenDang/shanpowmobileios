@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Common.h"
 #import "BookInfoCell.h"
+#import "BookDetailViewController.h"
 
 @interface BookGridViewController : UITableViewController
 
 @property (nonatomic, strong) NSArray *books;
 @property (nonatomic, assign) BOOL needShowExtraInfo;
+@property (nonatomic, assign) BOOL isPlain;
 
 @end

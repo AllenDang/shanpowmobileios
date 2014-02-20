@@ -28,13 +28,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     self.headerHeight = 40.0;
     if (isSysVerGTE(7.0)) {
         self.tableView.separatorInset = UIEdgeInsetsZero;
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectTableCell:) name:MSG_HC_BOOK_SELECTED object:nil];
+}
+
+- (void)setIsPlain:(BOOL)isPlain
+{
+    if (isPlain != _isPlain) {
+        _isPlain = isPlain;
+        [self.tableView reloadData];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,6 +56,10 @@
 - (void)didSelectTableCell:(NSNotification *)notification
 {
     NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
+    
+    BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+    bookDetailController.bookId = bookId;
+    [self.navigationController pushViewController:bookDetailController animated:YES];
     
     // Show table item selected animate
     for (BookInfoCell *cell in self.tableView.visibleCells) {
@@ -67,6 +79,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (self.isPlain) {
+        return 0;
+    }
     return self.headerHeight;
 }
 
@@ -79,6 +94,10 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    if (self.isPlain) {
+        return nil;
+    }
+    
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.frame.size.width - 20, self.headerHeight)];
     headerLabel.text = [[self.books objectAtIndex:section] objectForKey:@"Category"];
     headerLabel.textColor = UIC_BRIGHT_GRAY(1.0);
@@ -99,6 +118,9 @@
     if (self.books == nil) {
         return 0;
     }
+    if (self.isPlain) {
+        return 1;
+    }
     return [self.books count];
 }
 
@@ -108,6 +130,9 @@
     if (self.books == nil) {
         return 0;
     }
+    if (self.isPlain) {
+        return [self.books count];
+    }
     return [[[self.books objectAtIndex:section] objectForKey:@"Books"] count];
 }
 
@@ -116,7 +141,12 @@
     static NSString *CellIdentifier = @"Cell";
     BookInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    NSDictionary *bookInfo = [[[self.books objectAtIndex:indexPath.section] objectForKey:@"Books"] objectAtIndex:indexPath.row];
+    NSDictionary *bookInfo = @{};
+    if (self.isPlain) {
+        bookInfo = [self.books objectAtIndex:indexPath.row];
+    } else {
+        bookInfo = [[[self.books objectAtIndex:indexPath.section] objectForKey:@"Books"] objectAtIndex:indexPath.row];
+    }
     
     if (cell == nil) {
         cell = [[BookInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -152,54 +182,54 @@
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 /*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
+ #pragma mark - Navigation
+ 
+ // In a story board-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ 
  */
 
 @end

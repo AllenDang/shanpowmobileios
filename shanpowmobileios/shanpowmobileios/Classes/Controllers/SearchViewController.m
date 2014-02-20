@@ -11,6 +11,7 @@
 @interface SearchViewController ()
 
 @property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) SearchResultViewController *searchResultController;
 
 @end
 
@@ -42,6 +43,13 @@
     [self.view addSubview:self.searchBar];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.searchBar becomeFirstResponder];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -59,6 +67,9 @@
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
 {
     [searchBar setShowsCancelButton:NO animated:YES];
+    if (searchBar.text.length <= 0) {
+        return NO;
+    }
     return YES;
 }
 
@@ -74,7 +85,21 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    //TODO: begin the search
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetSearchResult:) name:MSG_DID_GET_SEARCH_RESULT object:nil];
+    
+    NSString *keyword = self.searchBar.text;
+    [[NetworkClient sharedNetworkClient] searchWithKeyword:keyword];
+}
+
+#pragma mark - Event handler
+
+- (void)didGetSearchResult:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_SEARCH_RESULT object:nil];
+    
+    self.searchResultController = [[SearchResultViewController alloc] initWithSearchResult:[[notification userInfo] objectForKey:@"data"]];
+    
+    [self pushViewController:self.searchResultController];
 }
 
 @end

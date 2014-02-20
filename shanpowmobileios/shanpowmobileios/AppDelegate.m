@@ -9,6 +9,13 @@
 #import "AppDelegate.h"
 #import "AFNetworking.h"
 
+@interface AppDelegate ()
+
+@property (nonatomic, strong) MainMenuViewController *menuController;
+@property (nonatomic, strong) UserProfileViewController *userController;
+
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -21,14 +28,14 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     // Prepare view controllers
-    MainMenuViewController *menuController = [[MainMenuViewController alloc] init];
+    self.menuController = [[MainMenuViewController alloc] init];
     
-    self.mainMenuController = [[UINavigationController alloc] initWithRootViewController:menuController];
+    self.mainMenuController = [[UINavigationController alloc] initWithRootViewController:self.menuController];
     
-    UserProfileViewController *userController = [[UserProfileViewController alloc] init];
-    userController.isSelf = YES;
+    self.userController = [[UserProfileViewController alloc] init];
+    self.userController.isSelf = YES;
     
-    self.userProfileController = [[UINavigationController alloc] initWithRootViewController:userController];
+    self.userProfileController = [[UINavigationController alloc] initWithRootViewController:self.userController];
     
     // Prepare tab bar controller
     UITabBarItem *homeItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[UIImage imageNamed:@"Home"] tag:1];
@@ -38,6 +45,7 @@
     self.userProfileController.tabBarItem = userItem;
     
     self.mainTabBar = [[UITabBarController alloc] init];
+    self.mainTabBar.delegate = self;
     [self.mainTabBar setViewControllers:@[self.mainMenuController, self.userProfileController]];
     
     // Add tab bar controller to window
@@ -72,7 +80,7 @@
     //  [[NetworkClient sharedNetworkClient] logout];
 #endif
     [WeiboSDK registerApp:weiboAppKey];
-    
+        
     return YES;
 }
 
@@ -127,6 +135,34 @@
     }
     
     return YES;
+}
+
+#pragma mark - UITabBarController delegate
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    if ([viewController isEqual:self.userProfileController]) {
+        if (isLogin()) {
+            return YES;
+        } else {
+            self.loginController = [[LoginViewController alloc] init];
+            [self.mainMenuController presentViewController:self.loginController animated:YES completion:^{
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:MSG_DID_LOGIN object:nil];
+            }];
+            return NO;
+        }
+    }
+    return YES;
+}
+
+#pragma mark - Event handler
+
+- (void)didLogin:(NSNotification *)notification
+{
+    [self.mainMenuController dismissViewControllerAnimated:YES completion:^(){
+        self.userController.username = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_LOGIN object:nil];
+    }];
 }
 
 @end

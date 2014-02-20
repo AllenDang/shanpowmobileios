@@ -58,6 +58,16 @@
     [super setFrame:newFrame];
 }
 
+- (void)setEdgeInsets:(UIEdgeInsets)edgeInsets
+{
+    if (!UIEdgeInsetsEqualToEdgeInsets(_edgeInsets, edgeInsets)) {
+        _edgeInsets = edgeInsets;
+        
+        CGRect oldFrame = self.frame;
+        [self setFrame:oldFrame];
+    }
+}
+
 - (BOOL)canBecomeFirstResponder
 {
     return YES;

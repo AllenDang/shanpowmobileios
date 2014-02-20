@@ -15,13 +15,15 @@
 #import "WeiboLogin.h"
 #import "MainMenuViewController.h"
 #import "UserProfileViewController.h"
+#import "LoginViewController.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) UITabBarController *mainTabBar;
 @property (strong, nonatomic) UINavigationController *mainMenuController;
 @property (strong, nonatomic) UINavigationController *userProfileController;
+@property (strong, nonatomic) LoginViewController *loginController;
 
 @end

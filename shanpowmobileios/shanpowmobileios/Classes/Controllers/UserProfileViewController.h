@@ -10,6 +10,7 @@
 #import "Common.h"
 #import "UIImage+ImageEffects.h"
 #import "SPLabel.h"
+#import "NetworkClient.h"
 
 @interface UserProfileViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 

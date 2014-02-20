@@ -34,6 +34,8 @@
 @property (nonatomic, assign) BOOL followingMe;
 @property (nonatomic, assign) BOOL followedByMe;
 
+@property (nonatomic, strong) NSDictionary *userBasicInfo;
+
 - (void)updateData;
 - (void)updateUI;
 
@@ -124,10 +126,14 @@
     
     self.sendMessageButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    // TODO: re-write below
-    self.followedByMe = NO;
-    self.isSelf = NO;
     [self updateData];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self getUserBasicInfo];
+    
+    [super viewWillAppear:animated];
 }
 
 - (void)setIsSelf:(BOOL)isSelf
@@ -135,8 +141,10 @@
     if (isSelf != _isSelf) {
         _isSelf = isSelf;
         
-        if (isLogin()) {
-            self.username = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER];
+        if (isSelf) {
+            if (isLogin()) {
+                self.username = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER];
+            }
         }
         
         [self updateUI];
@@ -151,28 +159,34 @@
 
 #pragma mark -
 
+- (void)getUserBasicInfo
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBasicUserInfo:) name:MSG_DID_GET_BASIC_USER_INFO object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailGetInfo:) name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
+    
+    [[NetworkClient sharedNetworkClient] getBasicUserInfo:self.username];
+}
+
 - (void)updateData
 {
-    self.usernameLabel.text = @"木一";
-    self.readCountLabel.text = @"3425 本书";
-    self.reviewCountLabel.text = @"35 篇书评";
+    self.usernameLabel.text = [self.userBasicInfo objectForKey:@"Nickname"];
+    self.readCountLabel.text = [NSString stringWithFormat:@"%@ 本书", [self.userBasicInfo objectForKey:@"ReadBookSum"]];
+    self.reviewCountLabel.text = [NSString stringWithFormat:@"%@ 篇书评", [self.userBasicInfo objectForKey:@"ReviewSum"]];
     
     self.likedAuthorTitleLabel.text = @"喜欢的作者";
-    self.likedAuthorLabel.text = @"三十，三十新书，今何在，刘慈欣，我吃西红柿，方想，福宝，老猪，蓝晶，钱莉芳";
+    self.likedAuthorLabel.text = [[self.userBasicInfo objectForKey:@"FavAuthors"] stringByReplacingOccurrencesOfString:@"," withString:@"，"];
     
     self.likedCategoriesTitleLabel.text = @"喜欢的分类";
-    self.likedCategoriesLabel.text = @"架空，玄幻奇幻，科幻，言情，远古神话";
+    self.likedCategoriesLabel.text = [[self.userBasicInfo objectForKey:@"FavCategories"] stringByReplacingOccurrencesOfString:@"," withString:@"，"];
     
-    self.followingLabel.text = [NSString stringWithFormat:@"%d\n关注", 2435];
+    self.followingLabel.text = [NSString stringWithFormat:@"%d\n关注", [[self.userBasicInfo objectForKey:@"FollowUserSum"] intValue]];
     
-    self.followedLabel.text = [NSString stringWithFormat:@"%d\n粉丝", 235];
+    self.followedLabel.text = [NSString stringWithFormat:@"%d\n粉丝", [[self.userBasicInfo objectForKey:@"FollowedBySum"] intValue]];
 }
 
 - (void)updateUI
 {
-    UIImage *avatar = [UIImage imageNamed:@"Avatar"];
-    
-    [self updateUserAvatar:avatar];
+    [self updateUserAvatar];
     
     [self updateUserInfoSection];
     
@@ -181,22 +195,41 @@
     [self updateSendMessageButton];
 }
 
-- (void)updateUserAvatar:(UIImage *)avatar
+- (void)updateUserAvatar
 {
-    UIImage *img = avatar;
+    CGFloat avatarSize = 80.0;
     
-    UIImage *roundedAvatar = [img makeRoundedImageWithRadius:img.size.width / 2];
+    self.userAvatarBlurBackground.image = [[UIImage imageWithColor:UIC_WHISPER(1.0)] scaledToSize:self.view.bounds.size];
     
-    // Scale small image before blur it. This step will make avatar more awesome.
-    if (img.size.width < self.view.bounds.size.width) {
-        img = [UIImage imageWithImage:img scaledToSize:self.view.bounds.size];
-    }
-    UIImage *blurredAvatar = [img applyBlurWithRadius:20.0 tintColor:UIC_BLACK(0.4) saturationDeltaFactor:1.2 maskImage:nil];
+    __block UserProfileViewController *me = self;
+    __block UIImageView *imageViewForBlock = self.userAvatar;
+    __block UIImageView *bkgImageViewForBlock = self.userAvatarBlurBackground;
     
-    self.userAvatarBlurBackground.image = blurredAvatar;
+    NSMutableURLRequest *avatarRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self.userBasicInfo objectForKey:@"AvatarUrl"]]];
+    [avatarRequest setValue:@"http://www.shanpow.com" forHTTPHeaderField:@"Referer"];
+    
+    [self.userAvatar setImageWithURLRequest:avatarRequest
+                           placeholderImage:[[[UIImage imageNamed:@"DefaultUser50"] scaledToSize:CGSizeMake(avatarSize * 2, avatarSize * 2)] imageByApplyingAlpha:0.3]
+                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                        UIImage *img = image;
+                                        
+                                        // Scale small image before blur it. This step will make avatar more awesome.
+                                        if (img.size.width < me.view.bounds.size.width) {
+                                            img = [UIImage imageWithImage:img scaledToSize:me.view.bounds.size];
+                                        }
+                                        UIImage *blurredAvatar = [img applyBlurWithRadius:15.0 tintColor:UIC_BLACK(0.4) saturationDeltaFactor:1.2 maskImage:nil];
+                                        bkgImageViewForBlock.image = blurredAvatar;
+                                        
+                                        UIImage *scaledImage = [UIImage imageWithImage:image scaledToSize:CGSizeMake(avatarSize * 2, avatarSize * 2)];
+                                        UIImage *avatarImage = [scaledImage makeRoundedImageWithRadius:avatarSize];
+                                        
+                                        imageViewForBlock.image = avatarImage;
+                                    }
+                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                                        
+                                    }];
+    
     self.userAvatarBlurBackground.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, 300.0);
-    
-    self.userAvatar.image = roundedAvatar;
     self.userAvatar.frame = CGRectMake(15.0, 20.0, 80.0, 80.0);
 }
 
@@ -222,7 +255,7 @@
     self.likedAuthorTitleLabel.font = MEDIUM_BOLD_FONT;
     self.likedAuthorTitleLabel.backgroundColor = [UIColor clearColor];
     
-    self.likedAuthorLabel.frame = CGRectMake(15.0, 128.0, self.view.bounds.size.width, 40.0);
+    self.likedAuthorLabel.frame = CGRectMake(15.0, 128.0, self.view.bounds.size.width - 30, 40.0);
     self.likedAuthorLabel.textColor = UIC_WHITE(1.0);
     self.likedAuthorLabel.font = MEDIUM_FONT;
     self.likedAuthorLabel.backgroundColor = [UIColor clearColor];
@@ -233,7 +266,7 @@
     self.likedCategoriesTitleLabel.font = MEDIUM_BOLD_FONT;
     self.likedCategoriesTitleLabel.backgroundColor = [UIColor clearColor];
     
-    self.likedCategoriesLabel.frame = CGRectMake(15.0, 196.0, self.view.bounds.size.width, 40.0);
+    self.likedCategoriesLabel.frame = CGRectMake(15.0, 196.0, self.view.bounds.size.width - 30, 40.0);
     self.likedCategoriesLabel.textColor = UIC_WHITE(1.0);
     self.likedCategoriesLabel.font = MEDIUM_FONT;
     self.likedCategoriesLabel.backgroundColor = [UIColor clearColor];
@@ -347,6 +380,26 @@
     NSLog(@"ccc");
 }
 
+#pragma mark - Event handler
+
+- (void)didGetBasicUserInfo:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BASIC_USER_INFO object:nil];
+    
+    self.userBasicInfo = [[notification userInfo] objectForKey:@"data"];
+    
+    [self updateUI];
+    [self updateData];
+}
+
+- (void)handleFailGetInfo:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
+    [alert show];
+}
+
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -395,6 +448,15 @@
     }
     
     return cell;
+}
+
+#pragma mark - UIAlertView delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self getUserBasicInfo];
+    }
 }
 
 @end

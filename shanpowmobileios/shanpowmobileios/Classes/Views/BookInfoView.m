@@ -226,11 +226,6 @@
   self.authorLabel.edgeInsets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
   [self.basicInfoView addSubview:self.authorLabel];
   
-  // Category label
-  self.categoryLabel.backgroundColor = [UIColor clearColor];
-  self.categoryLabel.edgeInsets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
-  [self.basicInfoView addSubview:self.categoryLabel];
-  
   // Score label
   self.scoreLabel.backgroundColor = [UIColor clearColor];
   self.scoreLabel.edgeInsets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
@@ -278,7 +273,7 @@
    * Basic Info View
    */
   // Title label
-  self.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+  self.titleLabel.font = LARGE_FONT;
   CGSize titleSize = [self.titleLabel.text sizeWithFont:self.titleLabel.font];
   self.titleLabel.frame = CGRectMake(0.0, 
                                      0.0, 
@@ -288,7 +283,7 @@
   self.titleLabel.textColor = self.mainFontColor;
   
   // Author label
-  self.authorLabel.font = [UIFont systemFontOfSize:14.0];
+  self.authorLabel.font = SMALL_FONT;
   CGSize authorSize = [self.authorLabel.text sizeWithFont:self.authorLabel.font];
   self.authorLabel.frame = CGRectMake(self.titleLabel.frame.origin.x, 
                                       self.frame.size.height - authorSize.height - self.authorLabel.edgeInsets.top - self.authorLabel.edgeInsets.bottom, 
@@ -300,17 +295,17 @@
   self.scoreLabel.font = [UIFont fontWithName:@"Calibri-BoldItalic" size:32.0];
   CGSize scoreSize = [self.scoreLabel.text sizeWithFont:self.scoreLabel.font];
   self.scoreLabel.frame = CGRectMake(self.frame.size.width - scoreSize.width - self.scoreLabel.edgeInsets.left - self.scoreLabel.edgeInsets.right, 
-                                     self.titleLabel.frame.origin.y - (scoreSize.height - titleSize.height) / 2, 
-                                     MIN(scoreSize.width, self.frame.size.width / 3), 
+                                     0.0,
+                                     MIN(scoreSize.width, self.frame.size.width / 3),
                                      scoreSize.height);
   self.scoreLabel.textAlignment = NSTextAlignmentRight;
   self.scoreLabel.textColor = self.highlightFontColor;
   
   // RatingSum label
-  self.ratingSumLabel.font = [UIFont systemFontOfSize:14.0];
+  self.ratingSumLabel.font = SMALL_FONT;
   CGSize ratingSumSize = [self.ratingSumLabel.text sizeWithFont:self.ratingSumLabel.font];
   self.ratingSumLabel.frame = CGRectMake(self.frame.size.width - ratingSumSize.width - self.ratingSumLabel.edgeInsets.left - self.ratingSumLabel.edgeInsets.right,
-                                         self.authorLabel.frame.origin.y, 
+                                         self.frame.size.height - ratingSumSize.height - self.ratingSumLabel.edgeInsets.top,
                                          MIN(ratingSumSize.width, self.frame.size.width / 2), 
                                          ratingSumSize.height);
   self.ratingSumLabel.textAlignment = NSTextAlignmentRight;
@@ -321,7 +316,7 @@
    * Description View
    */
   // Description label
-  self.descriptionLabel.font = [UIFont systemFontOfSize:14.0];
+  self.descriptionLabel.font = SMALL_FONT;
   self.descriptionLabel.frame = CGRectMake(0.0,
                                            0.0, 
                                            self.frame.size.width - self.descriptionLabel.edgeInsets.left - self.descriptionLabel.edgeInsets.right, 
@@ -333,7 +328,7 @@
    * Comment View
    */
   // Comment content label
-  self.commentContentLabel.font = [UIFont systemFontOfSize:14.0];
+  self.commentContentLabel.font = SMALL_FONT;
   self.commentContentLabel.frame = CGRectMake(0.0,
                                               0.0, 
                                               self.frame.size.width - self.commentContentLabel.edgeInsets.left - self.commentContentLabel.edgeInsets.right, 
@@ -342,7 +337,7 @@
   self.commentContentLabel.textColor = self.mainFontColor;
   
   // Comment author label
-  self.commentAuthorLabel.font = [UIFont systemFontOfSize:14.0];
+  self.commentAuthorLabel.font = SMALL_FONT;
   CGSize commentAuthorSize = [self.commentAuthorLabel.text sizeWithFont:self.commentAuthorLabel.font];
   self.commentAuthorLabel.frame = CGRectMake(0.0,
                                              self.frame.size.height - commentAuthorSize.height - self.commentAuthorLabel.edgeInsets.top - self.commentAuthorLabel.edgeInsets.bottom, 

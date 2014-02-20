@@ -26,13 +26,20 @@
                     failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 - (void)getCsrfToken;
+
 - (void)loginWithLoginname:(NSString *)loginname password:(NSString *)password;
 - (void)loginWithQQOpenId:(NSString *)openId;
 - (void)relogin;
 - (void)logout;
-- (void)getHotBooks;
 - (void)registerWithNickname:(NSString *)nickname email:(NSString *)email password:(NSString *)password gender:(BOOL)isMan;
 - (void)registerWithQQNickname:(NSString *)nickname email:(NSString *)email openId:(NSString *)openId accessToken:(NSString *)accessToken avatarUrl:(NSString *)avatarUrl sex:(BOOL)isMan;
 
+- (void)getHotBooks;
+
+- (void)searchWithKeyword:(NSString *)keyword;
+
+- (void)getBasicUserInfo:(NSString *)username;
+
+- (void)getBookDetail:(NSString *)bookId;
 
 @end

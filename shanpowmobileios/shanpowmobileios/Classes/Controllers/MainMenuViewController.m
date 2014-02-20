@@ -74,7 +74,16 @@
     [self.view addSubview:titlePlaceholder];
     
     self.searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchView:)];
-    [self.navigationItem setRightBarButtonItem:self.searchButton];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (isLogin()) {
+        [self.navigationItem setRightBarButtonItem:self.searchButton];
+    }
+    
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -87,12 +96,8 @@
 
 - (void)showSearchView:(id)sender
 {
-    self.hidesBottomBarWhenPushed = YES;
-    
     self.searchController = [[SearchViewController alloc] init];
-    [self.navigationController pushViewController:self.searchController animated:YES];
-    
-    self.hidesBottomBarWhenPushed = NO;
+    [self pushViewController:self.searchController];
 }
 
 - (void)showHotBooks
@@ -112,7 +117,6 @@
     self.categoriesController = [[CategoriesViewController alloc] init];
     [self.navigationController pushViewController:self.categoriesController animated:YES];
 }
-
 
 #pragma mark - Table view delegate
 

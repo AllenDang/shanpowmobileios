@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Common.h"
+#import "NetworkClient.h"
+#import "SearchResultViewController.h"
 
 @interface SearchViewController : UIViewController <UISearchBarDelegate>
 
