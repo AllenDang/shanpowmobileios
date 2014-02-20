@@ -34,7 +34,7 @@
     
     self.title = @"分类";
     self.view.backgroundColor = UIC_ALMOSTWHITE(1.0);
-    if (isSysVerGTE(7.0)) {
+    if (IsSysVerGTE(7.0)) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
@@ -44,7 +44,7 @@
         self.tableView.scrollEnabled = NO;
     }
     
-    if (isSysVerGTE(7.0)) {
+    if (IsSysVerGTE(7.0)) {
         self.tableView.separatorInset = UIEdgeInsetsZero;
     }
     self.tableView.separatorColor = UIC_BRIGHT_GRAY(0.4);
@@ -93,7 +93,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
         UIView *divider = [[UIView alloc] init];
-        if (isSysVerGTE(7.0)) {
+        if (IsSysVerGTE(7.0)) {
             divider.frame = CGRectMake(cell.bounds.size.width / 2, 0.0, 0.5, self.cellHeight);
         } else {
             divider.frame = CGRectMake(cell.bounds.size.width / 2, 0.0, 1.0, self.cellHeight);

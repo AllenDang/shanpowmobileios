@@ -63,7 +63,9 @@ return shared##classname;                               \
 #define MSG_DID_GET_BOOK_DETAIL             @"SMNC_21"
 #define MSG_FAIL_GET_BOOK_DETAIL            @"SMNC_22"
 
-#define MSG_HC_BOOK_SELECTED                @"SMNC_999"
+#define MSG_DID_SELECT_BOOK                 @"SMNC_1000"
+
+#define MSG_INT_BOOKINFOVIEW_TAPPED         @"SMNC_2000"
 
 #pragma mark - Errors
 
@@ -119,7 +121,9 @@ return shared##classname;                               \
 
 #pragma mark - Global Functions
 
-#define isSysVerGTE(ver)                    ([[[UIDevice currentDevice] systemVersion] floatValue] >= (ver))
+#define IsSysVerGTE(ver)                    ([[[UIDevice currentDevice] systemVersion] floatValue] >= (ver))
+#define StarSize(x)                         MAX([UIImage imageNamed:(x)].size.width, [UIImage imageNamed:(x)].size.height)
+#define TextHeightWithFont(x)               ([@"我" sizeWithFont:(x)].height)
 
 extern BOOL isLogin();
 

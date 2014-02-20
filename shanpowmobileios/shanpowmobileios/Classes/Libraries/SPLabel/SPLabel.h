@@ -8,9 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@class SPLabel;
+
+@protocol SPLabelDelegate <NSObject>
+
+@required
+
+- (void)touchInSPLabel:(SPLabel *)label;
+
+@end
+
 @interface SPLabel : UILabel
 
 @property (nonatomic, assign) UIEdgeInsets edgeInsets;
+@property (nonatomic, weak) id<SPLabelDelegate> delegate;
 
 - (void)setLineHeight:(float)lineHeight;
 

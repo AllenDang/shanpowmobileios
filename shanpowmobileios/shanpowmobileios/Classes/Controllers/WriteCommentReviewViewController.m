@@ -36,7 +36,7 @@
     self.title = @"创建书单";
     self.view.backgroundColor = UIC_ALMOSTWHITE(1.0);
     
-    if (isSysVerGTE(7.0)) {
+    if (IsSysVerGTE(7.0)) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     

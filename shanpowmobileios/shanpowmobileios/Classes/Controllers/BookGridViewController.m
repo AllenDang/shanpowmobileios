@@ -1,3 +1,4 @@
+
 //
 //  BookGridViewController.m
 //  shanpowmobileios
@@ -30,11 +31,11 @@
     [super viewDidLoad];
     
     self.headerHeight = 40.0;
-    if (isSysVerGTE(7.0)) {
+    if (IsSysVerGTE(7.0)) {
         self.tableView.separatorInset = UIEdgeInsetsZero;
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectTableCell:) name:MSG_HC_BOOK_SELECTED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectTableCell:) name:MSG_INT_BOOKINFOVIEW_TAPPED object:nil];
 }
 
 - (void)setIsPlain:(BOOL)isPlain
@@ -57,9 +58,9 @@
 {
     NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
     
-    BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
-    bookDetailController.bookId = bookId;
-    [self.navigationController pushViewController:bookDetailController animated:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_SELECT_BOOK object:self userInfo:@{
+                                                                                                          @"BookId": bookId
+                                                                                                          }];
     
     // Show table item selected animate
     for (BookInfoCell *cell in self.tableView.visibleCells) {

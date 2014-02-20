@@ -65,14 +65,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    if (isSysVerGTE(7.0)) {
+    if (IsSysVerGTE(7.0)) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
     self.title = @"用户信息";
     
     self.tableView.separatorColor = UIC_BRIGHT_GRAY(0.4);
-    if (isSysVerGTE(7.0)) {
+    if (IsSysVerGTE(7.0)) {
         self.tableView.separatorInset = UIEdgeInsetsZero;
     }
     
@@ -175,9 +175,13 @@
     
     self.likedAuthorTitleLabel.text = @"喜欢的作者";
     self.likedAuthorLabel.text = [[self.userBasicInfo objectForKey:@"FavAuthors"] stringByReplacingOccurrencesOfString:@"," withString:@"，"];
+    // Make one line text align top
+    self.likedAuthorLabel.text = [NSString stringWithFormat:@"%@ \n\n ", self.likedAuthorLabel.text];
     
     self.likedCategoriesTitleLabel.text = @"喜欢的分类";
     self.likedCategoriesLabel.text = [[self.userBasicInfo objectForKey:@"FavCategories"] stringByReplacingOccurrencesOfString:@"," withString:@"，"];
+    // Make one line text align top
+    self.likedCategoriesLabel.text = [NSString stringWithFormat:@"%@ \n\n ", self.likedCategoriesLabel.text];
     
     self.followingLabel.text = [NSString stringWithFormat:@"%d\n关注", [[self.userBasicInfo objectForKey:@"FollowUserSum"] intValue]];
     

@@ -40,7 +40,7 @@
     self.avatarSize = 40.0;
     self.cellHeight = 60.0;
     
-    if (isSysVerGTE(7.0)) {
+    if (IsSysVerGTE(7.0)) {
         self.tableView.separatorInset = UIEdgeInsetsZero;
     }
 }

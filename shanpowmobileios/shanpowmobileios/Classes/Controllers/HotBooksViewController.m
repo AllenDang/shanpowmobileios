@@ -33,7 +33,7 @@
     [super viewDidLoad];
     
     self.title = @"热门书籍";
-    if (isSysVerGTE(7.0)) {
+    if (IsSysVerGTE(7.0)) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
@@ -42,6 +42,7 @@
     self.bookGridController.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleBookSelected:) name:MSG_DID_SELECT_BOOK object:nil];
     
     self.bookGridController.refreshControl = [[UIRefreshControl alloc] init];
     [self.bookGridController.refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
@@ -106,6 +107,14 @@
     NSString *errorMsg = [[notification userInfo] objectForKey:@"ErrorMsg"];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络问题" message:errorMsg delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
     [alert show];
+}
+
+- (void)handleBookSelected:(NSNotification *)notification
+{    
+    NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
+    BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+    bookDetailController.bookId = bookId;
+    [self.navigationController pushViewController:bookDetailController animated:YES];
 }
 
 #pragma mark -

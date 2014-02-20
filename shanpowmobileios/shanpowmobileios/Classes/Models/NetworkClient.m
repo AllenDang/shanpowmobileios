@@ -397,7 +397,6 @@ SINGLETON_GCD(NetworkClient);
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
                                      success:^(NSDictionary *data) {
-                                         NSLog(@"%@", data);
                                          [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOK_DETAIL
                                                                                              object:me
                                                                                            userInfo:data];

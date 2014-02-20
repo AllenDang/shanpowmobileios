@@ -102,4 +102,21 @@
     self.attributedText = string;
 }
 
+#pragma mark - Touch event handler
+
+// 点击该label的时候, 来个高亮显示
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self setTextColor:self.highlightedTextColor];
+}
+// 还原label颜色,获取手指离开屏幕时的坐标点, 在label范围内的话就可以触发自定义的操作
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self setTextColor:self.textColor];
+    UITouch *touch = [touches anyObject];
+    CGPoint points = [touch locationInView:self];
+    if (points.x >= self.frame.origin.x && points.y >= self.frame.origin.x && points.x <= self.frame.size.width && points.y <= self.frame.size.height)
+    {
+        [self.delegate touchInSPLabel:self];
+    }
+}
+
 @end

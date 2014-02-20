@@ -39,7 +39,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.title = @"专治书荒";
-    if (isSysVerGTE(7.0)) {
+    if (IsSysVerGTE(7.0)) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     self.view.backgroundColor = UIC_WHISPER(1.0);
@@ -50,7 +50,7 @@
     self.cellHeight = 55.0;
     
     CGFloat visibleHeight = self.view.bounds.size.height - UINAVIGATIONBAR_HEIGHT - UISTATUSBAR_HEIGHT - self.tabBarController.tabBar.bounds.size.height;
-    if (!isSysVerGTE(7.0)) {
+    if (!IsSysVerGTE(7.0)) {
         visibleHeight += UISTATUSBAR_HEIGHT;
     }
     
@@ -64,7 +64,7 @@
     self.mainMenuTable.dataSource = self;
     self.mainMenuTable.scrollEnabled = NO;
     self.mainMenuTable.separatorColor = UIC_BRIGHT_GRAY(0.4);
-    if (isSysVerGTE(7.0)) {
+    if (IsSysVerGTE(7.0)) {
         self.mainMenuTable.separatorInset = UIEdgeInsetsZero;
     }
     [self.view addSubview:self.mainMenuTable];
@@ -148,7 +148,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (isSysVerGTE(7.0)) {
+    if (IsSysVerGTE(7.0)) {
         return 0.5;
     }
     return 1.0;

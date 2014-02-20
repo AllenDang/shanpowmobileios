@@ -52,7 +52,7 @@
     self.window.rootViewController = self.mainTabBar;
     
     // Customize the appearance of uinavigationbar and uitabbar
-    if (isSysVerGTE(7.0)) {
+    if (IsSysVerGTE(7.0)) {
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
         [[UITabBar appearance] setTintColor:UIC_CYAN(1.0)];
         

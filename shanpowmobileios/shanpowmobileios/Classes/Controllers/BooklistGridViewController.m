@@ -37,7 +37,7 @@
     self.title = @"书单列表";
     self.cellHeight = 70.0;
     
-    if (isSysVerGTE(7.0)) {
+    if (IsSysVerGTE(7.0)) {
         self.tableView.separatorInset = UIEdgeInsetsZero;
     }
 }

@@ -11,6 +11,7 @@
 #import "UIKit+AFNetworking.h"
 #import "Common.h"
 #import "BookGridViewController.h"
+#import "BookDetailViewController.h"
 
 @interface HotBooksViewController : UIViewController
 
