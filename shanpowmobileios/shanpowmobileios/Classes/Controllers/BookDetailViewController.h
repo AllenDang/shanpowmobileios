@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Common.h"
 #import "NetworkClient.h"
+#import "CommentReviewView.h"
 
 @interface BookDetailViewController : UITableViewController
 

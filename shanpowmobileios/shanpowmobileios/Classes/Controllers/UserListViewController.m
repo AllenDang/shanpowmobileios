@@ -117,11 +117,12 @@
     }
     
     __block UIImageView *imageViewForBlock = avatarImageView;
+    __block UserListViewController *me = self;
     [avatarImageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[user objectForKey:@"AvatarUrl"]]]
                           placeholderImage:[[[UIImage imageNamed:@"DefaultUser50"] scaledToSize:CGSizeMake(self.avatarSize * 2, self.avatarSize * 2)] imageByApplyingAlpha:0.3]
                                    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       UIImage *scaledImage = [UIImage imageWithImage:image scaledToSize:CGSizeMake(self.avatarSize * 2, self.avatarSize * 2)];
-                                       UIImage *avatarImage = [scaledImage makeRoundedImageWithRadius:self.avatarSize];
+                                       UIImage *scaledImage = [UIImage imageWithImage:image scaledToSize:CGSizeMake(me.avatarSize * 2, me.avatarSize * 2)];
+                                       UIImage *avatarImage = [scaledImage makeRoundedImageWithRadius:me.avatarSize];
                                        imageViewForBlock.image = avatarImage;
                                    }
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {

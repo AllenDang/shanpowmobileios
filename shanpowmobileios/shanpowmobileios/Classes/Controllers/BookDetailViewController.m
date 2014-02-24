@@ -17,6 +17,9 @@
 
 @property (nonatomic, assign) float generalMargin;
 @property (nonatomic, assign) float generalCellHeight;
+@property (nonatomic, assign) float generalHeaderHeight;
+@property (nonatomic, assign) float commentCellHeight;
+@property (nonatomic, assign) float reviewCellHeight;
 
 #pragma mark - Section 0
 @property (nonatomic, strong) UILabel *bookTitleLabel;
@@ -50,6 +53,9 @@
         self.bookId = @"";
         self.generalMargin = 10.0;
         self.generalCellHeight = 50.0;
+        self.generalHeaderHeight = 40.0;
+        self.commentCellHeight = 140.0;
+        self.reviewCellHeight = 155.0;
     }
     return self;
 }
@@ -57,10 +63,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
@@ -121,7 +127,7 @@
         self.bookTitleLabel = [[UILabel alloc] init];
         self.bookTitleLabel.font = LARGE_BOLD_FONT;
     }
-
+    
     if (!self.ratingStar)
     {
         self.ratingStar = [[AMRatingControl alloc] initWithLocation:CGPointZero
@@ -131,84 +137,84 @@
         self.ratingStar.starWidthAndHeight = StarSize(@"Star_Red_Small");
         self.ratingStar.starSpacing = 1.0;
     }
-
+    
     if (!self.scoreLabel)
     {
         self.scoreLabel = [[UILabel alloc] init];
         self.scoreLabel.font = MEDIUM_FONT;
     }
-
+    
     if (!self.ratingSumLabel)
     {
         self.ratingSumLabel = [[UILabel alloc] init];
         self.ratingSumLabel.font = MEDIUM_FONT;
     }
-
+    
     if (!self.authorTitleLabel)
     {
         self.authorTitleLabel = [[UILabel alloc] init];
         self.authorTitleLabel.font = MEDIUM_FONT;
     }
-
+    
     if (!self.authorLabel)
     {
         self.authorLabel = [[SPLabel alloc] init];
         self.authorLabel.font = MEDIUM_FONT;
     }
-
+    
     if (!self.statusTitleLabel)
     {
         self.statusTitleLabel = [[UILabel alloc] init];
         self.statusTitleLabel.font = MEDIUM_FONT;
     }
-
+    
     if (!self.statusLabel)
     {
         self.statusLabel = [[UILabel alloc] init];
         self.statusLabel.font = MEDIUM_FONT;
     }
-
+    
     if (!self.wordCountTitleLabel)
     {
         self.wordCountTitleLabel = [[UILabel alloc] init];
         self.wordCountTitleLabel.font = MEDIUM_FONT;
     }
-
+    
     if (!self.wordCountLabel)
     {
         self.wordCountLabel = [[UILabel alloc] init];
         self.wordCountLabel.font = MEDIUM_FONT;
     }
-
+    
     if (!self.categoryTitleLabel)
     {
         self.categoryTitleLabel = [[UILabel alloc] init];
         self.categoryTitleLabel.font = MEDIUM_FONT;
     }
-
+    
     if (!self.categoryLabel)
     {
         self.categoryLabel = [[SPLabel alloc] init];
         self.categoryLabel.font = MEDIUM_FONT;
     }
-
+    
     if (!self.lastUpdateTitleLabel)
     {
         self.lastUpdateTitleLabel = [[UILabel alloc] init];
         self.lastUpdateTitleLabel.font = MEDIUM_FONT;
     }
-
+    
     if (!self.lastUpdateLabel)
     {
         self.lastUpdateLabel = [[UILabel alloc] init];
         self.lastUpdateLabel.font = MEDIUM_FONT;
     }
-
+    
     if (!self.section0Divider)
     {
         self.section0Divider = [[UIView alloc] init];
     }
-
+    
     if (!self.summaryLabel)
     {
         self.summaryLabel = [[UILabel alloc] init];
@@ -235,9 +241,9 @@
                                        TextHeightWithFont(self.scoreLabel.font));
     
     self.ratingSumLabel.frame = CGRectMake(self.scoreLabel.frame.origin.x + self.scoreLabel.frame.size.width + self.generalMargin,
-                                       self.scoreLabel.frame.origin.y,
-                                       self.view.frame.size.width - self.ratingStar.frame.size.width - self.scoreLabel.frame.size.width - self.generalMargin * 3,
-                                       TextHeightWithFont(self.ratingSumLabel.font));
+                                           self.scoreLabel.frame.origin.y,
+                                           self.view.frame.size.width - self.ratingStar.frame.size.width - self.scoreLabel.frame.size.width - self.generalMargin * 3,
+                                           TextHeightWithFont(self.ratingSumLabel.font));
     
     // Third Segment
     self.authorTitleLabel.frame = CGRectMake(self.bookTitleLabel.frame.origin.x,
@@ -285,14 +291,14 @@
     self.categoryLabel.highlightedTextColor = UIC_CYAN(1.0);
     
     self.lastUpdateTitleLabel.frame = CGRectMake(self.bookTitleLabel.frame.origin.x,
-                                               self.categoryTitleLabel.frame.origin.y + self.categoryTitleLabel.frame.size.height + self.generalMargin,
-                                               115.0,
-                                               TextHeightWithFont(self.lastUpdateTitleLabel.font));
+                                                 self.categoryTitleLabel.frame.origin.y + self.categoryTitleLabel.frame.size.height + self.generalMargin,
+                                                 115.0,
+                                                 TextHeightWithFont(self.lastUpdateTitleLabel.font));
     
     self.lastUpdateLabel.frame = CGRectMake(self.lastUpdateTitleLabel.frame.origin.x + self.lastUpdateTitleLabel.frame.size.width,
-                                          self.lastUpdateTitleLabel.frame.origin.y,
-                                          self.view.frame.size.width - self.lastUpdateTitleLabel.frame.size.width - self.generalMargin * 2,
-                                          TextHeightWithFont(self.lastUpdateLabel.font));
+                                            self.lastUpdateTitleLabel.frame.origin.y,
+                                            self.view.frame.size.width - self.lastUpdateTitleLabel.frame.size.width - self.generalMargin * 2,
+                                            TextHeightWithFont(self.lastUpdateLabel.font));
     
     // Fourth Segment
     self.section0Divider.frame = CGRectMake(0.0,
@@ -353,18 +359,69 @@
         case 0:
             return self.summaryLabel.frame.size.height + self.summaryLabel.frame.origin.y + self.generalMargin * 2;
             break;
-        case 2:
-            return 50.0;
+        case 3:
+            if ([self.bookInfo objectForKey:@"Comments"] != [NSNull null]) {
+                if (indexPath.row < 5) {
+                    return self.commentCellHeight;
+                } else {
+                    return self.generalCellHeight;
+                }
+            }
+            break;
+        case 4:
+            if ([self.bookInfo objectForKey:@"Reviews"] != [NSNull null]) {
+                if (indexPath.row < 5) {
+                    return self.reviewCellHeight;
+                } else {
+                    return self.generalCellHeight;
+                }
+            }
             break;
         default:
             break;
     }
-    return 50.0;
+    return self.generalCellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (section == 3 || section == 4) {
+        return self.generalHeaderHeight;
+    }
     return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *header = [[UIView alloc] init];
+    header.backgroundColor = UIC_WHISPER(1.0);
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.bounds.size.width - 20, self.generalHeaderHeight)];
+    title.backgroundColor = [UIColor clearColor];
+    title.font = MEDIUM_FONT;
+    
+    UILabel *sum = [[UILabel alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 10.0 - [[[self.bookInfo objectForKey:@"CommentSum"] stringValue] sizeWithFont:MEDIUM_FONT].width, 0.0, [[[self.bookInfo objectForKey:@"CommentSum"] stringValue] sizeWithFont:MEDIUM_FONT].width, self.generalHeaderHeight)];
+    sum.backgroundColor = [UIColor clearColor];
+    sum.font = MEDIUM_FONT;
+    sum.textColor = UIC_BRIGHT_GRAY(0.5);
+    
+    switch (section) {
+        case 3:
+            title.text = @"一句话评论";
+            sum.text = [[self.bookInfo objectForKey:@"CommentSum"] stringValue];
+            break;
+        case 4:
+            title.text = @"书评";
+            sum.text = [[self.bookInfo objectForKey:@"ReviewSum"] stringValue];
+            break;
+        default:
+            break;
+    }
+    
+    [header addSubview:sum];
+    [header addSubview:title];
+    
+    return header;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -375,6 +432,20 @@
 }
 
 #pragma mark - Table view data source
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case 3:
+            return @"一句话评论";
+            break;
+        case 4:
+            return @"书评";
+            break;
+        default:
+            break;
+    }
+    return nil;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -392,6 +463,30 @@
         case 2:
             return 3;
             break;
+        case 3:
+        {
+            NSArray *comments = [self.bookInfo objectForKey:@"Comments"];
+            if ([self.bookInfo objectForKey:@"Comments"] != [NSNull null]) {
+                if ([[self.bookInfo objectForKey:@"CommentSum"] integerValue] > 5) {
+                    return 6;
+                } else {
+                    return [comments count];
+                }
+            } else {
+                return 1;
+            }
+        }
+            break;
+        case 4:
+        {
+            NSArray *reviews = [self.bookInfo objectForKey:@"Reviews"];
+            if ([self.bookInfo objectForKey:@"Reviews"] != [NSNull null]) {
+                return [[self.bookInfo objectForKey:@"ReviewSum"] integerValue] > 5 ? 6 : [reviews count];
+            } else {
+                return 1;
+            }
+        }
+            break;
         default:
             return 1;
             break;
@@ -401,116 +496,251 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
     switch (indexPath.section) {
         case 0:
         {
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            static NSString *CellIdentifier = @"Section0Cell";
             
-            [self initBookBasicInfoLabels];
-            [self updateBookBasicInfoLayout];
-            [self updateBookBasicInfoData];
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
-            // Add label to cell
-            [cell addSubview:self.bookTitleLabel];
-            [cell addSubview:self.ratingStar];
-            [cell addSubview:self.scoreLabel];
-            [cell addSubview:self.ratingSumLabel];
-            [cell addSubview:self.authorTitleLabel];
-            [cell addSubview:self.authorLabel];
-            [cell addSubview:self.statusTitleLabel];
-            [cell addSubview:self.statusLabel];
-            [cell addSubview:self.wordCountTitleLabel];
-            [cell addSubview:self.wordCountLabel];
-            [cell addSubview:self.categoryTitleLabel];
-            [cell addSubview:self.categoryLabel];
-            [cell addSubview:self.lastUpdateTitleLabel];
-            [cell addSubview:self.lastUpdateLabel];
-            [cell addSubview:self.section0Divider];
-            [cell addSubview:self.summaryLabel];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                [self initBookBasicInfoLabels];
+                [self updateBookBasicInfoLayout];
+                [self updateBookBasicInfoData];
+                
+                // Add label to cell
+                [cell addSubview:self.bookTitleLabel];
+                [cell addSubview:self.ratingStar];
+                [cell addSubview:self.scoreLabel];
+                [cell addSubview:self.ratingSumLabel];
+                [cell addSubview:self.authorTitleLabel];
+                [cell addSubview:self.authorLabel];
+                [cell addSubview:self.statusTitleLabel];
+                [cell addSubview:self.statusLabel];
+                [cell addSubview:self.wordCountTitleLabel];
+                [cell addSubview:self.wordCountLabel];
+                [cell addSubview:self.categoryTitleLabel];
+                [cell addSubview:self.categoryLabel];
+                [cell addSubview:self.lastUpdateTitleLabel];
+                [cell addSubview:self.lastUpdateLabel];
+                [cell addSubview:self.section0Divider];
+                [cell addSubview:self.summaryLabel];
+            }
+            
+            return  cell;
         }
             break;
         case 2:
         {
-            cell.textLabel.text = [self.relatedInfoSectionItems objectAtIndex:indexPath.row];
-            cell.textLabel.font = MEDIUM_FONT;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            static NSString *CellIdentifier = @"Section1Cell";
             
-            NSArray *numKeys = @[@"AuthorBookSum", @"SimilarBookSum", @"BooklistContainThisBookSum"];
-            NSString *text = [NSString stringWithFormat:@"%d", [[self.bookInfo objectForKey:[numKeys objectAtIndex:indexPath.row]] integerValue]];
-            UILabel *numLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0,
-                                                                          0.0,
-                                                                          self.view.frame.size.width - 40,
-                                                                          self.generalCellHeight)];
-            numLabel.text = [text isEqualToString:@"0"] ? @"" : text;
-            numLabel.textColor = UIC_BLACK(0.3);
-            numLabel.textAlignment = NSTextAlignmentRight;
-            numLabel.font = SMALL_FONT;
-            [cell addSubview:numLabel];
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                
+                UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.bounds.size.width, 50.0)];
+                titleLabel.font = MEDIUM_FONT;
+                titleLabel.backgroundColor = [UIColor clearColor];
+                titleLabel.text = [self.relatedInfoSectionItems objectAtIndex:indexPath.row];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                
+                NSArray *numKeys = @[@"AuthorBookSum", @"SimilarBookSum", @"BooklistContainThisBookSum"];
+                NSString *text = [NSString stringWithFormat:@"%d", [[self.bookInfo objectForKey:[numKeys objectAtIndex:indexPath.row]] integerValue]];
+                UILabel *numLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0,
+                                                                              0.0,
+                                                                              self.view.frame.size.width - 40,
+                                                                              self.generalCellHeight)];
+                numLabel.text = [text isEqualToString:@"0"] ? @"" : text;
+                numLabel.textColor = UIC_BLACK(0.3);
+                numLabel.textAlignment = NSTextAlignmentRight;
+                numLabel.font = SMALL_FONT;
+                
+                [cell addSubview:titleLabel];
+                [cell addSubview:numLabel];
+            }
+            
+            return cell;
+        }
+            break;
+        case 3:
+        {
+            if ([self.bookInfo objectForKey:@"Comments"] != [NSNull null]) {
+                if (indexPath.row <= 4) {
+                    static NSString *CellIdentifier = @"Section31Cell";
+                    
+                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                    
+                    if (cell == nil) {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                        
+                        CommentReviewView *crView = [[CommentReviewView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.commentCellHeight)];
+                        crView.comment = [[self.bookInfo objectForKey:@"Comments"] objectAtIndex:indexPath.row];
+                        [cell addSubview:crView];
+                    }
+                    
+                    return cell;
+                } else {
+                    static NSString *CellIdentifier = @"Section32Cell";
+                    
+                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                    
+                    if (cell == nil) {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                        
+                        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.bounds.size.width, 50.0)];
+                        titleLabel.font = MEDIUM_FONT;
+                        titleLabel.backgroundColor = [UIColor clearColor];
+                        titleLabel.text = @"查看更多一句话评论";
+                        titleLabel.textAlignment = NSTextAlignmentCenter;
+                        [cell addSubview:titleLabel];
+                    }
+                    
+                    return cell;
+                }
+            } else {
+                static NSString *CellIdentifier = @"Section30Cell";
+                
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                
+                if (cell == nil) {
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                    
+                    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.bounds.size.width, 50.0)];
+                    titleLabel.font = MEDIUM_FONT;
+                    titleLabel.backgroundColor = [UIColor clearColor];
+                    titleLabel.text = @"暂时还没有一句话评论";
+                    titleLabel.textColor = UIC_BRIGHT_GRAY(0.5);
+                    [cell addSubview:titleLabel];
+                }
+                
+                return cell;
+            }
+        }
+            break;
+        case 4:
+        {
+            if ([self.bookInfo objectForKey:@"Reviews"] != [NSNull null]) {
+                if (indexPath.row < 5) {
+                    static NSString *CellIdentifier = @"Section41Cell";
+                    
+                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                    
+                    if (cell == nil) {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                        
+                        CommentReviewView *crView = [[CommentReviewView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.reviewCellHeight)];
+                        crView.comment = [[self.bookInfo objectForKey:@"Reviews"] objectAtIndex:indexPath.row];
+                        [cell addSubview:crView];
+                    }
+                    
+                    return cell;
+                } else {
+                    static NSString *CellIdentifier = @"Section42Cell";
+                    
+                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                    
+                    if (cell == nil) {
+                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                        
+                        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.bounds.size.width, 50.0)];
+                        titleLabel.font = MEDIUM_FONT;
+                        titleLabel.backgroundColor = [UIColor clearColor];
+                        titleLabel.text = @"查看更多书评";
+                        [cell addSubview:titleLabel];
+                    }
+                    
+                    return cell;
+                }
+            } else {
+                static NSString *CellIdentifier = @"Section40Cell";
+                
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                
+                if (cell == nil) {
+                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                    
+                    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.bounds.size.width, 50.0)];
+                    titleLabel.font = MEDIUM_FONT;
+                    titleLabel.backgroundColor = [UIColor clearColor];
+                    titleLabel.text = @"暂时还没有书评";
+                    titleLabel.textColor = UIC_BRIGHT_GRAY(0.5);
+                    [cell addSubview:titleLabel];
+                }
+            }
         }
             break;
         default:
+        {
+            static NSString *CellIdentifier = @"SectionCell";
+            
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            }
+            
+            return cell;
+        }
             break;
     }
     
-    return cell;
+    return nil;
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 /*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
+ #pragma mark - Navigation
+ 
+ // In a story board-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ 
  */
 
 @end
