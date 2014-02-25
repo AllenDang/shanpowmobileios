@@ -10,8 +10,10 @@
 #import "Common.h"
 #import "NetworkClient.h"
 #import "CommentReviewView.h"
+#import "AwesomeMenu.h"
+#import "WriteCommentReviewViewController.h"
 
-@interface BookDetailViewController : UITableViewController
+@interface BookDetailViewController : UITableViewController <AwesomeMenuDelegate>
 
 @property (nonatomic, strong) NSString *bookId;
 

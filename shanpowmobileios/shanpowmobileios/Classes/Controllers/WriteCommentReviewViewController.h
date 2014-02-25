@@ -10,7 +10,14 @@
 #import "Common.h"
 #import "SPTextView.h"
 #import "AMRatingControl.h"
+#import "NetworkClient.h"
 
 @interface WriteCommentReviewViewController : UIViewController <UITextViewDelegate>
+
+@property (nonatomic, strong) NSString *bookId;
+
+@property (nonatomic, strong) NSString *bookTitle;
+@property (nonatomic, strong) NSString *bookImageUrl;
+@property (nonatomic, strong) NSString *bookCategory;
 
 @end

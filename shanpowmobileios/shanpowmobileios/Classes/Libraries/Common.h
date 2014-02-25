@@ -62,6 +62,10 @@ return shared##classname;                               \
 #define MSG_FAIL_GET_BASIC_USER_INFO        @"SMNC_20"
 #define MSG_DID_GET_BOOK_DETAIL             @"SMNC_21"
 #define MSG_FAIL_GET_BOOK_DETAIL            @"SMNC_22"
+#define MSG_DID_MARK_BOOK                   @"SMNC_23"
+#define MSG_FAIL_MARK_BOOK                  @"SMNC_24"
+#define MSG_DID_POST_REVIEW                 @"SMNC_25"
+#define MSG_FAIL_POST_REVIEW                @"SMNC_26"
 
 #define MSG_DID_SELECT_BOOK                 @"SMNC_1000"
 

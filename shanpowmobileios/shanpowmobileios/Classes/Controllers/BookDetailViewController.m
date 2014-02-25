@@ -39,6 +39,11 @@
 @property (nonatomic, strong) UIView *section0Divider;
 @property (nonatomic, strong) UILabel *summaryLabel;
 
+@property (nonatomic, strong) AwesomeMenu *actionMenu;
+@property (nonatomic, strong) AwesomeMenuItem *mainItem;
+@property (nonatomic, strong) AwesomeMenuItem *ratingItem;
+@property (nonatomic, strong) AwesomeMenuItem *shareItem;
+@property (nonatomic, strong) AwesomeMenuItem *addToBooklistItem;
 
 @end
 
@@ -69,10 +74,75 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+//    self.title = @"书籍详细信息";
     
     if (IsSysVerGTE(7.0)) {
         self.tableView.separatorInset = UIEdgeInsetsZero;
     }
+    
+    UIImage *storyMenuItemImage = [UIImage imageNamed:@"bg-menuitem.png"];
+    UIImage *storyMenuItemImagePressed = [UIImage imageNamed:@"bg-menuitem-highlighted.png"];
+    UIImage *starImage = [UIImage imageNamed:@"icon-star"];
+    UIImage *shareImage = [UIImage imageNamed:@"icon-share"];
+    UIImage *addImage = [UIImage imageNamed:@"icon-plus"];
+    self.ratingItem = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+                                                           highlightedImage:storyMenuItemImagePressed
+                                                               ContentImage:starImage
+                                                    highlightedContentImage:nil];
+    self.shareItem = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+                                                           highlightedImage:storyMenuItemImagePressed
+                                                               ContentImage:shareImage
+                                                    highlightedContentImage:nil];
+    self.addToBooklistItem = [[AwesomeMenuItem alloc] initWithImage:storyMenuItemImage
+                                                   highlightedImage:storyMenuItemImagePressed
+                                                       ContentImage:addImage
+                                            highlightedContentImage:nil];
+    // the start item, similar to "add" button of Path
+    self.mainItem = [[AwesomeMenuItem alloc] initWithImage:[UIImage imageNamed:@"bg-addbutton"]
+                                                       highlightedImage:[UIImage imageNamed:@"bg-addbutton-highlighted"]
+                                                           ContentImage:[UIImage imageNamed:@"icon-plus"]
+                                                highlightedContentImage:[UIImage imageNamed:@"icon-plus-highlighted"]];
+    
+    self.actionMenu = [[AwesomeMenu alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.bounds
+                                                 startItem:self.mainItem
+                                               optionMenus:@[self.ratingItem, self.shareItem, self.addToBooklistItem]];
+    self.actionMenu.delegate = self;
+    self.actionMenu.alpha = 0.0;
+    self.actionMenu.menuWholeAngle = M_PI / 2;
+    self.actionMenu.startPoint = CGPointMake(40.0, self.view.frame.size.height - 70.0);
+    self.actionMenu.animationDuration = 0.4;
+    self.actionMenu.endRadius = 100.0;
+    self.actionMenu.farRadius = 110.0;
+    self.actionMenu.nearRadius = 95.0;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (isLogin()) {
+        [self.view.window addSubview:self.actionMenu];
+        
+        [UIView animateWithDuration:0.2
+                         animations:^{
+                             self.actionMenu.alpha = 1.0;
+                         }];
+    }
+    
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    if (isLogin()) {
+        [UIView animateWithDuration:0.2
+                         animations:^{
+                             self.actionMenu.alpha = 0.0;
+                         }
+                         completion:^(BOOL finished) {
+                             [self.actionMenu removeFromSuperview];
+                         }];
+    }
+    
+    [super viewWillDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -335,6 +405,8 @@
     self.lastUpdateTitleLabel.text = @"最近更新时间：";
     self.lastUpdateLabel.text = [self.bookInfo objectForKey:@"LastUpdateDate"];
     self.summaryLabel.text = [self.bookInfo objectForKey:@"Summary"];
+    
+    self.title = [self.bookInfo objectForKey:@"Title"];
 }
 
 #pragma mark - Event handler
@@ -349,6 +421,28 @@
 - (void)handleErrorGetBookDetail:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BOOK_DETAIL object:nil];
+}
+
+#pragma mark - Awesome Menu delegate
+- (void)awesomeMenu:(AwesomeMenu *)menu didSelectIndex:(NSInteger)idx;
+{
+    switch (idx) {
+        case 0:
+        {
+            WriteCommentReviewViewController *wcrController = [[WriteCommentReviewViewController alloc] init];
+            wcrController.bookId = self.bookId;
+            wcrController.bookTitle = self.bookTitleLabel.text;
+            wcrController.bookImageUrl = [self.bookInfo objectForKey:@"ImageUrl"];
+            wcrController.bookCategory = self.categoryLabel.text;
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:wcrController animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - Table view delegate

@@ -16,6 +16,11 @@
 @property (nonatomic, strong) SPTextView *reviewContentTextView;
 @property (nonatomic, strong) UIBarButtonItem *done;
 
+@property (nonatomic, strong) NSString *markType;
+@property (nonatomic, assign) NSInteger score;
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSString *reviewTitle;
+
 @end
 
 @implementation WriteCommentReviewViewController
@@ -33,7 +38,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.title = @"创建书单";
+    self.title = @"写书评";
     self.view.backgroundColor = UIC_ALMOSTWHITE(1.0);
     
     if (IsSysVerGTE(7.0)) {
@@ -46,6 +51,7 @@
     self.readStatus = [[UISegmentedControl alloc] initWithItems:@[@"想读", @"在读", @"弃读", @"读过"]];
     self.readStatus.frame = CGRectMake(10.0, 5.0, self.view.bounds.size.width - 20.0, 35.0);
     self.readStatus.tintColor = UIC_CERULEAN(1.0);
+    self.readStatus.selectedSegmentIndex = 3;
     [self.view addSubview:self.readStatus];
     [self.readStatus addTarget:self action:@selector(readStatusChanged:) forControlEvents:UIControlEventValueChanged];
     
@@ -108,6 +114,11 @@
     self.reviewContentTextView.delegate = self;
     [self.view addSubview:self.reviewContentTextView];
     
+    self.markType = @"read";
+    self.score = 0;
+    self.content = @"";
+    self.reviewTitle = @"";
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
@@ -126,10 +137,61 @@
 
 - (void)doneWrite:(UIBarButtonItem *)sender
 {
+    self.score = self.ratingStar.rating;
+    self.content = self.reviewContentTextView.text;
     
+    if (self.reviewTitleTextView.text.length > 0 || self.reviewContentTextView.text.length > 140) {
+        if (self.reviewTitleTextView.text.length <= 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"错误"
+                                                            message:@"必须填写书评标题"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"好的"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        } else {
+            NSDictionary *options = @{
+                                      @"bookTitle": self.bookTitle,
+                                      @"bookImageUrl": self.bookImageUrl,
+                                      @"bookCategory": self.bookCategory,
+                                      @"reviewTitle": self.reviewTitleTextView.text,
+                                      @"reviewContent": self.reviewContentTextView.text,
+                                      @"markType": self.markType,
+                                      @"score": [NSNumber numberWithInteger:self.score]
+                                      };
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didMarkBook:) name:MSG_DID_POST_REVIEW object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failMarkBook:) name:MSG_FAIL_POST_REVIEW object:nil];
+            [[NetworkClient sharedNetworkClient] postReviewWithBookId:self.bookId params:options];
+        }
+    } else {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didMarkBook:) name:MSG_DID_MARK_BOOK object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failMarkBook:) name:MSG_FAIL_MARK_BOOK object:nil];
+        [[NetworkClient sharedNetworkClient] markBookWithBookId:self.bookId markType:self.markType score:self.score content:self.content];
+    }
 }
 
 #pragma mark - Event handler
+- (void)didMarkBook:(NSNotification *)notification
+{
+    NSString *msg = @"";
+    if (self.reviewTitleTextView.text.length > 0) {
+        msg = @"，并成功发表书评";
+    } else if (self.reviewContentTextView.text.length > 0) {
+        msg = @"，并成功发表一句话评论";
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"成功"
+                                                    message:[NSString stringWithFormat:@"成功保存阅读状%@", msg]
+                                                   delegate:self
+                                          cancelButtonTitle:@"好的"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void)failMarkBook:(NSNotification *)notification
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"错误" message:@"网络出了点问题，请重试" delegate:nil cancelButtonTitle:@"好的" otherButtonTitles:nil];
+    [alert show];
+}
+
 - (void)handleKeyboardWillShow:(NSNotification *)notification
 {
     NSDictionary *userInfo = [notification userInfo];
@@ -173,6 +235,30 @@
 - (void)readStatusChanged:(UISegmentedControl *)segmentedControl
 {
     [self dismissKeyboard];
+    
+    switch (segmentedControl.selectedSegmentIndex) {
+        case 0:
+            self.markType = @"wanttoread";
+            break;
+        case 1:
+            self.markType = @"reading";
+            break;
+        case 2:
+            self.markType = @"giveup";
+            break;
+        case 3:
+            self.markType = @"read";
+            break;
+        default:
+            self.markType = @"";
+            break;
+    }
+}
+
+#pragma mark - UIAlertView delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - UITextView delegate

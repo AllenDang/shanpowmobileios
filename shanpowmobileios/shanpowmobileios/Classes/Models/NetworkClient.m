@@ -29,6 +29,9 @@ SINGLETON_GCD(NetworkClient);
         self.baseURL = [NSURL URLWithString:BASE_URL];
         self.pendingOperationQueue = [NSMutableArray arrayWithCapacity:40];
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CSRF_TOKEN]) {
+            self.csrfToken = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CSRF_TOKEN];
+        }
     }
     return self;
 }
@@ -404,6 +407,70 @@ SINGLETON_GCD(NetworkClient);
                                      failure:^(NSDictionary *ErrorMsg) {
                                          [self handleFailureFromRequest:operation];
                                          [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOK_DETAIL
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)markBookWithBookId:(NSString *)bookId markType:(NSString *)markType score:(NSInteger)score content:(NSString *)content
+{
+    NSDictionary *parameters = @{
+                                 @"markType": markType,
+                                 @"score": [NSNumber numberWithInteger:score],
+                                 @"content": content,
+                                 @"isShareToQQ": [NSNumber numberWithBool:NO],
+                                 @"isShareToWeibo": [NSNumber numberWithBool:NO]
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"POST"
+                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/book/%@/mark", bookId] relativeToURL:self.baseURL] absoluteString]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_MARK_BOOK
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_MARK_BOOK
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)postReviewWithBookId:(NSString *)bookId params:(NSDictionary *)options
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:options];
+    [parameters setObject:[NSNumber numberWithBool:NO] forKey:@"isShareToQQ"];
+    [parameters setObject:[NSNumber numberWithBool:NO] forKey:@"isShareToWeibo"];
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"POST"
+                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/book/%@/addreview", bookId] relativeToURL:self.baseURL] absoluteString]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_POST_REVIEW
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_POST_REVIEW
                                                                                              object:me
                                                                                            userInfo:ErrorMsg];
                                      }];

@@ -42,4 +42,7 @@
 
 - (void)getBookDetail:(NSString *)bookId;
 
+- (void)markBookWithBookId:(NSString *)bookId markType:(NSString *)markType score:(NSInteger)score content:(NSString *)content;
+- (void)postReviewWithBookId:(NSString *)bookId params:(NSDictionary *)options;
+
 @end

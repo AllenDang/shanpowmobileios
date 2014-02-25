@@ -148,6 +148,7 @@
                                           self.avatar.frame.origin.y,
                                           MIN([self.nickname sizeWithFont:MEDIUM_FONT].width + self.generalMargin, 90),
                                           self.avatarSize);
+    self.nicknameLabel.textColor = UIC_CERULEAN(1.0);
     
     self.ratingStar.frame = CGRectMake(self.nicknameLabel.frame.size.width + self.nicknameLabel.frame.origin.x,
                                        self.nicknameLabel.frame.origin.y + (self.nicknameLabel.frame.size.height - StarSize(@"Star_Red_Small")) / 2,
