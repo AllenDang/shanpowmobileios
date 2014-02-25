@@ -116,6 +116,15 @@
     self.actionMenu.nearRadius = 95.0;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (self.bookId.length > 0) {
+        [self getBookDetail];
+    }
+    
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     if (isLogin()) {
@@ -152,17 +161,6 @@
 }
 
 #pragma mark -
-
-- (void)setBookId:(NSString *)bookId
-{
-    if (![_bookId isEqualToString:bookId]) {
-        _bookId = bookId;
-        
-        if (bookId.length > 0) {
-            [self getBookDetail];
-        }
-    }
-}
 
 - (void)setBookInfo:(NSDictionary *)bookInfo
 {
@@ -386,6 +384,19 @@
     self.summaryLabel.numberOfLines = 7;
 }
 
+- (void)pushWriteReviewView
+{
+    WriteCommentReviewViewController *wcrController = [[WriteCommentReviewViewController alloc] init];
+    wcrController.bookId = self.bookId;
+    wcrController.bookTitle = self.bookTitleLabel.text;
+    wcrController.bookImageUrl = [self.bookInfo objectForKey:@"ImageUrl"];
+    wcrController.bookCategory = self.categoryLabel.text;
+    
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:wcrController animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
+}
+
 #pragma mark - Data related
 
 - (void)updateBookBasicInfoData
@@ -429,14 +440,7 @@
     switch (idx) {
         case 0:
         {
-            WriteCommentReviewViewController *wcrController = [[WriteCommentReviewViewController alloc] init];
-            wcrController.bookId = self.bookId;
-            wcrController.bookTitle = self.bookTitleLabel.text;
-            wcrController.bookImageUrl = [self.bookInfo objectForKey:@"ImageUrl"];
-            wcrController.bookCategory = self.categoryLabel.text;
-            self.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:wcrController animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
+            [self pushWriteReviewView];
         }
             break;
             
@@ -458,7 +462,7 @@
                 if (indexPath.row < 5) {
                     return self.commentCellHeight;
                 } else {
-                    return self.generalCellHeight;
+                    return self.generalCellHeight + 10;
                 }
             }
             break;
@@ -467,7 +471,7 @@
                 if (indexPath.row < 5) {
                     return self.reviewCellHeight;
                 } else {
-                    return self.generalCellHeight;
+                    return self.generalCellHeight + 10;
                 }
             }
             break;
@@ -521,6 +525,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    switch (indexPath.section) {
+        case 3:
+        {
+            if (indexPath.row == 0 && [self.bookInfo objectForKey:@"Comments"] == [NSNull null]) {
+                [self pushWriteReviewView];
+            }
+        }
+            break;
+        case 4:
+        {
+            if (indexPath.row == 0 && [self.bookInfo objectForKey:@"Reviews"] == [NSNull null]) {
+                [self pushWriteReviewView];
+            }
+        }
+            break;
+        default:
+            break;
+    }
     
     return;
 }
@@ -704,10 +727,19 @@
                 if (cell == nil) {
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                     
+                    NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"暂时还没有评论\n（第一个来写评论）"]
+                                                                                                    attributes:@{}];
+                    [titleString addAttributes:@{
+                                                 NSFontAttributeName: SMALL_FONT
+                                                 }
+                                         range:[titleString.string rangeOfString:@"（第一个来写评论）"]];
+                    
                     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.bounds.size.width, 50.0)];
                     titleLabel.font = MEDIUM_FONT;
                     titleLabel.backgroundColor = [UIColor clearColor];
-                    titleLabel.text = @"暂时还没有一句话评论";
+                    titleLabel.attributedText = titleString;
+                    titleLabel.numberOfLines = 2;
+                    titleLabel.textAlignment = NSTextAlignmentCenter;
                     titleLabel.textColor = UIC_BRIGHT_GRAY(0.5);
                     [cell addSubview:titleLabel];
                 }
@@ -719,7 +751,7 @@
         case 4:
         {
             if ([self.bookInfo objectForKey:@"Reviews"] != [NSNull null]) {
-                if (indexPath.row < 5) {
+                if (indexPath.row <= 4) {
                     static NSString *CellIdentifier = @"Section41Cell";
                     
                     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -758,13 +790,24 @@
                 if (cell == nil) {
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                     
+                    NSMutableAttributedString *titleString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"暂时还没有书评\n（第一个来写书评）"]
+                                                                                                    attributes:@{}];
+                    [titleString addAttributes:@{
+                                                 NSFontAttributeName: SMALL_FONT
+                                                 }
+                                         range:[titleString.string rangeOfString:@"（第一个来写书评）"]];
+                    
                     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.bounds.size.width, 50.0)];
                     titleLabel.font = MEDIUM_FONT;
                     titleLabel.backgroundColor = [UIColor clearColor];
-                    titleLabel.text = @"暂时还没有书评";
+                    titleLabel.attributedText = titleString;
+                    titleLabel.numberOfLines = 2;
+                    titleLabel.textAlignment = NSTextAlignmentCenter;
                     titleLabel.textColor = UIC_BRIGHT_GRAY(0.5);
                     [cell addSubview:titleLabel];
                 }
+                
+                return cell;
             }
         }
             break;

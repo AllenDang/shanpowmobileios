@@ -277,7 +277,7 @@
   CGSize titleSize = [self.titleLabel.text sizeWithFont:self.titleLabel.font];
   self.titleLabel.frame = CGRectMake(0.0, 
                                      0.0, 
-                                     MIN(titleSize.width, self.frame.size.width * 2 / 3), 
+                                     MIN(titleSize.width, self.frame.size.width * 4 / 5),
                                      titleSize.height);
   self.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;
   self.titleLabel.textColor = self.mainFontColor;
