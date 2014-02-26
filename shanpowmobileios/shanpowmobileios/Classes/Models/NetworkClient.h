@@ -46,5 +46,6 @@
 - (void)postReviewWithBookId:(NSString *)bookId params:(NSDictionary *)options;
 
 - (void)getBooklistsByAuthorId:(NSString *)authorId;
+- (void)getBooklistsBySubscriberId:(NSString *)subscriberId;
 
 @end

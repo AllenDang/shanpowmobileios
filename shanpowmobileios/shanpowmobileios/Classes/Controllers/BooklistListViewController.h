@@ -17,6 +17,6 @@ typedef enum {
 
 @property (nonatomic, assign) BooklistDataSource dataSource;
 
-@property (nonatomic, strong) NSString *authorId;
+@property (nonatomic, strong) NSString *userId;
 
 @end

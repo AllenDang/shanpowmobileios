@@ -494,13 +494,41 @@ SINGLETON_GCD(NetworkClient);
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
                                      success:^(NSDictionary *data) {
-                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BLS_CREATED_BY_AUTHOR
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOKLISTS
                                                                                              object:me
                                                                                            userInfo:data];
                                      }
                                      failure:^(NSDictionary *ErrorMsg) {
                                          [self handleFailureFromRequest:operation];
-                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BLS_CREATED_BY_AUTHOR
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKLISTS
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)getBooklistsBySubscriberId:(NSString *)subscriberId
+{
+    NSDictionary *parameters = nil;
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"GET"
+                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/booklist/getsimplebooklistsbysubscriberid/%@", subscriberId] relativeToURL:self.baseURL] absoluteString]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOKLISTS
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKLISTS
                                                                                              object:me
                                                                                            userInfo:ErrorMsg];
                                      }];

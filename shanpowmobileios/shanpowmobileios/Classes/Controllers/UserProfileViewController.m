@@ -425,7 +425,7 @@
             BooklistListViewController *booklistsController = [[BooklistListViewController alloc] init];
             booklistsController.title = @"我创建的书单";
             booklistsController.dataSource = BLDS_CreateAuthor;
-            booklistsController.authorId = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER_ID];
+            booklistsController.userId = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER_ID];
             
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:booklistsController animated:YES];
@@ -436,6 +436,8 @@
         {
             BooklistListViewController *booklistsController = [[BooklistListViewController alloc] init];
             booklistsController.title = @"我收藏的书单";
+            booklistsController.dataSource = BLDS_FavedBy;
+            booklistsController.userId = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER_ID];
             
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:booklistsController animated:YES];

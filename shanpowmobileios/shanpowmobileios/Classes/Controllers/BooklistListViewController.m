@@ -55,17 +55,28 @@
     switch (self.dataSource) {
         case BLDS_CreateAuthor:
         {
-            if (!self.authorId) {
+            if (!self.userId) {
                 return;
             } else {
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooklists:) name:MSG_DID_GET_BLS_CREATED_BY_AUTHOR object:nil];
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooklists:) name:MSG_FAIL_GET_BLS_CREATED_BY_AUTHOR object:nil];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooklists:) name:MSG_DID_GET_BOOKLISTS object:nil];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooklists:) name:MSG_FAIL_GET_BOOKLISTS object:nil];
                 
-                [[NetworkClient sharedNetworkClient] getBooklistsByAuthorId:self.authorId];
+                [[NetworkClient sharedNetworkClient] getBooklistsByAuthorId:self.userId];
             }
         }
             break;
-            
+        case BLDS_FavedBy:
+        {
+            if (!self.userId) {
+                return;
+            } else {
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooklists:) name:MSG_DID_GET_BOOKLISTS object:nil];
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooklists:) name:MSG_FAIL_GET_BOOKLISTS object:nil];
+                
+                [[NetworkClient sharedNetworkClient] getBooklistsBySubscriberId:self.userId];
+            }
+        }
+            break;
         default:
             break;
     }
@@ -74,13 +85,15 @@
 #pragma mark - Event handler
 - (void)didGetBooklists:(NSNotification *)notification
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BOOKLISTS object:nil];
+    
     NSArray *booklists = [[notification userInfo] objectForKey:@"data"];
     self.booklistsController.booklists = booklists;
 }
 
 - (void)failGetBooklists:(NSNotification *)notification
 {
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BOOKLISTS object:nil];
 }
 
 @end
