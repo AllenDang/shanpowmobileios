@@ -163,8 +163,10 @@ SINGLETON_GCD(NetworkClient);
                           [me handleResponse:responseObject
                                      success:^(NSDictionary *data){
                                          NSString *nickname = [[data objectForKey:@"data"] objectForKey:@"Nickname"];
+                                         NSString *userId = [[data objectForKey:@"data"] objectForKey:@"Id"];
                                          [[NSUserDefaults standardUserDefaults] setObject:nickname forKey:SETTINGS_CURRENT_USER];
                                          [[NSUserDefaults standardUserDefaults] setObject:[[password dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString] forKey:SETTINGS_CURRENT_PWD];
+                                         [[NSUserDefaults standardUserDefaults] setObject:userId forKey:SETTINGS_CURRENT_USER_ID];
                                          [[NSUserDefaults standardUserDefaults] synchronize];
                                          
                                          [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGIN
@@ -471,6 +473,34 @@ SINGLETON_GCD(NetworkClient);
                                      failure:^(NSDictionary *ErrorMsg) {
                                          [self handleFailureFromRequest:operation];
                                          [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_POST_REVIEW
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)getBooklistsByAuthorId:(NSString *)authorId
+{
+    NSDictionary *parameters = nil;
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"GET"
+                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/booklist/getsimplebooklists/%@", authorId] relativeToURL:self.baseURL] absoluteString]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BLS_CREATED_BY_AUTHOR
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BLS_CREATED_BY_AUTHOR
                                                                                              object:me
                                                                                            userInfo:ErrorMsg];
                                      }];

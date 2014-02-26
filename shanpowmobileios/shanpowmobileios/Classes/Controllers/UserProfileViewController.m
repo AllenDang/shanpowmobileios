@@ -7,6 +7,7 @@
 //
 
 #import "UserProfileViewController.h"
+#import "BooklistListViewController.h"
 
 @interface UserProfileViewController ()
 
@@ -417,6 +418,33 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    switch (indexPath.row) {
+        case 3:
+        {
+            BooklistListViewController *booklistsController = [[BooklistListViewController alloc] init];
+            booklistsController.title = @"我创建的书单";
+            booklistsController.dataSource = BLDS_CreateAuthor;
+            booklistsController.authorId = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER_ID];
+            
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:booklistsController animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }
+            break;
+        case 4:
+        {
+            BooklistListViewController *booklistsController = [[BooklistListViewController alloc] init];
+            booklistsController.title = @"我收藏的书单";
+            
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:booklistsController animated:YES];
+            self.hidesBottomBarWhenPushed = NO;
+        }
+            break;
+        default:
+            break;
+    }
     
     return;
 }

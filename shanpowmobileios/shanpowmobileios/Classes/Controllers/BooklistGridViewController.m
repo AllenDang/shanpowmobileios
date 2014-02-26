@@ -35,7 +35,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.title = @"书单列表";
-    self.cellHeight = 70.0;
+    self.cellHeight = 80.0;
     
     if (IsSysVerGTE(7.0)) {
         self.tableView.separatorInset = UIEdgeInsetsZero;
@@ -97,16 +97,20 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 5.0, cell.frame.size.width - 20, self.cellHeight / 2)];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 10.0, cell.frame.size.width - 40, TextHeightWithFont(LARGE_FONT))];
         titleLabel.text = [[self.booklists objectAtIndex:indexPath.row] objectForKey:@"Title"];
         titleLabel.font = LARGE_FONT;
         [cell addSubview:titleLabel];
         
-        UILabel *subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 5 + self.cellHeight / 2, cell.frame.size.width - 20, self.cellHeight / 3)];
-        subtitleLabel.text = [[self.booklists objectAtIndex:indexPath.row] objectForKey:@"Description"];
+        NSString *desc = [[self.booklists objectAtIndex:indexPath.row] objectForKey:@"Description"];
+        UILabel *subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 35.0, cell.frame.size.width - 40, self.cellHeight / 2)];
+        subtitleLabel.text = [desc length] <= 0 ? @"（没有描述）" : desc;
+        subtitleLabel.numberOfLines = 2;
         subtitleLabel.font = SMALL_FONT;
         subtitleLabel.textColor = UIC_BRIGHT_GRAY(0.5);
         [cell addSubview:subtitleLabel];
+        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     return cell;
