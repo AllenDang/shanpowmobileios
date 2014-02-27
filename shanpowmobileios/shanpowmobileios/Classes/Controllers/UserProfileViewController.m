@@ -35,6 +35,8 @@
 @property (nonatomic, assign) BOOL followingMe;
 @property (nonatomic, assign) BOOL followedByMe;
 
+@property (nonatomic, assign) float avatarSectionHeight;
+
 @property (nonatomic, strong) NSDictionary *userBasicInfo;
 
 - (void)updateData;
@@ -58,6 +60,16 @@
     self = [super init];
     if (self) {
         self.username = username;
+
+        if (isLogin()) {
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER] == username) {
+                self.isSelf = YES;
+            } else {
+                self.isSelf = NO;
+            }
+        } else {
+            self.isSelf = NO;
+        }
     }
     return self;
 }
@@ -78,12 +90,12 @@
     }
     
     self.userMenuItems = @[@"喜欢的书", @"读书记录和书评", @"创建的书单", @"收藏的书单"];
+    self.avatarSectionHeight = 300.0;
     
     self.userAvatarBlurBackground = [[UIImageView alloc] init];
     
     self.userAvatar = [[UIImageView alloc] init];
     [self.userAvatarBlurBackground addSubview:self.userAvatar];
-    
     
     self.usernameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.userAvatarBlurBackground addSubview:self.usernameLabel];
@@ -231,10 +243,10 @@
                                         imageViewForBlock.image = avatarImage;
                                     }
                                     failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                        
+                                        NSLog(@"%@", error);
                                     }];
     
-    self.userAvatarBlurBackground.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, 300.0);
+    self.userAvatarBlurBackground.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.avatarSectionHeight);
     self.userAvatar.frame = CGRectMake(15.0, 20.0, 80.0, 80.0);
 }
 
@@ -410,7 +422,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        return self.userAvatarBlurBackground.bounds.size.height;
+        return self.avatarSectionHeight;
     }
     return 45.0;
 }
@@ -423,9 +435,9 @@
         case 3:
         {
             BooklistListViewController *booklistsController = [[BooklistListViewController alloc] init];
-            booklistsController.title = @"我创建的书单";
+            booklistsController.title = @"创建的书单";
             booklistsController.dataSource = BLDS_CreateAuthor;
-            booklistsController.userId = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER_ID];
+            booklistsController.userId = self.isSelf ? [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER_ID] : self.userId;
             
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:booklistsController animated:YES];
@@ -435,9 +447,9 @@
         case 4:
         {
             BooklistListViewController *booklistsController = [[BooklistListViewController alloc] init];
-            booklistsController.title = @"我收藏的书单";
+            booklistsController.title = @"收藏的书单";
             booklistsController.dataSource = BLDS_FavedBy;
-            booklistsController.userId = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER_ID];
+            booklistsController.userId = self.isSelf ? [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER_ID] : self.userId;
             
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:booklistsController animated:YES];

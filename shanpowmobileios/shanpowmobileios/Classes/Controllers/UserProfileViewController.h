@@ -16,6 +16,7 @@
 
 @property (nonatomic, assign) BOOL isSelf;
 @property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *userId;
 
 - (id)initWithUsername:(NSString *)username;
 
