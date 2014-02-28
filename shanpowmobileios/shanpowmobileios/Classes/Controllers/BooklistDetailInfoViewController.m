@@ -121,29 +121,23 @@
     }
     
     NSMutableDictionary *booklist = [NSMutableDictionary dictionaryWithDictionary:self.originalData];
-    NSMutableArray *books = [booklist objectForKey:@"Books"];
-    NSMutableArray *categories = [booklist objectForKey:@"Categories"];
+    NSArray *books = [booklist objectForKey:@"Books"];
+    NSArray *categories = [booklist objectForKey:@"Categories"];
     
     NSMutableArray *newBooks = [NSMutableArray arrayWithCapacity:40];
-    NSMutableArray *newCategories = [NSMutableArray arrayWithCapacity:40];
     
     NSMutableArray *sushiBooks = [NSMutableArray arrayWithCapacity:40];
+    
     NSMutableArray *finalBooks = [NSMutableArray arrayWithCapacity:40];
+    NSMutableArray *finalCategories = [NSMutableArray arrayWithCapacity:40];
     
     // filter category
     if ([category isEqualToString:@"全部"]) {
-        newBooks = books;
-        newCategories = categories;
+        newBooks = [NSMutableArray arrayWithArray:books];
     } else {
         for (NSDictionary *book in books) {
             if ([[book objectForKey:@"Category"] isEqualToString:category]) {
                 [newBooks addObject:book];
-            }
-        }
-        
-        for (NSDictionary *cate in categories) {
-            if ([[cate objectForKey:@"Category"] isEqualToString:category]) {
-                [newCategories addObject:cate];
             }
         }
     }
@@ -170,8 +164,19 @@
         }
     }
     
+    // add categories
+    for (NSDictionary *book in finalBooks) {
+        NSString *cateName = [book objectForKey:@"Category"];
+        
+        for (NSDictionary *category in categories) {
+            if ([[category objectForKey:@"Category"] isEqualToString:cateName]) {
+                [finalCategories addObject:category];
+            }
+        }
+    }
+    
     [booklist setObject:finalBooks forKey:@"Books"];
-    [booklist setObject:newCategories forKey:@"Categories"];
+    [booklist setObject:finalCategories forKey:@"Categories"];
     
     self.booklist = booklist;
     
