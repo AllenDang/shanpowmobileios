@@ -72,6 +72,11 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    NSString *booklistId = [[self.booklists objectAtIndex:indexPath.row] objectForKey:@"Id"];
+    NSString *booklistTitle = [[self.booklists objectAtIndex:indexPath.row] objectForKey:@"Title"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_SELECT_BOOKLIST object:self userInfo:@{@"booklistId": booklistId,
+                                                                                                              @"booklistTitle": booklistTitle}];
+    
     return;
 }
 
@@ -86,7 +91,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.booklists count];
+    return self.booklists ? [self.booklists count] : 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

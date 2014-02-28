@@ -68,10 +68,14 @@ return shared##classname;                               \
 #define MSG_FAIL_POST_REVIEW                    @"SMNC_26"
 #define MSG_DID_GET_BOOKLISTS                   @"SMNC_27"
 #define MSG_FAIL_GET_BOOKLISTS                  @"SMNC_28"
+#define MSG_DID_GET_BOOKLIST_DETAIL             @"SMNC_27"
+#define MSG_FAIL_GET_BOOKLIST_DETAIL            @"SMNC_28"
 
 #define MSG_DID_SELECT_BOOK                     @"SMNC_1000"
+#define MSG_DID_SELECT_BOOKLIST                 @"SMNC_1001"
 
 #define MSG_INT_BOOKINFOVIEW_TAPPED             @"SMNC_2000"
+#define MSG_TAPPED_NICKNAME                     @"SMNC_2001"
 
 #pragma mark - Errors
 
@@ -125,6 +129,10 @@ return shared##classname;                               \
 #define XXLARGE_BOLD_FONT                       [UIFont boldSystemFontOfSize:36.0]
 #define FONT_WITH_SIZE(x)                       [UIFont systemFontOfSize:(x)]
 #define BOLD_FONT_WITH_SIZE(x)                  [UIFont boldSystemFontOfSize:(x)]
+
+#define DOTTED_LINE_ALPHA                       0.2
+#define GENERAL_CELL_HEIGHT                     55.0
+#define GENERAL_HEADER_HEIGHT                   40.0
     
 #pragma mark - Global Functions 
     
@@ -151,6 +159,12 @@ extern BOOL isLogin();
 - (UIImage *)makeRoundedImageWithRadius:(float)radius;
 - (UIImage *)scaledToSize:(CGSize)newSize;
 - (UIImage *)imageByApplyingAlpha:(CGFloat)alpha;
+
+@end
+
+@interface UILabel (Clipboard)
+
+- (BOOL) canBecomeFirstResponder;
 
 @end
 

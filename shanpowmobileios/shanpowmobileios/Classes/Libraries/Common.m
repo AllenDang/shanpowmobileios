@@ -144,3 +144,24 @@ BOOL isLogin()
 }
 
 @end
+
+#pragma mark - UILabel category
+@implementation UILabel (Clipboard)
+
+- (BOOL) canBecomeFirstResponder
+{
+    return YES;
+}
+
+-(BOOL)canPerformAction:(SEL)action withSender:(id)sender
+{
+    return (action == @selector(copy:));
+}
+
+-(void)copy:(id)sender
+{
+    UIPasteboard *pboard = [UIPasteboard generalPasteboard];
+    pboard.string = self.text;
+}
+
+@end

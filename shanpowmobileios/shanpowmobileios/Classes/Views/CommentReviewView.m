@@ -19,6 +19,7 @@
 @property (nonatomic, assign) NSInteger likeSum;
 @property (nonatomic, assign) NSInteger disLikeSum;
 @property (nonatomic, assign) NSInteger responseSum;
+@property (nonatomic, strong) NSString *userId;
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIImageView *avatar;
@@ -63,6 +64,10 @@
         [self addSubview:self.ratingStar];
         
         self.backgroundColor = [UIColor clearColor];
+        
+        self.nicknameLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nicknameLabelTapped:)];
+        [self.nicknameLabel addGestureRecognizer:tapRecognizer];
     }
     return self;
 }
@@ -100,6 +105,7 @@
         self.likeSum = [[self.comment objectForKey:@"LikeSum"] integerValue];
         self.disLikeSum = [[self.comment objectForKey:@"DislikeSum"] integerValue];
         self.responseSum = [[self.comment objectForKey:@"ResponseSum"] integerValue];
+        self.userId = [[self.comment objectForKey:@"Author"] objectForKey:@"Id"];
         
         [self updateUILayout];
         [self updateUIData];
@@ -155,6 +161,7 @@
                                        StarSize(@"Star_Red_Small"),
                                        StarSize(@"Star_Red_Small"));
     self.ratingStar.starSpacing = -5;
+    self.ratingStar.userInteractionEnabled = NO;
     
     self.timeStampLabel.frame = CGRectMake(self.frame.size.width - 110,
                                            self.avatar.frame.origin.y,
@@ -188,6 +195,13 @@
     self.timeStampLabel.text = self.timeStamp;
     
     self.contentLabel.text = [NSString stringWithFormat:@"%@\n\n\n\n", self.content];
+}
+
+#pragma mark - Event handler
+- (void)nicknameLabelTapped:(UIGestureRecognizer *)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_TAPPED_NICKNAME object:self userInfo:@{@"nickname": self.nickname,
+                                                                                                                     @"Id": self.userId}];
 }
 
 @end

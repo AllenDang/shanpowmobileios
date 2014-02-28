@@ -10,10 +10,14 @@
 #import "Common.h"
 #import "BooklistGridViewController.h"
 #import "NetworkClient.h"
+#import "BooklistDetailViewController.h"
+#import "BooklistDetailInfoViewController.h"
+#import "FilterViewController.h"
 
 @interface BooklistListViewController ()
 
 @property (nonatomic, strong) BooklistGridViewController *booklistsController;
+@property (nonatomic, strong) BooklistDetailViewController *booklistDetailController;
 
 @end
 
@@ -40,7 +44,14 @@
     self.booklistsController.view.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height);
     [self.view addSubview:self.booklistsController.view];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBooklist:) name:MSG_DID_SELECT_BOOKLIST object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [self getBooklists];
+    
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,15 +63,15 @@
 #pragma mark -
 - (void)getBooklists
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooklists:) name:MSG_DID_GET_BOOKLISTS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooklists:) name:MSG_FAIL_GET_BOOKLISTS object:nil];
+    
     switch (self.dataSource) {
         case BLDS_CreateAuthor:
         {
             if (!self.userId) {
                 return;
             } else {
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooklists:) name:MSG_DID_GET_BOOKLISTS object:nil];
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooklists:) name:MSG_FAIL_GET_BOOKLISTS object:nil];
-                
                 [[NetworkClient sharedNetworkClient] getBooklistsByAuthorId:self.userId];
             }
         }
@@ -70,10 +81,16 @@
             if (!self.userId) {
                 return;
             } else {
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooklists:) name:MSG_DID_GET_BOOKLISTS object:nil];
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooklists:) name:MSG_FAIL_GET_BOOKLISTS object:nil];
-                
                 [[NetworkClient sharedNetworkClient] getBooklistsBySubscriberId:self.userId];
+            }
+        }
+            break;
+        case BLDS_ContainBook:
+        {
+            if (!self.bookId) {
+                return;
+            } else {
+                [[NetworkClient sharedNetworkClient] getBooklistsByBookId:self.bookId];
             }
         }
             break;
@@ -94,6 +111,17 @@
 - (void)failGetBooklists:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BOOKLISTS object:nil];
+}
+
+- (void)didSelectBooklist:(NSNotification *)notification
+{
+    NSString *booklistId = [[notification userInfo] objectForKey:@"booklistId"];
+
+    self.booklistDetailController = [[BooklistDetailViewController alloc] initWithBooklistId:booklistId];
+    
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:self.booklistDetailController animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 @end

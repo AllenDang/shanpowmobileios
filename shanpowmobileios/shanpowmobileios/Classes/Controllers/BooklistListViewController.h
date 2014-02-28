@@ -10,7 +10,8 @@
 
 typedef enum {
     BLDS_CreateAuthor = 0,
-    BLDS_FavedBy = 1
+    BLDS_FavedBy = 1,
+    BLDS_ContainBook = 2
 } BooklistDataSource;
 
 @interface BooklistListViewController : UIViewController
@@ -18,5 +19,6 @@ typedef enum {
 @property (nonatomic, assign) BooklistDataSource dataSource;
 
 @property (nonatomic, strong) NSString *userId;
+@property (nonatomic, strong) NSString *bookId;
 
 @end

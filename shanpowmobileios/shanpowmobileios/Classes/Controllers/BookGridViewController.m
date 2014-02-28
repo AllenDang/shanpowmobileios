@@ -12,6 +12,7 @@
 @interface BookGridViewController ()
 
 @property (nonatomic, assign) float headerHeight;
+@property (nonatomic, assign) float bookCellHeight;
 
 @end
 
@@ -22,6 +23,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        self.bookCellHeight = 70.0;
     }
     return self;
 }
@@ -75,7 +77,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70.0;
+    return self.bookCellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -83,6 +85,11 @@
     if (self.isPlain) {
         return 0;
     }
+    
+    if ([[[self.books objectAtIndex:section] objectForKey:@"Books"] count] == 0) {
+        return 0;
+    }
+    
     return self.headerHeight;
 }
 
@@ -96,6 +103,10 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (self.isPlain) {
+        return nil;
+    }
+    
+    if ([[[self.books objectAtIndex:section] objectForKey:@"Books"] count] == 0) {
         return nil;
     }
     

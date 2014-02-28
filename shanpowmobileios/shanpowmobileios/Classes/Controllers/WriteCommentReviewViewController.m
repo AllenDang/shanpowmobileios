@@ -100,7 +100,7 @@
     
     UIView *dividerForTitleAndContent = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.reviewTitleTextView.frame.origin.y + self.reviewTitleTextView.bounds.size.height, self.view.bounds.size.width, 1.0)];
     dividerForTitleAndContent.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Dot"]];
-    dividerForTitleAndContent.alpha = 0.2;
+    dividerForTitleAndContent.alpha = DOTTED_LINE_ALPHA;
     [self.view addSubview:dividerForTitleAndContent];
     
     self.reviewContentTextView = [[SPTextView alloc] initWithFrame:CGRectMake(5.0,

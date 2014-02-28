@@ -47,5 +47,7 @@
 
 - (void)getBooklistsByAuthorId:(NSString *)authorId;
 - (void)getBooklistsBySubscriberId:(NSString *)subscriberId;
+- (void)getBooklistsByBookId:(NSString *)bookId;
+- (void)getBooklistDetailById:(NSString *)booklistId;
 
 @end

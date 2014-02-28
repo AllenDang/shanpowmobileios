@@ -107,6 +107,7 @@
 		6468EFEE18B2F7D600A9DA92 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6468EFED18B2F7D600A9DA92 /* SearchResultViewController.m */; };
 		6468EFF118B3014F00A9DA92 /* BooklistGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6468EFF018B3014F00A9DA92 /* BooklistGridViewController.m */; };
 		6468EFF418B3029100A9DA92 /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6468EFF318B3029100A9DA92 /* UserListViewController.m */; };
+		6471A29F18C05F08003A5453 /* CategoriesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6471A29E18C05F08003A5453 /* CategoriesCell.m */; };
 		649311A51862C68C00315DB0 /* BookInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649311A41862C68C00315DB0 /* BookInfoView.m */; };
 		649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649BA57C185AA6350096DD8D /* RegisterViewController.m */; };
 		649F6EB918A8B8DE00E17B3E /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */; };
@@ -116,6 +117,16 @@
 		64B7C67818B5F99400B85E30 /* Star_Red_Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 64B7C67418B5F99400B85E30 /* Star_Red_Small.png */; };
 		64B7C67918B5F99400B85E30 /* Star_Red_Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64B7C67518B5F99400B85E30 /* Star_Red_Small@2x.png */; };
 		64B8DA6018BDB4A300AA0A5D /* BooklistListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64B8DA5F18BDB4A300AA0A5D /* BooklistListViewController.m */; };
+		64C515DE18BEFCF20027292E /* RightSubtitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C515DD18BEFCF20027292E /* RightSubtitleCell.m */; };
+		64C515E118BF0F200027292E /* BooklistDetailInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C515E018BF0F200027292E /* BooklistDetailInfoViewController.m */; };
+		64C515EC18BF0FE30027292E /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C515E418BF0FE30027292E /* MMDrawerBarButtonItem.m */; };
+		64C515ED18BF0FE30027292E /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C515E718BF0FE30027292E /* MMDrawerController.m */; };
+		64C515EE18BF0FE30027292E /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C515E918BF0FE30027292E /* MMDrawerVisualState.m */; };
+		64C515EF18BF0FE30027292E /* UIViewController+MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C515EB18BF0FE30027292E /* UIViewController+MMDrawerController.m */; };
+		64C515F418BF2D7B0027292E /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C515F318BF2D7B0027292E /* FilterViewController.m */; };
+		64C515F718BF30CA0027292E /* Filter.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C515F518BF30CA0027292E /* Filter.png */; };
+		64C515F818BF30CA0027292E /* Filter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C515F618BF30CA0027292E /* Filter@2x.png */; };
+		64C515FB18BF477F0027292E /* BooklistDetailInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C515FA18BF477F0027292E /* BooklistDetailInfoCell.m */; };
 		64C66383186D1BE700B18236 /* Login_EmailTextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C66381186D1BE700B18236 /* Login_EmailTextField.png */; };
 		64C66384186D1BE700B18236 /* Login_EmailTextField@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C66382186D1BE700B18236 /* Login_EmailTextField@2x.png */; };
 		64C66387186D1C7400B18236 /* Login_PasswordTextField.png in Resources */ = {isa = PBXBuildFile; fileRef = 64C66385186D1C7400B18236 /* Login_PasswordTextField.png */; };
@@ -143,6 +154,8 @@
 		64D35F4C18ADF09E00999CED /* Star_Gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4818ADF09E00999CED /* Star_Gray@2x.png */; };
 		64D35F4D18ADF09E00999CED /* Star_Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4918ADF09E00999CED /* Star_Red.png */; };
 		64D35F4E18ADF09E00999CED /* Star_Red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4A18ADF09E00999CED /* Star_Red@2x.png */; };
+		64D4D57618C050BF0044A78E /* BooklistDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */; };
+		64E5611618C0340F00A26F96 /* BookGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E5611518C0340F00A26F96 /* BookGridCell.m */; };
 		64F05CF5187506C000FB7A3A /* Calibri Bold Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */; };
 		64F05CF6187506C000FB7A3A /* Calibri Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */; };
 		64F05CF7187506C000FB7A3A /* Calibri Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */; };
@@ -309,6 +322,8 @@
 		6468EFF018B3014F00A9DA92 /* BooklistGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooklistGridViewController.m; sourceTree = "<group>"; };
 		6468EFF218B3029100A9DA92 /* UserListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserListViewController.h; sourceTree = "<group>"; };
 		6468EFF318B3029100A9DA92 /* UserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewController.m; sourceTree = "<group>"; };
+		6471A29D18C05F08003A5453 /* CategoriesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesCell.h; sourceTree = "<group>"; };
+		6471A29E18C05F08003A5453 /* CategoriesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesCell.m; sourceTree = "<group>"; };
 		649311A31862C68C00315DB0 /* BookInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoView.h; sourceTree = "<group>"; };
 		649311A41862C68C00315DB0 /* BookInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoView.m; sourceTree = "<group>"; };
 		649BA57B185AA6350096DD8D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -323,6 +338,25 @@
 		64B7C67518B5F99400B85E30 /* Star_Red_Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Red_Small@2x.png"; sourceTree = "<group>"; };
 		64B8DA5E18BDB4A300AA0A5D /* BooklistListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistListViewController.h; sourceTree = "<group>"; };
 		64B8DA5F18BDB4A300AA0A5D /* BooklistListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooklistListViewController.m; sourceTree = "<group>"; };
+		64C515DC18BEFCF20027292E /* RightSubtitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightSubtitleCell.h; sourceTree = "<group>"; };
+		64C515DD18BEFCF20027292E /* RightSubtitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightSubtitleCell.m; sourceTree = "<group>"; };
+		64C515DF18BF0F200027292E /* BooklistDetailInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistDetailInfoViewController.h; sourceTree = "<group>"; };
+		64C515E018BF0F200027292E /* BooklistDetailInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooklistDetailInfoViewController.m; sourceTree = "<group>"; };
+		64C515E318BF0FE30027292E /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
+		64C515E418BF0FE30027292E /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
+		64C515E518BF0FE30027292E /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
+		64C515E618BF0FE30027292E /* MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerController.h; sourceTree = "<group>"; };
+		64C515E718BF0FE30027292E /* MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerController.m; sourceTree = "<group>"; };
+		64C515E818BF0FE30027292E /* MMDrawerVisualState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerVisualState.h; sourceTree = "<group>"; };
+		64C515E918BF0FE30027292E /* MMDrawerVisualState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerVisualState.m; sourceTree = "<group>"; };
+		64C515EA18BF0FE30027292E /* UIViewController+MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MMDrawerController.h"; sourceTree = "<group>"; };
+		64C515EB18BF0FE30027292E /* UIViewController+MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MMDrawerController.m"; sourceTree = "<group>"; };
+		64C515F218BF2D7B0027292E /* FilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterViewController.h; sourceTree = "<group>"; };
+		64C515F318BF2D7B0027292E /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
+		64C515F518BF30CA0027292E /* Filter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Filter.png; sourceTree = "<group>"; };
+		64C515F618BF30CA0027292E /* Filter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Filter@2x.png"; sourceTree = "<group>"; };
+		64C515F918BF477F0027292E /* BooklistDetailInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistDetailInfoCell.h; sourceTree = "<group>"; };
+		64C515FA18BF477F0027292E /* BooklistDetailInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooklistDetailInfoCell.m; sourceTree = "<group>"; };
 		64C66381186D1BE700B18236 /* Login_EmailTextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_EmailTextField.png; sourceTree = "<group>"; };
 		64C66382186D1BE700B18236 /* Login_EmailTextField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_EmailTextField@2x.png"; sourceTree = "<group>"; };
 		64C66385186D1C7400B18236 /* Login_PasswordTextField.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_PasswordTextField.png; sourceTree = "<group>"; };
@@ -352,6 +386,10 @@
 		64D35F4818ADF09E00999CED /* Star_Gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Gray@2x.png"; sourceTree = "<group>"; };
 		64D35F4918ADF09E00999CED /* Star_Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star_Red.png; sourceTree = "<group>"; };
 		64D35F4A18ADF09E00999CED /* Star_Red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Red@2x.png"; sourceTree = "<group>"; };
+		64D4D57418C050BF0044A78E /* BooklistDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistDetailViewController.h; sourceTree = "<group>"; };
+		64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooklistDetailViewController.m; sourceTree = "<group>"; };
+		64E5611418C0340F00A26F96 /* BookGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookGridCell.h; sourceTree = "<group>"; };
+		64E5611518C0340F00A26F96 /* BookGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookGridCell.m; sourceTree = "<group>"; };
 		64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold Italic.ttf"; sourceTree = "<group>"; };
 		64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold.ttf"; sourceTree = "<group>"; };
 		64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Italic.ttf"; sourceTree = "<group>"; };
@@ -487,6 +525,8 @@
 		642723F318ACC3F0002609F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				64C515F518BF30CA0027292E /* Filter.png */,
+				64C515F618BF30CA0027292E /* Filter@2x.png */,
 				64204ABB18BC557000A684A7 /* AwesomeMenu */,
 				64204ABA18BC556000A684A7 /* Star */,
 				642723F418ACC3F0002609F4 /* Dot.png */,
@@ -593,6 +633,12 @@
 				64FC60CD18B59B3800D7D8E6 /* BookDetailViewController.m */,
 				64B8DA5E18BDB4A300AA0A5D /* BooklistListViewController.h */,
 				64B8DA5F18BDB4A300AA0A5D /* BooklistListViewController.m */,
+				64D4D57418C050BF0044A78E /* BooklistDetailViewController.h */,
+				64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */,
+				64C515DF18BF0F200027292E /* BooklistDetailInfoViewController.h */,
+				64C515E018BF0F200027292E /* BooklistDetailInfoViewController.m */,
+				64C515F218BF2D7B0027292E /* FilterViewController.h */,
+				64C515F318BF2D7B0027292E /* FilterViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -617,6 +663,14 @@
 				64A80B0C186813F10039BBA2 /* BookInfoCell.m */,
 				6409DB7D18BB156A00313AE5 /* CommentReviewView.h */,
 				6409DB7E18BB156A00313AE5 /* CommentReviewView.m */,
+				64C515DC18BEFCF20027292E /* RightSubtitleCell.h */,
+				64C515DD18BEFCF20027292E /* RightSubtitleCell.m */,
+				64C515F918BF477F0027292E /* BooklistDetailInfoCell.h */,
+				64C515FA18BF477F0027292E /* BooklistDetailInfoCell.m */,
+				64E5611418C0340F00A26F96 /* BookGridCell.h */,
+				64E5611518C0340F00A26F96 /* BookGridCell.m */,
+				6471A29D18C05F08003A5453 /* CategoriesCell.h */,
+				6471A29E18C05F08003A5453 /* CategoriesCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -624,6 +678,7 @@
 		645FB9AA184C2BD000BB2325 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				64C515E218BF0FE30027292E /* MMDrawerController */,
 				64204AB318BC3E2200A684A7 /* AwesomeMenu */,
 				64D35F4318ADCE0800999CED /* AMRatingControl */,
 				642723F818ACCA09002609F4 /* SPTextView */,
@@ -783,6 +838,22 @@
 				64635840185B231E00172760 /* Login */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		64C515E218BF0FE30027292E /* MMDrawerController */ = {
+			isa = PBXGroup;
+			children = (
+				64C515E318BF0FE30027292E /* MMDrawerBarButtonItem.h */,
+				64C515E418BF0FE30027292E /* MMDrawerBarButtonItem.m */,
+				64C515E518BF0FE30027292E /* MMDrawerController+Subclass.h */,
+				64C515E618BF0FE30027292E /* MMDrawerController.h */,
+				64C515E718BF0FE30027292E /* MMDrawerController.m */,
+				64C515E818BF0FE30027292E /* MMDrawerVisualState.h */,
+				64C515E918BF0FE30027292E /* MMDrawerVisualState.m */,
+				64C515EA18BF0FE30027292E /* UIViewController+MMDrawerController.h */,
+				64C515EB18BF0FE30027292E /* UIViewController+MMDrawerController.m */,
+			);
+			path = MMDrawerController;
 			sourceTree = "<group>";
 		};
 		64CD289718A9F68F0050BE63 /* MainMenu */ = {
@@ -950,6 +1021,7 @@
 				642723F718ACC3F0002609F4 /* Dot@2x.png in Resources */,
 				64204AD218BC558200A684A7 /* icon-plus-highlighted.png in Resources */,
 				64CD28AE18A9FB980050BE63 /* Category.png in Resources */,
+				64C515F818BF30CA0027292E /* Filter@2x.png in Resources */,
 				64C66384186D1BE700B18236 /* Login_EmailTextField@2x.png in Resources */,
 				64635848185B231E00172760 /* Login_Background@2x.png in Resources */,
 				64B7C67918B5F99400B85E30 /* Star_Red_Small@2x.png in Resources */,
@@ -973,6 +1045,7 @@
 				64CD289F18A9F9660050BE63 /* Hot@2x.png in Resources */,
 				64CD28A718A9FB1E0050BE63 /* MinNa@2x.png in Resources */,
 				646132C9184872F300A0BBF0 /* Images.xcassets in Resources */,
+				64C515F718BF30CA0027292E /* Filter.png in Resources */,
 				642723E818AC7694002609F4 /* Plus.png in Resources */,
 				64204ADB18BC579700A684A7 /* icon-share@2x.png in Resources */,
 				64C66383186D1BE700B18236 /* Login_EmailTextField.png in Resources */,
@@ -1024,10 +1097,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				645FB9C5184C2C0C00BB2325 /* AFURLRequestSerialization.m in Sources */,
+				64C515EC18BF0FE30027292E /* MMDrawerBarButtonItem.m in Sources */,
 				645FB9C4184C2C0C00BB2325 /* AFURLConnectionOperation.m in Sources */,
 				6468EFEE18B2F7D600A9DA92 /* SearchResultViewController.m in Sources */,
 				64FFD93B185FEDD2002F93C0 /* NSData+Base64.m in Sources */,
 				6409DB7F18BB156A00313AE5 /* CommentReviewView.m in Sources */,
+				64C515DE18BEFCF20027292E /* RightSubtitleCell.m in Sources */,
 				645FB9C3184C2C0C00BB2325 /* AFSecurityPolicy.m in Sources */,
 				645FB9BF184C2C0C00BB2325 /* AFHTTPRequestOperation.m in Sources */,
 				64641084186AA57F005D92F3 /* NSStringCategory.m in Sources */,
@@ -1039,6 +1114,7 @@
 				6468EFF118B3014F00A9DA92 /* BooklistGridViewController.m in Sources */,
 				645FB9C6184C2C0C00BB2325 /* AFURLResponseSerialization.m in Sources */,
 				649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */,
+				64D4D57618C050BF0044A78E /* BooklistDetailViewController.m in Sources */,
 				64D35F4618ADCE0800999CED /* AMRatingControl.m in Sources */,
 				642BEB69184DF3F800E1A0B3 /* UIProgressView+AFNetworking.m in Sources */,
 				642C790C1867DDB9007C61AD /* Book.m in Sources */,
@@ -1054,24 +1130,32 @@
 				642723F218ACBE2C002609F4 /* CreateBookListViewController.m in Sources */,
 				64204AB918BC3E2200A684A7 /* AwesomeMenuItem.m in Sources */,
 				641637D618AB201E009A774A /* SearchViewController.m in Sources */,
+				6471A29F18C05F08003A5453 /* CategoriesCell.m in Sources */,
 				64204AB818BC3E2200A684A7 /* AwesomeMenu.m in Sources */,
 				6461C58618504981006D3736 /* HotBooksViewController.m in Sources */,
+				64C515EE18BF0FE30027292E /* MMDrawerVisualState.m in Sources */,
+				64C515E118BF0F200027292E /* BooklistDetailInfoViewController.m in Sources */,
 				646529B5184C617000C3D613 /* NetworkClient.m in Sources */,
 				642BEB66184DF3F800E1A0B3 /* UIAlertView+AFNetworking.m in Sources */,
 				642BEB6A184DF3F800E1A0B3 /* UIWebView+AFNetworking.m in Sources */,
 				6440D73A1860537A008D9C59 /* QQRegisterViewController.m in Sources */,
 				642723DE18AC5F0C002609F4 /* UserProfileViewController.m in Sources */,
 				649F6EB918A8B8DE00E17B3E /* MainMenuViewController.m in Sources */,
+				64E5611618C0340F00A26F96 /* BookGridCell.m in Sources */,
 				6440D74318606DF9008D9C59 /* WeiboLogin.m in Sources */,
 				649311A51862C68C00315DB0 /* BookInfoView.m in Sources */,
+				64C515FB18BF477F0027292E /* BooklistDetailInfoCell.m in Sources */,
 				642BEB65184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				643A0DA8184C65CA00A1FEAF /* Common.m in Sources */,
 				64B8DA6018BDB4A300AA0A5D /* BooklistListViewController.m in Sources */,
 				641637E818AB3657009A774A /* CategoriesViewController.m in Sources */,
+				64C515F418BF2D7B0027292E /* FilterViewController.m in Sources */,
 				641637E218AB22C0009A774A /* SPLabel.m in Sources */,
 				64FC60CE18B59B3800D7D8E6 /* BookDetailViewController.m in Sources */,
+				64C515EF18BF0FE30027292E /* UIViewController+MMDrawerController.m in Sources */,
 				645FB9C2184C2C0C00BB2325 /* AFNetworkReachabilityManager.m in Sources */,
 				646132C3184872F300A0BBF0 /* main.m in Sources */,
+				64C515ED18BF0FE30027292E /* MMDrawerController.m in Sources */,
 				642BEB53184DB7FC00E1A0B3 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

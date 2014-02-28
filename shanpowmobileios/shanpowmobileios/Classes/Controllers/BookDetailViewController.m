@@ -9,6 +9,9 @@
 #import "BookDetailViewController.h"
 #import "AMRatingControl.h"
 #import "SPLabel.h"
+#import "BooklistListViewController.h"
+#import "UserProfileViewController.h"
+#import "RightSubtitleCell.h"
 
 @interface BookDetailViewController ()
 
@@ -27,13 +30,13 @@
 @property (nonatomic, strong) UILabel *scoreLabel;
 @property (nonatomic, strong) UILabel *ratingSumLabel;
 @property (nonatomic, strong) UILabel *authorTitleLabel;
-@property (nonatomic, strong) SPLabel *authorLabel;
+@property (nonatomic, strong) UILabel *authorLabel;
 @property (nonatomic, strong) UILabel *statusTitleLabel;
 @property (nonatomic, strong) UILabel *statusLabel;
 @property (nonatomic, strong) UILabel *wordCountTitleLabel;
 @property (nonatomic, strong) UILabel *wordCountLabel;
 @property (nonatomic, strong) UILabel *categoryTitleLabel;
-@property (nonatomic, strong) SPLabel *categoryLabel;
+@property (nonatomic, strong) UILabel *categoryLabel;
 @property (nonatomic, strong) UILabel *lastUpdateTitleLabel;
 @property (nonatomic, strong) UILabel *lastUpdateLabel;
 @property (nonatomic, strong) UIView *section0Divider;
@@ -114,6 +117,8 @@
     self.actionMenu.endRadius = 100.0;
     self.actionMenu.farRadius = 110.0;
     self.actionMenu.nearRadius = 95.0;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cmtUserTapped:) name:MSG_TAPPED_NICKNAME object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -226,8 +231,11 @@
     
     if (!self.authorLabel)
     {
-        self.authorLabel = [[SPLabel alloc] init];
+        self.authorLabel = [[UILabel alloc] init];
         self.authorLabel.font = MEDIUM_FONT;
+        self.authorLabel.userInteractionEnabled = YES;
+        UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressOnLabel:)];
+        [self.authorLabel addGestureRecognizer:longPressRecognizer];
     }
     
     if (!self.statusTitleLabel)
@@ -262,8 +270,11 @@
     
     if (!self.categoryLabel)
     {
-        self.categoryLabel = [[SPLabel alloc] init];
+        self.categoryLabel = [[UILabel alloc] init];
         self.categoryLabel.font = MEDIUM_FONT;
+        self.categoryLabel.userInteractionEnabled = YES;
+        UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressOnLabel:)];
+        [self.categoryLabel addGestureRecognizer:longPressRecognizer];
     }
     
     if (!self.lastUpdateTitleLabel)
@@ -321,7 +332,7 @@
     
     self.authorLabel.frame = CGRectMake(self.authorTitleLabel.frame.size.width + self.authorTitleLabel.frame.origin.x,
                                         self.authorTitleLabel.frame.origin.y,
-                                        self.view.frame.size.width - self.authorTitleLabel.frame.origin.x - self.generalMargin * 2,
+                                        [self.authorLabel.text sizeWithFont:MEDIUM_FONT].width,
                                         TextHeightWithFont(self.authorLabel.font));
     self.authorLabel.textColor = UIC_CERULEAN(1.0);
     self.authorLabel.highlightedTextColor = UIC_CYAN(1.0);
@@ -353,7 +364,7 @@
     
     self.categoryLabel.frame = CGRectMake(self.categoryTitleLabel.frame.origin.x + self.categoryTitleLabel.frame.size.width,
                                           self.categoryTitleLabel.frame.origin.y,
-                                          self.view.frame.size.width - self.categoryTitleLabel.frame.size.width - self.generalMargin * 2,
+                                          [self.categoryLabel.text sizeWithFont:MEDIUM_FONT].width,
                                           TextHeightWithFont(self.categoryLabel.font));
     self.categoryLabel.textColor = UIC_CERULEAN(1.0);
     self.categoryLabel.highlightedTextColor = UIC_CYAN(1.0);
@@ -418,6 +429,8 @@
     self.summaryLabel.text = [self.bookInfo objectForKey:@"Summary"];
     
     self.title = [self.bookInfo objectForKey:@"Title"];
+    
+    [self updateBookBasicInfoLayout];
 }
 
 #pragma mark - Event handler
@@ -432,6 +445,31 @@
 - (void)handleErrorGetBookDetail:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BOOK_DETAIL object:nil];
+}
+
+- (void)longPressOnLabel:(UIGestureRecognizer *)sender
+{
+    [sender.view becomeFirstResponder];
+
+    UIMenuController *menu = [UIMenuController sharedMenuController];
+    if (![menu isMenuVisible]) {
+        [menu setTargetRect:sender.view.frame inView:sender.view.superview];
+        [menu setMenuVisible:YES animated:YES];
+    }
+}
+
+- (void)cmtUserTapped:(NSNotification *)notification
+{
+    NSString *nickname = [[notification userInfo] objectForKey:@"nickname"];
+    NSString *userId = [[notification userInfo] objectForKey:@"Id"];
+    
+    UserProfileViewController *userProfileController = [[UserProfileViewController alloc] initWithUsername:nickname];
+    userProfileController.isSelf = NO;
+    userProfileController.userId = userId;
+    
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:userProfileController animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
 }
 
 #pragma mark - Awesome Menu delegate
@@ -527,6 +565,27 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     switch (indexPath.section) {
+        case 2:
+        {
+            switch (indexPath.row) {
+                case 2:
+                {
+                    BooklistListViewController *booklistsController = [[BooklistListViewController alloc] init];
+                    booklistsController.title = @"包含本书的书单";
+                    booklistsController.dataSource = BLDS_ContainBook;
+                    booklistsController.bookId = self.bookId;
+                    
+                    self.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:booklistsController animated:YES];
+                    self.hidesBottomBarWhenPushed = NO;
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
         case 3:
         {
             if (indexPath.row == 0 && [self.bookInfo objectForKey:@"Comments"] == [NSNull null]) {
@@ -655,31 +714,18 @@
         {
             static NSString *CellIdentifier = @"Section1Cell";
             
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            RightSubtitleCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
             if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-                
-                UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.view.bounds.size.width, 50.0)];
-                titleLabel.font = MEDIUM_FONT;
-                titleLabel.backgroundColor = [UIColor clearColor];
-                titleLabel.text = [self.relatedInfoSectionItems objectAtIndex:indexPath.row];
+                cell = [[RightSubtitleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                
-                NSArray *numKeys = @[@"AuthorBookSum", @"SimilarBookSum", @"BooklistContainThisBookSum"];
-                NSString *text = [NSString stringWithFormat:@"%d", [[self.bookInfo objectForKey:[numKeys objectAtIndex:indexPath.row]] integerValue]];
-                UILabel *numLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0,
-                                                                              0.0,
-                                                                              self.view.frame.size.width - 40,
-                                                                              self.generalCellHeight)];
-                numLabel.text = [text isEqualToString:@"0"] ? @"" : text;
-                numLabel.textColor = UIC_BLACK(0.3);
-                numLabel.textAlignment = NSTextAlignmentRight;
-                numLabel.font = SMALL_FONT;
-                
-                [cell addSubview:titleLabel];
-                [cell addSubview:numLabel];
             }
+            
+            NSArray *numKeys = @[@"AuthorBookSum", @"SimilarBookSum", @"BooklistContainThisBookSum"];
+            NSString *text = [NSString stringWithFormat:@"%d", [[self.bookInfo objectForKey:[numKeys objectAtIndex:indexPath.row]] integerValue]];
+            
+            cell.title = [self.relatedInfoSectionItems objectAtIndex:indexPath.row];
+            cell.rightTitle = [text isEqualToString:@"0"] ? @"" : text;
             
             return cell;
         }

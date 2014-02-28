@@ -17,4 +17,7 @@
 @property (nonatomic, assign) BOOL needShowExtraInfo;
 @property (nonatomic, assign) BOOL isPlain;
 
+@property (nonatomic, readonly) float headerHeight;
+@property (nonatomic, readonly) float bookCellHeight;
+
 @end
