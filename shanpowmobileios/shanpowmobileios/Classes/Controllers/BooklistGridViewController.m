@@ -7,10 +7,12 @@
 //
 
 #import "BooklistGridViewController.h"
+#import "BooklistCell.h"
 
 @interface BooklistGridViewController ()
 
 @property (nonatomic, assign) CGFloat cellHeight;
+@property (nonatomic, assign) BooklistCell *lastSelectedCell;
 
 @end
 
@@ -36,6 +38,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.title = @"书单列表";
     self.cellHeight = 80.0;
+    self.showDescription = YES;
     
     if (IsSysVerGTE(7.0)) {
         self.tableView.separatorInset = UIEdgeInsetsZero;
@@ -52,6 +55,16 @@
 {
     if (![booklists isEqual:_booklists]) {
         _booklists = booklists;
+        
+        [self.tableView reloadData];
+    }
+}
+
+- (void)setMode:(BooklistGridMode)mode
+{
+    if (_mode != mode) {
+        _mode = mode;
+        
         [self.tableView reloadData];
     }
 }
@@ -77,6 +90,18 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_SELECT_BOOKLIST object:self userInfo:@{@"booklistId": booklistId,
                                                                                                               @"booklistTitle": booklistTitle}];
     
+    BooklistCell *currentCell = (BooklistCell *)[tableView cellForRowAtIndexPath:indexPath];
+    if (self.mode == BGM_SelectionMode) {
+        if (self.lastSelectedCell) {
+            self.lastSelectedCell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        
+        currentCell.accessoryType = UITableViewCellAccessoryCheckmark;
+        currentCell.tintColor = UIC_CERULEAN(1.0);
+    }
+    
+    self.lastSelectedCell = currentCell;
+    
     return;
 }
 
@@ -97,25 +122,30 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    BooklistCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 10.0, cell.frame.size.width - 40, TextHeightWithFont(LARGE_FONT))];
-        titleLabel.text = [[self.booklists objectAtIndex:indexPath.row] objectForKey:@"Title"];
-        titleLabel.font = LARGE_FONT;
-        [cell addSubview:titleLabel];
-        
-        NSString *desc = [[self.booklists objectAtIndex:indexPath.row] objectForKey:@"Description"];
-        UILabel *subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 35.0, cell.frame.size.width - 40, self.cellHeight / 2)];
-        subtitleLabel.text = [desc length] <= 0 ? @"（没有描述）" : desc;
-        subtitleLabel.numberOfLines = 2;
-        subtitleLabel.font = SMALL_FONT;
-        subtitleLabel.textColor = UIC_BRIGHT_GRAY(0.5);
-        [cell addSubview:subtitleLabel];
-        
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell = [[BooklistCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+    
+    NSString *desc = [[self.booklists objectAtIndex:indexPath.row] objectForKey:@"Description"];
+    cell.title = [[self.booklists objectAtIndex:indexPath.row] objectForKey:@"Title"];
+    cell.subTitle = [desc length] <= 0 ? @"（没有描述）" : desc;
+    cell.showDescription = self.showDescription;
+    
+    switch (self.mode) {
+        case BGM_DisplayMode:
+        {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            break;
+        }
+        case BGM_SelectionMode:
+        {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            break;
+        }
+        default:
+            break;
     }
     
     return cell;

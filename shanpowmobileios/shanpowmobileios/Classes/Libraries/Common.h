@@ -70,6 +70,10 @@ return shared##classname;                               \
 #define MSG_FAIL_GET_BOOKLISTS                  @"SMNC_28"
 #define MSG_DID_GET_BOOKLIST_DETAIL             @"SMNC_27"
 #define MSG_FAIL_GET_BOOKLIST_DETAIL            @"SMNC_28"
+#define MSG_DID_ADD_BOOK_TO_BOOKLIST            @"SMNC_29"
+#define MSG_FAIL_ADD_BOOK_TO_BOOKLIST           @"SMNC_30"
+#define MSG_DID_CREATE_BOOKLIST                 @"SMNC_31"
+#define MSG_FAIL_CREATE_BOOKLIST                @"SMNC_32"
 
 #define MSG_DID_SELECT_BOOK                     @"SMNC_1000"
 #define MSG_DID_SELECT_BOOKLIST                 @"SMNC_1001"

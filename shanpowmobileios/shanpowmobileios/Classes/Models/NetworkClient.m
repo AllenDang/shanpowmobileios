@@ -594,6 +594,68 @@ SINGLETON_GCD(NetworkClient);
                       }];
 }
 
+- (void)addBook:(NSString *)bookId toBooklist:(NSString *)booklistId
+{
+    NSDictionary *parameters = @{
+                                 @"bookId": bookId
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"PUT"
+                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/booklist/%@/addbook", booklistId] relativeToURL:self.baseURL] absoluteString]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_ADD_BOOK_TO_BOOKLIST
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_ADD_BOOK_TO_BOOKLIST
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)createBooklistWithTitle:(NSString *)title description:(NSString *)description
+{
+    NSDictionary *parameters = @{
+                                 @"bookId": @"",
+                                 @"title": title,
+                                 @"description": description
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"POST"
+                          url:[[NSURL URLWithString:@"/booklist/create" relativeToURL:self.baseURL] absoluteString]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_CREATE_BOOKLIST
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_CREATE_BOOKLIST
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
 #pragma mark - Event handler
 
 - (void)didGetToken:(NSNotification *)notification

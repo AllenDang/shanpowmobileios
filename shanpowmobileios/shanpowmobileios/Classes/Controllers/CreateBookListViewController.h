@@ -10,6 +10,6 @@
 #import "Common.h"
 #import "SPTextView.h"
 
-@interface CreateBookListViewController : UIViewController <UITextViewDelegate>
+@interface CreateBookListViewController : UIViewController <UITextViewDelegate, UIAlertViewDelegate>
 
 @end

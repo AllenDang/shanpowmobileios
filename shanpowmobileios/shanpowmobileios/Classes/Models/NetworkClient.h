@@ -50,4 +50,8 @@
 - (void)getBooklistsByBookId:(NSString *)bookId;
 - (void)getBooklistDetailById:(NSString *)booklistId;
 
+- (void)addBook:(NSString *)bookId toBooklist:(NSString *)booklistId;
+
+- (void)createBooklistWithTitle:(NSString *)title description:(NSString *)description;
+
 @end

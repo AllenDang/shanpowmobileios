@@ -42,6 +42,7 @@
     
     self.booklistsController = [[BooklistGridViewController alloc] initWithStyle:UITableViewStylePlain];
     self.booklistsController.view.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height);
+    self.booklistsController.showDescription = YES;
     [self.view addSubview:self.booklistsController.view];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBooklist:) name:MSG_DID_SELECT_BOOKLIST object:nil];

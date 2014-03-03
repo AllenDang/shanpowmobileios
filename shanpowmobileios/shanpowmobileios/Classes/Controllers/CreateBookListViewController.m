@@ -7,6 +7,7 @@
 //
 
 #import "CreateBookListViewController.h"
+#import "NetworkClient.h"
 
 @interface CreateBookListViewController ()
 
@@ -65,6 +66,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didCreateBooklist:) name:MSG_DID_CREATE_BOOKLIST object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failCreateBooklist:) name:MSG_FAIL_CREATE_BOOKLIST object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,7 +79,10 @@
 
 - (void)doneCreateBookList:(UIBarButtonItem *)sender
 {
+    NSString *title = self.booklistTitleTextView.text;
+    NSString *desc = self.booklistDescriptionTextView.text;
     
+    [[NetworkClient sharedNetworkClient] createBooklistWithTitle:title description:desc];
 }
 
 #pragma mark - Event handler
@@ -109,6 +116,22 @@
     }];
 }
 
+- (void)didCreateBooklist:(NSNotification *)notification
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"成功" message:@"书单已经创建成功" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
+    alert.tag = 1000;
+    [alert show];
+}
+
+- (void)failCreateBooklist:(NSNotification *)notification
+{
+    NSString *err = [[notification userInfo] objectForKey:@"ErrorMsg"];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"出错啦" message:err delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
+    alert.tag = 1001;
+    [alert show];
+}
+
 #pragma mark - UITextView delegate
 - (BOOL)textView:(UITextView *)tView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
@@ -128,6 +151,14 @@
 
 - (void)textViewDidChangeSelection:(UITextView *)textView {
     [textView scrollRangeToVisible:textView.selectedRange];
+}
+
+#pragma mark - UIAlertView delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1000) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 @end

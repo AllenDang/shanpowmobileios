@@ -156,6 +156,8 @@
 		64D35F4E18ADF09E00999CED /* Star_Red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4A18ADF09E00999CED /* Star_Red@2x.png */; };
 		64D4D57618C050BF0044A78E /* BooklistDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */; };
 		64E5611618C0340F00A26F96 /* BookGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E5611518C0340F00A26F96 /* BookGridCell.m */; };
+		64E9897918C430C000554BDB /* BooklistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9897818C430C000554BDB /* BooklistCell.m */; };
+		64E9897C18C455FC00554BDB /* AddToBooklistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9897B18C455FC00554BDB /* AddToBooklistViewController.m */; };
 		64F05CF5187506C000FB7A3A /* Calibri Bold Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */; };
 		64F05CF6187506C000FB7A3A /* Calibri Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */; };
 		64F05CF7187506C000FB7A3A /* Calibri Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */; };
@@ -390,6 +392,10 @@
 		64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooklistDetailViewController.m; sourceTree = "<group>"; };
 		64E5611418C0340F00A26F96 /* BookGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookGridCell.h; sourceTree = "<group>"; };
 		64E5611518C0340F00A26F96 /* BookGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookGridCell.m; sourceTree = "<group>"; };
+		64E9897718C430C000554BDB /* BooklistCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistCell.h; sourceTree = "<group>"; };
+		64E9897818C430C000554BDB /* BooklistCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooklistCell.m; sourceTree = "<group>"; };
+		64E9897A18C455FC00554BDB /* AddToBooklistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToBooklistViewController.h; sourceTree = "<group>"; };
+		64E9897B18C455FC00554BDB /* AddToBooklistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToBooklistViewController.m; sourceTree = "<group>"; };
 		64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold Italic.ttf"; sourceTree = "<group>"; };
 		64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold.ttf"; sourceTree = "<group>"; };
 		64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Italic.ttf"; sourceTree = "<group>"; };
@@ -639,6 +645,8 @@
 				64C515E018BF0F200027292E /* BooklistDetailInfoViewController.m */,
 				64C515F218BF2D7B0027292E /* FilterViewController.h */,
 				64C515F318BF2D7B0027292E /* FilterViewController.m */,
+				64E9897A18C455FC00554BDB /* AddToBooklistViewController.h */,
+				64E9897B18C455FC00554BDB /* AddToBooklistViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -671,6 +679,8 @@
 				64E5611518C0340F00A26F96 /* BookGridCell.m */,
 				6471A29D18C05F08003A5453 /* CategoriesCell.h */,
 				6471A29E18C05F08003A5453 /* CategoriesCell.m */,
+				64E9897718C430C000554BDB /* BooklistCell.h */,
+				64E9897818C430C000554BDB /* BooklistCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1106,6 +1116,7 @@
 				645FB9C3184C2C0C00BB2325 /* AFSecurityPolicy.m in Sources */,
 				645FB9BF184C2C0C00BB2325 /* AFHTTPRequestOperation.m in Sources */,
 				64641084186AA57F005D92F3 /* NSStringCategory.m in Sources */,
+				64E9897C18C455FC00554BDB /* AddToBooklistViewController.m in Sources */,
 				642BEB64184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				64D35F4218ADC2B900999CED /* WriteCommentReviewViewController.m in Sources */,
 				645FB9C7184C2C0C00BB2325 /* AFURLSessionManager.m in Sources */,
@@ -1143,6 +1154,7 @@
 				649F6EB918A8B8DE00E17B3E /* MainMenuViewController.m in Sources */,
 				64E5611618C0340F00A26F96 /* BookGridCell.m in Sources */,
 				6440D74318606DF9008D9C59 /* WeiboLogin.m in Sources */,
+				64E9897918C430C000554BDB /* BooklistCell.m in Sources */,
 				649311A51862C68C00315DB0 /* BookInfoView.m in Sources */,
 				64C515FB18BF477F0027292E /* BooklistDetailInfoCell.m in Sources */,
 				642BEB65184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m in Sources */,

@@ -408,6 +408,16 @@
     self.hidesBottomBarWhenPushed = NO;
 }
 
+- (void)pushAddToBooklistView
+{
+    AddToBooklistViewController *atbController = [[AddToBooklistViewController alloc] init];
+    atbController.bookIdToAdd = self.bookId;
+    
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:atbController animated:YES];
+    self.hidesBottomBarWhenPushed = NO;
+}
+
 #pragma mark - Data related
 
 - (void)updateBookBasicInfoData
@@ -479,9 +489,13 @@
         case 0:
         {
             [self pushWriteReviewView];
-        }
             break;
-            
+        }
+        case 2:
+        {
+            [self pushAddToBooklistView];
+            break;
+        }
         default:
             break;
     }
