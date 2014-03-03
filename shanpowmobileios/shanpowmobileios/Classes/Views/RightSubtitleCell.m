@@ -23,7 +23,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.bounds.size.width, 50.0)];
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, self.bounds.size.width, self.bounds.size.height)];
         self.subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, self.bounds.size.width - 40, self.bounds.size.height)];
         
         self.titleLabel.textColor = UIC_BRIGHT_GRAY(1.0);
@@ -35,6 +35,7 @@
         self.subtitleLabel.textAlignment = NSTextAlignmentRight;
         self.subtitleLabel.font = SMALL_FONT;
         self.subtitleLabel.text = self.rightTitle;
+        self.subtitleLabel.backgroundColor = [UIColor clearColor];
         
         [self addSubview:self.titleLabel];
         [self addSubview:self.subtitleLabel];

@@ -32,7 +32,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setBackgroundImage:[UIImage imageWithColor:UIC_WHISPER(1.0)]];
+    [self setBackgroundImage:[UIImage imageWithColor:UIC_ALMOSTWHITE(1.0)]];
     
     [self addAdjustView];
     
@@ -130,7 +130,7 @@
     // Cancel button
     self.cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.cancelButton.frame = CGRectMake(0.0, 490.0 * SCREEN_RATIO, 320.0, 50.0);
-    [self.cancelButton setBackgroundImage:[UIImage imageWithColor:UIC_BRIGHT_GRAY(0.2)] forState:UIControlStateNormal];
+    [self.cancelButton setBackgroundImage:[UIImage imageWithColor:UIC_BRIGHT_GRAY(0.3)] forState:UIControlStateNormal];
     [self.cancelButton setBackgroundImage:[UIImage imageWithColor:UIC_BRIGHT_GRAY(0.5)] forState:UIControlStateHighlighted];
     [self.cancelButton setTitle:@"取消" forState:UIControlStateNormal];
     [self.cancelButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];

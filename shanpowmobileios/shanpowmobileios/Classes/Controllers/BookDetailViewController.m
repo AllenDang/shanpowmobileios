@@ -106,7 +106,7 @@
                                                            ContentImage:[UIImage imageNamed:@"icon-plus"]
                                                 highlightedContentImage:[UIImage imageNamed:@"icon-plus-highlighted"]];
     
-    self.actionMenu = [[AwesomeMenu alloc] initWithFrame:[UIApplication sharedApplication].keyWindow.bounds
+    self.actionMenu = [[AwesomeMenu alloc] initWithFrame:self.view.window.bounds
                                                  startItem:self.mainItem
                                                optionMenus:@[self.ratingItem, self.shareItem, self.addToBooklistItem]];
     self.actionMenu.delegate = self;
@@ -592,28 +592,31 @@
                     self.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:booklistsController animated:YES];
                     self.hidesBottomBarWhenPushed = NO;
-                }
-                    break;
                     
+                    break;
+                }
                 default:
                     break;
             }
-        }
+            
             break;
+        }
         case 3:
         {
             if (indexPath.row == 0 && [self.bookInfo objectForKey:@"Comments"] == [NSNull null]) {
                 [self pushWriteReviewView];
             }
-        }
+            
             break;
+        }
         case 4:
         {
             if (indexPath.row == 0 && [self.bookInfo objectForKey:@"Reviews"] == [NSNull null]) {
                 [self pushWriteReviewView];
             }
-        }
+            
             break;
+        }
         default:
             break;
     }

@@ -12,6 +12,16 @@
 
 @property (nonatomic, assign) LoginServiceType loginType;
 
+@property (nonatomic, strong) UITextField *usernameTextField;
+@property (nonatomic, strong) UITextField *passwordTextField;
+@property (nonatomic, strong) UIButton *loginButton;
+@property (nonatomic, strong) UIButton *cancelButton;
+@property (nonatomic, strong) UIButton *loginWithOtherServicesButton;
+@property (nonatomic, strong) UIButton *registerButton;
+@property (nonatomic, strong) UIView *adjustView;
+@property (nonatomic, strong) RegisterViewController *registerViewController;
+@property (nonatomic, strong) QQRegisterViewController *qqRegisterViewController;
+
 - (void)login;
 - (void)qqLogin;
 - (void)weiboLogin;
@@ -33,7 +43,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self setBackgroundImage:[UIImage imageWithColor:UIC_WHISPER(1.0)]];
+    [self setBackgroundImage:[UIImage imageWithColor:UIC_ALMOSTWHITE(1.0)]];
     
     [self addAdjustView];
     
@@ -44,17 +54,17 @@
     [dismissKeyboardButton addTarget:self action:@selector(dismissKeyboardButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.adjustView addSubview:dismissKeyboardButton];
     
-    UIColor *placeholderColor = UIC_ALMOSTWHITE(0.65);
+    UIColor *placeholderColor = UIC_BRIGHT_GRAY(0.25);
     
     // Background view for username text field
     UIImageView *usernameTextFieldBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Login_EmailTextField"]];
-    usernameTextFieldBackground.frame = CGRectMake(0.0, 84.0 * SCREEN_RATIO, 320.0, 50.0);
+    usernameTextFieldBackground.frame = CGRectMake(0.0, 50.0 * SCREEN_RATIO, 320.0, 50.0);
     usernameTextFieldBackground.userInteractionEnabled = YES;
     [self.adjustView addSubview:usernameTextFieldBackground];
     
     // Username text field
     self.usernameTextField = [[UITextField alloc] initWithFrame:CGRectMake(50.0, 13, 230.0, 24.0)];
-    self.usernameTextField.textColor = UIC_ALMOSTWHITE(1.0);
+    self.usernameTextField.textColor = UIC_BRIGHT_GRAY(1.0);
     self.usernameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"输入电子邮件地址或者昵称"
                                                                                    attributes:@{NSForegroundColorAttributeName: placeholderColor}];
     self.usernameTextField.delegate = self;
@@ -63,14 +73,17 @@
     
     // Background view for password text field
     UIImageView *passwordTextFieldBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Login_PasswordTextField"]];
-    passwordTextFieldBackground.frame = CGRectMake(0.0, 135.0 * SCREEN_RATIO, 320.0, 50.0);
+    passwordTextFieldBackground.frame = CGRectMake(0.0,
+                                                   usernameTextFieldBackground.frame.origin.y + usernameTextFieldBackground.frame.size.height + 1,
+                                                   320.0,
+                                                   50.0);
     passwordTextFieldBackground.userInteractionEnabled = YES;
     [self.adjustView addSubview:passwordTextFieldBackground];
     
     // Password text field
     self.passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(50.0, 13, 230.0, 24.0)];
     self.passwordTextField.secureTextEntry = YES;
-    self.passwordTextField.textColor = UIC_ALMOSTWHITE(1.0);
+    self.passwordTextField.textColor = UIC_BRIGHT_GRAY(1.0);
     self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"输入密码"
                                                                                    attributes:@{NSForegroundColorAttributeName: placeholderColor}];
     self.passwordTextField.delegate = self;
@@ -79,26 +92,50 @@
     
     // Login button
     self.loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.loginButton.frame = CGRectMake(0.0, 240.0 * SCREEN_RATIO, 320.0, 50.0);
+    self.loginButton.frame = CGRectMake(0.0,
+                                        passwordTextFieldBackground.frame.origin.y + passwordTextFieldBackground.frame.size.height + 50 * SCREEN_RATIO,
+                                        320.0,
+                                        50.0);
     [self.loginButton setBackgroundImage:[UIImage imageWithColor:UIC_CYAN(1.0)] forState:UIControlStateNormal];
     [self.loginButton setBackgroundImage:[UIImage imageWithColor:UIC_CERULEAN(1.0)] forState:UIControlStateHighlighted];
     [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
     [self.loginButton addTarget:self action:@selector(getToken) forControlEvents:UIControlEventTouchUpInside];
     [self.adjustView addSubview:self.loginButton];
     
+    // Cancel button
+    self.cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.cancelButton.frame = CGRectMake(0.0,
+                                        self.loginButton.frame.origin.y + self.loginButton.frame.size.height + 15 * SCREEN_RATIO,
+                                        320.0,
+                                        50.0);
+    [self.cancelButton setBackgroundImage:[UIImage imageWithColor:UIC_BRIGHT_GRAY(0.3)] forState:UIControlStateNormal];
+    [self.cancelButton setBackgroundImage:[UIImage imageWithColor:UIC_BRIGHT_GRAY(0.5)] forState:UIControlStateHighlighted];
+    [self.cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    [self.cancelButton addTarget:self action:@selector(cancelLogin) forControlEvents:UIControlEventTouchUpInside];
+    [self.adjustView addSubview:self.cancelButton];
+    
     // Lines
     UIView *lineLeft = [[UIView alloc] init];
     lineLeft.backgroundColor = UIC_BRIGHT_GRAY(0.5);
-    lineLeft.frame = CGRectMake(84.0, 368.0 * SCREEN_RATIO, 48.0, 1.0);
+    lineLeft.frame = CGRectMake(84.0,
+                                self.cancelButton.frame.origin.y + self.cancelButton.frame.size.height + 40 * SCREEN_RATIO + TextHeightWithFont(MEDIUM_FONT) / 2,
+                                48.0,
+                                1.0);
     [self.adjustView addSubview:lineLeft];
     
     UIView *lineRight = [[UIView alloc] init];
     lineRight.backgroundColor = UIC_BRIGHT_GRAY(0.5);
-    lineRight.frame = CGRectMake(188.0, 368.0 * SCREEN_RATIO, 48.0, 1.0);
+    lineRight.frame = CGRectMake(188.0,
+                                 lineLeft.frame.origin.y,
+                                 48.0,
+                                 1.0);
     [self.adjustView addSubview:lineRight];
     
     // "Or" label
-    UILabel *orLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 360.0 * SCREEN_RATIO, 320.0, 16.0)];
+    UILabel *orLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0,
+                                                                 self.cancelButton.frame.origin.y + self.cancelButton.frame.size.height + 40 * SCREEN_RATIO,
+                                                                 320.0,
+                                                                 TextHeightWithFont(MEDIUM_FONT))];
     orLabel.text = @"或者";
     orLabel.textAlignment = NSTextAlignmentCenter;
     orLabel.textColor = UIC_BRIGHT_GRAY(0.5);
@@ -108,7 +145,10 @@
     
     // Other services login button
     self.loginWithOtherServicesButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.loginWithOtherServicesButton.frame = CGRectMake(0.0, 425.0 * SCREEN_RATIO, 320.0, 50.0);
+    self.loginWithOtherServicesButton.frame = CGRectMake(0.0,
+                                                         orLabel.frame.origin.y + orLabel.frame.size.height + 30 * SCREEN_RATIO,
+                                                         320.0,
+                                                         50.0);
     self.loginWithOtherServicesButton.titleLabel.font = MEDIUM_FONT;
     [self.loginWithOtherServicesButton setTitle:@"使用合作网站帐号登录" forState:UIControlStateNormal];
     [self.loginWithOtherServicesButton setTitleColor:UIC_BRIGHT_GRAY(0.5) forState:UIControlStateNormal];
@@ -118,7 +158,10 @@
     
     // Register button
     self.registerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.registerButton.frame = CGRectMake(0.0, 490.0 * SCREEN_RATIO, 320.0, 50.0);
+    self.registerButton.frame = CGRectMake(0.0,
+                                           self.loginWithOtherServicesButton.frame.origin.y + self.loginWithOtherServicesButton.frame.size.height + 10 * SCREEN_RATIO,
+                                           320.0,
+                                           50.0);
     self.registerButton.titleLabel.font = MEDIUM_FONT;
     [self.registerButton setTitle:@"立即注册" forState:UIControlStateNormal];
     [self.registerButton setTitleColor:UIC_BRIGHT_GRAY(0.5) forState:UIControlStateNormal];
@@ -129,11 +172,6 @@
     self.loginType = LoginType_Normal;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -150,11 +188,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -
+
 - (void)getToken
 {
-    [[NetworkClient sharedNetworkClient] getCsrfToken];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetToken:) name:MSG_GOT_TOKEN object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetToken:) name:MSG_FAIL_GET_TOKEN object:nil];
+    
+    [[NetworkClient sharedNetworkClient] getCsrfToken];
+}
+
+- (void)cancelLogin
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_ERROR object:nil];
+    }];
 }
 
 - (void)login
@@ -193,7 +241,7 @@
 - (void)serviceLogin
 {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"使用合作网站帐号登录" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"QQ登录", nil];
-    [actionSheet showFromTabBar:self.tabBarController.tabBar];
+    [actionSheet showInView:self.view];
 }
 
 - (void)qqLogin

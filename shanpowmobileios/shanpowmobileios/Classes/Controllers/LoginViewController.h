@@ -23,13 +23,4 @@ typedef enum
 
 @interface LoginViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate>
 
-@property (nonatomic, strong) UITextField *usernameTextField;
-@property (nonatomic, strong) UITextField *passwordTextField;
-@property (nonatomic, strong) UIButton *loginButton;
-@property (nonatomic, strong) UIButton *loginWithOtherServicesButton;
-@property (nonatomic, strong) UIButton *registerButton;
-@property (nonatomic, strong) UIView *adjustView;
-@property (nonatomic, strong) RegisterViewController *registerViewController;
-@property (nonatomic, strong) QQRegisterViewController *qqRegisterViewController;
-
 @end

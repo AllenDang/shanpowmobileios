@@ -146,7 +146,7 @@
             return YES;
         } else {
             self.loginController = [[LoginViewController alloc] init];
-            [self.mainMenuController presentViewController:self.loginController animated:YES completion:^{
+            [self.mainTabBar presentViewController:self.loginController animated:YES completion:^{
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogin:) name:MSG_DID_LOGIN object:nil];
             }];
             return NO;
