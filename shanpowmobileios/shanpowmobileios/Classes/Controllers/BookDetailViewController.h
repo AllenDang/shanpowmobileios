@@ -13,6 +13,7 @@
 #import "AwesomeMenu.h"
 #import "WriteCommentReviewViewController.h"
 #import "AddToBooklistViewController.h"
+#import "SPLoadingView.h"
 
 @interface BookDetailViewController : UITableViewController <AwesomeMenuDelegate>
 

@@ -158,6 +158,7 @@
 		64E5611618C0340F00A26F96 /* BookGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E5611518C0340F00A26F96 /* BookGridCell.m */; };
 		64E9897918C430C000554BDB /* BooklistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9897818C430C000554BDB /* BooklistCell.m */; };
 		64E9897C18C455FC00554BDB /* AddToBooklistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9897B18C455FC00554BDB /* AddToBooklistViewController.m */; };
+		64E9897F18C4782300554BDB /* SPLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9897E18C4782300554BDB /* SPLoadingView.m */; };
 		64F05CF5187506C000FB7A3A /* Calibri Bold Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */; };
 		64F05CF6187506C000FB7A3A /* Calibri Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */; };
 		64F05CF7187506C000FB7A3A /* Calibri Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */; };
@@ -396,6 +397,8 @@
 		64E9897818C430C000554BDB /* BooklistCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooklistCell.m; sourceTree = "<group>"; };
 		64E9897A18C455FC00554BDB /* AddToBooklistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToBooklistViewController.h; sourceTree = "<group>"; };
 		64E9897B18C455FC00554BDB /* AddToBooklistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToBooklistViewController.m; sourceTree = "<group>"; };
+		64E9897D18C4782300554BDB /* SPLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLoadingView.h; sourceTree = "<group>"; };
+		64E9897E18C4782300554BDB /* SPLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLoadingView.m; sourceTree = "<group>"; };
 		64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold Italic.ttf"; sourceTree = "<group>"; };
 		64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold.ttf"; sourceTree = "<group>"; };
 		64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Italic.ttf"; sourceTree = "<group>"; };
@@ -681,6 +684,8 @@
 				6471A29E18C05F08003A5453 /* CategoriesCell.m */,
 				64E9897718C430C000554BDB /* BooklistCell.h */,
 				64E9897818C430C000554BDB /* BooklistCell.m */,
+				64E9897D18C4782300554BDB /* SPLoadingView.h */,
+				64E9897E18C4782300554BDB /* SPLoadingView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1144,6 +1149,7 @@
 				6471A29F18C05F08003A5453 /* CategoriesCell.m in Sources */,
 				64204AB818BC3E2200A684A7 /* AwesomeMenu.m in Sources */,
 				6461C58618504981006D3736 /* HotBooksViewController.m in Sources */,
+				64E9897F18C4782300554BDB /* SPLoadingView.m in Sources */,
 				64C515EE18BF0FE30027292E /* MMDrawerVisualState.m in Sources */,
 				64C515E118BF0F200027292E /* BooklistDetailInfoViewController.m in Sources */,
 				646529B5184C617000C3D613 /* NetworkClient.m in Sources */,

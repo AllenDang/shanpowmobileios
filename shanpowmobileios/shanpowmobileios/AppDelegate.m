@@ -53,7 +53,6 @@
     
     // Customize the appearance of uinavigationbar and uitabbar
     if (IsSysVerGTE(7.0)) {
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
         [[UITabBar appearance] setTintColor:UIC_CYAN(1.0)];
         
         [self.mainMenuController.navigationBar setBackgroundImage:[UIImage imageWithColor:UIC_CERULEAN(1.0)] forBarMetrics:UIBarMetricsDefault];

@@ -18,6 +18,8 @@
 @property (nonatomic, strong) NSArray *relatedInfoSectionItems;
 @property (nonatomic, strong) NSDictionary *bookInfo;
 
+@property (nonatomic, strong) SPLoadingView *loadingView;
+
 @property (nonatomic, assign) float generalMargin;
 @property (nonatomic, assign) float generalCellHeight;
 @property (nonatomic, assign) float generalHeaderHeight;
@@ -123,11 +125,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     if (self.bookId.length > 0) {
         [self getBookDetail];
     }
     
-    [super viewWillAppear:animated];
+    self.loadingView = [[SPLoadingView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.loadingView];
+    [self.view bringSubviewToFront:self.loadingView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -448,6 +454,7 @@
 - (void)handleDidGetBookDetail:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BOOK_DETAIL object:nil];
+    [self.loadingView removeFromSuperview];
     
     self.bookInfo = [[notification userInfo] objectForKey:@"data"];
 }
