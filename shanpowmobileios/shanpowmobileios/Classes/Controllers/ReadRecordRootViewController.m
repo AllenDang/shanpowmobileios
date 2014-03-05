@@ -1,23 +1,21 @@
 //
-//  BooklistDetailViewController.m
+//  ReadRecordRootViewController.m
 //  shanpowmobileios
 //
-//  Created by Marvin Gu on 14-2-28.
+//  Created by Marvin Gu on 14-3-4.
 //  Copyright (c) 2014年 木一. All rights reserved.
 //
 
-#import "BooklistDetailViewController.h"
+#import "ReadRecordRootViewController.h"
 
-@interface BooklistDetailViewController ()
+@interface ReadRecordRootViewController ()
 
-@property (nonatomic, strong) NSString *booklistId;
-
-@property (nonatomic, strong) BooklistDetailInfoViewController *booklistDetailController;
+@property (nonatomic, strong) ReadRecordViewController *readRecordController;
 @property (nonatomic, strong) FilterViewController *filterController;
 
 @end
 
-@implementation BooklistDetailViewController
+@implementation ReadRecordRootViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,20 +26,22 @@
     return self;
 }
 
-- (id)initWithBooklistId:(NSString *)booklistId
+- (id)initWithUserName:(NSString *)username
 {
-    BooklistDetailInfoViewController *bdController = [[BooklistDetailInfoViewController alloc] initWithStyle:UITableViewStylePlain];
-    bdController.booklistId = booklistId;
+    ReadRecordViewController *rrController = [[ReadRecordViewController alloc] initWithStyle:UITableViewStylePlain];
+    rrController.username = username;
+    rrController.avatarUrl = self.avatarUrl;
     
     FilterViewController *fController = [[FilterViewController alloc] initWithStyle:UITableViewStylePlain];
+    fController.showReadStatus = NO;
     
-    self = [super initWithCenterViewController:bdController rightDrawerViewController:fController];
+    self = [super initWithCenterViewController:rrController rightDrawerViewController:fController];
     if (self) {
-        self.booklistId = booklistId;
+        self.username = username;
         
-        self.booklistDetailController = bdController;
+        self.readRecordController = rrController;
         self.filterController = fController;
-        self.filterController.dataSource = self.booklistDetailController;
+        self.filterController.dataSource = self.readRecordController;
     }
     return self;
 }
@@ -50,10 +50,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.title = @"书单详情";
+    self.title = @"阅读记录和书评";
     
-    UIBarButtonItem *filterButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Filter"] style:UIBarButtonItemStylePlain target:self action:@selector(openFilter:)];
-    [self.navigationItem setRightBarButtonItem:filterButton];
+//    UIBarButtonItem *filterButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Filter"] style:UIBarButtonItemStylePlain target:self action:@selector(openFilter:)];
+//    [self.navigationItem setRightBarButtonItem:filterButton];
     
     if (IsSysVerGTE(7.0)) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -62,13 +62,31 @@
     [self setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
     
     [self setMaximumRightDrawerWidth:300.0];
-    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
+- (void)setUsername:(NSString *)username
+{
+    if (![username isEqualToString:_username]) {
+        _username = username;
+        
+        self.readRecordController.username = username;
+    }
+}
+
+- (void)setAvatarUrl:(NSString *)avatarUrl
+{
+    if (![avatarUrl isEqualToString:_avatarUrl]) {
+        _avatarUrl = avatarUrl;
+        
+        self.readRecordController.avatarUrl = avatarUrl;
+    }
 }
 
 #pragma mark - Event handler
@@ -78,13 +96,13 @@
         self.title = @"书单详情";
         self.navigationItem.hidesBackButton = NO;
         [self closeDrawerAnimated:YES completion:^(BOOL finished) {
-
+            
         }];
     } else {
         self.title = @"过滤";
         self.navigationItem.hidesBackButton = YES;
         [self openDrawerSide:MMDrawerSideRight animated:YES completion:^(BOOL finished) {
-
+            
         }];
     }
 }

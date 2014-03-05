@@ -8,6 +8,7 @@
 
 #import "UserProfileViewController.h"
 #import "BooklistListViewController.h"
+#import "ReadRecordRootViewController.h"
 
 @interface UserProfileViewController ()
 
@@ -432,6 +433,21 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     switch (indexPath.row) {
+        case 2:
+        {
+            NSString *username = self.username;
+            ReadRecordRootViewController *readRecordController = [[ReadRecordRootViewController alloc] initWithUserName:username];
+            readRecordController.avatarUrl = [self.userBasicInfo objectForKey:@"AvatarUrl"];
+            
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:readRecordController animated:YES];
+            
+            if (self.isSelf) {
+                self.hidesBottomBarWhenPushed = NO;
+            }
+            
+            break;
+        }
         case 3:
         {
             BooklistListViewController *booklistsController = [[BooklistListViewController alloc] init];
@@ -441,9 +457,13 @@
             
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:booklistsController animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
-        }
+            
+            if (self.isSelf) {
+                self.hidesBottomBarWhenPushed = NO;
+            }
+            
             break;
+        }
         case 4:
         {
             BooklistListViewController *booklistsController = [[BooklistListViewController alloc] init];
@@ -453,9 +473,13 @@
             
             self.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:booklistsController animated:YES];
-            self.hidesBottomBarWhenPushed = NO;
-        }
+            
+            if (self.isSelf) {
+                self.hidesBottomBarWhenPushed = NO;
+            }
+            
             break;
+        }
         default:
             break;
     }

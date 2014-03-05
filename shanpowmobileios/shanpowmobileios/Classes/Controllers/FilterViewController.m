@@ -72,6 +72,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.section) {
+        case 0:
+        {
+            if (!self.showReadStatus) {
+                return 0;
+            }
+        }
         case 1:
         {
             if (indexPath.row == 1) {
@@ -149,6 +155,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (section == 0 && !self.showReadStatus) {
+        return 0;
+    }
     return GENERAL_HEADER_HEIGHT;
 }
 

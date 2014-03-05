@@ -50,6 +50,7 @@
 		642723F618ACC3F0002609F4 /* Dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723F418ACC3F0002609F4 /* Dot.png */; };
 		642723F718ACC3F0002609F4 /* Dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723F518ACC3F0002609F4 /* Dot@2x.png */; };
 		642723FB18ACCA3A002609F4 /* SPTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 642723FA18ACCA3A002609F4 /* SPTextView.m */; };
+		6427C07B18C7176100213E55 /* CategoryBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6427C07A18C7176100213E55 /* CategoryBooksViewController.m */; };
 		642BEB53184DB7FC00E1A0B3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB52184DB7FC00E1A0B3 /* LoginViewController.m */; };
 		642BEB64184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB56184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.m */; };
 		642BEB65184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 642BEB58184DF3F800E1A0B3 /* UIActivityIndicatorView+AFNetworking.m */; };
@@ -108,6 +109,11 @@
 		6468EFF118B3014F00A9DA92 /* BooklistGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6468EFF018B3014F00A9DA92 /* BooklistGridViewController.m */; };
 		6468EFF418B3029100A9DA92 /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6468EFF318B3029100A9DA92 /* UserListViewController.m */; };
 		6471A29F18C05F08003A5453 /* CategoriesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6471A29E18C05F08003A5453 /* CategoriesCell.m */; };
+		6482D1BA18C59FA000D2DA8F /* ReadRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482D1B918C59FA000D2DA8F /* ReadRecordViewController.m */; };
+		6482D1BD18C5B11000D2DA8F /* ReadRecordRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482D1BC18C5B11000D2DA8F /* ReadRecordRootViewController.m */; };
+		6482D1C018C5B9D300D2DA8F /* ChatBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482D1BF18C5B9D300D2DA8F /* ChatBubble.m */; };
+		6482D1C418C5D0E100D2DA8F /* BubbleDark.png in Resources */ = {isa = PBXBuildFile; fileRef = 6482D1C218C5D0E100D2DA8F /* BubbleDark.png */; };
+		6482D1C518C5D0E100D2DA8F /* BubbleDark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6482D1C318C5D0E100D2DA8F /* BubbleDark@2x.png */; };
 		649311A51862C68C00315DB0 /* BookInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649311A41862C68C00315DB0 /* BookInfoView.m */; };
 		649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649BA57C185AA6350096DD8D /* RegisterViewController.m */; };
 		649F6EB918A8B8DE00E17B3E /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */; };
@@ -159,6 +165,7 @@
 		64E9897918C430C000554BDB /* BooklistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9897818C430C000554BDB /* BooklistCell.m */; };
 		64E9897C18C455FC00554BDB /* AddToBooklistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9897B18C455FC00554BDB /* AddToBooklistViewController.m */; };
 		64E9897F18C4782300554BDB /* SPLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9897E18C4782300554BDB /* SPLoadingView.m */; };
+		64EFCA3618C56F63002D59A9 /* ReadRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64EFCA3518C56F63002D59A9 /* ReadRecordCell.m */; };
 		64F05CF5187506C000FB7A3A /* Calibri Bold Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */; };
 		64F05CF6187506C000FB7A3A /* Calibri Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */; };
 		64F05CF7187506C000FB7A3A /* Calibri Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */; };
@@ -233,6 +240,8 @@
 		642723F518ACC3F0002609F4 /* Dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dot@2x.png"; sourceTree = "<group>"; };
 		642723F918ACCA3A002609F4 /* SPTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPTextView.h; path = SPTextView/SPTextView.h; sourceTree = "<group>"; };
 		642723FA18ACCA3A002609F4 /* SPTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPTextView.m; path = SPTextView/SPTextView.m; sourceTree = "<group>"; };
+		6427C07918C7176100213E55 /* CategoryBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryBooksViewController.h; sourceTree = "<group>"; };
+		6427C07A18C7176100213E55 /* CategoryBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryBooksViewController.m; sourceTree = "<group>"; };
 		642BEB51184DB7FC00E1A0B3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		642BEB52184DB7FC00E1A0B3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		642BEB55184DF3F800E1A0B3 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
@@ -327,6 +336,14 @@
 		6468EFF318B3029100A9DA92 /* UserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserListViewController.m; sourceTree = "<group>"; };
 		6471A29D18C05F08003A5453 /* CategoriesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriesCell.h; sourceTree = "<group>"; };
 		6471A29E18C05F08003A5453 /* CategoriesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriesCell.m; sourceTree = "<group>"; };
+		6482D1B818C59FA000D2DA8F /* ReadRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadRecordViewController.h; sourceTree = "<group>"; };
+		6482D1B918C59FA000D2DA8F /* ReadRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadRecordViewController.m; sourceTree = "<group>"; };
+		6482D1BB18C5B11000D2DA8F /* ReadRecordRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadRecordRootViewController.h; sourceTree = "<group>"; };
+		6482D1BC18C5B11000D2DA8F /* ReadRecordRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadRecordRootViewController.m; sourceTree = "<group>"; };
+		6482D1BE18C5B9D300D2DA8F /* ChatBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatBubble.h; sourceTree = "<group>"; };
+		6482D1BF18C5B9D300D2DA8F /* ChatBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatBubble.m; sourceTree = "<group>"; };
+		6482D1C218C5D0E100D2DA8F /* BubbleDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleDark.png; sourceTree = "<group>"; };
+		6482D1C318C5D0E100D2DA8F /* BubbleDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BubbleDark@2x.png"; sourceTree = "<group>"; };
 		649311A31862C68C00315DB0 /* BookInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoView.h; sourceTree = "<group>"; };
 		649311A41862C68C00315DB0 /* BookInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoView.m; sourceTree = "<group>"; };
 		649BA57B185AA6350096DD8D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -399,6 +416,8 @@
 		64E9897B18C455FC00554BDB /* AddToBooklistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToBooklistViewController.m; sourceTree = "<group>"; };
 		64E9897D18C4782300554BDB /* SPLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLoadingView.h; sourceTree = "<group>"; };
 		64E9897E18C4782300554BDB /* SPLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLoadingView.m; sourceTree = "<group>"; };
+		64EFCA3418C56F63002D59A9 /* ReadRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadRecordCell.h; sourceTree = "<group>"; };
+		64EFCA3518C56F63002D59A9 /* ReadRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadRecordCell.m; sourceTree = "<group>"; };
 		64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold Italic.ttf"; sourceTree = "<group>"; };
 		64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold.ttf"; sourceTree = "<group>"; };
 		64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Italic.ttf"; sourceTree = "<group>"; };
@@ -610,46 +629,52 @@
 		645FB9A7184C2B8B00BB2325 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				642BEB51184DB7FC00E1A0B3 /* LoginViewController.h */,
-				642BEB52184DB7FC00E1A0B3 /* LoginViewController.m */,
-				6461C58418504981006D3736 /* HotBooksViewController.h */,
-				6461C58518504981006D3736 /* HotBooksViewController.m */,
-				649BA57B185AA6350096DD8D /* RegisterViewController.h */,
-				649BA57C185AA6350096DD8D /* RegisterViewController.m */,
-				6440D7381860537A008D9C59 /* QQRegisterViewController.h */,
-				6440D7391860537A008D9C59 /* QQRegisterViewController.m */,
-				649F6EB718A8B8DE00E17B3E /* MainMenuViewController.h */,
-				649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */,
-				641637CC18AB061E009A774A /* BookGridViewController.h */,
-				641637CD18AB061E009A774A /* BookGridViewController.m */,
-				641637E618AB3657009A774A /* CategoriesViewController.h */,
-				641637E718AB3657009A774A /* CategoriesViewController.m */,
-				642723DC18AC5F0C002609F4 /* UserProfileViewController.h */,
-				642723DD18AC5F0C002609F4 /* UserProfileViewController.m */,
-				642723F018ACBE2C002609F4 /* CreateBookListViewController.h */,
-				642723F118ACBE2C002609F4 /* CreateBookListViewController.m */,
-				64D35F4018ADC2B900999CED /* WriteCommentReviewViewController.h */,
-				64D35F4118ADC2B900999CED /* WriteCommentReviewViewController.m */,
-				641637D418AB201E009A774A /* SearchViewController.h */,
-				641637D518AB201E009A774A /* SearchViewController.m */,
-				6468EFEC18B2F7D600A9DA92 /* SearchResultViewController.h */,
-				6468EFED18B2F7D600A9DA92 /* SearchResultViewController.m */,
-				6468EFEF18B3014F00A9DA92 /* BooklistGridViewController.h */,
-				6468EFF018B3014F00A9DA92 /* BooklistGridViewController.m */,
-				6468EFF218B3029100A9DA92 /* UserListViewController.h */,
-				6468EFF318B3029100A9DA92 /* UserListViewController.m */,
-				64FC60CC18B59B3800D7D8E6 /* BookDetailViewController.h */,
-				64FC60CD18B59B3800D7D8E6 /* BookDetailViewController.m */,
-				64B8DA5E18BDB4A300AA0A5D /* BooklistListViewController.h */,
-				64B8DA5F18BDB4A300AA0A5D /* BooklistListViewController.m */,
-				64D4D57418C050BF0044A78E /* BooklistDetailViewController.h */,
-				64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */,
-				64C515DF18BF0F200027292E /* BooklistDetailInfoViewController.h */,
-				64C515E018BF0F200027292E /* BooklistDetailInfoViewController.m */,
-				64C515F218BF2D7B0027292E /* FilterViewController.h */,
-				64C515F318BF2D7B0027292E /* FilterViewController.m */,
 				64E9897A18C455FC00554BDB /* AddToBooklistViewController.h */,
 				64E9897B18C455FC00554BDB /* AddToBooklistViewController.m */,
+				64FC60CC18B59B3800D7D8E6 /* BookDetailViewController.h */,
+				64FC60CD18B59B3800D7D8E6 /* BookDetailViewController.m */,
+				641637CC18AB061E009A774A /* BookGridViewController.h */,
+				641637CD18AB061E009A774A /* BookGridViewController.m */,
+				64C515DF18BF0F200027292E /* BooklistDetailInfoViewController.h */,
+				64C515E018BF0F200027292E /* BooklistDetailInfoViewController.m */,
+				64D4D57418C050BF0044A78E /* BooklistDetailViewController.h */,
+				64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */,
+				6468EFEF18B3014F00A9DA92 /* BooklistGridViewController.h */,
+				6468EFF018B3014F00A9DA92 /* BooklistGridViewController.m */,
+				64B8DA5E18BDB4A300AA0A5D /* BooklistListViewController.h */,
+				64B8DA5F18BDB4A300AA0A5D /* BooklistListViewController.m */,
+				641637E618AB3657009A774A /* CategoriesViewController.h */,
+				641637E718AB3657009A774A /* CategoriesViewController.m */,
+				6427C07918C7176100213E55 /* CategoryBooksViewController.h */,
+				6427C07A18C7176100213E55 /* CategoryBooksViewController.m */,
+				642723F018ACBE2C002609F4 /* CreateBookListViewController.h */,
+				642723F118ACBE2C002609F4 /* CreateBookListViewController.m */,
+				64C515F218BF2D7B0027292E /* FilterViewController.h */,
+				64C515F318BF2D7B0027292E /* FilterViewController.m */,
+				6461C58418504981006D3736 /* HotBooksViewController.h */,
+				6461C58518504981006D3736 /* HotBooksViewController.m */,
+				642BEB51184DB7FC00E1A0B3 /* LoginViewController.h */,
+				642BEB52184DB7FC00E1A0B3 /* LoginViewController.m */,
+				649F6EB718A8B8DE00E17B3E /* MainMenuViewController.h */,
+				649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */,
+				6440D7381860537A008D9C59 /* QQRegisterViewController.h */,
+				6440D7391860537A008D9C59 /* QQRegisterViewController.m */,
+				6482D1BB18C5B11000D2DA8F /* ReadRecordRootViewController.h */,
+				6482D1BC18C5B11000D2DA8F /* ReadRecordRootViewController.m */,
+				6482D1B818C59FA000D2DA8F /* ReadRecordViewController.h */,
+				6482D1B918C59FA000D2DA8F /* ReadRecordViewController.m */,
+				649BA57B185AA6350096DD8D /* RegisterViewController.h */,
+				649BA57C185AA6350096DD8D /* RegisterViewController.m */,
+				6468EFEC18B2F7D600A9DA92 /* SearchResultViewController.h */,
+				6468EFED18B2F7D600A9DA92 /* SearchResultViewController.m */,
+				641637D418AB201E009A774A /* SearchViewController.h */,
+				641637D518AB201E009A774A /* SearchViewController.m */,
+				6468EFF218B3029100A9DA92 /* UserListViewController.h */,
+				6468EFF318B3029100A9DA92 /* UserListViewController.m */,
+				642723DC18AC5F0C002609F4 /* UserProfileViewController.h */,
+				642723DD18AC5F0C002609F4 /* UserProfileViewController.m */,
+				64D35F4018ADC2B900999CED /* WriteCommentReviewViewController.h */,
+				64D35F4118ADC2B900999CED /* WriteCommentReviewViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -657,10 +682,10 @@
 		645FB9A8184C2B9200BB2325 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				646529B3184C617000C3D613 /* NetworkClient.h */,
-				646529B4184C617000C3D613 /* NetworkClient.m */,
 				642C790A1867DDB9007C61AD /* Book.h */,
 				642C790B1867DDB9007C61AD /* Book.m */,
+				646529B3184C617000C3D613 /* NetworkClient.h */,
+				646529B4184C617000C3D613 /* NetworkClient.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -668,22 +693,26 @@
 		645FB9A9184C2B9700BB2325 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				649311A31862C68C00315DB0 /* BookInfoView.h */,
-				649311A41862C68C00315DB0 /* BookInfoView.m */,
-				64A80B0B186813F10039BBA2 /* BookInfoCell.h */,
-				64A80B0C186813F10039BBA2 /* BookInfoCell.m */,
-				6409DB7D18BB156A00313AE5 /* CommentReviewView.h */,
-				6409DB7E18BB156A00313AE5 /* CommentReviewView.m */,
-				64C515DC18BEFCF20027292E /* RightSubtitleCell.h */,
-				64C515DD18BEFCF20027292E /* RightSubtitleCell.m */,
-				64C515F918BF477F0027292E /* BooklistDetailInfoCell.h */,
-				64C515FA18BF477F0027292E /* BooklistDetailInfoCell.m */,
 				64E5611418C0340F00A26F96 /* BookGridCell.h */,
 				64E5611518C0340F00A26F96 /* BookGridCell.m */,
-				6471A29D18C05F08003A5453 /* CategoriesCell.h */,
-				6471A29E18C05F08003A5453 /* CategoriesCell.m */,
+				64A80B0B186813F10039BBA2 /* BookInfoCell.h */,
+				64A80B0C186813F10039BBA2 /* BookInfoCell.m */,
+				649311A31862C68C00315DB0 /* BookInfoView.h */,
+				649311A41862C68C00315DB0 /* BookInfoView.m */,
 				64E9897718C430C000554BDB /* BooklistCell.h */,
 				64E9897818C430C000554BDB /* BooklistCell.m */,
+				64C515F918BF477F0027292E /* BooklistDetailInfoCell.h */,
+				64C515FA18BF477F0027292E /* BooklistDetailInfoCell.m */,
+				6471A29D18C05F08003A5453 /* CategoriesCell.h */,
+				6471A29E18C05F08003A5453 /* CategoriesCell.m */,
+				6482D1BE18C5B9D300D2DA8F /* ChatBubble.h */,
+				6482D1BF18C5B9D300D2DA8F /* ChatBubble.m */,
+				6409DB7D18BB156A00313AE5 /* CommentReviewView.h */,
+				6409DB7E18BB156A00313AE5 /* CommentReviewView.m */,
+				64EFCA3418C56F63002D59A9 /* ReadRecordCell.h */,
+				64EFCA3518C56F63002D59A9 /* ReadRecordCell.m */,
+				64C515DC18BEFCF20027292E /* RightSubtitleCell.h */,
+				64C515DD18BEFCF20027292E /* RightSubtitleCell.m */,
 				64E9897D18C4782300554BDB /* SPLoadingView.h */,
 				64E9897E18C4782300554BDB /* SPLoadingView.m */,
 			);
@@ -841,9 +870,19 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		6482D1C118C5D0D500D2DA8F /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				6482D1C218C5D0E100D2DA8F /* BubbleDark.png */,
+				6482D1C318C5D0E100D2DA8F /* BubbleDark@2x.png */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
 		64B9A5B9185024C3001D482D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6482D1C118C5D0D500D2DA8F /* Chat */,
 				642723F318ACC3F0002609F4 /* Common */,
 				642723DF18AC62BA002609F4 /* UserProfile */,
 				641637CF18AB1F32009A774A /* Root */,
@@ -1062,6 +1101,7 @@
 				646132C9184872F300A0BBF0 /* Images.xcassets in Resources */,
 				64C515F718BF30CA0027292E /* Filter.png in Resources */,
 				642723E818AC7694002609F4 /* Plus.png in Resources */,
+				6482D1C518C5D0E100D2DA8F /* BubbleDark@2x.png in Resources */,
 				64204ADB18BC579700A684A7 /* icon-share@2x.png in Resources */,
 				64C66383186D1BE700B18236 /* Login_EmailTextField.png in Resources */,
 				64635849185B231E00172760 /* Login_LoginButton.png in Resources */,
@@ -1071,6 +1111,7 @@
 				64CD28B218AA01280050BE63 /* Home@2x.png in Resources */,
 				64F05CF5187506C000FB7A3A /* Calibri Bold Italic.ttf in Resources */,
 				64204ACD18BC558200A684A7 /* bg-addbutton@2x.png in Resources */,
+				6482D1C418C5D0E100D2DA8F /* BubbleDark.png in Resources */,
 				64204AD018BC558200A684A7 /* bg-menuitem.png in Resources */,
 				6441B9DC18B373240061D00C /* DefaultUser50.png in Resources */,
 				64CD28AB18A9FB580050BE63 /* Review@2x.png in Resources */,
@@ -1114,6 +1155,7 @@
 				645FB9C5184C2C0C00BB2325 /* AFURLRequestSerialization.m in Sources */,
 				64C515EC18BF0FE30027292E /* MMDrawerBarButtonItem.m in Sources */,
 				645FB9C4184C2C0C00BB2325 /* AFURLConnectionOperation.m in Sources */,
+				6427C07B18C7176100213E55 /* CategoryBooksViewController.m in Sources */,
 				6468EFEE18B2F7D600A9DA92 /* SearchResultViewController.m in Sources */,
 				64FFD93B185FEDD2002F93C0 /* NSData+Base64.m in Sources */,
 				6409DB7F18BB156A00313AE5 /* CommentReviewView.m in Sources */,
@@ -1127,6 +1169,7 @@
 				645FB9C7184C2C0C00BB2325 /* AFURLSessionManager.m in Sources */,
 				641637CE18AB061E009A774A /* BookGridViewController.m in Sources */,
 				6468EFF418B3029100A9DA92 /* UserListViewController.m in Sources */,
+				64EFCA3618C56F63002D59A9 /* ReadRecordCell.m in Sources */,
 				6468EFF118B3014F00A9DA92 /* BooklistGridViewController.m in Sources */,
 				645FB9C6184C2C0C00BB2325 /* AFURLResponseSerialization.m in Sources */,
 				649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */,
@@ -1139,10 +1182,12 @@
 				646132C7184872F300A0BBF0 /* AppDelegate.m in Sources */,
 				645FB9C1184C2C0C00BB2325 /* AFHTTPSessionManager.m in Sources */,
 				642BEB67184DF3F800E1A0B3 /* UIButton+AFNetworking.m in Sources */,
+				6482D1BD18C5B11000D2DA8F /* ReadRecordRootViewController.m in Sources */,
 				642723FB18ACCA3A002609F4 /* SPTextView.m in Sources */,
 				642BEB68184DF3F800E1A0B3 /* UIImageView+AFNetworking.m in Sources */,
 				6440D73718602BEA008D9C59 /* QQLogin.m in Sources */,
 				645FB9C0184C2C0C00BB2325 /* AFHTTPRequestOperationManager.m in Sources */,
+				6482D1BA18C59FA000D2DA8F /* ReadRecordViewController.m in Sources */,
 				642723F218ACBE2C002609F4 /* CreateBookListViewController.m in Sources */,
 				64204AB918BC3E2200A684A7 /* AwesomeMenuItem.m in Sources */,
 				641637D618AB201E009A774A /* SearchViewController.m in Sources */,
@@ -1171,6 +1216,7 @@
 				641637E218AB22C0009A774A /* SPLabel.m in Sources */,
 				64FC60CE18B59B3800D7D8E6 /* BookDetailViewController.m in Sources */,
 				64C515EF18BF0FE30027292E /* UIViewController+MMDrawerController.m in Sources */,
+				6482D1C018C5B9D300D2DA8F /* ChatBubble.m in Sources */,
 				645FB9C2184C2C0C00BB2325 /* AFNetworkReachabilityManager.m in Sources */,
 				646132C3184872F300A0BBF0 /* main.m in Sources */,
 				64C515ED18BF0FE30027292E /* MMDrawerController.m in Sources */,

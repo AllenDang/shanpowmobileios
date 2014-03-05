@@ -97,6 +97,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if (isLastCell(tableView, indexPath)) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_BOOKGRID_LOADMORE_TAPPED object:self];
+    }
+    
     return;
 }
 
@@ -143,54 +147,73 @@
         return 0;
     }
     if (self.isPlain) {
-        return [self.books count];
+        if (self.needLoadMore) {
+            return [self.books count] + 1;
+        } else {
+            return [self.books count];
+        }
     }
-    return [[[self.books objectAtIndex:section] objectForKey:@"Books"] count];
+    return self.needLoadMore ? [[[self.books objectAtIndex:section] objectForKey:@"Books"] count] + 1 : [[[self.books objectAtIndex:section] objectForKey:@"Books"] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    BookInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    NSDictionary *bookInfo = @{};
-    if (self.isPlain) {
-        bookInfo = [self.books objectAtIndex:indexPath.row];
+{    
+    if (isLastCell(tableView, indexPath) && self.needLoadMore) {
+        static NSString *CellIdentifier = @"Cell1";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+        
+        cell.textLabel.text = @"点击加载更多";
+        cell.textLabel.font = MEDIUM_FONT;
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        
+        return cell;
     } else {
-        bookInfo = [[[self.books objectAtIndex:indexPath.section] objectForKey:@"Books"] objectAtIndex:indexPath.row];
+        static NSString *CellIdentifier = @"Cell";
+        BookInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+        NSDictionary *bookInfo = @{};
+        if (self.isPlain) {
+            bookInfo = [self.books objectAtIndex:indexPath.row];
+        } else {
+            bookInfo = [[[self.books objectAtIndex:indexPath.section] objectForKey:@"Books"] objectAtIndex:indexPath.row];
+        }
+        
+        if (cell == nil) {
+            cell = [[BookInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell.bookInfoView.style = BookInfoViewStyleMedium;
+            cell.bookInfoView.colorStyle = BookInfoViewColorStyleDefault;
+        }
+        
+        Book *book = [Book bookFromDictionary:bookInfo];
+        [cell.bookInfoView setBook:book];
+        
+        if (book.summary) {
+            cell.bookInfoView.hasBookDescription = YES;
+        }
+        if (book.simpleComment) {
+            cell.bookInfoView.hasBookComment = YES;
+        }
+        
+        UIView *cellBackground = [[UIView alloc] initWithFrame:cell.bounds];
+        cellBackground.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.3];
+        cell.selectedBackgroundView = cellBackground;
+        
+        cell.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.1];
+        
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
+            cell.contentView.backgroundColor = cell.backgroundColor;
+        }
+        
+        cell.indexPath = indexPath;
+        
+        [cell addSubview:cell.bookInfoView];
+        
+        return cell;
     }
-    
-    if (cell == nil) {
-        cell = [[BookInfoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.bookInfoView.style = BookInfoViewStyleMedium;
-        cell.bookInfoView.colorStyle = BookInfoViewColorStyleDefault;
-    }
-    
-    Book *book = [Book bookFromDictionary:bookInfo];
-    [cell.bookInfoView setBook:book];
-    
-    if (book.summary) {
-        cell.bookInfoView.hasBookDescription = YES;
-    }
-    if (book.simpleComment) {
-        cell.bookInfoView.hasBookComment = YES;
-    }
-    
-    UIView *cellBackground = [[UIView alloc] initWithFrame:cell.bounds];
-    cellBackground.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.3];
-    cell.selectedBackgroundView = cellBackground;
-    
-    cell.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.1];
-    
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
-        cell.contentView.backgroundColor = cell.backgroundColor;
-    }
-    
-    cell.indexPath = indexPath;
-    
-    [cell addSubview:cell.bookInfoView];
-    
-    return cell;
 }
 
 /*

@@ -29,6 +29,90 @@ BOOL isLogin()
     return NO;
 }
 
+BOOL isLastCell(UITableView* tableView, NSIndexPath* indexPath)
+{
+    if (!tableView || !indexPath) {
+        return NO;
+    }
+    
+    NSInteger lastSectionIndex = [tableView numberOfSections] - 1;
+    NSInteger lastRowIndex = [tableView numberOfRowsInSection:lastSectionIndex] - 1;
+    
+    NSIndexPath *pathToLastRow = [NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex];
+    
+    if (indexPath.section == pathToLastRow.section && indexPath.row == pathToLastRow.row) {
+        return YES;
+    } else {
+        return NO;
+    }
+    
+    return NO;
+}
+
+NSArray* arrangeBooksByCategories(NSArray* books, NSArray* categories)
+{
+    if (books) {
+        if (categories) {
+            NSMutableArray *arrangedBooks = [NSMutableArray arrayWithCapacity:40];
+            
+            for (NSDictionary *category in categories) {
+                NSString *categoryName = [category objectForKey:@"Category"];
+                
+                BOOL shouldContinue = NO;
+                for (NSDictionary *cat in arrangedBooks) {
+                    if ([categoryName isEqualToString:[cat objectForKey:@"Category"]]) {
+                        shouldContinue = YES;
+                        break;
+                    }
+                }
+                if (shouldContinue) {
+                    continue;
+                }
+                
+                NSMutableDictionary *categoryWithBooks = [NSMutableDictionary dictionaryWithCapacity:40];
+                [categoryWithBooks setObject:categoryName forKey:@"Category"];
+                
+                NSMutableArray *booksInCategory = [NSMutableArray arrayWithCapacity:40];
+                for (NSDictionary *book in books) {
+                    if ([[book objectForKey:@"Category"] isEqualToString:categoryName]) {
+                        [booksInCategory addObject:book];
+                    }
+                }
+                [categoryWithBooks setObject:booksInCategory forKey:@"Books"];
+                
+                [arrangedBooks addObject:categoryWithBooks];
+            }
+            
+            return arrangedBooks;
+        } else {
+            return books;
+        }
+    }
+    
+    return nil;
+}
+
+extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accuracy)
+{
+    if (books) {
+        NSMutableDictionary *arrangedBooks = [NSMutableDictionary dictionaryWithCapacity:40];
+        
+        for (NSDictionary *book in books) {
+            NSString *timeString = [book objectForKey:@"CreationTime"];
+            
+            NSString *time = [timeString substringToIndex:accuracy];
+            
+            NSMutableArray *timedBooks = [NSMutableArray arrayWithArray:[arrangedBooks objectForKey:time]];
+            [timedBooks addObject:book];
+            [arrangedBooks setObject:timedBooks forKey:time];
+        }
+        
+        return arrangedBooks;
+    }
+    
+    return nil;
+}
+
 #pragma mark - UIViewController category
 
 @implementation UIViewController (ScreenAdapter)

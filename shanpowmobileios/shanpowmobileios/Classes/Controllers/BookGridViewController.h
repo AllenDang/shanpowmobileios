@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSArray *books;
 @property (nonatomic, assign) BOOL needShowExtraInfo;
 @property (nonatomic, assign) BOOL isPlain;
+@property (nonatomic, assign) BOOL needLoadMore;
 
 @property (nonatomic, readonly) float headerHeight;
 @property (nonatomic, readonly) float bookCellHeight;

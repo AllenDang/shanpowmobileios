@@ -85,29 +85,7 @@
     [[NetworkClient sharedNetworkClient] getBooklistDetailById:self.booklistId];
 }
 
-- (NSArray *)arrangeBooks:(NSArray *)books withCategories:(NSArray *)categories
-{
-    NSMutableArray *arrangedBooks = [NSMutableArray arrayWithCapacity:40];
-    
-    for (NSDictionary *category in categories) {
-        NSString *categoryName = [category objectForKey:@"Category"];
-        
-        NSMutableDictionary *categoryWithBooks = [NSMutableDictionary dictionaryWithCapacity:40];
-        [categoryWithBooks setObject:categoryName forKey:@"Category"];
-        
-        NSMutableArray *booksInCategory = [NSMutableArray arrayWithCapacity:40];
-        for (NSDictionary *book in books) {
-            if ([[book objectForKey:@"Category"] isEqualToString:categoryName]) {
-                [booksInCategory addObject:book];
-            }
-        }
-        [categoryWithBooks setObject:booksInCategory forKey:@"Books"];
-        
-        [arrangedBooks addObject:categoryWithBooks];
-    }
-    
-    return arrangedBooks;
-}
+
 
 #pragma mark - Filter data source
 - (void)filterDataWithReadStatus:(BOOL)showAll categoryToShow:(NSString *)category scoreToShow:(NSInteger)score
@@ -322,7 +300,7 @@
             }
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.bookController.books = [self arrangeBooks:[self.booklist objectForKey:@"Books"] withCategories:[self.booklist objectForKey:@"Categories"]];
+            cell.bookController.books = arrangeBooksByCategories([self.booklist objectForKey:@"Books"], [self.booklist objectForKey:@"Categories"]);
             cell.bookController.tableView.scrollEnabled = NO;
             [cell.bookController.tableView reloadData];
             

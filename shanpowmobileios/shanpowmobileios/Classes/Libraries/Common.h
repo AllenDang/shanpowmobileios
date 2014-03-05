@@ -74,12 +74,18 @@ return shared##classname;                               \
 #define MSG_FAIL_ADD_BOOK_TO_BOOKLIST           @"SMNC_30"
 #define MSG_DID_CREATE_BOOKLIST                 @"SMNC_31"
 #define MSG_FAIL_CREATE_BOOKLIST                @"SMNC_32"
+#define MSG_DID_GET_READ_RECORD                 @"SMNC_33"
+#define MSG_FAIL_GET_READ_RECORD                @"SMNC_34"
+#define MSG_DID_GET_BOOKS                       @"SMNC_35"
+#define MSG_FAIL_GET_BOOKS                      @"SMNC_36"
 
 #define MSG_DID_SELECT_BOOK                     @"SMNC_1000"
 #define MSG_DID_SELECT_BOOKLIST                 @"SMNC_1001"
 
 #define MSG_INT_BOOKINFOVIEW_TAPPED             @"SMNC_2000"
 #define MSG_TAPPED_NICKNAME                     @"SMNC_2001"
+
+#define MSG_BOOKGRID_LOADMORE_TAPPED            @"SMNC_3000"
 
 #pragma mark - Errors
 
@@ -96,6 +102,16 @@ return shared##classname;                               \
 #define SETTINGS_CURRENT_QQ_OPENID              @"currentQQOpenId"
 #define SETTINGS_CURRENT_QQ_ACCESSTOKEN         @"currentQQAccessToken"
 #define SETTINGS_CURRENT_QQ_USER_INFO           @"currentQQUserInfo"
+
+#pragma mark - Type
+typedef enum {
+    TAYear = 4,
+    TAMonth = 7,
+    TADay = 10,
+    TAHour = 13,
+    TAMinute = 16,
+    TASecond = 19
+} TimeAccuracy;
 
 #pragma mark - Constants
 
@@ -145,6 +161,9 @@ return shared##classname;                               \
 #define TextHeightWithFont(x)                   ([@"我" sizeWithFont:(x)].height)
 
 extern BOOL isLogin();
+extern BOOL isLastCell(UITableView* tableView, NSIndexPath* indexPath);
+extern NSArray* arrangeBooksByCategories(NSArray* books, NSArray* categories);
+extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accuracy);
 
 #pragma mark - UIViewController category
 

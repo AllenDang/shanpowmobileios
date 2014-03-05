@@ -132,6 +132,7 @@
     }
     
     self.loadingView = [[SPLoadingView alloc] initWithFrame:self.view.bounds];
+    self.loadingView.backgroundColor = UIC_WHITE(0.9);
     [self.view addSubview:self.loadingView];
     [self.view bringSubviewToFront:self.loadingView];
 }
@@ -454,7 +455,14 @@
 - (void)handleDidGetBookDetail:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BOOK_DETAIL object:nil];
-    [self.loadingView removeFromSuperview];
+    
+    [UIView animateWithDuration:0.25
+                     animations:^{
+                         self.loadingView.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished) {
+                         [self.loadingView removeFromSuperview];
+                     }];
     
     self.bookInfo = [[notification userInfo] objectForKey:@"data"];
 }

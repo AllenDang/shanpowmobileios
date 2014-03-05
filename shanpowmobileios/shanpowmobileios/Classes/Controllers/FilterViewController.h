@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong) id<FilterDataSource> dataSource;
 
+@property (nonatomic, assign) BOOL showReadStatus;
+
 @property (nonatomic, readonly) BOOL showAll;
 @property (nonatomic, readonly) NSString *categoryToShow;
 @property (nonatomic, readonly) NSInteger scoreToShow;

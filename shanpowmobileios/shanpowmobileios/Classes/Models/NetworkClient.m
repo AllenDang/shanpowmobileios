@@ -91,7 +91,7 @@ SINGLETON_GCD(NetworkClient);
 #pragma mark - Boxed network interface method
 
 - (void)sendRequestWithType:(NSString *)type
-                        url:(NSString *)url
+                       path:(NSString *)urlPath
                  parameters:(NSDictionary *)param
                     success:(void(^)(AFHTTPRequestOperation *operation, id responseObject))success
                     failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
@@ -103,6 +103,7 @@ SINGLETON_GCD(NetworkClient);
         [parameters setObject:self.csrfToken forKey:@"csrf_token"];
     }
     
+    NSString *url = [[NSURL URLWithString:[urlPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:self.baseURL] absoluteString];
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:[type uppercaseString]
                                                                                  URLString:url
                                                                                 parameters:parameters];
@@ -127,7 +128,7 @@ SINGLETON_GCD(NetworkClient);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    [manager GET:[[NSURL URLWithString:@"/token" relativeToURL:self.baseURL] absoluteString]
+    [manager GET:@"/token"
       parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              [me handleResponse:responseObject
@@ -157,7 +158,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"POST"
-                          url:[[NSURL URLWithString:@"/account/mobilelogin" relativeToURL:self.baseURL] absoluteString]
+                         path:@"/account/mobilelogin"
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -191,7 +192,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"POST"
-                          url:[[NSURL URLWithString:@"/cooperate/mobileqqlogin" relativeToURL:self.baseURL] absoluteString]
+                         path:@"/cooperate/mobileqqlogin"
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject success:^(NSDictionary *data) {
@@ -227,7 +228,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"GET"
-                          url:[[NSURL URLWithString:@"/account/mobilelogout" relativeToURL:self.baseURL] absoluteString]
+                         path:@"/account/mobilelogout"
                    parameters:nil
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGOUT
@@ -243,7 +244,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"GET"
-                          url:[[NSURL URLWithString:@"/book/gethotcategories" relativeToURL:self.baseURL] absoluteString]
+                         path:@"/book/gethotcategories"
                    parameters:nil
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -276,7 +277,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"POST"
-                          url:[[NSURL URLWithString:@"/account/mobileregister" relativeToURL:self.baseURL] absoluteString]
+                         path:@"/account/mobileregister"
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -311,7 +312,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"POST"
-                          url:[[NSURL URLWithString:@"/cooperate/mobileqqregister" relativeToURL:self.baseURL] absoluteString]
+                         path:@"/cooperate/mobileqqregister"
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -341,7 +342,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"GET"
-                          url:[[NSURL URLWithString:@"/mobilesearch" relativeToURL:self.baseURL] absoluteString]
+                         path:@"/mobilesearch"
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -369,7 +370,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"GET"
-                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/mpeople/%@", [username stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] relativeToURL:self.baseURL] absoluteString]
+                         path:[NSString stringWithFormat:@"/mpeople/%@", username]
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -397,7 +398,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"GET"
-                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/mbook/%@", bookId] relativeToURL:self.baseURL] absoluteString]
+                         path:[NSString stringWithFormat:@"/mbook/%@", bookId]
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -431,7 +432,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"POST"
-                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/book/%@/mark", bookId] relativeToURL:self.baseURL] absoluteString]
+                         path:[NSString stringWithFormat:@"/book/%@/mark", bookId]
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -461,7 +462,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"POST"
-                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/book/%@/addreview", bookId] relativeToURL:self.baseURL] absoluteString]
+                         path:[NSString stringWithFormat:@"/book/%@/addreview", bookId]
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -489,7 +490,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"GET"
-                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/booklist/getsimplebooklists/%@", authorId] relativeToURL:self.baseURL] absoluteString]
+                         path:[NSString stringWithFormat:@"/booklist/getsimplebooklists/%@", authorId]
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -517,7 +518,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"GET"
-                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/booklist/getsimplebooklistsbysubscriberid/%@", subscriberId] relativeToURL:self.baseURL] absoluteString]
+                         path:[NSString stringWithFormat:@"/booklist/getsimplebooklistsbysubscriberid/%@", subscriberId]
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -545,7 +546,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"GET"
-                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/booklist/getallbooklistscontainsbookid/%@", bookId] relativeToURL:self.baseURL] absoluteString]
+                         path:[NSString stringWithFormat:@"/booklist/getallbooklistscontainsbookid/%@", bookId]
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -573,7 +574,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"GET"
-                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/mbooklist/%@", booklistId] relativeToURL:self.baseURL] absoluteString]
+                         path:[NSString stringWithFormat:@"/mbooklist/%@", booklistId]
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -603,7 +604,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"PUT"
-                          url:[[NSURL URLWithString:[NSString stringWithFormat:@"/booklist/%@/addbook", booklistId] relativeToURL:self.baseURL] absoluteString]
+                         path:[NSString stringWithFormat:@"/booklist/%@/addbook", booklistId]
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -635,7 +636,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"POST"
-                          url:[[NSURL URLWithString:@"/booklist/create" relativeToURL:self.baseURL] absoluteString]
+                         path:@"/booklist/create"
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -647,6 +648,69 @@ SINGLETON_GCD(NetworkClient);
                                      failure:^(NSDictionary *ErrorMsg) {
                                          [self handleFailureFromRequest:operation];
                                          [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_CREATE_BOOKLIST
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)getReadRecordsByUserName:(NSString *)username markType:(NSInteger)markType range:(NSRange)range
+{
+    NSDictionary *parameters = @{
+                                 @"pageNum": @(range.location),
+                                 @"numPerPage": @(range.length),
+                                 @"markType": @(markType)
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+
+    [self sendRequestWithType:@"GET"
+                         path:[NSString stringWithFormat:@"/people/%@/getmorebooks", username]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_READ_RECORD
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_READ_RECORD
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)getBooksByCategory:(NSString *)category range:(NSRange)range
+{
+    NSDictionary *parameters = @{
+                                 @"pageNum": @(range.location),
+                                 @"numPerPage": @(range.length)
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"GET"
+                         path:[NSString stringWithFormat:@"/mcategory/%@", category]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOKS
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKS
                                                                                              object:me
                                                                                            userInfo:ErrorMsg];
                                      }];

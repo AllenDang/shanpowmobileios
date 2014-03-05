@@ -7,6 +7,8 @@
 //
 
 #import "CategoriesViewController.h"
+#import "NetworkClient.h"
+#import "CategoryBooksViewController.h"
 
 @interface CategoriesViewController ()
 
@@ -192,7 +194,10 @@
 
 - (void)categoryButtonTapped:(UIButton *)sender
 {
-    NSLog(@"%@", sender.titleLabel.text);
+    CategoryBooksViewController *cbController = [[CategoryBooksViewController alloc] initWithCategory:sender.titleLabel.text];
+    
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:cbController animated:YES];
 }
 
 @end

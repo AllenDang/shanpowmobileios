@@ -20,7 +20,7 @@
 + (NetworkClient *)sharedNetworkClient;
 
 - (void)sendRequestWithType:(NSString *)type
-                        url:(NSString *)url
+                       path:(NSString *)urlPath
                  parameters:(NSDictionary *)param
                     success:(void(^)(AFHTTPRequestOperation *operation, id responseObject))success
                     failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
@@ -42,6 +42,8 @@
 
 - (void)getBookDetail:(NSString *)bookId;
 
+- (void)getBooksByCategory:(NSString *)category range:(NSRange)range;
+
 - (void)markBookWithBookId:(NSString *)bookId markType:(NSString *)markType score:(NSInteger)score content:(NSString *)content;
 - (void)postReviewWithBookId:(NSString *)bookId params:(NSDictionary *)options;
 
@@ -53,5 +55,7 @@
 - (void)addBook:(NSString *)bookId toBooklist:(NSString *)booklistId;
 
 - (void)createBooklistWithTitle:(NSString *)title description:(NSString *)description;
+
+- (void)getReadRecordsByUserName:(NSString *)username markType:(NSInteger)markType range:(NSRange)range;
 
 @end
