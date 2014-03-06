@@ -15,6 +15,9 @@
 @property (nonatomic, strong) UIImageView *bubbleBkgImageView;
 @property (nonatomic, strong) UILabel *contentLabel;
 
+@property (nonatomic, strong) UIImage *bubbleDarkBkg;
+@property (nonatomic, strong) UIImage *bubbleLightBkg;
+
 @property (nonatomic, assign) float avatarSize;
 
 @end
@@ -39,8 +42,8 @@
         [self addSubview:self.bubbleBkgImageView];
         [self addSubview:self.contentLabel];
         
-        UIImage *bubbleBkg = [[UIImage imageNamed:@"BubbleDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(30.0, 15.0, 10.0, 10.0) resizingMode:UIImageResizingModeStretch];
-        self.bubbleBkgImageView.image = bubbleBkg;
+        self.bubbleDarkBkg = [[UIImage imageNamed:@"BubbleDark"] resizableImageWithCapInsets:UIEdgeInsetsMake(30.0, 15.0, 10.0, 10.0) resizingMode:UIImageResizingModeStretch];
+        self.bubbleLightBkg = [[UIImage imageNamed:@"BubbleLight"] resizableImageWithCapInsets:UIEdgeInsetsMake(30.0, 15.0, 10.0, 10.0) resizingMode:UIImageResizingModeStretch];
         
         [self updateUILayout];
     }
@@ -108,6 +111,29 @@
     }
 }
 
+- (void)setStyle:(CBStyle)style
+{
+    if (style != _style) {
+        _style = style;
+        
+        switch (style) {
+            case CBStyleDark:
+            {
+                self.bubbleBkgImageView.image = self.bubbleDarkBkg;
+                self.contentLabel.textColor = UIC_ALMOSTWHITE(1.0);
+                break;
+            }
+            case CBStyleLight:
+            {
+                self.bubbleBkgImageView.image = self.bubbleLightBkg;
+                self.contentLabel.textColor = UIC_BRIGHT_GRAY(1.0);
+            }
+            default:
+                break;
+        }
+    }
+}
+
 #pragma mark - UI
 - (void)updateUILayout
 {
@@ -133,7 +159,6 @@
         self.contentLabel.text = [NSString stringWithFormat:@"%@\n\n\n\n\n", self.content];
         self.contentLabel.numberOfLines = 5;
         self.contentLabel.font = self.font;
-        self.contentLabel.textColor = self.textColor;
     }
 }
 

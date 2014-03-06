@@ -84,7 +84,7 @@
     self.bookAuthorLabel.font = MEDIUM_FONT;
     self.bookAuthorLabel.textColor = UIC_BRIGHT_GRAY(0.5);
     
-    self.ratingStar.frame = CGRectMake(self.bounds.size.width - StarSize(@"Star_Red_Small") * 5 - 50,
+    self.ratingStar.frame = CGRectMake(self.bounds.size.width - StarSize(@"Star_Red_Small") * 5 - 10,
                                        self.bookAuthorLabel.frame.origin.y,
                                        StarSize(@"Star_Red_Small") * 5,
                                        StarSize(@"Star_Red_Small"));
@@ -95,7 +95,7 @@
                                          self.bookAuthorLabel.frame.origin.y + self.bookAuthorLabel.frame.size.height + 10,
                                          self.bounds.size.width - 20,
                                          self.frame.size.height - self.bookAuthorLabel.frame.origin.y - self.bookAuthorLabel.frame.size.height - 20);
-    self.reviewBubble.textColor = UIC_ALMOSTWHITE(1.0);
+    self.reviewBubble.style = CBStyleLight;
 }
 
 - (void)updateUIData
@@ -112,7 +112,7 @@
             self.reviewBubble.content = [self.book objectForKey:@"CommentContent"];
         } else {
             self.reviewBubble.content = @"（没有留下任何评论）";
-            self.reviewBubble.textColor = UIC_ALMOSTWHITE(0.5);
+            self.reviewBubble.textColor = UIC_BRIGHT_GRAY(0.5);
         }
     }
     
