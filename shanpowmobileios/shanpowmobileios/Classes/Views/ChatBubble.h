@@ -25,7 +25,7 @@ typedef enum {
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) UIFont *font;
 @property (nonatomic, strong) UIColor *textColor;
-@property (nonatomic, assign) CBStyle *style;
+@property (nonatomic, assign) CBStyle style;
 @property (nonatomic, assign) CBAvatarLocation avatarLocation;
 
 @end

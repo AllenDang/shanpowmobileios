@@ -58,4 +58,8 @@
 
 - (void)getReadRecordsByUserName:(NSString *)username markType:(NSInteger)markType range:(NSRange)range;
 
+- (void)getReivewsByCategory:(NSString *)category channel:(FilterChannel)channel score:(NSInteger)score range:(NSRange)range;
+- (void)getReviewDetailById:(NSString *)reviewId;
+- (void)getCommentDetailByBookId:(NSString *)bookId authorId:(NSString *)authorId;
+
 @end
