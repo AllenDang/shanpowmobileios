@@ -88,7 +88,7 @@
 
 
 #pragma mark - Filter data source
-- (void)filterDataWithReadStatus:(BOOL)showAll categoryToShow:(NSString *)category scoreToShow:(NSInteger)score
+- (void)filterDataWithReadStatus:(BOOL)showAll channel:(FilterChannel)channel categoryToShow:(NSString *)category scoreToShow:(NSInteger)score
 {
     if (showAll && [category isEqualToString:@"全部"] && score == 0) {
         self.booklist = self.originalData;

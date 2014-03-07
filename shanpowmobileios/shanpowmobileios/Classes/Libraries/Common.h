@@ -78,6 +78,12 @@ return shared##classname;                               \
 #define MSG_FAIL_GET_READ_RECORD                @"SMNC_34"
 #define MSG_DID_GET_BOOKS                       @"SMNC_35"
 #define MSG_FAIL_GET_BOOKS                      @"SMNC_36"
+#define MSG_DID_GET_REVIEWS                     @"SMNC_37"
+#define MSG_FAIL_GET_REVIEWS                    @"SMNC_38"
+#define MSG_DID_GET_REVIEW_DETAIL               @"SMNC_39"
+#define MSG_FAIL_GET_REVIEW_DETAIL              @"SMNC_40"
+#define MSG_DID_GET_COMMENT_DETAIL              @"SMNC_41"
+#define MSG_FAIL_GET_COMMENT_DETAIL             @"SMNC_42"
 
 #define MSG_DID_SELECT_BOOK                     @"SMNC_1000"
 #define MSG_DID_SELECT_BOOKLIST                 @"SMNC_1001"
@@ -112,6 +118,12 @@ typedef enum {
     TAMinute = 16,
     TASecond = 19
 } TimeAccuracy;
+
+typedef enum {
+    FilterChannelAll = 0,
+    FilterChannelMan = 1,
+    FilterChannelWoman = 2
+} FilterChannel;
 
 #pragma mark - Constants
 

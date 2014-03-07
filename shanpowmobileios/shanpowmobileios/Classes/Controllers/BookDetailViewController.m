@@ -121,24 +121,14 @@
     self.actionMenu.nearRadius = 95.0;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cmtUserTapped:) name:MSG_TAPPED_NICKNAME object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    if (self.bookId.length > 0) {
-        [self getBookDetail];
-    }
-    
-    self.loadingView = [[SPLoadingView alloc] initWithFrame:self.view.bounds];
-    self.loadingView.backgroundColor = UIC_WHITE(0.9);
-    [self.view addSubview:self.loadingView];
-    [self.view bringSubviewToFront:self.loadingView];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
     if (isLogin()) {
         [self.view.window addSubview:self.actionMenu];
         
@@ -146,6 +136,13 @@
                          animations:^{
                              self.actionMenu.alpha = 1.0;
                          }];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (self.bookId.length > 0) {
+        [self getBookDetail];
     }
     
     [super viewDidAppear:animated];
@@ -180,13 +177,18 @@
         _bookInfo = bookInfo;
         
         [self updateBookInfo];
+        
+        [self.tableView reloadData];
     }
 }
 
 - (void)getBookDetail
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDidGetBookDetail:) name:MSG_DID_GET_BOOK_DETAIL object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleErrorGetBookDetail:) name:MSG_FAIL_GET_BOOK_DETAIL object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBookDetail:) name:MSG_DID_GET_BOOK_DETAIL object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBookDetail:) name:MSG_FAIL_GET_BOOK_DETAIL object:nil];
+    
+    self.loadingView = [[SPLoadingView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.loadingView show];
     
     [[NetworkClient sharedNetworkClient] getBookDetail:self.bookId];
 }
@@ -195,9 +197,8 @@
 
 -(void)updateBookInfo
 {
+    [self updateBookBasicInfoLayout];
     [self updateBookBasicInfoData];
-    
-    [self.tableView reloadData];
 }
 
 - (void)initBookBasicInfoLabels
@@ -443,33 +444,30 @@
     self.categoryLabel.text = [self.bookInfo objectForKey:@"Category"];
     self.lastUpdateTitleLabel.text = @"最近更新时间：";
     self.lastUpdateLabel.text = [self.bookInfo objectForKey:@"LastUpdateDate"];
-    self.summaryLabel.text = [self.bookInfo objectForKey:@"Summary"];
+    self.summaryLabel.text = [NSString stringWithFormat:@"%@\n\n\n\n\n\n\n", [self.bookInfo objectForKey:@"Summary"]];
     
     self.title = [self.bookInfo objectForKey:@"Title"];
-    
-    [self updateBookBasicInfoLayout];
 }
 
 #pragma mark - Event handler
 
-- (void)handleDidGetBookDetail:(NSNotification *)notification
+- (void)didGetBookDetail:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BOOK_DETAIL object:nil];
     
-    [UIView animateWithDuration:0.25
-                     animations:^{
-                         self.loadingView.alpha = 0.0;
-                     }
-                     completion:^(BOOL finished) {
-                         [self.loadingView removeFromSuperview];
-                     }];
+    [self.loadingView hide];
     
     self.bookInfo = [[notification userInfo] objectForKey:@"data"];
 }
 
-- (void)handleErrorGetBookDetail:(NSNotification *)notification
+- (void)failGetBookDetail:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BOOK_DETAIL object:nil];
+}
+
+- (void)handleError:(NSNotification *)notification
+{
+    [self.loadingView hide];
 }
 
 - (void)longPressOnLabel:(UIGestureRecognizer *)sender
@@ -522,7 +520,7 @@
 {
     switch (indexPath.section) {
         case 0:
-            return self.summaryLabel.frame.size.height + self.summaryLabel.frame.origin.y + self.generalMargin * 2;
+            return 410.0;
             break;
         case 3:
             if ([self.bookInfo objectForKey:@"Comments"] != [NSNull null]) {
@@ -543,6 +541,7 @@
             }
             break;
         default:
+            return GENERAL_CELL_HEIGHT;
             break;
     }
     return self.generalCellHeight;
@@ -658,6 +657,9 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
+    if (!self.bookInfo) {
+        return 0;
+    }
     return 5;
 }
 

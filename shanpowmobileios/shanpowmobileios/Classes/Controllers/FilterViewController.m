@@ -7,20 +7,22 @@
 //
 
 #import "FilterViewController.h"
-#import "Common.h"
 
 @interface FilterViewController ()
 
 @property (nonatomic, strong) NSArray *sectionTitles;
 @property (nonatomic, strong) NSArray *readStatusTitles;
+@property (nonatomic, strong) NSArray *channelTitles;
 
 @property (nonatomic, assign) BOOL showAll;
 @property (nonatomic, strong) NSString *categoryToShow;
 @property (nonatomic, assign) NSInteger scoreToShow;
+@property (nonatomic, assign) FilterChannel channel;
 
 @property (nonatomic, assign) float cellHeight;
 
 @property (nonatomic, strong) UITableViewCell *lastReadStatusCell;
+@property (nonatomic, strong) UITableViewCell *lastChannelCell;
 @property (nonatomic, strong) UITableViewCell *lastScoreCell;
 @property (nonatomic, strong) CategoriesCell *categoriesCell;
 
@@ -37,14 +39,18 @@
             self.tableView.separatorInset = UIEdgeInsetsZero;
         }
         
-        self.sectionTitles = @[@"阅读状态", @"分类", @"评分"];
+        self.sectionTitles = @[@"阅读状态", @"频道", @"分类", @"评分"];
         self.readStatusTitles = @[@"全部书籍", @"我没看过的书籍"];
+        self.channelTitles = @[@"全部", @"男生频道", @"女生频道"];
         
         self.showAll = YES;
         self.categoryToShow = @"全部";
         self.scoreToShow = 0;
+        self.channel = 0;
         
         self.cellHeight = 45.0;
+        
+        self.showChannel = NO;
     }
     return self;
 }
@@ -76,12 +82,24 @@
         {
             if (!self.showReadStatus) {
                 return 0;
+            } else {
+                return self.cellHeight;
             }
         }
         case 1:
         {
+            if (!self.showChannel) {
+                return 0;
+            } else {
+                return self.cellHeight;
+            }
+        }
+        case 2:
+        {
             if (indexPath.row == 1) {
                 return 5 * self.cellHeight;
+            } else {
+                return self.cellHeight;
             }
         }
         default:
@@ -114,6 +132,19 @@
         }
         case 1:
         {
+            if (self.lastChannelCell) {
+                self.lastChannelCell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            UITableViewCell *currentCell = [tableView cellForRowAtIndexPath:indexPath];
+            currentCell.accessoryType = UITableViewCellAccessoryCheckmark;
+            self.lastChannelCell = currentCell;
+            
+            self.channel = indexPath.row;
+            
+            break;
+        }
+        case 2:
+        {
             if (indexPath.row == 0) {
                 self.categoryToShow = @"全部";
                 [self.categoriesCell clearSelection];
@@ -125,7 +156,7 @@
             }
             break;
         }
-        case 2:
+        case 3:
         {
             if (self.lastScoreCell) {
                 self.lastScoreCell.accessoryType = UITableViewCellAccessoryNone;
@@ -147,7 +178,7 @@
     }
     
     if (self.dataSource) {
-        [self.dataSource filterDataWithReadStatus:self.showAll categoryToShow:self.categoryToShow scoreToShow:self.scoreToShow];
+        [self.dataSource filterDataWithReadStatus:self.showAll channel:self.channel categoryToShow:self.categoryToShow scoreToShow:self.scoreToShow];
     }
     
     return;
@@ -158,6 +189,11 @@
     if (section == 0 && !self.showReadStatus) {
         return 0;
     }
+    
+    if (section == 1 && !self.showChannel) {
+        return 0;
+    }
+    
     return GENERAL_HEADER_HEIGHT;
 }
 
@@ -185,7 +221,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 3;
+    return [self.sectionTitles count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -196,9 +232,11 @@
             return 2;
             break;
         case 1:
-            return 2;
+            return 3;
             break;
         case 2:
+            return 2;
+        case 3:
             return 6;
         default:
             return 1;
@@ -211,7 +249,7 @@
     switch (indexPath.section) {
         case 0:
         {
-            static NSString *CellIdentifier = @"Cell1";
+            static NSString *CellIdentifier = @"CellForReadStatus";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
             // Configure the cell...
@@ -236,10 +274,35 @@
         }
         case 1:
         {
+            static NSString *CellIdentifier = @"CellForChannel";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            
+            // Configure the cell...
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                
+                if (indexPath.row == 0) {
+                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    self.lastChannelCell = cell;
+                }
+            }
+            
+            cell.backgroundColor = UIC_BRIGHT_GRAY(1.0);
+            cell.textLabel.textColor = UIC_ALMOSTWHITE(1.0);
+            cell.textLabel.font = MEDIUM_FONT;
+            [cell setTintColor:UIC_ALMOSTWHITE(1.0)];
+            
+            cell.textLabel.text = [self.channelTitles objectAtIndex:indexPath.row];
+            
+            return cell;
+            break;
+        }
+        case 2:
+        {
             switch (indexPath.row) {
                 case 0:
                 {
-                    static NSString *CellIdentifier = @"Cell0";
+                    static NSString *CellIdentifier = @"CellForCategoryAll";
                     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
                     
                     // Configure the cell...
@@ -260,7 +323,7 @@
                 }
                 case 1:
                 {
-                    static NSString *CellIdentifier = @"Cell2";
+                    static NSString *CellIdentifier = @"CellForCategorySplitted";
                     CategoriesCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
                     
                     // Configure the cell...
@@ -283,9 +346,9 @@
                     break;
             }
         }
-        case 2:
+        case 3:
         {
-            static NSString *CellIdentifier = @"Cell0";
+            static NSString *CellIdentifier = @"CellForRating";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
             // Configure the cell...
@@ -383,7 +446,7 @@
 {
     self.categoryToShow = category;
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:[self.sectionTitles indexOfObject:@"分类"]];
     
     UITableViewCell *allCell = [self.tableView cellForRowAtIndexPath:indexPath];
     [UIView animateWithDuration:0.1 animations:^{
@@ -391,7 +454,7 @@
     }];
     
     if (self.dataSource) {
-        [self.dataSource filterDataWithReadStatus:self.showAll categoryToShow:self.categoryToShow scoreToShow:self.scoreToShow];
+        [self.dataSource filterDataWithReadStatus:self.showAll channel:self.channel categoryToShow:self.categoryToShow scoreToShow:self.scoreToShow];
     }
 }
 

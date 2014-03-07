@@ -138,7 +138,7 @@
 }
 
 #pragma mark - Filter data source
-- (void)filterDataWithReadStatus:(BOOL)showAll categoryToShow:(NSString *)category scoreToShow:(NSInteger)score
+- (void)filterDataWithReadStatus:(BOOL)showAll channel:(FilterChannel)channel categoryToShow:(NSString *)category scoreToShow:(NSInteger)score
 {
     
 }

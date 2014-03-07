@@ -12,6 +12,7 @@
 #import "CategoriesViewController.h"
 #import "SearchViewController.h"
 #import "WriteCommentReviewViewController.h"
+#import "ReviewListRootViewController.h"
 
 @interface MainMenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

@@ -112,12 +112,24 @@
 		6482D1BA18C59FA000D2DA8F /* ReadRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482D1B918C59FA000D2DA8F /* ReadRecordViewController.m */; };
 		6482D1BD18C5B11000D2DA8F /* ReadRecordRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482D1BC18C5B11000D2DA8F /* ReadRecordRootViewController.m */; };
 		6482D1C018C5B9D300D2DA8F /* ChatBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482D1BF18C5B9D300D2DA8F /* ChatBubble.m */; };
-		6482D1C418C5D0E100D2DA8F /* BubbleDark.png in Resources */ = {isa = PBXBuildFile; fileRef = 6482D1C218C5D0E100D2DA8F /* BubbleDark.png */; };
-		6482D1C518C5D0E100D2DA8F /* BubbleDark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6482D1C318C5D0E100D2DA8F /* BubbleDark@2x.png */; };
 		649311A51862C68C00315DB0 /* BookInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649311A41862C68C00315DB0 /* BookInfoView.m */; };
 		649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649BA57C185AA6350096DD8D /* RegisterViewController.m */; };
 		649F6EB918A8B8DE00E17B3E /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */; };
+		64A7B44A18C972AD008913D1 /* CommentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A7B44918C972AD008913D1 /* CommentDetailViewController.m */; };
 		64A80B0D186813F10039BBA2 /* BookInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64A80B0C186813F10039BBA2 /* BookInfoCell.m */; };
+		64AA338318C81670009E09F7 /* BubbleDark.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AA338118C81670009E09F7 /* BubbleDark.png */; };
+		64AA338418C81670009E09F7 /* BubbleDark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AA338218C81670009E09F7 /* BubbleDark@2x.png */; };
+		64AA338618C8199D009E09F7 /* BubbleLight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AA338518C8199D009E09F7 /* BubbleLight@2x.png */; };
+		64AA338918C81D0F009E09F7 /* ReviewListRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AA338818C81D0F009E09F7 /* ReviewListRootViewController.m */; };
+		64AA338C18C81D62009E09F7 /* ReviewListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AA338B18C81D62009E09F7 /* ReviewListViewController.m */; };
+		64AA338F18C8415E009E09F7 /* CommentReviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AA338E18C8415E009E09F7 /* CommentReviewCell.m */; };
+		64AA339618C8577A009E09F7 /* Chat.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AA339018C8577A009E09F7 /* Chat.png */; };
+		64AA339718C8577A009E09F7 /* Chat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AA339118C8577A009E09F7 /* Chat@2x.png */; };
+		64AA339818C8577A009E09F7 /* ThumbDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AA339218C8577A009E09F7 /* ThumbDown.png */; };
+		64AA339918C8577A009E09F7 /* ThumbDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AA339318C8577A009E09F7 /* ThumbDown@2x.png */; };
+		64AA339A18C8577A009E09F7 /* ThumbUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AA339418C8577A009E09F7 /* ThumbUp.png */; };
+		64AA339B18C8577A009E09F7 /* ThumbUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64AA339518C8577A009E09F7 /* ThumbUp@2x.png */; };
+		64AA339E18C875FD009E09F7 /* CommentReviewDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64AA339D18C875FD009E09F7 /* CommentReviewDetailViewController.m */; };
 		64B7C67618B5F99400B85E30 /* Star_Gray_Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 64B7C67218B5F99400B85E30 /* Star_Gray_Small.png */; };
 		64B7C67718B5F99400B85E30 /* Star_Gray_Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64B7C67318B5F99400B85E30 /* Star_Gray_Small@2x.png */; };
 		64B7C67818B5F99400B85E30 /* Star_Red_Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 64B7C67418B5F99400B85E30 /* Star_Red_Small.png */; };
@@ -342,16 +354,33 @@
 		6482D1BC18C5B11000D2DA8F /* ReadRecordRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadRecordRootViewController.m; sourceTree = "<group>"; };
 		6482D1BE18C5B9D300D2DA8F /* ChatBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatBubble.h; sourceTree = "<group>"; };
 		6482D1BF18C5B9D300D2DA8F /* ChatBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatBubble.m; sourceTree = "<group>"; };
-		6482D1C218C5D0E100D2DA8F /* BubbleDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleDark.png; sourceTree = "<group>"; };
-		6482D1C318C5D0E100D2DA8F /* BubbleDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BubbleDark@2x.png"; sourceTree = "<group>"; };
 		649311A31862C68C00315DB0 /* BookInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoView.h; sourceTree = "<group>"; };
 		649311A41862C68C00315DB0 /* BookInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoView.m; sourceTree = "<group>"; };
 		649BA57B185AA6350096DD8D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		649BA57C185AA6350096DD8D /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		649F6EB718A8B8DE00E17B3E /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
+		64A7B44818C972AD008913D1 /* CommentDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentDetailViewController.h; sourceTree = "<group>"; };
+		64A7B44918C972AD008913D1 /* CommentDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentDetailViewController.m; sourceTree = "<group>"; };
 		64A80B0B186813F10039BBA2 /* BookInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoCell.h; sourceTree = "<group>"; };
 		64A80B0C186813F10039BBA2 /* BookInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoCell.m; sourceTree = "<group>"; };
+		64AA338118C81670009E09F7 /* BubbleDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleDark.png; sourceTree = "<group>"; };
+		64AA338218C81670009E09F7 /* BubbleDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BubbleDark@2x.png"; sourceTree = "<group>"; };
+		64AA338518C8199D009E09F7 /* BubbleLight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BubbleLight@2x.png"; sourceTree = "<group>"; };
+		64AA338718C81D0F009E09F7 /* ReviewListRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewListRootViewController.h; sourceTree = "<group>"; };
+		64AA338818C81D0F009E09F7 /* ReviewListRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewListRootViewController.m; sourceTree = "<group>"; };
+		64AA338A18C81D62009E09F7 /* ReviewListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewListViewController.h; sourceTree = "<group>"; };
+		64AA338B18C81D62009E09F7 /* ReviewListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewListViewController.m; sourceTree = "<group>"; };
+		64AA338D18C8415E009E09F7 /* CommentReviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentReviewCell.h; sourceTree = "<group>"; };
+		64AA338E18C8415E009E09F7 /* CommentReviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentReviewCell.m; sourceTree = "<group>"; };
+		64AA339018C8577A009E09F7 /* Chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chat.png; sourceTree = "<group>"; };
+		64AA339118C8577A009E09F7 /* Chat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chat@2x.png"; sourceTree = "<group>"; };
+		64AA339218C8577A009E09F7 /* ThumbDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ThumbDown.png; sourceTree = "<group>"; };
+		64AA339318C8577A009E09F7 /* ThumbDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ThumbDown@2x.png"; sourceTree = "<group>"; };
+		64AA339418C8577A009E09F7 /* ThumbUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ThumbUp.png; sourceTree = "<group>"; };
+		64AA339518C8577A009E09F7 /* ThumbUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ThumbUp@2x.png"; sourceTree = "<group>"; };
+		64AA339C18C875FD009E09F7 /* CommentReviewDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentReviewDetailViewController.h; sourceTree = "<group>"; };
+		64AA339D18C875FD009E09F7 /* CommentReviewDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentReviewDetailViewController.m; sourceTree = "<group>"; };
 		64B7C67218B5F99400B85E30 /* Star_Gray_Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star_Gray_Small.png; sourceTree = "<group>"; };
 		64B7C67318B5F99400B85E30 /* Star_Gray_Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Gray_Small@2x.png"; sourceTree = "<group>"; };
 		64B7C67418B5F99400B85E30 /* Star_Red_Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star_Red_Small.png; sourceTree = "<group>"; };
@@ -553,12 +582,18 @@
 		642723F318ACC3F0002609F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				64C515F518BF30CA0027292E /* Filter.png */,
-				64C515F618BF30CA0027292E /* Filter@2x.png */,
 				64204ABB18BC557000A684A7 /* AwesomeMenu */,
-				64204ABA18BC556000A684A7 /* Star */,
+				64AA339018C8577A009E09F7 /* Chat.png */,
+				64AA339118C8577A009E09F7 /* Chat@2x.png */,
 				642723F418ACC3F0002609F4 /* Dot.png */,
 				642723F518ACC3F0002609F4 /* Dot@2x.png */,
+				64C515F518BF30CA0027292E /* Filter.png */,
+				64C515F618BF30CA0027292E /* Filter@2x.png */,
+				64204ABA18BC556000A684A7 /* Star */,
+				64AA339218C8577A009E09F7 /* ThumbDown.png */,
+				64AA339318C8577A009E09F7 /* ThumbDown@2x.png */,
+				64AA339418C8577A009E09F7 /* ThumbUp.png */,
+				64AA339518C8577A009E09F7 /* ThumbUp@2x.png */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -665,6 +700,10 @@
 				6482D1B918C59FA000D2DA8F /* ReadRecordViewController.m */,
 				649BA57B185AA6350096DD8D /* RegisterViewController.h */,
 				649BA57C185AA6350096DD8D /* RegisterViewController.m */,
+				64AA338718C81D0F009E09F7 /* ReviewListRootViewController.h */,
+				64AA338818C81D0F009E09F7 /* ReviewListRootViewController.m */,
+				64AA338A18C81D62009E09F7 /* ReviewListViewController.h */,
+				64AA338B18C81D62009E09F7 /* ReviewListViewController.m */,
 				6468EFEC18B2F7D600A9DA92 /* SearchResultViewController.h */,
 				6468EFED18B2F7D600A9DA92 /* SearchResultViewController.m */,
 				641637D418AB201E009A774A /* SearchViewController.h */,
@@ -675,6 +714,10 @@
 				642723DD18AC5F0C002609F4 /* UserProfileViewController.m */,
 				64D35F4018ADC2B900999CED /* WriteCommentReviewViewController.h */,
 				64D35F4118ADC2B900999CED /* WriteCommentReviewViewController.m */,
+				64AA339C18C875FD009E09F7 /* CommentReviewDetailViewController.h */,
+				64AA339D18C875FD009E09F7 /* CommentReviewDetailViewController.m */,
+				64A7B44818C972AD008913D1 /* CommentDetailViewController.h */,
+				64A7B44918C972AD008913D1 /* CommentDetailViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -707,6 +750,8 @@
 				6471A29E18C05F08003A5453 /* CategoriesCell.m */,
 				6482D1BE18C5B9D300D2DA8F /* ChatBubble.h */,
 				6482D1BF18C5B9D300D2DA8F /* ChatBubble.m */,
+				64AA338D18C8415E009E09F7 /* CommentReviewCell.h */,
+				64AA338E18C8415E009E09F7 /* CommentReviewCell.m */,
 				6409DB7D18BB156A00313AE5 /* CommentReviewView.h */,
 				6409DB7E18BB156A00313AE5 /* CommentReviewView.m */,
 				64EFCA3418C56F63002D59A9 /* ReadRecordCell.h */,
@@ -870,19 +915,20 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		6482D1C118C5D0D500D2DA8F /* Chat */ = {
+		64AA338018C81670009E09F7 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				6482D1C218C5D0E100D2DA8F /* BubbleDark.png */,
-				6482D1C318C5D0E100D2DA8F /* BubbleDark@2x.png */,
+				64AA338518C8199D009E09F7 /* BubbleLight@2x.png */,
+				64AA338118C81670009E09F7 /* BubbleDark.png */,
+				64AA338218C81670009E09F7 /* BubbleDark@2x.png */,
 			);
-			name = Chat;
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		64B9A5B9185024C3001D482D /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				6482D1C118C5D0D500D2DA8F /* Chat */,
+				64AA338018C81670009E09F7 /* Chat */,
 				642723F318ACC3F0002609F4 /* Common */,
 				642723DF18AC62BA002609F4 /* UserProfile */,
 				641637CF18AB1F32009A774A /* Root */,
@@ -1057,6 +1103,7 @@
 			files = (
 				64204AD318BC558200A684A7 /* icon-plus-highlighted@2x.png in Resources */,
 				64CD289918A9F68F0050BE63 /* TitlePlaceholder.png in Resources */,
+				64AA339818C8577A009E09F7 /* ThumbDown.png in Resources */,
 				642723F618ACC3F0002609F4 /* Dot.png in Resources */,
 				64B7C67618B5F99400B85E30 /* Star_Gray_Small.png in Resources */,
 				64D35F4C18ADF09E00999CED /* Star_Gray@2x.png in Resources */,
@@ -1088,8 +1135,10 @@
 				641637CB18AA0769009A774A /* Home_Selected@2x.png in Resources */,
 				641637C818AA0713009A774A /* Home.png in Resources */,
 				64204ACA18BC558200A684A7 /* bg-addbutton-highlighted.png in Resources */,
+				64AA339A18C8577A009E09F7 /* ThumbUp.png in Resources */,
 				64CD28A218A9FA7C0050BE63 /* Wizard.png in Resources */,
 				646132C1184872F300A0BBF0 /* InfoPlist.strings in Resources */,
+				64AA338618C8199D009E09F7 /* BubbleLight@2x.png in Resources */,
 				64D35F4B18ADF09E00999CED /* Star_Gray.png in Resources */,
 				6463584A185B231E00172760 /* Login_LoginButton@2x.png in Resources */,
 				642723E918AC7694002609F4 /* Plus@2x.png in Resources */,
@@ -1101,17 +1150,20 @@
 				646132C9184872F300A0BBF0 /* Images.xcassets in Resources */,
 				64C515F718BF30CA0027292E /* Filter.png in Resources */,
 				642723E818AC7694002609F4 /* Plus.png in Resources */,
-				6482D1C518C5D0E100D2DA8F /* BubbleDark@2x.png in Resources */,
+				64AA338418C81670009E09F7 /* BubbleDark@2x.png in Resources */,
 				64204ADB18BC579700A684A7 /* icon-share@2x.png in Resources */,
 				64C66383186D1BE700B18236 /* Login_EmailTextField.png in Resources */,
+				64AA339718C8577A009E09F7 /* Chat@2x.png in Resources */,
 				64635849185B231E00172760 /* Login_LoginButton.png in Resources */,
 				64CD28A318A9FA7C0050BE63 /* Wizard@2x.png in Resources */,
 				64D35F4D18ADF09E00999CED /* Star_Red.png in Resources */,
 				64204AD618BC558200A684A7 /* icon-star.png in Resources */,
+				64AA339618C8577A009E09F7 /* Chat.png in Resources */,
 				64CD28B218AA01280050BE63 /* Home@2x.png in Resources */,
 				64F05CF5187506C000FB7A3A /* Calibri Bold Italic.ttf in Resources */,
 				64204ACD18BC558200A684A7 /* bg-addbutton@2x.png in Resources */,
-				6482D1C418C5D0E100D2DA8F /* BubbleDark.png in Resources */,
+				64AA338318C81670009E09F7 /* BubbleDark.png in Resources */,
+				64AA339B18C8577A009E09F7 /* ThumbUp@2x.png in Resources */,
 				64204AD018BC558200A684A7 /* bg-menuitem.png in Resources */,
 				6441B9DC18B373240061D00C /* DefaultUser50.png in Resources */,
 				64CD28AB18A9FB580050BE63 /* Review@2x.png in Resources */,
@@ -1132,6 +1184,7 @@
 				64204AD718BC558200A684A7 /* icon-star@2x.png in Resources */,
 				64D35F4E18ADF09E00999CED /* Star_Red@2x.png in Resources */,
 				642723EF18ACA54C002609F4 /* CheckMark@2x.png in Resources */,
+				64AA339918C8577A009E09F7 /* ThumbDown@2x.png in Resources */,
 				64C66390186D298F00B18236 /* Login_MailTextField@2x.png in Resources */,
 				64546E9C1869638D001CCE5B /* HC_Background@2x.png in Resources */,
 			);
@@ -1159,6 +1212,7 @@
 				6468EFEE18B2F7D600A9DA92 /* SearchResultViewController.m in Sources */,
 				64FFD93B185FEDD2002F93C0 /* NSData+Base64.m in Sources */,
 				6409DB7F18BB156A00313AE5 /* CommentReviewView.m in Sources */,
+				64AA339E18C875FD009E09F7 /* CommentReviewDetailViewController.m in Sources */,
 				64C515DE18BEFCF20027292E /* RightSubtitleCell.m in Sources */,
 				645FB9C3184C2C0C00BB2325 /* AFSecurityPolicy.m in Sources */,
 				645FB9BF184C2C0C00BB2325 /* AFHTTPRequestOperation.m in Sources */,
@@ -1173,9 +1227,11 @@
 				6468EFF118B3014F00A9DA92 /* BooklistGridViewController.m in Sources */,
 				645FB9C6184C2C0C00BB2325 /* AFURLResponseSerialization.m in Sources */,
 				649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */,
+				64AA338C18C81D62009E09F7 /* ReviewListViewController.m in Sources */,
 				64D4D57618C050BF0044A78E /* BooklistDetailViewController.m in Sources */,
 				64D35F4618ADCE0800999CED /* AMRatingControl.m in Sources */,
 				642BEB69184DF3F800E1A0B3 /* UIProgressView+AFNetworking.m in Sources */,
+				64AA338918C81D0F009E09F7 /* ReviewListRootViewController.m in Sources */,
 				642C790C1867DDB9007C61AD /* Book.m in Sources */,
 				64A80B0D186813F10039BBA2 /* BookInfoCell.m in Sources */,
 				642723E518AC6578002609F4 /* UIImage+ImageEffects.m in Sources */,
@@ -1185,10 +1241,12 @@
 				6482D1BD18C5B11000D2DA8F /* ReadRecordRootViewController.m in Sources */,
 				642723FB18ACCA3A002609F4 /* SPTextView.m in Sources */,
 				642BEB68184DF3F800E1A0B3 /* UIImageView+AFNetworking.m in Sources */,
+				64AA338F18C8415E009E09F7 /* CommentReviewCell.m in Sources */,
 				6440D73718602BEA008D9C59 /* QQLogin.m in Sources */,
 				645FB9C0184C2C0C00BB2325 /* AFHTTPRequestOperationManager.m in Sources */,
 				6482D1BA18C59FA000D2DA8F /* ReadRecordViewController.m in Sources */,
 				642723F218ACBE2C002609F4 /* CreateBookListViewController.m in Sources */,
+				64A7B44A18C972AD008913D1 /* CommentDetailViewController.m in Sources */,
 				64204AB918BC3E2200A684A7 /* AwesomeMenuItem.m in Sources */,
 				641637D618AB201E009A774A /* SearchViewController.m in Sources */,
 				6471A29F18C05F08003A5453 /* CategoriesCell.m in Sources */,

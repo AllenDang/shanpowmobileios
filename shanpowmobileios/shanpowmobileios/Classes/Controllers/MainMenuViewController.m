@@ -18,6 +18,7 @@
 @property (nonatomic, strong) SearchViewController *searchController;
 @property (nonatomic, strong) HotBooksViewController *hotBookController;
 @property (nonatomic, strong) CategoriesViewController *categoriesController;
+@property (nonatomic, strong) ReviewListRootViewController *reviewListController;
 
 @property (nonatomic, strong) UIBarButtonItem *searchButton;
 
@@ -44,8 +45,8 @@
     }
     self.view.backgroundColor = UIC_WHISPER(1.0);
     
-    self.menuItemTexts = @[@"热门书籍", @"一键治书荒", @"大家都在看", @"书评", @"分类"];
-    self.menuItemImages = @[@"Hot", @"Wizard", @"MinNa", @"Review", @"Category"];
+    self.menuItemTexts = @[@"热门书籍", @"一键治书荒", @"书评", @"分类"];
+    self.menuItemImages = @[@"Hot", @"Wizard", @"Review", @"Category"];
     
     self.cellHeight = 55.0;
     
@@ -103,19 +104,27 @@
 - (void)showHotBooks
 {
     self.hotBookController = [[HotBooksViewController alloc] init];
+    
     [self.navigationController pushViewController:self.hotBookController animated:YES];
 }
 
 - (void)showWizard
 {
     WriteCommentReviewViewController *cbl = [[WriteCommentReviewViewController alloc] init];
+    
     [self.navigationController pushViewController:cbl animated:YES];
+}
+
+- (void)showReviews
+{
+    self.reviewListController = [[ReviewListRootViewController alloc] init];
+    [self pushViewController:self.reviewListController];
 }
 
 - (void)showCategories
 {
     self.categoriesController = [[CategoriesViewController alloc] init];
-    [self.navigationController pushViewController:self.categoriesController animated:YES];
+    [self pushViewController:self.categoriesController];
 }
 
 #pragma mark - Table view delegate
@@ -136,7 +145,10 @@
         case 1:
             [self showWizard];
             break;
-        case 4:
+        case 2:
+            [self showReviews];
+            break;
+        case 3:
             [self showCategories];
             break;
         default:
