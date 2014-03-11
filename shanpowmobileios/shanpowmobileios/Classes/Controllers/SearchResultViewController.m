@@ -7,6 +7,9 @@
 //
 
 #import "SearchResultViewController.h"
+#import "BookDetailViewController.h"
+#import "BooklistDetailViewController.h"
+#import "UserProfileViewController.h"
 
 @interface SearchResultViewController ()
 
@@ -60,6 +63,10 @@
     if (!self.categoryFilterSegment) {
         [self initSegmentedControl];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBook:) name:MSG_DID_SELECT_BOOK object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBooklist:) name:MSG_DID_SELECT_BOOKLIST object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectUser:) name:MSG_DID_SELECT_USER object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -147,6 +154,32 @@
     } else if ([[sender titleForSegmentAtIndex:value] isEqualToString:@"用户"]) {
         [self.view bringSubviewToFront:self.userlistController.view];
     }
+}
+
+- (void)didSelectBook:(NSNotification *)notification
+{
+    BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+    bookDetailController.bookId = [[notification userInfo] objectForKey:@"BookId"];
+    
+    [self pushViewController:bookDetailController];
+}
+
+- (void)didSelectBooklist:(NSNotification *)notification
+{
+    NSString *booklistId = [[notification userInfo] objectForKey:@"BooklistId"];
+    
+    BooklistDetailViewController *booklistDetailController = [[BooklistDetailViewController alloc] initWithBooklistId:booklistId];
+    
+    [self pushViewController:booklistDetailController];
+}
+
+- (void)didSelectUser:(NSNotification *)notification
+{
+    NSString *nickname = [[notification userInfo] objectForKey:@"Nickname"];
+    
+    UserProfileViewController *userProfileController = [[UserProfileViewController alloc] initWithUsername:nickname];
+    
+    [self pushViewController:userProfileController];
 }
 
 @end

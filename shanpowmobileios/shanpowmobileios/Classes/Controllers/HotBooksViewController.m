@@ -40,9 +40,6 @@
     self.bookGridController = [[BookGridViewController alloc] initWithStyle:UITableViewStylePlain];
     self.bookGridController.view.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height);
     self.bookGridController.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleBookSelected:) name:MSG_DID_SELECT_BOOK object:nil];
     
     self.bookGridController.refreshControl = [[UIRefreshControl alloc] init];
     [self.bookGridController.refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
@@ -55,7 +52,20 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleBookSelected:) name:MSG_DID_SELECT_BOOK object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetHotBooks:) name:MSG_DID_GET_HOTBOOKS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetHotBooks:) name:MSG_FAIL_GET_HOTBOOKS object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_ERROR object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_BOOK object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_HOTBOOKS object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_HOTBOOKS object:nil];
+    
+    [super viewWillDisappear:animated];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -72,8 +82,6 @@
 
 - (void)loadHotBooks
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetHotBooks:) name:MSG_DID_GET_HOTBOOKS object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetHotBooks:) name:MSG_FAIL_GET_HOTBOOKS object:nil];
     [[NetworkClient sharedNetworkClient] getHotBooks];
 }
 
@@ -114,7 +122,7 @@
     NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
     BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
     bookDetailController.bookId = bookId;
-    [self.navigationController pushViewController:bookDetailController animated:YES];
+    [self pushViewController:bookDetailController];
 }
 
 #pragma mark -

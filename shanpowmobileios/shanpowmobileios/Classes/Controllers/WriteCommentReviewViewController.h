@@ -12,7 +12,7 @@
 #import "AMRatingControl.h"
 #import "NetworkClient.h"
 
-@interface WriteCommentReviewViewController : UIViewController <UITextViewDelegate>
+@interface WriteCommentReviewViewController : UIViewController <UITextViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) NSString *bookId;
 

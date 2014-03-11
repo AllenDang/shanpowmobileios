@@ -29,6 +29,20 @@ BOOL isLogin()
     return NO;
 }
 
+CGFloat heightForMultilineTextWithFont(NSString* text, UIFont* font, CGFloat width)
+{
+    CGFloat height = 0.0;
+    if (IsSysVerGTE(7.0)) {
+        height = [text boundingRectWithSize:CGSizeMake(width, INFINITY)
+                                    options:NSStringDrawingUsesLineFragmentOrigin
+                                 attributes:@{NSFontAttributeName: font}
+                                    context:nil].size.height;
+    } else {
+        height = [text sizeWithFont:font constrainedToSize:CGSizeMake(width, INFINITY) lineBreakMode:NSLineBreakByClipping].height;
+    }
+    return height;
+}
+
 BOOL isLastCell(UITableView* tableView, NSIndexPath* indexPath)
 {
     if (!tableView || !indexPath) {
@@ -139,11 +153,18 @@ extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accu
 
 - (void)pushViewController:(UIViewController *)controller
 {
+    controller.hidesBottomBarWhenPushed = YES;
+    
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)pushViewController:(UIViewController *)controller hideBottomBar:(BOOL)hideBottomBar
+{
     self.hidesBottomBarWhenPushed = YES;
     
     [self.navigationController pushViewController:controller animated:YES];
     
-    self.hidesBottomBarWhenPushed = NO;
+    self.hidesBottomBarWhenPushed = hideBottomBar;
 }
 
 @end
@@ -225,6 +246,29 @@ extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accu
     UIGraphicsEndImageContext();
     
     return newImage;
+}
+
+- (UIImage *)maskWithColor:(UIColor *)color
+{
+    CGImageRef maskImage = self.CGImage;
+    CGFloat width = self.size.width * 2;
+    CGFloat height = self.size.height * 2;
+    CGRect bounds = CGRectMake(0, 0, width, height);
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef bitmapContext = CGBitmapContextCreate(NULL, width, height, 8, 0, colorSpace, kCGBitmapAlphaInfoMask & kCGImageAlphaPremultipliedLast);
+    CGContextClipToMask(bitmapContext, bounds, maskImage);
+    CGContextSetFillColorWithColor(bitmapContext, color.CGColor);
+    CGContextFillRect(bitmapContext, bounds);
+    
+    CGImageRef cImage = CGBitmapContextCreateImage(bitmapContext);
+    UIImage *coloredImage = [UIImage imageWithCGImage:cImage];
+    
+    CGContextRelease(bitmapContext);
+    CGColorSpaceRelease(colorSpace);
+    CGImageRelease(cImage);
+    
+    return coloredImage;
 }
 
 @end

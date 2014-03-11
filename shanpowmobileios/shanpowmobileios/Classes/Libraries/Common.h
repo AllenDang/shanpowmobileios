@@ -84,9 +84,24 @@ return shared##classname;                               \
 #define MSG_FAIL_GET_REVIEW_DETAIL              @"SMNC_40"
 #define MSG_DID_GET_COMMENT_DETAIL              @"SMNC_41"
 #define MSG_FAIL_GET_COMMENT_DETAIL             @"SMNC_42"
+#define MSG_DID_LIKE_COMMENT                    @"SMNC_43"
+#define MSG_FAIL_LIKE_COMMENT                   @"SMNC_44"
+#define MSG_DID_DISLIKE_COMMENT                 @"SMNC_45"
+#define MSG_FAIL_DISLIKE_COMMENT                @"SMNC_46"
+#define MSG_DID_LIKE_REVIEW                     @"SMNC_47"
+#define MSG_FAIL_LIKE_REVIEW                    @"SMNC_48"
+#define MSG_DID_DISLIKE_REVIEW                  @"SMNC_49"
+#define MSG_FAIL_DISLIKE_REVIEW                 @"SMNC_50"
+#define MSG_DID_RESPONSE_TO_COMMENT             @"SMNC_51"
+#define MSG_FAIL_RESPONSE_TO_COMMENT            @"SMNC_52"
+#define MSG_DID_RESPONSE_TO_REVIEW              @"SMNC_53"
+#define MSG_FAIL_RESPONSE_TO_REVIEW             @"SMNC_54"
+#define MSG_DID_GET_WIZARD_RESULT               @"SMNC_55"
+#define MSG_FAIL_GET_WIZARD_RESULT              @"SMNC_56"
 
 #define MSG_DID_SELECT_BOOK                     @"SMNC_1000"
 #define MSG_DID_SELECT_BOOKLIST                 @"SMNC_1001"
+#define MSG_DID_SELECT_USER                     @"SMNC_1002"
 
 #define MSG_INT_BOOKINFOVIEW_TAPPED             @"SMNC_2000"
 #define MSG_TAPPED_NICKNAME                     @"SMNC_2001"
@@ -173,6 +188,7 @@ typedef enum {
 #define TextHeightWithFont(x)                   ([@"我" sizeWithFont:(x)].height)
 
 extern BOOL isLogin();
+extern CGFloat heightForMultilineTextWithFont(NSString* text, UIFont* font, CGFloat width);
 extern BOOL isLastCell(UITableView* tableView, NSIndexPath* indexPath);
 extern NSArray* arrangeBooksByCategories(NSArray* books, NSArray* categories);
 extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accuracy);
@@ -184,6 +200,7 @@ extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accu
 - (void)addAdjustView;
 - (void)setBackgroundImage:(UIImage *)image;
 - (void)pushViewController:(UIViewController *)controller;
+- (void)pushViewController:(UIViewController *)controller hideBottomBar:(BOOL)hideBottomBar;
 
 @end
 
@@ -194,6 +211,7 @@ extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accu
 - (UIImage *)makeRoundedImageWithRadius:(float)radius;
 - (UIImage *)scaledToSize:(CGSize)newSize;
 - (UIImage *)imageByApplyingAlpha:(CGFloat)alpha;
+- (UIImage *)maskWithColor:(UIColor *)color;
 
 @end
 

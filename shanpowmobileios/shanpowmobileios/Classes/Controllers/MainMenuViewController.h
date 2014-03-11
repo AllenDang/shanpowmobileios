@@ -13,7 +13,10 @@
 #import "SearchViewController.h"
 #import "WriteCommentReviewViewController.h"
 #import "ReviewListRootViewController.h"
+#import "WizardResultViewController.h"
 
 @interface MainMenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, assign) BOOL shouldRemainBottomBarOnDisappear;
 
 @end

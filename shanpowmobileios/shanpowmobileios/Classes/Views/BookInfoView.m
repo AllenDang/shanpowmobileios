@@ -370,7 +370,7 @@
 
 - (void)tapped:(UITapGestureRecognizer *)recognizer
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_INT_BOOKINFOVIEW_TAPPED object:self userInfo:@{@"BookId": self.book.Id}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_SELECT_BOOK object:self userInfo:@{@"BookId": self.book.Id}];
 }
 
 #pragma mark - UIScrollView delegate

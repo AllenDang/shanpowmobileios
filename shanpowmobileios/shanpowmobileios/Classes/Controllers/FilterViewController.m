@@ -265,7 +265,9 @@
             cell.backgroundColor = UIC_BRIGHT_GRAY(1.0);
             cell.textLabel.textColor = UIC_ALMOSTWHITE(1.0);
             cell.textLabel.font = MEDIUM_FONT;
-            [cell setTintColor:UIC_ALMOSTWHITE(1.0)];
+            if (IsSysVerGTE(7.0)) {
+                [cell setTintColor:UIC_ALMOSTWHITE(1.0)];
+            }
             
             cell.textLabel.text = [self.readStatusTitles objectAtIndex:indexPath.row];
             
@@ -290,7 +292,9 @@
             cell.backgroundColor = UIC_BRIGHT_GRAY(1.0);
             cell.textLabel.textColor = UIC_ALMOSTWHITE(1.0);
             cell.textLabel.font = MEDIUM_FONT;
-            [cell setTintColor:UIC_ALMOSTWHITE(1.0)];
+            if (IsSysVerGTE(7.0)) {
+                [cell setTintColor:UIC_ALMOSTWHITE(1.0)];
+            }
             
             cell.textLabel.text = [self.channelTitles objectAtIndex:indexPath.row];
             
@@ -315,7 +319,9 @@
                     cell.textLabel.font = MEDIUM_FONT;
                     cell.textLabel.backgroundColor = [UIColor clearColor];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    [cell setTintColor:UIC_ALMOSTWHITE(1.0)];
+                    if (IsSysVerGTE(7.0)) {
+                        [cell setTintColor:UIC_ALMOSTWHITE(1.0)];
+                    }
                     
                     cell.textLabel.text = @"全部";
                     return cell;

@@ -44,7 +44,7 @@
 
 - (void)getBooksByCategory:(NSString *)category range:(NSRange)range;
 
-- (void)markBookWithBookId:(NSString *)bookId markType:(NSString *)markType score:(NSInteger)score content:(NSString *)content;
+- (void)markBookWithBookId:(NSString *)bookId markType:(NSString *)markType score:(NSInteger)score content:(NSString *)content isShareToQQ:(BOOL)shareToQQ isShareToWeibo:(BOOL)shareToWeibo;
 - (void)postReviewWithBookId:(NSString *)bookId params:(NSDictionary *)options;
 
 - (void)getBooklistsByAuthorId:(NSString *)authorId;
@@ -61,5 +61,15 @@
 - (void)getReivewsByCategory:(NSString *)category channel:(FilterChannel)channel score:(NSInteger)score range:(NSRange)range;
 - (void)getReviewDetailById:(NSString *)reviewId;
 - (void)getCommentDetailByBookId:(NSString *)bookId authorId:(NSString *)authorId;
+
+- (void)likeCommentByBookId:(NSString *)bookId authorId:(NSString *)authorId;
+- (void)dislikeCommentByBookId:(NSString *)bookId authorId:(NSString *)authorId;
+- (void)likeReviewByBookId:(NSString *)bookId reviewId:(NSString *)reviewId;
+- (void)dislikeReviewByBookId:(NSString *)bookId reviewId:(NSString *)reviewId;
+
+- (void)responseToComment:(NSString *)content bookId:(NSString *)bookId commentAuthorId:(NSString *)authorId;
+- (void)responseToReview:(NSString *)content bookId:(NSString *)bookId reviewId:(NSString *)reviewId;
+
+- (void)getWizardResult;
 
 @end

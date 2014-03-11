@@ -126,29 +126,28 @@ SINGLETON_GCD(NetworkClient);
 {
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    [manager GET:@"/token"
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             [me handleResponse:responseObject
-                        success:^(NSDictionary *data){
-                            NSString *token = [data objectForKey:@"data"];
-                            [me setCsrfToken:token];
-                            // Save token for later use
-                            [[NSUserDefaults standardUserDefaults] setObject:token forKey:SETTINGS_CSRF_TOKEN];
-                            [[NSUserDefaults standardUserDefaults] synchronize];
-                            
-                            [[NSNotificationCenter defaultCenter] postNotificationName:MSG_GOT_TOKEN object:me];
-                        }
-                        failure:^(NSDictionary *ErrorMsg){
-                            [self handleFailureFromRequest:operation];
-                            [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_TOKEN object:me];
-                        }];
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             [self handleError:error onRequest:operation];
-         }];
+    [self sendRequestWithType:@"GET"
+                         path:@"/token"
+                   parameters:nil
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data){
+                                         NSString *token = [data objectForKey:@"data"];
+                                         [me setCsrfToken:token];
+                                         // Save token for later use
+                                         [[NSUserDefaults standardUserDefaults] setObject:token forKey:SETTINGS_CSRF_TOKEN];
+                                         [[NSUserDefaults standardUserDefaults] synchronize];
+                                         
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_GOT_TOKEN object:me];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg){
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_TOKEN object:me];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
 }
 
 - (void)loginWithLoginname:(NSString *)loginname password:(NSString *)password
@@ -419,14 +418,14 @@ SINGLETON_GCD(NetworkClient);
                       }];
 }
 
-- (void)markBookWithBookId:(NSString *)bookId markType:(NSString *)markType score:(NSInteger)score content:(NSString *)content
+- (void)markBookWithBookId:(NSString *)bookId markType:(NSString *)markType score:(NSInteger)score content:(NSString *)content isShareToQQ:(BOOL)shareToQQ isShareToWeibo:(BOOL)shareToWeibo
 {
     NSDictionary *parameters = @{
                                  @"markType": markType,
                                  @"score": [NSNumber numberWithInteger:score],
                                  @"content": content,
-                                 @"isShareToQQ": [NSNumber numberWithBool:NO],
-                                 @"isShareToWeibo": [NSNumber numberWithBool:NO]
+                                 @"isShareToQQ": [NSNumber numberWithBool:shareToQQ],
+                                 @"isShareToWeibo": [NSNumber numberWithBool:shareToWeibo]
                                  };
     
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
@@ -456,8 +455,6 @@ SINGLETON_GCD(NetworkClient);
 - (void)postReviewWithBookId:(NSString *)bookId params:(NSDictionary *)options
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary:options];
-    [parameters setObject:[NSNumber numberWithBool:NO] forKey:@"isShareToQQ"];
-    [parameters setObject:[NSNumber numberWithBool:NO] forKey:@"isShareToWeibo"];
     
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
@@ -801,6 +798,215 @@ SINGLETON_GCD(NetworkClient);
                                      failure:^(NSDictionary *ErrorMsg) {
                                          [self handleFailureFromRequest:operation];
                                          [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_COMMENT_DETAIL
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)likeCommentByBookId:(NSString *)bookId authorId:(NSString *)authorId
+{
+    NSDictionary *parameters = @{
+                                 @"authorId": authorId
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"POST"
+                         path:[NSString stringWithFormat:@"/book/%@/likecomment", bookId]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LIKE_COMMENT
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_LIKE_COMMENT
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)dislikeCommentByBookId:(NSString *)bookId authorId:(NSString *)authorId
+{
+    NSDictionary *parameters = @{
+                                 @"authorId": authorId
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"POST"
+                         path:[NSString stringWithFormat:@"/book/%@/dislikecomment", bookId]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_DISLIKE_COMMENT
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_DISLIKE_COMMENT
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)likeReviewByBookId:(NSString *)bookId reviewId:(NSString *)reviewId
+{
+    NSDictionary *parameters = @{
+                                 @"bookId": bookId
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"POST"
+                         path:[NSString stringWithFormat:@"/review/%@/like", reviewId]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LIKE_REVIEW
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_LIKE_REVIEW
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)dislikeReviewByBookId:(NSString *)bookId reviewId:(NSString *)reviewId
+{
+    NSDictionary *parameters = @{
+                                 @"bookId": bookId
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"POST"
+                         path:[NSString stringWithFormat:@"/review/%@/dislike", reviewId]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_DISLIKE_REVIEW
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_DISLIKE_REVIEW
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)responseToComment:(NSString *)content bookId:(NSString *)bookId commentAuthorId:(NSString *)authorId
+{
+    NSDictionary *parameters = @{
+                                 @"content": content
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"POST"
+                         path:[NSString stringWithFormat:@"/book/%@/%@/response", bookId, authorId]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_RESPONSE_TO_COMMENT
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_RESPONSE_TO_COMMENT
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)responseToReview:(NSString *)content bookId:(NSString *)bookId reviewId:(NSString *)reviewId
+{
+    NSDictionary *parameters = @{
+                                 @"content": content,
+                                 @"bookId": bookId
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"POST"
+                         path:[NSString stringWithFormat:@"/review/%@/response", reviewId]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_RESPONSE_TO_REVIEW
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_RESPONSE_TO_REVIEW
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)getWizardResult
+{
+    NSDictionary *parameters = nil;
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"GET"
+                         path:@"/book/recommendations"
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_WIZARD_RESULT
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_WIZARD_RESULT
                                                                                              object:me
                                                                                            userInfo:ErrorMsg];
                                      }];

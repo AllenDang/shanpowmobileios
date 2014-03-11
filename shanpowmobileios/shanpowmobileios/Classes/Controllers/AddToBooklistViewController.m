@@ -108,7 +108,7 @@
     self.createBooklistController = [[CreateBookListViewController alloc] init];
     
     self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:self.createBooklistController animated:YES];
+    [self pushViewController:self.createBooklistController];
 }
 
 - (void)didSelectBooklist:(NSNotification *)notification

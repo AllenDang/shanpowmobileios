@@ -12,6 +12,7 @@
 #import "BooklistListViewController.h"
 #import "UserProfileViewController.h"
 #import "RightSubtitleCell.h"
+#import "CommentDetailViewController.h"
 
 @interface BookDetailViewController ()
 
@@ -108,39 +109,36 @@
                                                            ContentImage:[UIImage imageNamed:@"icon-plus"]
                                                 highlightedContentImage:[UIImage imageNamed:@"icon-plus-highlighted"]];
     
-    self.actionMenu = [[AwesomeMenu alloc] initWithFrame:self.view.window.bounds
+    self.actionMenu = [[AwesomeMenu alloc] initWithFrame:[UIScreen mainScreen].bounds
                                                  startItem:self.mainItem
-                                               optionMenus:@[self.ratingItem, self.shareItem, self.addToBooklistItem]];
+                                               optionMenus:@[self.ratingItem, self.addToBooklistItem]];
     self.actionMenu.delegate = self;
-    self.actionMenu.alpha = 0.0;
-    self.actionMenu.menuWholeAngle = M_PI / 2;
-    self.actionMenu.startPoint = CGPointMake(40.0, self.view.frame.size.height - 70.0);
+    self.actionMenu.menuWholeAngle = M_PI / 3;
+    self.actionMenu.startPoint = CGPointMake(40.0, [UIScreen mainScreen].bounds.size.height);
     self.actionMenu.animationDuration = 0.4;
     self.actionMenu.endRadius = 100.0;
     self.actionMenu.farRadius = 110.0;
     self.actionMenu.nearRadius = 95.0;
+    self.actionMenu.rotateAngle = M_PI / 12;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cmtUserTapped:) name:MSG_TAPPED_NICKNAME object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    
     if (isLogin()) {
         [self.view.window addSubview:self.actionMenu];
         
         [UIView animateWithDuration:0.2
                          animations:^{
-                             self.actionMenu.alpha = 1.0;
+                             self.actionMenu.frame = CGRectMake(0.0,
+                                                                [UIScreen mainScreen].bounds.origin.y - 50.0,
+                                                                [UIScreen mainScreen].bounds.size.width,
+                                                                [UIScreen mainScreen].bounds.size.height);
                          }];
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
+    
     if (self.bookId.length > 0) {
         [self getBookDetail];
     }
@@ -153,7 +151,7 @@
     if (isLogin()) {
         [UIView animateWithDuration:0.2
                          animations:^{
-                             self.actionMenu.alpha = 0.0;
+                             self.actionMenu.frame = [UIScreen mainScreen].bounds;
                          }
                          completion:^(BOOL finished) {
                              [self.actionMenu removeFromSuperview];
@@ -411,9 +409,7 @@
     wcrController.bookImageUrl = [self.bookInfo objectForKey:@"ImageUrl"];
     wcrController.bookCategory = self.categoryLabel.text;
     
-    self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:wcrController animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
+    [self pushViewController:wcrController];
 }
 
 - (void)pushAddToBooklistView
@@ -421,9 +417,7 @@
     AddToBooklistViewController *atbController = [[AddToBooklistViewController alloc] init];
     atbController.bookIdToAdd = self.bookId;
     
-    self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:atbController animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
+    [self pushViewController:atbController];
 }
 
 #pragma mark - Data related
@@ -491,7 +485,7 @@
     userProfileController.userId = userId;
     
     self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:userProfileController animated:YES];
+    [self pushViewController:userProfileController];
     self.hidesBottomBarWhenPushed = NO;
 }
 
@@ -504,7 +498,7 @@
             [self pushWriteReviewView];
             break;
         }
-        case 2:
+        case 1:
         {
             [self pushAddToBooklistView];
             break;
@@ -604,7 +598,7 @@
                     booklistsController.bookId = self.bookId;
                     
                     self.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:booklistsController animated:YES];
+                    [self pushViewController:booklistsController];
                     self.hidesBottomBarWhenPushed = NO;
                     
                     break;
@@ -619,14 +613,30 @@
         {
             if (indexPath.row == 0 && [self.bookInfo objectForKey:@"Comments"] == [NSNull null]) {
                 [self pushWriteReviewView];
+            } else {
+                if (indexPath.row < 5) {
+                    CommentDetailViewController *commentDetailController = [[CommentDetailViewController alloc] initWithIsReview:NO];
+                    commentDetailController.bookId = self.bookId;
+                    commentDetailController.authorId = [[[[self.bookInfo objectForKey:@"Comments"] objectAtIndex:indexPath.row] objectForKey:@"Author"] objectForKey:@"Id"];
+                    
+                    [self pushViewController:commentDetailController];
+                }
             }
-            
             break;
         }
         case 4:
         {
             if (indexPath.row == 0 && [self.bookInfo objectForKey:@"Reviews"] == [NSNull null]) {
                 [self pushWriteReviewView];
+            } else {
+                if (indexPath.row < 5) {
+                    CommentDetailViewController *commentDetailController = [[CommentDetailViewController alloc] initWithIsReview:YES];
+                    commentDetailController.reviewId = [[[self.bookInfo objectForKey:@"Reviews"] objectAtIndex:indexPath.row] objectForKey:@"Id"];
+                    commentDetailController.bookTitle = self.bookTitleLabel.text;
+                    commentDetailController.bookCategory = [self.bookInfo objectForKey:@"Category"];
+                    
+                    [self pushViewController:commentDetailController];
+                }
             }
             
             break;

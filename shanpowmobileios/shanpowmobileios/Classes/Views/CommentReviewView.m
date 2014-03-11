@@ -254,20 +254,13 @@
     self.timeStampLabel.font = MEDIUM_FONT;
     
     // Section 3
-    CGFloat height = 0.0;
-    if (IsSysVerGTE(7.0)) {
-        height = [self.content boundingRectWithSize:CGSizeMake(self.bounds.size.width, INFINITY) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: SMALL_FONT} context:nil].size.height;
-    } else {
-        height = [self.content sizeWithFont:SMALL_FONT constrainedToSize:CGSizeMake(self.bounds.size.width, INFINITY) lineBreakMode:NSLineBreakByClipping].height;
-    }
-    
     self.contentLabel.frame = CGRectMake(self.generalMargin,
                                          self.avatar.frame.origin.y + self.avatarSize + self.generalMargin / 2,
                                          self.frame.size.width - self.generalMargin * 2,
-                                         height);
+                                         heightForMultilineTextWithFont(self.content, self.isDetailMode ? MEDIUM_FONT : SMALL_FONT, self.bounds.size.width));
     self.contentLabel.numberOfLines = self.isReview ? 4 : 7;
     self.contentLabel.backgroundColor = [UIColor clearColor];
-    self.contentLabel.font = SMALL_FONT;
+    self.contentLabel.font = self.isDetailMode ? MEDIUM_FONT : SMALL_FONT;
     
     // Section 4
     self.bookInfoBkgView.frame = self.showBookInfo ? CGRectMake(0.0,
@@ -281,6 +274,7 @@
                                                                        self.bounds.size.width - self.generalMargin * 2,
                                                                        20) : CGRectZero;
     self.bookInfoBookTitleLabel.font = MEDIUM_BOLD_FONT;
+    self.bookInfoBookTitleLabel.backgroundColor = [UIColor clearColor];
     
     self.bookInfoBookCategoryLabel.frame = self.showBookInfo ? CGRectMake(self.generalMargin,
                                                                           self.bookInfoBkgView.frame.origin.y + self.bookInfoBkgView.frame.size.height - 8.0 - TextHeightWithFont(SMALL_FONT),
@@ -288,6 +282,7 @@
                                                                           20) : CGRectZero;
     self.bookInfoBookCategoryLabel.font = SMALL_FONT;
     self.bookInfoBookCategoryLabel.textColor = UIC_BRIGHT_GRAY(0.5);
+    self.bookInfoBookCategoryLabel.backgroundColor = [UIColor clearColor];
     
     // Section 5
     if (self.chatSum == 0) {

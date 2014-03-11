@@ -175,7 +175,7 @@
     commentReviewDetailController.bookTitle = [review objectForKey:@"BookTitle"];
     commentReviewDetailController.bookCategory = [review objectForKey:@"BookCategory"];
     
-    [self pushViewController:commentReviewDetailController];
+    [self pushViewController:commentReviewDetailController hideBottomBar:YES];
     
     return;
 }

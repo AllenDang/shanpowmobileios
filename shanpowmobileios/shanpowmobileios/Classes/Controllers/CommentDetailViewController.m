@@ -10,6 +10,9 @@
 #import "SPLoadingView.h"
 #import "NetworkClient.h"
 #import "CommentReviewView.h"
+#import "BookDetailViewController.h"
+#import "ResponseCell.h"
+#import "UserProfileViewController.h"
 
 @interface CommentDetailViewController ()
 
@@ -17,8 +20,15 @@
 @property (nonatomic, strong) SPLoadingView *loadingView;
 @property (nonatomic, strong) CommentReviewView *crView;
 @property (nonatomic, strong) UITableView *mainTable;
+@property (nonatomic, strong) UITextField *responseTextField;
+@property (nonatomic, strong) UIButton *replyButton;
+@property (nonatomic, strong) UIButton *overlayButton;
+@property (nonatomic, strong) UIButton *thumbUpButton;
+@property (nonatomic, strong) UIButton *thumbDownButton;
+@property (nonatomic, strong) UIButton *chatButton;
 
 @property (nonatomic, assign) BOOL isReview;
+@property (nonatomic, assign) BOOL shouldScrollToLastResponse;
 
 @property (nonatomic, strong) NSDictionary *reviewDetail;
 
@@ -51,19 +61,22 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
+    self.title = @"书评详情";
     self.view.backgroundColor = UIC_ALMOSTWHITE(1.0);
     
     if (IsSysVerGTE(7.0)) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    self.container = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    self.container = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0,
+                                                                    0.0,
+                                                                    self.view.bounds.size.width,
+                                                                    self.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height - 40 - 20)];
     [self.view addSubview:self.container];
     
     self.crView = [[CommentReviewView alloc] initWithFrame:self.view.bounds];
     self.crView.showBookInfo = NO;
-    self.crView.showMegaInfo = YES;
+    self.crView.showMegaInfo = NO;
     self.crView.isDetailMode = YES;
     
     [self.container addSubview:self.crView];
@@ -76,16 +89,55 @@
     self.mainTable.delegate = self;
     self.mainTable.dataSource = self;
     self.mainTable.scrollEnabled = NO;
+    if (IsSysVerGTE(7.0)) {
+        self.mainTable.separatorInset = UIEdgeInsetsZero;
+    }
     [self.container addSubview:self.mainTable];
     
     [self updateContainerContentSize];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
+    
+    if (isLogin()) {
+        self.responseTextField = [[UITextField alloc] initWithFrame:CGRectMake(0.0,
+                                                                               self.container.frame.size.height,
+                                                                               self.view.frame.size.width - 70.0,
+                                                                               45.0)];
+        self.responseTextField.backgroundColor = UIC_CERULEAN(1.0);
+        self.responseTextField.textColor = UIC_ALMOSTWHITE(1.0);
+        self.responseTextField.placeholder = @"输入回复内容";
+        [self.view addSubview:self.responseTextField];
+        
+        self.replyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.replyButton.frame = CGRectMake(self.responseTextField.frame.size.width,
+                                            self.responseTextField.frame.origin.y,
+                                            70.0,
+                                            self.responseTextField.frame.size.height);
+        [self.replyButton setBackgroundColor:UIC_BRIGHT_GRAY(1.0)];
+        [self.replyButton addTarget:self action:@selector(replyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self.replyButton setTitle:@"回复" forState:UIControlStateNormal];
+        [self.view addSubview:self.replyButton];
+        
+        self.overlayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.overlayButton addTarget:self action:@selector(overlayButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self.overlayButton setBackgroundColor:[UIColor clearColor]];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseAuthorNameTapped:) name:MSG_TAPPED_NICKNAME object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
+    
     [self getCommentReviewDetail];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [super viewWillDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,7 +167,7 @@
 
 - (void)updateContainerContentSize
 {
-    self.container.contentSize = CGSizeMake(self.view.bounds.size.width, self.crView.calculatedHeight + self.mainTable.frame.size.height);
+    self.container.contentSize = CGSizeMake(self.view.bounds.size.width, self.crView.calculatedHeight + self.mainTable.contentSize.height - 55);
 }
 
 #pragma mark - Event handler
@@ -127,17 +179,22 @@
     [self.loadingView hide];
     
     self.reviewDetail = [[notification userInfo] objectForKey:@"data"];
+    
+    self.bookId = [self.reviewDetail objectForKey:@"BookId"];
     self.crView.comment = self.reviewDetail;
-    self.crView.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width, self.crView.calculatedHeight);
+    self.crView.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width, self.crView.calculatedHeight - 55);
     
-    self.mainTable = [[UITableView alloc] initWithFrame:CGRectMake(0.0,
-                                                                   self.crView.frame.size.height,
-                                                                   self.view.bounds.size.width,
-                                                                   GENERAL_CELL_HEIGHT * 3)
-                                                  style:UITableViewStylePlain];
     [self.mainTable reloadData];
-    
+    self.mainTable.frame = CGRectMake(0.0,
+                                      self.crView.calculatedHeight - 55,
+                                      self.view.bounds.size.width,
+                                      self.mainTable.contentSize.height);
+
     [self updateContainerContentSize];
+    
+    if (self.shouldScrollToLastResponse) {
+        [self.container scrollRectToVisible:CGRectMake(0.0, self.container.contentSize.height, 1.0, 1.0) animated:YES];
+    }
 }
 
 - (void)failGetDetail:(NSNotification *)notification
@@ -150,6 +207,13 @@
     NSLog(@"%@", [notification userInfo]);
 }
 
+- (void)responseAuthorNameTapped:(NSNotification *)notification
+{
+    UserProfileViewController *uesrProfileController = [[UserProfileViewController alloc] initWithUsername:[[notification userInfo] objectForKey:@"nickname"]];
+    
+    [self pushViewController:uesrProfileController];
+}
+
 - (void)handleError:(NSNotification *)notification
 {
     [self.loadingView hide];
@@ -157,12 +221,209 @@
     NSLog(@"%@", [notification userInfo]);
 }
 
+- (void)thumbUpTapped:(UIButton *)sender
+{
+    if (!isLogin()) {
+        return;
+    }
+    
+    if (self.isReview) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLike:) name:MSG_DID_LIKE_REVIEW object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failLikeOrDislike:) name:MSG_FAIL_LIKE_REVIEW object:nil];
+        
+        [[NetworkClient sharedNetworkClient] likeReviewByBookId:self.bookId reviewId:self.reviewId];
+    } else {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLike:) name:MSG_DID_LIKE_COMMENT object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failLikeOrDislike:) name:MSG_FAIL_LIKE_COMMENT object:nil];
+        
+        [[NetworkClient sharedNetworkClient] likeCommentByBookId:self.bookId authorId:self.authorId];
+    }
+}
+
+- (void)thumbDownTapped:(UIButton *)sender
+{
+    if (!isLogin()) {
+        return;
+    }
+    
+    if (self.isReview) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDislike:) name:MSG_DID_DISLIKE_REVIEW object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failLikeOrDislike:) name:MSG_FAIL_DISLIKE_REVIEW object:nil];
+        
+        [[NetworkClient sharedNetworkClient] dislikeReviewByBookId:self.bookId reviewId:self.reviewId];
+    } else {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDislike:) name:MSG_DID_DISLIKE_COMMENT object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failLikeOrDislike:) name:MSG_FAIL_DISLIKE_COMMENT object:nil];
+        
+        [[NetworkClient sharedNetworkClient] dislikeCommentByBookId:self.bookId authorId:self.authorId];
+    }
+}
+
+- (void)chatTapped:(UIButton *)sender
+{
+    if (!isLogin()) {
+        return;
+    }
+    
+    [self.responseTextField becomeFirstResponder];
+}
+
+- (void)replyButtonTapped:(UIButton *)sender
+{
+    if ([self.responseTextField.text length] <= 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"出错啦" message:@"回复内容不能为空" delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
+        [alert show];
+    } else {
+        NSString *replyContent =  self.responseTextField.text;
+        
+        if (self.isReview) {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResponse:) name:MSG_DID_RESPONSE_TO_REVIEW object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failResponse:) name:MSG_FAIL_RESPONSE_TO_REVIEW object:nil];
+            
+            [[NetworkClient sharedNetworkClient] responseToReview:replyContent bookId:self.bookId reviewId:self.reviewId];
+        } else {
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResponse:) name:MSG_DID_RESPONSE_TO_COMMENT object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failResponse:) name:MSG_FAIL_RESPONSE_TO_COMMENT object:nil];
+            
+            [[NetworkClient sharedNetworkClient] responseToComment:replyContent bookId:self.bookId commentAuthorId:self.authorId];
+        }
+    }
+}
+
+- (void)overlayButtonTapped:(UIButton *)sender
+{
+    [self.responseTextField resignFirstResponder];
+}
+
+- (void)handleKeyboardWillShow:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    CGRect keyboardBounds = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.container.frame = CGRectMake(self.container.frame.origin.x,
+                                          self.container.frame.origin.y,
+                                          self.container.frame.size.width,
+                                          self.container.frame.size.height - keyboardBounds.size.height);
+        
+        self.responseTextField.frame = CGRectMake(self.responseTextField.frame.origin.x,
+                                                  self.responseTextField.frame.origin.y - keyboardBounds.size.height,
+                                                  self.responseTextField.frame.size.width,
+                                                  self.responseTextField.frame.size.height);
+        
+        self.replyButton.frame = CGRectMake(self.replyButton.frame.origin.x,
+                                                  self.responseTextField.frame.origin.y,
+                                                  self.replyButton.frame.size.width,
+                                                  self.replyButton.frame.size.height);
+    } completion:^(BOOL finished) {
+        self.overlayButton.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.responseTextField.frame.origin.y);
+        [self.view addSubview:self.overlayButton];
+    }];
+}
+
+- (void)handleKeyboardWillHide:(NSNotification *)notification
+{
+    NSDictionary *userInfo = [notification userInfo];
+    CGRect keyboardBounds = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.container.frame = CGRectMake(self.container.frame.origin.x,
+                                          self.container.frame.origin.y,
+                                          self.container.frame.size.width,
+                                          self.container.frame.size.height + keyboardBounds.size.height);
+        
+        self.responseTextField.frame = CGRectMake(self.responseTextField.frame.origin.x,
+                                                  self.responseTextField.frame.origin.y + keyboardBounds.size.height,
+                                                  self.responseTextField.frame.size.width,
+                                                  self.responseTextField.frame.size.height);
+        
+        self.replyButton.frame = CGRectMake(self.replyButton.frame.origin.x,
+                                            self.responseTextField.frame.origin.y,
+                                            self.replyButton.frame.size.width,
+                                            self.replyButton.frame.size.height);
+    } completion:^(BOOL finished) {
+        [self.overlayButton removeFromSuperview];
+    }];
+}
+
+- (void)didLike:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:[notification name] object:nil];
+    
+//    BOOL selfDislike = NO;
+//    NSString *currentUser = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER];
+//    
+//    for (NSDictionary *user in [self.reviewDetail objectForKey:@"UsersWhoDislikeIt"]) {
+//        if ([[user objectForKey:@"Nickname"] isEqualToString:currentUser]) {
+//            selfDislike = YES;
+//        }
+//    }
+//    
+//    if (selfDislike) {
+//        [self.thumbDownButton setTitle:[NSString stringWithFormat:@"%d", [self.thumbDownButton.currentTitle integerValue] - 1] forState:UIControlStateNormal];
+//    }
+//    [self.thumbUpButton setTitle:[NSString stringWithFormat:@"%d", [self.thumbUpButton.currentTitle integerValue] + 1] forState:UIControlStateNormal];
+    
+    [self getCommentReviewDetail];
+}
+
+- (void)didDislike:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:[notification name] object:nil];
+    
+//    BOOL selfLike = NO;
+//    NSString *currentUser = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER];
+//    
+//    for (NSString *user in [self.reviewDetail objectForKey:@"UsersWhoLikeIt"]) {
+//        if ([user isEqualToString:currentUser]) {
+//            selfLike = YES;
+//        }
+//    }
+//    
+//    if (selfLike) {
+//        [self.thumbUpButton setTitle:[NSString stringWithFormat:@"%d", [self.thumbUpButton.currentTitle integerValue] - 1] forState:UIControlStateNormal];
+//    }
+//    [self.thumbDownButton setTitle:[NSString stringWithFormat:@"%d", [self.thumbDownButton.currentTitle integerValue] + 1] forState:UIControlStateNormal];
+
+    [self getCommentReviewDetail];
+}
+
+- (void)failLikeOrDislike:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:[notification name] object:nil];
+    
+    NSString *err = [[notification userInfo] objectForKey:@"ErrorMsg"];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"出错啦" message:err delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void)didResponse:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:[notification name] object:nil];
+    
+    [self.responseTextField resignFirstResponder];
+    self.responseTextField.text = @"";
+    
+    self.shouldScrollToLastResponse = YES;
+    
+    [self getCommentReviewDetail];
+}
+
+- (void)failResponse:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:[notification name] object:nil];
+    
+    NSString *err = [[notification userInfo] objectForKey:@"ErrorMsg"];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"出错啦" message:err delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
+    [alert show];
+}
+
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return GENERAL_HEADER_HEIGHT;
+    if (section != 0) {
+        return 30.0;
     }
     return 0;
 }
@@ -171,18 +432,56 @@
 {
     switch (indexPath.section) {
         case 0:
-            return GENERAL_CELL_HEIGHT;
+            return [UIImage imageNamed:@"ActionDivider"].size.height;
         case 1:
-            return self.crView.calculatedHeight;
+            return GENERAL_CELL_HEIGHT;
+        case 2:
+        {
+            NSString *content = [[[self.reviewDetail objectForKey:@"Responses"] objectAtIndex:indexPath.row] objectForKey:@"Content"];
+            CGFloat height = TextHeightWithFont(MEDIUM_FONT) + heightForMultilineTextWithFont(content, SMALL_FONT, self.view.frame.size.width - 20) + 15.0;
+            return height;
+        }
         default:
             return GENERAL_CELL_HEIGHT;
             break;
     }
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 5.0, tableView.frame.size.width, 20.0)];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.font = SMALL_FONT;
+    titleLabel.textColor = UIC_BRIGHT_GRAY(0.5);
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(10.0, 0.0, tableView.frame.size.width, 30.0)];
+    view.backgroundColor = UIC_WHISPER(1.0);
+    [view addSubview:titleLabel];
+    
+    switch (section) {
+        case 1:
+            titleLabel.text = @"以下为本评论相关书籍";
+            break;
+        case 2:
+            titleLabel.text = @"回复";
+            break;
+        default:
+            break;
+    }
+    
+    return view;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.section == 1) {
+        BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+        bookDetailController.bookId = [self.reviewDetail objectForKey:@"BookId"];
+        
+        [self pushViewController:bookDetailController hideBottomBar:YES];
+    }
 }
 
 #pragma mark - Table view data source
@@ -190,12 +489,15 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    if (section == 2) {
+        return [[self.reviewDetail objectForKey:@"ResponseSum"] integerValue];
+    }
     return 1;
 }
 
@@ -203,6 +505,51 @@
 {
     switch (indexPath.section) {
         case 0:
+        {
+            static NSString *CellIdentifier = @"Cell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                
+                self.thumbUpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                self.thumbUpButton.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width / 3, [UIImage imageNamed:@"ActionDivider"].size.height);
+                [self.thumbUpButton setImage:[UIImage imageNamed:@"ThumbUp_CYAN"] forState:UIControlStateNormal];
+                [self.thumbUpButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0, 10.0, 0.0, 0.0)];
+                [self.thumbUpButton setTitleColor:UIC_CYAN(1.0) forState:UIControlStateNormal];
+                [self.thumbUpButton setBackgroundImage:[UIImage imageWithColor:UIC_WHISPER(0.5)] forState:UIControlStateHighlighted];
+                [self.thumbUpButton addTarget:self action:@selector(thumbUpTapped:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:self.thumbUpButton];
+                
+                self.thumbDownButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                self.thumbDownButton.frame = CGRectMake(self.view.frame.size.width / 3, 0.0, self.view.frame.size.width / 3, [UIImage imageNamed:@"ActionDivider"].size.height);
+                [self.thumbDownButton setImage:[UIImage imageNamed:@"ThumbDown_CYAN"] forState:UIControlStateNormal];
+                [self.thumbDownButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0, 10.0, 0.0, 0.0)];
+                [self.thumbDownButton setTitleColor:UIC_CYAN(1.0) forState:UIControlStateNormal];
+                [self.thumbDownButton setBackgroundImage:[UIImage imageWithColor:UIC_WHISPER(0.5)] forState:UIControlStateHighlighted];
+                [self.thumbDownButton addTarget:self action:@selector(thumbDownTapped:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:self.thumbDownButton];
+                
+                self.chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
+                self.chatButton.frame = CGRectMake(self.view.frame.size.width * 2 / 3, 0.0, self.view.frame.size.width / 3, [UIImage imageNamed:@"ActionDivider"].size.height);
+                [self.chatButton setImage:[UIImage imageNamed:@"Chat_CYAN"] forState:UIControlStateNormal];
+                [self.chatButton setTitleEdgeInsets:UIEdgeInsetsMake(0.0, 10.0, 0.0, 0.0)];
+                [self.chatButton setTitleColor:UIC_CYAN(1.0) forState:UIControlStateNormal];
+                [self.chatButton setBackgroundImage:[UIImage imageWithColor:UIC_WHISPER(0.5)] forState:UIControlStateHighlighted];
+                [self.chatButton addTarget:self action:@selector(chatTapped:) forControlEvents:UIControlEventTouchUpInside];
+                [cell addSubview:self.chatButton];
+                
+                cell.backgroundColor = [UIColor colorWithPatternImage:[[UIImage imageNamed:@"ActionDivider"] imageByApplyingAlpha:0.1]];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            [self.thumbUpButton setTitle:[NSString stringWithFormat:@"%d", [[self.reviewDetail objectForKey:@"LikeSum"] integerValue]] forState:UIControlStateNormal];
+            [self.thumbDownButton setTitle:[NSString stringWithFormat:@"%d", [[self.reviewDetail objectForKey:@"DislikeSum"] integerValue]] forState:UIControlStateNormal];
+            [self.chatButton setTitle:[NSString stringWithFormat:@"%d", [[self.reviewDetail objectForKey:@"ResponseSum"] integerValue]] forState:UIControlStateNormal];
+            
+            return cell;
+        }
+        case 1:
         {
             static NSString *CellIdentifier = @"Cell";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -229,14 +576,16 @@
             
             return cell;
         }
-        case 1:
+        case 2:
         {
             static NSString *CellIdentifier = @"Cell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            ResponseCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             
             if (cell == nil) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+                cell = [[ResponseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             }
+            
+            cell.response = [[self.reviewDetail objectForKey:@"Responses"] objectAtIndex:indexPath.row];
             
             return cell;
         }

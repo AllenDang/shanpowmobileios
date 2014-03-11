@@ -87,8 +87,8 @@
     
     NSString *booklistId = [[self.booklists objectAtIndex:indexPath.row] objectForKey:@"Id"];
     NSString *booklistTitle = [[self.booklists objectAtIndex:indexPath.row] objectForKey:@"Title"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_SELECT_BOOKLIST object:self userInfo:@{@"booklistId": booklistId,
-                                                                                                              @"booklistTitle": booklistTitle}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_SELECT_BOOKLIST object:self userInfo:@{@"BooklistId": booklistId,
+                                                                                                              @"BooklistTitle": booklistTitle}];
     
     BooklistCell *currentCell = (BooklistCell *)[tableView cellForRowAtIndexPath:indexPath];
     if (self.mode == BGM_SelectionMode) {

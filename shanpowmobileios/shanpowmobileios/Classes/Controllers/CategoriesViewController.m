@@ -196,8 +196,7 @@
 {
     CategoryBooksViewController *cbController = [[CategoryBooksViewController alloc] initWithCategory:sender.titleLabel.text];
     
-    self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:cbController animated:YES];
+    [self pushViewController:cbController];
 }
 
 @end

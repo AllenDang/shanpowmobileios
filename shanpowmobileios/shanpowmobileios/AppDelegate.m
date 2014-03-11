@@ -142,6 +142,7 @@
 {
     if ([viewController isEqual:self.userProfileController]) {
         if (isLogin()) {
+            self.menuController.shouldRemainBottomBarOnDisappear = YES;
             return YES;
         } else {
             self.loginController = [[LoginViewController alloc] init];

@@ -440,7 +440,7 @@
             readRecordController.avatarUrl = [self.userBasicInfo objectForKey:@"AvatarUrl"];
             
             self.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:readRecordController animated:YES];
+            [self pushViewController:readRecordController];
             
             if (self.isSelf) {
                 self.hidesBottomBarWhenPushed = NO;
@@ -455,8 +455,7 @@
             booklistsController.dataSource = BLDS_CreateAuthor;
             booklistsController.userId = self.isSelf ? [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER_ID] : self.userId;
             
-            self.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:booklistsController animated:YES];
+            [self pushViewController:booklistsController];
             
             if (self.isSelf) {
                 self.hidesBottomBarWhenPushed = NO;
@@ -471,8 +470,7 @@
             booklistsController.dataSource = BLDS_FavedBy;
             booklistsController.userId = self.isSelf ? [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER_ID] : self.userId;
             
-            self.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:booklistsController animated:YES];
+            [self pushViewController:booklistsController];
             
             if (self.isSelf) {
                 self.hidesBottomBarWhenPushed = NO;

@@ -19,6 +19,7 @@
 @property (nonatomic, strong) HotBooksViewController *hotBookController;
 @property (nonatomic, strong) CategoriesViewController *categoriesController;
 @property (nonatomic, strong) ReviewListRootViewController *reviewListController;
+@property (nonatomic, strong) WizardResultViewController *wizardController;
 
 @property (nonatomic, strong) UIBarButtonItem *searchButton;
 
@@ -75,7 +76,6 @@
     [self.view addSubview:titlePlaceholder];
     
     self.searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchView:)];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -105,14 +105,14 @@
 {
     self.hotBookController = [[HotBooksViewController alloc] init];
     
-    [self.navigationController pushViewController:self.hotBookController animated:YES];
+    [self pushViewController:self.hotBookController];
 }
 
 - (void)showWizard
 {
-    WriteCommentReviewViewController *cbl = [[WriteCommentReviewViewController alloc] init];
+    self.wizardController = [[WizardResultViewController alloc] init];
     
-    [self.navigationController pushViewController:cbl animated:YES];
+    [self pushViewController:self.wizardController];
 }
 
 - (void)showReviews

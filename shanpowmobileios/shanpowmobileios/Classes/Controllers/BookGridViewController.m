@@ -36,8 +36,18 @@
     if (IsSysVerGTE(7.0)) {
         self.tableView.separatorInset = UIEdgeInsetsZero;
     }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectTableCell:) name:MSG_INT_BOOKINFOVIEW_TAPPED object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectTableCell:) name:MSG_DID_SELECT_BOOK object:nil];
+    [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_BOOK object:nil];
+    [super viewWillDisappear:animated];
 }
 
 - (void)setIsPlain:(BOOL)isPlain
@@ -59,10 +69,6 @@
 - (void)didSelectTableCell:(NSNotification *)notification
 {
     NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_SELECT_BOOK object:self userInfo:@{
-                                                                                                          @"BookId": bookId
-                                                                                                          }];
     
     // Show table item selected animate
     for (BookInfoCell *cell in self.tableView.visibleCells) {

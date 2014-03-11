@@ -116,13 +116,11 @@
 
 - (void)didSelectBooklist:(NSNotification *)notification
 {
-    NSString *booklistId = [[notification userInfo] objectForKey:@"booklistId"];
+    NSString *booklistId = [[notification userInfo] objectForKey:@"BooklistId"];
 
     self.booklistDetailController = [[BooklistDetailViewController alloc] initWithBooklistId:booklistId];
     
-    self.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:self.booklistDetailController animated:YES];
-    self.hidesBottomBarWhenPushed = NO;
+    [self pushViewController:self.booklistDetailController];
 }
 
 @end

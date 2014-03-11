@@ -76,6 +76,8 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_SELECT_USER object:self userInfo:@{@"Nickname": [[self.users objectAtIndex:indexPath.row] objectForKey:@"Nickname"]}];
+    
     return;
 }
 
