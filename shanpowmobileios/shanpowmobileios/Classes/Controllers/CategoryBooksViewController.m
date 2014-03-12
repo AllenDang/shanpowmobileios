@@ -9,6 +9,7 @@
 #import "CategoryBooksViewController.h"
 #import "BookGridViewController.h"
 #import "NetworkClient.h"
+#import "BookDetailViewController.h"
 
 @interface CategoryBooksViewController ()
 
@@ -52,11 +53,6 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooks:) name:MSG_DID_GET_BOOKS object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooks:) name:MSG_FAIL_GET_BOOKS object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMoreBooks:) name:MSG_BOOKGRID_LOADMORE_TAPPED object:nil];
-    
     if (self.booksController) {
         self.booksController.view.frame = self.view.bounds;
         [self.view addSubview:self.booksController.view];
@@ -65,6 +61,25 @@
     self.booksController.refreshControl = [[UIRefreshControl alloc] init];
     [self.booksController.refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
     self.booksController.refreshControl.layer.zPosition = self.booksController.view.layer.zPosition + 1;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooks:) name:MSG_DID_GET_BOOKS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooks:) name:MSG_FAIL_GET_BOOKS object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMoreBooks:) name:MSG_BOOKGRID_LOADMORE_TAPPED object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBook:) name:MSG_DID_SELECT_BOOK object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [super viewWillDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -116,6 +131,14 @@
 - (void)loadMoreBooks:(NSNotification *)notification
 {
     [self getBooksWithRange:NSMakeRange(self.currentPageNum + 1, 20)];
+}
+
+- (void)didSelectBook:(NSNotification *)notification
+{
+    BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+    bookDetailController.bookId = [[notification userInfo] objectForKey:@"BookId"];
+    
+    [self pushViewController:bookDetailController];
 }
 
 @end

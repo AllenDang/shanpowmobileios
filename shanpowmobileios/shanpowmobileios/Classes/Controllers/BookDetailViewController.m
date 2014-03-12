@@ -13,6 +13,7 @@
 #import "UserProfileViewController.h"
 #import "RightSubtitleCell.h"
 #import "CommentDetailViewController.h"
+#import "OtherBooksViewController.h"
 
 @interface BookDetailViewController ()
 
@@ -590,6 +591,22 @@
         case 2:
         {
             switch (indexPath.row) {
+                case 0:
+                {
+                    OtherBooksViewController *sameAuthorBooksController = [[OtherBooksViewController alloc] init];
+                    sameAuthorBooksController.author = [self.bookInfo objectForKey:@"Author"];
+                    
+                    [self pushViewController:sameAuthorBooksController];
+                    break;
+                }
+                case 1:
+                {
+                    OtherBooksViewController *sameAuthorBooksController = [[OtherBooksViewController alloc] init];
+                    sameAuthorBooksController.bookId = self.bookId;
+                    
+                    [self pushViewController:sameAuthorBooksController];
+                    break;
+                }
                 case 2:
                 {
                     BooklistListViewController *booklistsController = [[BooklistListViewController alloc] init];
@@ -597,9 +614,7 @@
                     booklistsController.dataSource = BLDS_ContainBook;
                     booklistsController.bookId = self.bookId;
                     
-                    self.hidesBottomBarWhenPushed = YES;
                     [self pushViewController:booklistsController];
-                    self.hidesBottomBarWhenPushed = NO;
                     
                     break;
                 }

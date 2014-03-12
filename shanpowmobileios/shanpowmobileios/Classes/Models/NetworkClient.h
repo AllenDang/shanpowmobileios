@@ -43,6 +43,8 @@
 - (void)getBookDetail:(NSString *)bookId;
 
 - (void)getBooksByCategory:(NSString *)category range:(NSRange)range;
+- (void)getSimilarBooksById:(NSString *)bookId;
+- (void)getBooksBySameAuthor:(NSString *)author;
 
 - (void)markBookWithBookId:(NSString *)bookId markType:(NSString *)markType score:(NSInteger)score content:(NSString *)content isShareToQQ:(BOOL)shareToQQ isShareToWeibo:(BOOL)shareToWeibo;
 - (void)postReviewWithBookId:(NSString *)bookId params:(NSDictionary *)options;

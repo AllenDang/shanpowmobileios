@@ -16,6 +16,7 @@
 #import "UserProfileViewController.h"
 #import "BookGridCell.h"
 #import "FilterViewController.h"
+#import "BooklistListViewController.h"
 
 @interface BooklistDetailInfoViewController ()
 
@@ -58,6 +59,13 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nicknameTapped:) name:MSG_TAPPED_NICKNAME object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [super viewWillDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -216,6 +224,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.row == 0) {
+        BooklistListViewController *booklistListController = [[BooklistListViewController alloc] init];
+        booklistListController.title = @"其他书单";
+        booklistListController.filterId = self.booklistId;
+        booklistListController.dataSource = BLDS_CreateAuthor;
+        booklistListController.userId = [[self.booklist objectForKey:@"Author"] objectForKey:@"Id"];
+        
+        [self pushViewController:booklistListController];
+    }
     
     return;
 }
