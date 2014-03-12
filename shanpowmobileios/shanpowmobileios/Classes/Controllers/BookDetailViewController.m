@@ -478,7 +478,7 @@
 
 - (void)cmtUserTapped:(NSNotification *)notification
 {
-    NSString *nickname = [[notification userInfo] objectForKey:@"nickname"];
+    NSString *nickname = [[notification userInfo] objectForKey:@"Nickname"];
     NSString *userId = [[notification userInfo] objectForKey:@"Id"];
     
     UserProfileViewController *userProfileController = [[UserProfileViewController alloc] initWithUsername:nickname];

@@ -11,6 +11,7 @@
 #import "SPLoadingView.h"
 #import "CommentReviewCell.h"
 #import "CommentDetailViewController.h"
+#import "UserProfileViewController.h"
 
 @interface ReviewListViewController ()
 
@@ -58,12 +59,15 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nicknameTapped:) name:MSG_TAPPED_NICKNAME object:nil];
     
     [self getReviewsWithRange:NSMakeRange(1, self.currentNumPerPage)];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     self.currentPageNum = 1;
     
     [super viewWillDisappear:animated];
@@ -111,6 +115,13 @@
 - (void)handleError:(NSNotification *)notification
 {
     [self.loadingView hide];
+}
+
+- (void)nicknameTapped:(NSNotification *)notification
+{
+    UserProfileViewController *uesrProfileController = [[UserProfileViewController alloc] initWithUsername:[[notification userInfo] objectForKey:@"Nickname"]];
+    
+    [self pushViewController:uesrProfileController];
 }
 
 #pragma mark - Filter data source

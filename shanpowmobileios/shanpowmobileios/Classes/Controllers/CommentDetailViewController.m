@@ -209,7 +209,7 @@
 
 - (void)responseAuthorNameTapped:(NSNotification *)notification
 {
-    UserProfileViewController *uesrProfileController = [[UserProfileViewController alloc] initWithUsername:[[notification userInfo] objectForKey:@"nickname"]];
+    UserProfileViewController *uesrProfileController = [[UserProfileViewController alloc] initWithUsername:[[notification userInfo] objectForKey:@"Nickname"]];
     
     [self pushViewController:uesrProfileController];
 }

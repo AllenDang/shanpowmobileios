@@ -187,7 +187,7 @@
 
 - (void)nicknameTapped:(NSNotification *)notification
 {
-    NSString *nickname = [[notification userInfo] objectForKey:@"nickname"];
+    NSString *nickname = [[notification userInfo] objectForKey:@"Nickname"];
     
     UserProfileViewController *userProfileController = [[UserProfileViewController alloc] initWithUsername:nickname];
     

@@ -372,7 +372,7 @@
 #pragma mark - Event handler
 - (void)nicknameLabelTapped:(UIGestureRecognizer *)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_TAPPED_NICKNAME object:self userInfo:@{@"nickname": self.nickname,
+    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_TAPPED_NICKNAME object:self userInfo:@{@"Nickname": self.nickname,
                                                                                                           @"Id": self.userId}];
 }
 

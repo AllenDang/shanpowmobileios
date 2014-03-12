@@ -111,7 +111,7 @@
 {
     UILabel *label = (UILabel *)tapRecognizer.view;
     [[NSNotificationCenter defaultCenter] postNotificationName:MSG_TAPPED_NICKNAME object:self userInfo:@{
-                                                                                                          @"nickname": label.text
+                                                                                                          @"Nickname": label.text
                                                                                                           }];
 }
 
