@@ -439,12 +439,7 @@
             ReadRecordRootViewController *readRecordController = [[ReadRecordRootViewController alloc] initWithUserName:username];
             readRecordController.avatarUrl = [self.userBasicInfo objectForKey:@"AvatarUrl"];
             
-            self.hidesBottomBarWhenPushed = YES;
             [self pushViewController:readRecordController];
-            
-            if (self.isSelf) {
-                self.hidesBottomBarWhenPushed = NO;
-            }
             
             break;
         }
@@ -456,10 +451,6 @@
             booklistsController.userId = self.isSelf ? [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER_ID] : self.userId;
             
             [self pushViewController:booklistsController];
-            
-            if (self.isSelf) {
-                self.hidesBottomBarWhenPushed = NO;
-            }
             
             break;
         }
