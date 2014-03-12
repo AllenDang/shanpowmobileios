@@ -44,15 +44,22 @@
     self.booklistsController.view.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height);
     self.booklistsController.showDescription = YES;
     [self.view addSubview:self.booklistsController.view];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBooklist:) name:MSG_DID_SELECT_BOOKLIST object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBooklist:) name:MSG_DID_SELECT_BOOKLIST object:nil];
+    
     [self getBooklists];
     
     [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [super viewWillDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -106,7 +113,16 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BOOKLISTS object:nil];
     
     NSArray *booklists = [[notification userInfo] objectForKey:@"data"];
-    self.booklistsController.booklists = booklists;
+    
+    NSMutableArray *filteredBooklist = [NSMutableArray arrayWithCapacity:40];
+    
+    for (NSDictionary *booklist in booklists) {
+        if (![[booklist objectForKey:@"Id"] isEqualToString:self.filterId]) {
+            [filteredBooklist addObject:booklist];
+        }
+    }
+    
+    self.booklistsController.booklists = filteredBooklist;
 }
 
 - (void)failGetBooklists:(NSNotification *)notification

@@ -21,4 +21,6 @@ typedef enum {
 @property (nonatomic, strong) NSString *userId;
 @property (nonatomic, strong) NSString *bookId;
 
+@property (nonatomic, strong) NSString *filterId;
+
 @end
