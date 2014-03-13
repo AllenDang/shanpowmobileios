@@ -98,6 +98,10 @@ return shared##classname;                               \
 #define MSG_FAIL_RESPONSE_TO_REVIEW             @"SMNC_54"
 #define MSG_DID_GET_WIZARD_RESULT               @"SMNC_55"
 #define MSG_FAIL_GET_WIZARD_RESULT              @"SMNC_56"
+#define MSG_DID_GET_RANKINGLIST_TITLES          @"SMNC_57"
+#define MSG_FAIL_GET_RANKINGLIST_TITLES         @"SMNC_58"
+#define MSG_DID_GET_RANKINGLIST_DETAIL          @"SMNC_59"
+#define MSG_FAIL_GET_RANKINGLIST_DETAIL         @"SMNC_60"
 
 #define MSG_DID_SELECT_BOOK                     @"SMNC_1000"
 #define MSG_DID_SELECT_BOOKLIST                 @"SMNC_1001"
@@ -105,6 +109,7 @@ return shared##classname;                               \
 
 #define MSG_INT_BOOKINFOVIEW_TAPPED             @"SMNC_2000"
 #define MSG_TAPPED_NICKNAME                     @"SMNC_2001"
+#define MSG_TAPPED_REASON                       @"SMNC_2002"
 
 #define MSG_BOOKGRID_LOADMORE_TAPPED            @"SMNC_3000"
 

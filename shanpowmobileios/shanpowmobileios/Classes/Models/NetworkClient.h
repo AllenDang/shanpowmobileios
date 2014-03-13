@@ -74,4 +74,8 @@
 
 - (void)getWizardResult;
 
+- (void)getTitlesOfAllRankingListForMan:(BOOL)forMan;
+- (void)getRankingDetailById:(NSString *)rankingId;
+- (void)getRankingDetailByTitle:(NSString *)title version:(NSString *)ver;
+
 @end

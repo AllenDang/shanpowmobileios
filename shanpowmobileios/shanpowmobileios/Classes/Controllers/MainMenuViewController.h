@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Common.h"
-#import "HotBooksViewController.h"
+#import "RankingListViewController.h"
 #import "CategoriesViewController.h"
 #import "SearchViewController.h"
 #import "WriteCommentReviewViewController.h"

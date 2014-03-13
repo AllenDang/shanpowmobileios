@@ -16,7 +16,7 @@
 @property (nonatomic, strong) UITableView *mainMenuTable;
 
 @property (nonatomic, strong) SearchViewController *searchController;
-@property (nonatomic, strong) HotBooksViewController *hotBookController;
+@property (nonatomic, strong) RankingListViewController *rankingListController;
 @property (nonatomic, strong) CategoriesViewController *categoriesController;
 @property (nonatomic, strong) ReviewListRootViewController *reviewListController;
 @property (nonatomic, strong) WizardResultViewController *wizardController;
@@ -46,7 +46,7 @@
     }
     self.view.backgroundColor = UIC_WHISPER(1.0);
     
-    self.menuItemTexts = @[@"热门书籍", @"一键治书荒", @"书评", @"分类"];
+    self.menuItemTexts = @[@"榜单", @"一键治书荒", @"书评", @"分类"];
     self.menuItemImages = @[@"Hot", @"Wizard", @"Review", @"Category"];
     
     self.cellHeight = 55.0;
@@ -103,9 +103,9 @@
 
 - (void)showHotBooks
 {
-    self.hotBookController = [[HotBooksViewController alloc] init];
+    self.rankingListController = [[RankingListViewController alloc] init];
     
-    [self pushViewController:self.hotBookController];
+    [self pushViewController:self.rankingListController];
 }
 
 - (void)showWizard
