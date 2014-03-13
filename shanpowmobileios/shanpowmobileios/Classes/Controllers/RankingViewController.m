@@ -8,6 +8,7 @@
 
 #import "RankingViewController.h"
 #import "RankingDetailViewController.h"
+#import "BookDetailViewController.h"
 
 @interface RankingViewController ()
 
@@ -47,12 +48,25 @@
     self.pageController.view.backgroundColor = UIC_BRIGHT_GRAY(1.0);
     [self.pageController setViewControllers:@[detailViewController] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {}];
     [self.view addSubview:self.pageController.view];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBook:) name:MSG_DID_SELECT_BOOK object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Event handler
+- (void)didSelectBook:(NSNotification *)notificatioin
+{
+    NSString *bookId = [[notificatioin userInfo] objectForKey:@"BookId"];
+    
+    BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+    bookDetailController.bookId = bookId;
+    
+    [self pushViewController:bookDetailController];
 }
 
 #pragma mark -

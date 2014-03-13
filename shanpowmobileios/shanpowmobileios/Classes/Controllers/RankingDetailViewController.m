@@ -63,7 +63,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetRankingDetail:) name:MSG_FAIL_GET_RANKINGLIST_DETAIL object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBook:) name:MSG_DID_SELECT_BOOK object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reasonTapped:) name:MSG_TAPPED_REASON object:nil];
     
     [self getRankingDetail];
@@ -122,16 +121,6 @@
     [self.loadingView hide];
 }
 
-- (void)didSelectBook:(NSNotification *)notification
-{
-    NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
-    
-    BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
-    bookDetailController.bookId = bookId;
-    
-    [self pushViewController:bookDetailController];
-}
-
 - (void)reasonTapped:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_TAPPED_REASON object:nil];
@@ -184,10 +173,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSString *bookId = [[[self.rankingDetail objectForKey:@"Books"] objectAtIndex:indexPath.row] objectForKey:@"Id"];
-    BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
-    bookDetailController.bookId = bookId;
-    
-    [self pushViewController:bookDetailController];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_SELECT_BOOK object:self userInfo:@{@"BookId": bookId}];
     
     return;
 }
