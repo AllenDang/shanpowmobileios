@@ -47,21 +47,12 @@
     self.pageController.view.backgroundColor = UIC_BRIGHT_GRAY(1.0);
     [self.pageController setViewControllers:@[detailViewController] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {}];
     [self.view addSubview:self.pageController.view];
-    
-    self.historyModeButton = [[UIBarButtonItem alloc] initWithTitle:@"历史" style:UIBarButtonItemStylePlain target:self action:@selector(enterHistoryMode:)];
-    self.navigationItem.rightBarButtonItem = self.historyModeButton;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Event handler
-- (void)enterHistoryMode:(UIBarButtonItem *)sender
-{
-    self.historyMode = !self.historyMode;
 }
 
 #pragma mark -
