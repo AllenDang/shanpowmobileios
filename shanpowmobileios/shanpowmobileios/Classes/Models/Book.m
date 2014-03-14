@@ -19,7 +19,7 @@
     NSString *Id = [dict objectForKey:@"Id"];
     NSString *description = [dict objectForKey:@"Summary"];
     NSDictionary *simpleComment = [dict objectForKey:@"Comment"];
-    float score = [[dict objectForKey:@"Score"] length] > 0 ? [[dict objectForKey:@"Score"] floatValue] : [[dict objectForKey:@"UserScore"] floatValue];
+    float score = [[dict objectForKey:@"Score"] integerValue] > 0 ? [[dict objectForKey:@"Score"] floatValue] : [[dict objectForKey:@"UserScore"] floatValue];
     long ratingSum = [[dict objectForKey:@"RatingSum"] longValue];
     
     Book *book = [[Book alloc] init];
