@@ -103,6 +103,7 @@
     [self.loadingView hide];
     
     self.bookGridController.books = [[notification userInfo] objectForKey:@"data"];
+    
     [self.bookGridController.tableView reloadData];
 }
 

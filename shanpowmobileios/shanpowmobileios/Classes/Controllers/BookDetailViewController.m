@@ -520,6 +520,17 @@
         case 0:
             return 410.0;
             break;
+        case 2:
+        {
+            NSArray *numKeys = @[@"AuthorBookSum", @"SimilarBookSum", @"BooklistContainThisBookSum"];
+            if ([[self.bookInfo objectForKey:[numKeys objectAtIndex:indexPath.row]] integerValue] == 0) {
+                return 0;
+            } else {
+                return GENERAL_CELL_HEIGHT;
+            }
+            
+            break;
+        }
         case 3:
             if ([self.bookInfo objectForKey:@"Comments"] != [NSNull null]) {
                 if (indexPath.row < 5) {

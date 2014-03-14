@@ -59,6 +59,12 @@
     }
 }
 
+- (void)layoutSubviews
+{
+    self.titleLabel.frame = CGRectMake(10.0, 0.0, self.bounds.size.width, self.bounds.size.height);
+    self.subtitleLabel.frame = CGRectMake(0.0, 0.0, self.bounds.size.width - 40, self.bounds.size.height);
+}
+
 - (void)setRightTitle:(NSString *)rightTitle
 {
     if (![rightTitle isEqualToString:_rightTitle]) {
