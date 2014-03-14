@@ -52,6 +52,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBook:) name:MSG_DID_SELECT_BOOK object:nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [super viewWillDisappear:animated];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -79,7 +86,7 @@
     if ([controller.version integerValue] == 1) {
         return nil;
     }
-    detailViewController.version = [NSString stringWithFormat:@"%ld", [controller.version integerValue] - 1];
+    detailViewController.version = [NSString stringWithFormat:@"%d", [controller.version integerValue] - 1];
     
     return detailViewController;
 }
@@ -93,7 +100,7 @@
     if ([controller.version integerValue] == [self.currentRankingVersion integerValue]) {
         return nil;
     }
-    detailViewController.version = [NSString stringWithFormat:@"%ld", [controller.version integerValue] + 1];
+    detailViewController.version = [NSString stringWithFormat:@"%d", [controller.version integerValue] + 1];
     
     return detailViewController;
 }
