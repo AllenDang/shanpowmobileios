@@ -195,6 +195,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetToken:) name:MSG_GOT_TOKEN object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetToken:) name:MSG_FAIL_GET_TOKEN object:nil];
     
+    self.loginType = LoginType_Normal;
+    
     [[NetworkClient sharedNetworkClient] getCsrfToken];
 }
 
