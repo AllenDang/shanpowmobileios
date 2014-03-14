@@ -760,8 +760,12 @@
 				64A9189818D0006700724678 /* OtherBooksViewController.m */,
 				6440D7381860537A008D9C59 /* QQRegisterViewController.h */,
 				6440D7391860537A008D9C59 /* QQRegisterViewController.m */,
+				64B82A6118D04E0600F52941 /* RankingDetailViewController.h */,
+				64B82A6218D04E0600F52941 /* RankingDetailViewController.m */,
 				640CB15018CF0DB400549FFC /* RankingListViewController.h */,
 				640CB15118CF0DB400549FFC /* RankingListViewController.m */,
+				64579B7318D14A9B00D9F513 /* RankingViewController.h */,
+				64579B7418D14A9B00D9F513 /* RankingViewController.m */,
 				6482D1BB18C5B11000D2DA8F /* ReadRecordRootViewController.h */,
 				6482D1BC18C5B11000D2DA8F /* ReadRecordRootViewController.m */,
 				6482D1B818C59FA000D2DA8F /* ReadRecordViewController.h */,
@@ -784,10 +788,6 @@
 				641D3B6618CEAE93009F79E6 /* WizardResultViewController.m */,
 				64D35F4018ADC2B900999CED /* WriteCommentReviewViewController.h */,
 				64D35F4118ADC2B900999CED /* WriteCommentReviewViewController.m */,
-				64B82A6118D04E0600F52941 /* RankingDetailViewController.h */,
-				64B82A6218D04E0600F52941 /* RankingDetailViewController.m */,
-				64579B7318D14A9B00D9F513 /* RankingViewController.h */,
-				64579B7418D14A9B00D9F513 /* RankingViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -806,6 +806,8 @@
 		645FB9A9184C2B9700BB2325 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				640CB15318CF122000549FFC /* AccessoryTypeDotTableViewCell.h */,
+				640CB15418CF122000549FFC /* AccessoryTypeDotTableViewCell.m */,
 				64E5611418C0340F00A26F96 /* BookGridCell.h */,
 				64E5611518C0340F00A26F96 /* BookGridCell.m */,
 				64A80B0B186813F10039BBA2 /* BookInfoCell.h */,
@@ -824,18 +826,16 @@
 				64AA338E18C8415E009E09F7 /* CommentReviewCell.m */,
 				6409DB7D18BB156A00313AE5 /* CommentReviewView.h */,
 				6409DB7E18BB156A00313AE5 /* CommentReviewView.m */,
+				64B82A6718D0611C00F52941 /* RankingDetailCell.h */,
+				64B82A6818D0611C00F52941 /* RankingDetailCell.m */,
 				64EFCA3418C56F63002D59A9 /* ReadRecordCell.h */,
 				64EFCA3518C56F63002D59A9 /* ReadRecordCell.m */,
+				641D3B5F18CD961C009F79E6 /* ResponseCell.h */,
+				641D3B6018CD961C009F79E6 /* ResponseCell.m */,
 				64C515DC18BEFCF20027292E /* RightSubtitleCell.h */,
 				64C515DD18BEFCF20027292E /* RightSubtitleCell.m */,
 				64E9897D18C4782300554BDB /* SPLoadingView.h */,
 				64E9897E18C4782300554BDB /* SPLoadingView.m */,
-				641D3B5F18CD961C009F79E6 /* ResponseCell.h */,
-				641D3B6018CD961C009F79E6 /* ResponseCell.m */,
-				640CB15318CF122000549FFC /* AccessoryTypeDotTableViewCell.h */,
-				640CB15418CF122000549FFC /* AccessoryTypeDotTableViewCell.m */,
-				64B82A6718D0611C00F52941 /* RankingDetailCell.h */,
-				64B82A6818D0611C00F52941 /* RankingDetailCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";

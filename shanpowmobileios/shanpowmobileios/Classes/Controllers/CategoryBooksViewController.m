@@ -73,6 +73,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadMoreBooks:) name:MSG_BOOKGRID_LOADMORE_TAPPED object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBook:) name:MSG_DID_SELECT_BOOK object:nil];
+    
+    [self getBooksWithRange:NSMakeRange(1, 20)];
+    self.currentPageNum = 1;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -95,9 +98,6 @@
         _category = category;
         
         self.title = category;
-        
-        [self getBooksWithRange:NSMakeRange(1, 20)];
-        self.currentPageNum = 1;
     }
 }
 
