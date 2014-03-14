@@ -9,6 +9,9 @@
 #import "UserProfileViewController.h"
 #import "BooklistListViewController.h"
 #import "ReadRecordRootViewController.h"
+#import "UserListViewController.h"
+#import "SPLoadingView.h"
+#import "BookGridViewController.h"
 
 @interface UserProfileViewController ()
 
@@ -30,6 +33,7 @@
 @property (nonatomic, strong) SPLabel *followActionLabel;
 @property (nonatomic, strong) UIImageView *followIcon;
 @property (nonatomic, strong) UIButton *sendMessageButton;
+@property (nonatomic, strong) SPLoadingView *loadingView;
 
 @property (nonatomic, strong) NSArray *userMenuItems;
 
@@ -84,6 +88,8 @@
     }
     
     self.title = @"用户信息";
+    
+    self.loadingView = [[SPLoadingView alloc] initWithFrame:CGRectZero];
     
     self.tableView.separatorColor = UIC_BRIGHT_GRAY(0.4);
     if (IsSysVerGTE(7.0)) {
@@ -141,6 +147,8 @@
     self.sendMessageButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [self updateData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectUser:) name:MSG_DID_SELECT_USER object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -148,6 +156,11 @@
     [self getUserBasicInfo];
     
     [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
 }
 
 - (void)setIsSelf:(BOOL)isSelf
@@ -175,6 +188,8 @@
 
 - (void)getUserBasicInfo
 {
+    [self.loadingView show];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBasicUserInfo:) name:MSG_DID_GET_BASIC_USER_INFO object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailGetInfo:) name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
     
@@ -385,12 +400,12 @@
 
 - (void)followingButtonTapped:(UIButton *)sender
 {
-    NSLog(@"aaa");
+    [self getUserList:YES];
 }
 
 - (void)followedButtonTapped:(UIButton *)sender
 {
-    NSLog(@"bbb");
+    [self getUserList:NO];
 }
 
 - (void)followActionButtonTapped:(UIButton *)sender
@@ -398,10 +413,32 @@
     NSLog(@"ccc");
 }
 
+- (void)getUserList:(BOOL)isFollowing
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserList:) name:MSG_DID_GET_USERLIST object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetUserList:) name:MSG_FAIL_GET_USERLIST object:nil];
+    
+    if (isFollowing) {
+        [[NetworkClient sharedNetworkClient] getFollowingsByUser:self.username];
+    } else {
+        [[NetworkClient sharedNetworkClient] getFollowersByUser:self.username];
+    }
+}
+
+- (void)getFavBooks
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooks:) name:MSG_DID_GET_BOOKS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooks:) name:MSG_FAIL_GET_BOOKS object:nil];
+    
+    [[NetworkClient sharedNetworkClient] getFavBooksByUser:self.username];
+}
+
 #pragma mark - Event handler
 
 - (void)didGetBasicUserInfo:(NSNotification *)notification
 {
+    [self.loadingView hide];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BASIC_USER_INFO object:nil];
     
     self.userBasicInfo = [[notification userInfo] objectForKey:@"data"];
@@ -412,7 +449,69 @@
 
 - (void)handleFailGetInfo:(NSNotification *)notification
 {
+    [self.loadingView hide];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
+    [alert show];
+}
+
+- (void)didGetUserList:(NSNotification *)notification
+{
+    [self.loadingView hide];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_USERLIST object:nil];
+    
+    NSArray *users = [[notification userInfo] objectForKey:@"data"];
+    
+    UserListViewController *userListController = [[UserListViewController alloc] initWithStyle:UITableViewStylePlain];
+    userListController.users = users;
+    
+    [self pushViewController:userListController];
+}
+
+- (void)failGetUserList:(NSNotification *)notification
+{
+    [self.loadingView hide];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_USERLIST object:nil];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
+    [alert show];
+}
+
+- (void)didSelectUser:(NSNotification *)notification
+{
+    NSString *nickname = [[notification userInfo] objectForKey:@"Nickname"];
+    
+    UserProfileViewController *userProfileController = [[UserProfileViewController alloc] initWithUsername:nickname];
+    
+    [self pushViewController:userProfileController];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_USER object:nil];
+}
+
+- (void)didGetBooks:(NSNotification *)notification
+{
+    [self.loadingView hide];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BOOKS object:nil];
+    
+    NSArray *books = [[notification userInfo] objectForKey:@"data"];
+    NSLog(@"%@", books);
+    BookGridViewController *booksController = [[BookGridViewController alloc] initWithStyle:UITableViewStylePlain];
+    booksController.books = books;
+    booksController.isPlain = YES;
+    
+    [self pushViewController:booksController];
+}
+
+- (void)failGetBooks:(NSNotification *)notification
+{
+    [self.loadingView hide];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BOOKS object:nil];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
     [alert show];
@@ -433,6 +532,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     switch (indexPath.row) {
+        case 1:
+        {
+            [self getFavBooks];
+            
+            break;
+        }
         case 2:
         {
             NSString *username = self.username;

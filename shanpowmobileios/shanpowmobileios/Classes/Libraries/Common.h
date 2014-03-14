@@ -102,6 +102,8 @@ return shared##classname;                               \
 #define MSG_FAIL_GET_RANKINGLIST_TITLES         @"SMNC_58"
 #define MSG_DID_GET_RANKINGLIST_DETAIL          @"SMNC_59"
 #define MSG_FAIL_GET_RANKINGLIST_DETAIL         @"SMNC_60"
+#define MSG_DID_GET_USERLIST                    @"SMNC_61"
+#define MSG_FAIL_GET_USERLIST                   @"SMNC_62"
 
 #define MSG_DID_SELECT_BOOK                     @"SMNC_1000"
 #define MSG_DID_SELECT_BOOKLIST                 @"SMNC_1001"

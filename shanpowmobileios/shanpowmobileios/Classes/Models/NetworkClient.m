@@ -1161,6 +1161,90 @@ SINGLETON_GCD(NetworkClient);
                       }];
 }
 
+- (void)getFavBooksByUser:(NSString *)username
+{
+    NSDictionary *parameters = nil;
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"GET"
+                         path:[NSString stringWithFormat:@"/people/%@/getfavbooks", username]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOKS
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKS
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)getFollowersByUser:(NSString *)username
+{
+    NSDictionary *parameters = nil;
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"GET"
+                         path:[NSString stringWithFormat:@"/people/%@/getfollowers", username]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_USERLIST
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_USERLIST
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)getFollowingsByUser:(NSString *)username
+{
+    NSDictionary *parameters = nil;
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"GET"
+                         path:[NSString stringWithFormat:@"/people/%@/getfollowings", username]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_USERLIST
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_USERLIST
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
 #pragma mark - Event handler
 
 - (void)didGetToken:(NSNotification *)notification

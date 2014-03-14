@@ -39,6 +39,9 @@
 - (void)searchWithKeyword:(NSString *)keyword;
 
 - (void)getBasicUserInfo:(NSString *)username;
+- (void)getFavBooksByUser:(NSString *)username;
+- (void)getFollowersByUser:(NSString *)username;
+- (void)getFollowingsByUser:(NSString *)username;
 
 - (void)getBookDetail:(NSString *)bookId;
 
