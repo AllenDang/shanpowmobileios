@@ -12,9 +12,9 @@
 #pragma mark - Singleton GCD Macro
 #ifndef SINGLETON_GCD
 #define SINGLETON_GCD(classname)                        \
-\
+                                                        \
 + (classname *)shared##classname {                      \
-\
+                                                        \
 static dispatch_once_t pred;                            \
 __strong static classname * shared##classname = nil;    \
 dispatch_once( &pred, ^{                                \
@@ -104,6 +104,10 @@ return shared##classname;                               \
 #define MSG_FAIL_GET_RANKINGLIST_DETAIL         @"SMNC_60"
 #define MSG_DID_GET_USERLIST                    @"SMNC_61"
 #define MSG_FAIL_GET_USERLIST                   @"SMNC_62"
+#define MSG_DID_FOLLOW_USER                     @"SMNC_63"
+#define MSG_FAIL_FOLLOW_USER                    @"SMNC_64"
+#define MSG_DID_UNFOLLOW_USER                   @"SMNC_65"
+#define MSG_FAIL_UNFOLLOW_USER                  @"SMNC_66"
 
 #define MSG_DID_SELECT_BOOK                     @"SMNC_1000"
 #define MSG_DID_SELECT_BOOKLIST                 @"SMNC_1001"

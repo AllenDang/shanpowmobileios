@@ -136,10 +136,13 @@
     [self.userAvatarBlurBackground addSubview:self.followedLabel];
     
     self.followActionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.followActionButton addTarget:self action:@selector(followActionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     self.followedButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.followedButton addTarget:self action:@selector(followedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     self.followingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.followingButton addTarget:self action:@selector(followingButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     self.followIcon = [[UIImageView alloc] initWithFrame:CGRectZero];
     [self.followActionLabel addSubview:self.followIcon];
@@ -157,10 +160,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailGetInfo:) name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFollowUser:) name:MSG_DID_FOLLOW_USER object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failFollowUser:) name:MSG_DID_FOLLOW_USER object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failFollowUser:) name:MSG_FAIL_FOLLOW_USER object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didUnfollowUser:) name:MSG_DID_UNFOLLOW_USER object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failUnfollowUser:) name:MSG_DID_UNFOLLOW_USER object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failUnfollowUser:) name:MSG_FAIL_UNFOLLOW_USER object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserList:) name:MSG_DID_GET_USERLIST object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetUserList:) name:MSG_FAIL_GET_USERLIST object:nil];
@@ -175,6 +178,13 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_FOLLOW_USER object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_FOLLOW_USER object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_UNFOLLOW_USER object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_UNFOLLOW_USER object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BASIC_USER_INFO object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
+    
     [super viewWillDisappear:animated];
 }
 
@@ -189,6 +199,18 @@
             }
         }
         
+        [self updateUI];
+    }
+}
+
+- (void)setUserBasicInfo:(NSDictionary *)userBasicInfo
+{
+    if (![userBasicInfo isEqualToDictionary:_userBasicInfo]) {
+        _userBasicInfo = userBasicInfo;
+        
+        self.followedByMe = [[userBasicInfo objectForKey:@"IsFollowedByMe"] boolValue];
+        
+        [self updateData];
         [self updateUI];
     }
 }
@@ -384,18 +406,15 @@
     self.followingButton.frame = self.followingLabel.frame;
     [self.followingButton setBackgroundColor:[UIColor clearColor]];
     [self.followingButton setBackgroundImage:[UIImage imageWithColor:UIC_BLACK(0.2)] forState:UIControlStateHighlighted];
-    [self.followingButton addTarget:self action:@selector(followingButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     self.followedButton.frame = self.followedLabel.frame;
     [self.followedButton setBackgroundColor:[UIColor clearColor]];
     [self.followedButton setBackgroundImage:[UIImage imageWithColor:UIC_BLACK(0.2)] forState:UIControlStateHighlighted];
-    [self.followedButton addTarget:self action:@selector(followedButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     if (!self.isSelf) {
         self.followActionButton.frame = self.followActionLabel.frame;
         [self.followActionButton setBackgroundColor:[UIColor clearColor]];
         [self.followActionButton setBackgroundImage:[UIImage imageWithColor:UIC_BLACK(0.2)] forState:UIControlStateHighlighted];
-        [self.followActionButton addTarget:self action:@selector(followActionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 

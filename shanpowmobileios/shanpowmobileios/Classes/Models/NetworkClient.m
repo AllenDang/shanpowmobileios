@@ -59,12 +59,16 @@ SINGLETON_GCD(NetworkClient);
 {
     if (request.response.statusCode == 403) {
         AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request.request];
-        [op setCompletionBlock:request.completionBlock];
-        [self.pendingOperationQueue addObject:op];
+        if (!op.isFinished) {
+            [op setCompletionBlock:request.completionBlock];
+            [self.pendingOperationQueue addObject:op];
+            
+            [self getCsrfToken];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetToken:) name:MSG_GOT_TOKEN object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetToken:) name:MSG_FAIL_GET_TOKEN object:nil];
+        }
         
-        [self getCsrfToken];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetToken:) name:MSG_GOT_TOKEN object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetToken:) name:MSG_FAIL_GET_TOKEN object:nil];
+        return;
     }
     
     NSDictionary *errInfo = @{};
@@ -98,7 +102,7 @@ SINGLETON_GCD(NetworkClient);
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSMutableDictionary *parameters = param ? [NSMutableDictionary dictionaryWithDictionary:param] : nil;
+    NSMutableDictionary *parameters = param ? [NSMutableDictionary dictionaryWithDictionary:param] : [NSMutableDictionary dictionaryWithCapacity:40];
     if (self.csrfToken) {
         [parameters setObject:self.csrfToken forKey:@"csrf_token"];
     }
@@ -1236,6 +1240,60 @@ SINGLETON_GCD(NetworkClient);
                                      failure:^(NSDictionary *ErrorMsg) {
                                          [self handleFailureFromRequest:operation];
                                          [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_USERLIST
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)followUser:(NSString *)username {
+    NSDictionary *parameters = nil;
+
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+
+    [self sendRequestWithType:@"POST"
+                         path:[NSString stringWithFormat:@"/people/%@/follow", username]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_FOLLOW_USER
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_FOLLOW_USER
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)unfollowUser:(NSString *)username {
+    NSDictionary *parameters = nil;
+
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+
+    [self sendRequestWithType:@"POST"
+                         path:[NSString stringWithFormat:@"/people/%@/unfollow", username]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_UNFOLLOW_USER
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_UNFOLLOW_USER
                                                                                              object:me
                                                                                            userInfo:ErrorMsg];
                                      }];
