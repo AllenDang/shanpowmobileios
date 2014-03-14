@@ -196,8 +196,9 @@
 
 -(void)updateBookInfo
 {
-    [self updateBookBasicInfoLayout];
     [self updateBookBasicInfoData];
+    
+    [self updateBookBasicInfoLayout];
 }
 
 - (void)initBookBasicInfoLabels
@@ -449,6 +450,7 @@
 - (void)didGetBookDetail:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BOOK_DETAIL object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BOOK_DETAIL object:nil];
     
     [self.loadingView hide];
     
@@ -457,6 +459,7 @@
 
 - (void)failGetBookDetail:(NSNotification *)notification
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BOOK_DETAIL object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BOOK_DETAIL object:nil];
 }
 
@@ -744,8 +747,8 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
                 [self initBookBasicInfoLabels];
-                [self updateBookBasicInfoLayout];
                 [self updateBookBasicInfoData];
+                [self updateBookBasicInfoLayout];
                 
                 // Add label to cell
                 [cell addSubview:self.bookTitleLabel];
