@@ -147,12 +147,27 @@
     self.sendMessageButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [self updateData];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectUser:) name:MSG_DID_SELECT_USER object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectUser:) name:MSG_DID_SELECT_USER object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBasicUserInfo:) name:MSG_DID_GET_BASIC_USER_INFO object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailGetInfo:) name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFollowUser:) name:MSG_DID_FOLLOW_USER object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failFollowUser:) name:MSG_DID_FOLLOW_USER object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didUnfollowUser:) name:MSG_DID_UNFOLLOW_USER object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failUnfollowUser:) name:MSG_DID_UNFOLLOW_USER object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserList:) name:MSG_DID_GET_USERLIST object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetUserList:) name:MSG_FAIL_GET_USERLIST object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooks:) name:MSG_DID_GET_BOOKS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooks:) name:MSG_FAIL_GET_BOOKS object:nil];
+    
     [self getUserBasicInfo];
     
     [super viewWillAppear:animated];
@@ -189,9 +204,6 @@
 - (void)getUserBasicInfo
 {
     [self.loadingView show];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBasicUserInfo:) name:MSG_DID_GET_BASIC_USER_INFO object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailGetInfo:) name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
     
     [[NetworkClient sharedNetworkClient] getBasicUserInfo:self.username];
 }
@@ -410,14 +422,15 @@
 
 - (void)followActionButtonTapped:(UIButton *)sender
 {
-    NSLog(@"ccc");
+    if (self.followedByMe) {
+        [[NetworkClient sharedNetworkClient] unfollowUser:self.username];
+    } else {
+        [[NetworkClient sharedNetworkClient] followUser:self.username];
+    }
 }
 
 - (void)getUserList:(BOOL)isFollowing
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserList:) name:MSG_DID_GET_USERLIST object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetUserList:) name:MSG_FAIL_GET_USERLIST object:nil];
-    
     if (isFollowing) {
         [[NetworkClient sharedNetworkClient] getFollowingsByUser:self.username];
     } else {
@@ -427,9 +440,6 @@
 
 - (void)getFavBooks
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooks:) name:MSG_DID_GET_BOOKS object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooks:) name:MSG_FAIL_GET_BOOKS object:nil];
-    
     [[NetworkClient sharedNetworkClient] getFavBooksByUser:self.username];
 }
 
@@ -438,8 +448,6 @@
 - (void)didGetBasicUserInfo:(NSNotification *)notification
 {
     [self.loadingView hide];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BASIC_USER_INFO object:nil];
     
     self.userBasicInfo = [[notification userInfo] objectForKey:@"data"];
     
@@ -450,8 +458,6 @@
 - (void)handleFailGetInfo:(NSNotification *)notification
 {
     [self.loadingView hide];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
     [alert show];
@@ -499,7 +505,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BOOKS object:nil];
     
     NSArray *books = [[notification userInfo] objectForKey:@"data"];
-    NSLog(@"%@", books);
+    
     BookGridViewController *booksController = [[BookGridViewController alloc] initWithStyle:UITableViewStylePlain];
     booksController.books = books;
     booksController.isPlain = YES;
@@ -511,10 +517,28 @@
 {
     [self.loadingView hide];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BOOKS object:nil];
-    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
     [alert show];
+}
+
+- (void)didFollowUser:(NSNotification *)notification
+{
+    [self getUserBasicInfo];
+}
+
+- (void)failFollowUser:(NSNotification *)notification
+{
+    
+}
+
+- (void)didUnfollowUser:(NSNotification *)notification
+{
+    [self getUserBasicInfo];
+}
+
+- (void)failUnfollowUser:(NSNotification *)notification
+{
+    
 }
 
 #pragma mark - Table view delegate
