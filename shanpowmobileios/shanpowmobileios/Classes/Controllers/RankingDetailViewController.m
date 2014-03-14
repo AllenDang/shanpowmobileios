@@ -125,7 +125,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_TAPPED_REASON object:nil];
     
-    NSString *bookId = [[notification userInfo] objectForKey:@"Id"];
+    NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
     
     NSString *comment = @"";
     
@@ -137,11 +137,12 @@
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 300.0, 100.0)];
     view.backgroundColor = UIC_ALMOSTWHITE(1.0);
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, view.frame.size.width, view.frame.size.height)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 5.0, view.frame.size.width - 20, view.frame.size.height - 10)];
     label.text = comment;
     label.numberOfLines = INFINITY;
     label.font = MEDIUM_FONT;
     label.textColor = UIC_BRIGHT_GRAY(1.0);
+    label.textAlignment = NSTextAlignmentCenter;
     [view addSubview:label];
     
     zoomPopup *popup = [[zoomPopup alloc] initWithMainview:self.view andStartRect:CGRectMake(self.view.bounds.size.width / 2,
