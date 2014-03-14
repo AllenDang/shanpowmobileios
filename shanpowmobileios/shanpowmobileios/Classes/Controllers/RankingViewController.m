@@ -79,7 +79,7 @@
     if ([controller.version integerValue] == 1) {
         return nil;
     }
-    detailViewController.version = [NSString stringWithFormat:@"%d", [controller.version integerValue] - 1];
+    detailViewController.version = [NSString stringWithFormat:@"%ld", [controller.version integerValue] - 1];
     
     return detailViewController;
 }
@@ -93,7 +93,7 @@
     if ([controller.version integerValue] == [self.currentRankingVersion integerValue]) {
         return nil;
     }
-    detailViewController.version = [NSString stringWithFormat:@"%d", [controller.version integerValue] + 1];
+    detailViewController.version = [NSString stringWithFormat:@"%ld", [controller.version integerValue] + 1];
     
     return detailViewController;
 }

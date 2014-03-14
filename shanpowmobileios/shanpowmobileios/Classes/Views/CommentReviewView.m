@@ -362,11 +362,11 @@
     
     self.bookInfoBookCategoryLabel.text = self.bookCategory;
 
-    self.thumbUpLabel.text = [NSString stringWithFormat:@"%d", self.thumbUpSum];
+    self.thumbUpLabel.text = [NSString stringWithFormat:@"%ld", (long)self.thumbUpSum];
 
-    self.thumbDownLabel.text = [NSString stringWithFormat:@"%d", self.thumbDownSum];
+    self.thumbDownLabel.text = [NSString stringWithFormat:@"%ld", (long)self.thumbDownSum];
 
-    self.chatLabel.text = [NSString stringWithFormat:@"%d", self.chatSum];
+    self.chatLabel.text = [NSString stringWithFormat:@"%ld", (long)self.chatSum];
 }
 
 #pragma mark - Event handler

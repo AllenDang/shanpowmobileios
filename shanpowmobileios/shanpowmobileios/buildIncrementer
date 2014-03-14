@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# buildIncrementer
+#
+if [ -e "$1" ]
+then
+  echo " do nothing" > /dev/null
+else
+  # create an empty file
+  touch $1
+fi
+
+#increment the build number
+read number  < $1
+let number++
+echo $number
+echo "CURRENT_PROJECT_BUILD_COUNT = ${number}" > $1

@@ -543,9 +543,9 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             
-            [self.thumbUpButton setTitle:[NSString stringWithFormat:@"%d", [[self.reviewDetail objectForKey:@"LikeSum"] integerValue]] forState:UIControlStateNormal];
-            [self.thumbDownButton setTitle:[NSString stringWithFormat:@"%d", [[self.reviewDetail objectForKey:@"DislikeSum"] integerValue]] forState:UIControlStateNormal];
-            [self.chatButton setTitle:[NSString stringWithFormat:@"%d", [[self.reviewDetail objectForKey:@"ResponseSum"] integerValue]] forState:UIControlStateNormal];
+            [self.thumbUpButton setTitle:[NSString stringWithFormat:@"%ld", (long)[[self.reviewDetail objectForKey:@"LikeSum"] integerValue]] forState:UIControlStateNormal];
+            [self.thumbDownButton setTitle:[NSString stringWithFormat:@"%ld", (long)[[self.reviewDetail objectForKey:@"DislikeSum"] integerValue]] forState:UIControlStateNormal];
+            [self.chatButton setTitle:[NSString stringWithFormat:@"%ld", (long)[[self.reviewDetail objectForKey:@"ResponseSum"] integerValue]] forState:UIControlStateNormal];
             
             return cell;
         }

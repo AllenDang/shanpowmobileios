@@ -781,7 +781,7 @@
             }
             
             NSArray *numKeys = @[@"AuthorBookSum", @"SimilarBookSum", @"BooklistContainThisBookSum"];
-            NSString *text = [NSString stringWithFormat:@"%d", [[self.bookInfo objectForKey:[numKeys objectAtIndex:indexPath.row]] integerValue]];
+            NSString *text = [NSString stringWithFormat:@"%ld", (long)[[self.bookInfo objectForKey:[numKeys objectAtIndex:indexPath.row]] integerValue]];
             
             cell.title = [self.relatedInfoSectionItems objectAtIndex:indexPath.row];
             cell.rightTitle = [text isEqualToString:@"0"] ? @"" : text;

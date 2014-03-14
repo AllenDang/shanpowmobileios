@@ -376,7 +376,7 @@
                 cell.textLabel.text = @"全部";
             } else {
                 NSString *titleText = @"";
-                for (int i = indexPath.row - 1; i < 5; i++) {
+                for (long i = indexPath.row - 1; i < 5; i++) {
                     titleText = [titleText stringByAppendingString:@"★"];
                 }
                 cell.textLabel.text = titleText;

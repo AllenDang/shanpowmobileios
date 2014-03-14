@@ -42,6 +42,8 @@
 - (void)getFavBooksByUser:(NSString *)username;
 - (void)getFollowersByUser:(NSString *)username;
 - (void)getFollowingsByUser:(NSString *)username;
+- (void)followUser:(NSString *)username;
+- (void)unfollowUser:(NSString *)username;
 
 - (void)getBookDetail:(NSString *)bookId;
 

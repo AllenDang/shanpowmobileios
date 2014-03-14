@@ -88,6 +88,7 @@
 		64546E9B1869638D001CCE5B /* HC_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 64546E991869638D001CCE5B /* HC_Background.png */; };
 		64546E9C1869638D001CCE5B /* HC_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64546E9A1869638D001CCE5B /* HC_Background@2x.png */; };
 		64579B7518D14A9B00D9F513 /* RankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64579B7418D14A9B00D9F513 /* RankingViewController.m */; };
+		645E043218D2D2F500C35CB0 /* buildIncrementer in Resources */ = {isa = PBXBuildFile; fileRef = 645E043118D2D2F500C35CB0 /* buildIncrementer */; };
 		645FB9BF184C2C0C00BB2325 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9AD184C2C0C00BB2325 /* AFHTTPRequestOperation.m */; };
 		645FB9C0184C2C0C00BB2325 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9AF184C2C0C00BB2325 /* AFHTTPRequestOperationManager.m */; };
 		645FB9C1184C2C0C00BB2325 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9B1184C2C0C00BB2325 /* AFHTTPSessionManager.m */; };
@@ -329,6 +330,7 @@
 		64546E9A1869638D001CCE5B /* HC_Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HC_Background@2x.png"; sourceTree = "<group>"; };
 		64579B7318D14A9B00D9F513 /* RankingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingViewController.h; sourceTree = "<group>"; };
 		64579B7418D14A9B00D9F513 /* RankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingViewController.m; sourceTree = "<group>"; };
+		645E043118D2D2F500C35CB0 /* buildIncrementer */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = buildIncrementer; sourceTree = "<group>"; };
 		645FB9AC184C2C0C00BB2325 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		645FB9AD184C2C0C00BB2325 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		645FB9AE184C2C0C00BB2325 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -942,6 +944,7 @@
 		646132BD184872F300A0BBF0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				645E043118D2D2F500C35CB0 /* buildIncrementer */,
 				6440D7331860292D008D9C59 /* TencentOpenApi_IOS_Bundle.bundle */,
 				646132BE184872F300A0BBF0 /* shanpowmobileios-Info.plist */,
 				646132BF184872F300A0BBF0 /* InfoPlist.strings */,
@@ -1250,6 +1253,7 @@
 				64CD28A318A9FA7C0050BE63 /* Wizard@2x.png in Resources */,
 				64D35F4D18ADF09E00999CED /* Star_Red.png in Resources */,
 				64204AD618BC558200A684A7 /* icon-star.png in Resources */,
+				645E043218D2D2F500C35CB0 /* buildIncrementer in Resources */,
 				64AA339618C8577A009E09F7 /* Chat.png in Resources */,
 				64CD28B218AA01280050BE63 /* Home@2x.png in Resources */,
 				64F05CF5187506C000FB7A3A /* Calibri Bold Italic.ttf in Resources */,
@@ -1310,7 +1314,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/buildIncrementer /Users/celtavonce/Dropbox/Development/Project_Shanpow/shanpowmobileios/shanpowmobileios/shanpowmobileios/version.xconfig";
+			shellScript = "./shanpowmobileios/buildIncrementer ./shanpowmobileios/version.xconfig";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1475,7 +1479,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1508,7 +1512,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1520,6 +1524,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"./shanpowmobileios/Frameworks/**",
@@ -1537,6 +1543,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1546,6 +1553,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"./shanpowmobileios/Frameworks/**",
@@ -1563,6 +1572,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
