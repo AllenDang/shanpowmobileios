@@ -167,7 +167,7 @@
 
 - (void)updateContainerContentSize
 {
-    self.container.contentSize = CGSizeMake(self.view.bounds.size.width, self.crView.calculatedHeight + self.mainTable.contentSize.height - 55);
+    self.container.contentSize = CGSizeMake(self.view.bounds.size.width, self.crView.calculatedHeight + self.mainTable.contentSize.height);
 }
 
 #pragma mark - Event handler

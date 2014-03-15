@@ -652,6 +652,8 @@
                     CommentDetailViewController *commentDetailController = [[CommentDetailViewController alloc] initWithIsReview:NO];
                     commentDetailController.bookId = self.bookId;
                     commentDetailController.authorId = [[[[self.bookInfo objectForKey:@"Comments"] objectAtIndex:indexPath.row] objectForKey:@"Author"] objectForKey:@"Id"];
+                    commentDetailController.bookTitle = [self.bookInfo objectForKey:@"Title"];
+                    commentDetailController.bookCategory = [self.bookInfo objectForKey:@"Category"];
                     
                     [self pushViewController:commentDetailController];
                 } else {
