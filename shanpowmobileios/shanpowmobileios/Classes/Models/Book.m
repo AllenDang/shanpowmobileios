@@ -12,11 +12,11 @@
 
 + (id)bookFromDictionary:(NSDictionary *)dict
 {
-    NSString *bookTitle = [dict objectForKey:@"Title"];
-    NSString *category = [dict objectForKey:@"Category"];
-    NSString *author = [dict objectForKey:@"Author"];
+    NSString *bookTitle = [dict objectForKey:@"Title"] ? [dict objectForKey:@"Title"] : [dict objectForKey:@"BookTitle"];
+    NSString *category = [dict objectForKey:@"Category"] ? [dict objectForKey:@"Category"] : [dict objectForKey:@"BookCategory"];
+    NSString *author = [dict objectForKey:@"Author"] ? [dict objectForKey:@"Author"] : [dict objectForKey:@"BookAuthor"];
     NSString *status = [dict objectForKey:@"Status"];
-    NSString *Id = [dict objectForKey:@"Id"];
+    NSString *Id = [dict objectForKey:@"Id"] ? [dict objectForKey:@"Id"] : [dict objectForKey:@"BookId"];
     NSString *description = [dict objectForKey:@"Summary"];
     NSDictionary *simpleComment = [dict objectForKey:@"Comment"];
     float score = [[dict objectForKey:@"Score"] integerValue] > 0 ? [[dict objectForKey:@"Score"] floatValue] : [[dict objectForKey:@"UserScore"] floatValue];

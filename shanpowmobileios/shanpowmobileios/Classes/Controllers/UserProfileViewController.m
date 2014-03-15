@@ -171,6 +171,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooks:) name:MSG_DID_GET_BOOKS object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooks:) name:MSG_FAIL_GET_BOOKS object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBook:) name:MSG_DID_SELECT_BOOK object:nil];
+    
     [self getUserBasicInfo];
     
     [super viewWillAppear:animated];
@@ -450,6 +452,8 @@
 
 - (void)getUserList:(BOOL)isFollowing
 {
+    [self.loadingView show];
+    
     if (isFollowing) {
         [[NetworkClient sharedNetworkClient] getFollowingsByUser:self.username];
     } else {
@@ -459,6 +463,8 @@
 
 - (void)getFavBooks
 {
+    [self.loadingView show];
+    
     [[NetworkClient sharedNetworkClient] getFavBooksByUser:self.username];
 }
 
@@ -526,6 +532,7 @@
     NSArray *books = [[notification userInfo] objectForKey:@"data"];
     
     BookGridViewController *booksController = [[BookGridViewController alloc] initWithStyle:UITableViewStylePlain];
+    booksController.title = @"喜欢的书";
     booksController.books = books;
     booksController.isPlain = YES;
     
@@ -542,22 +549,44 @@
 
 - (void)didFollowUser:(NSNotification *)notification
 {
+    [self.loadingView hide];
+    
     [self getUserBasicInfo];
 }
 
 - (void)failFollowUser:(NSNotification *)notification
 {
+    [self.loadingView hide];
     
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
+    [alert show];
 }
 
 - (void)didUnfollowUser:(NSNotification *)notification
 {
+    [self.loadingView hide];
+    
     [self getUserBasicInfo];
 }
 
 - (void)failUnfollowUser:(NSNotification *)notification
 {
+    [self.loadingView hide];
     
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
+    [alert show];
+}
+
+- (void)didSelectBook:(NSNotification *)notification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_BOOK object:nil];
+    
+    NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
+    
+    BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+    bookDetailController.bookId = bookId;
+    
+    [self pushViewController:bookDetailController];
 }
 
 #pragma mark - Table view delegate
