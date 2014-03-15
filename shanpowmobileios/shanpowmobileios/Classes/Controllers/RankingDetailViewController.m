@@ -11,7 +11,6 @@
 #import "SPLoadingView.h"
 #import "RankingDetailCell.h"
 #import "BookDetailViewController.h"
-#import "zoomPopup.h"
 
 @interface RankingDetailViewController ()
 
@@ -22,6 +21,8 @@
 @property (nonatomic, strong) NSDictionary *rankingDetail;
 
 @property (nonatomic, readwrite) BOOL isActive;
+
+@property (nonatomic, strong) NSMutableArray *heightCheck;
 
 @end
 
@@ -46,7 +47,10 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
+    self.heightCheck = [NSMutableArray arrayWithCapacity:40];
+    
     self.bookGrid = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.bookGrid.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height - UINAVIGATIONBAR_HEIGHT - UISTATUSBAR_HEIGHT);
     self.bookGrid.dataSource = self;
     self.bookGrid.delegate = self;
     if (IsSysVerGTE(7.0)) {
@@ -93,6 +97,18 @@
 */
 
 #pragma mark -
+- (void)markShowReasonForIndex:(NSUInteger)index
+{
+    [self.heightCheck removeAllObjects];
+    
+    for (NSUInteger i = 0; i < [[self.rankingDetail objectForKey:@"Books"] count]; i++) {
+        [self.heightCheck insertObject:[NSNumber numberWithBool:NO] atIndex:i];
+    }
+    
+    [self.heightCheck insertObject:[NSNumber numberWithBool:YES] atIndex:index];
+    [self.heightCheck removeLastObject];
+}
+
 - (void)getRankingDetail
 {
     [self.loadingView show];
@@ -107,6 +123,10 @@
     
     self.rankingDetail = [[notification userInfo] objectForKey:@"data"];
     self.isActive = [[self.rankingDetail objectForKey:@"IsActive"] boolValue];
+    
+    for (NSUInteger i = 0; i < [[self.rankingDetail objectForKey:@"Books"] count]; i++) {
+        [self.heightCheck insertObject:[NSNumber numberWithBool:NO] atIndex:i];
+    }
     
     [self.bookGrid reloadData];
 }
@@ -123,50 +143,38 @@
 
 - (void)reasonTapped:(NSNotification *)notification
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_TAPPED_REASON object:nil];
-    
     NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
     
-    NSString *comment = @"";
+    NSUInteger index = 0;
     
-    for (NSDictionary *book in [self.rankingDetail objectForKey:@"Books"]) {
+    for (NSUInteger i = 0; i < [[self.rankingDetail objectForKey:@"Books"] count]; i++) {
+        NSDictionary *book = [[self.rankingDetail objectForKey:@"Books"] objectAtIndex:i];
         if ([[book objectForKey:@"Id"] isEqualToString:bookId]) {
-            comment = [book objectForKey:@"Comment"];
+            index = i;
         }
     }
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 300.0, 100.0)];
-    view.backgroundColor = UIC_ALMOSTWHITE(1.0);
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 5.0, view.frame.size.width - 20, view.frame.size.height - 10)];
-    label.text = comment;
-    label.numberOfLines = INFINITY;
-    label.font = MEDIUM_FONT;
-    label.textColor = UIC_BRIGHT_GRAY(1.0);
-    label.textAlignment = NSTextAlignmentCenter;
-    [view addSubview:label];
+    [self markShowReasonForIndex:index];
     
-    zoomPopup *popup = [[zoomPopup alloc] initWithMainview:self.view andStartRect:CGRectMake(self.view.bounds.size.width / 2,
-                                                                                             self.view.bounds.size.height / 2,
-                                                                                             1.0,
-                                                                                             1.0)];
-    [popup setBlurRadius:10];
-    [popup showPopup:view];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(zoomPopupClosed:) name:@"ZoomPopUpClosed" object:nil];
-}
-
-- (void)zoomPopupClosed:(NSNotification *)notification
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZoomPopUpClosed" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reasonTapped:) name:MSG_TAPPED_REASON object:nil];
+    [self.bookGrid reloadData];
 }
 
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return GENERAL_CELL_HEIGHT * 1.5;
+    if ([[self.heightCheck objectAtIndex:indexPath.row] boolValue]) {
+        NSString *content = [[[self.rankingDetail objectForKey:@"Books"] objectAtIndex:indexPath.row] objectForKey:@"Comment"];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width - 40, GENERAL_CELL_HEIGHT * 1.5)];
+        label.font = MEDIUM_FONT;
+        label.text = content;
+        label.numberOfLines = 0;
+        [label sizeToFit];
+        return GENERAL_CELL_HEIGHT * 1.5 + label.frame.size.height + 20;
+    }else{
+        
+        return GENERAL_CELL_HEIGHT * 1.5;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

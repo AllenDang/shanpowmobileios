@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "Common.h"
 
 typedef enum {
     CB_AvatarLocationLeft = 0,
-    CB_AvatarLocationRight = 1
+    CB_AvatarLocationRight = 1,
+    CB_AvatarLocationNone = 2
 } CBAvatarLocation;
 
 typedef enum {
@@ -27,5 +29,7 @@ typedef enum {
 @property (nonatomic, strong) UIColor *textColor;
 @property (nonatomic, assign) CBStyle style;
 @property (nonatomic, assign) CBAvatarLocation avatarLocation;
+
+@property (nonatomic, readonly) CGFloat calculatedHeight;
 
 @end

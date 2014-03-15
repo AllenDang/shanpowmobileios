@@ -7,12 +7,15 @@
 //
 
 #import "RankingDetailCell.h"
+#import "ChatBubble.h"
 
 @interface RankingDetailCell ()
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *authorLabel;
 @property (nonatomic, strong) UIButton *reasonButton;
+
+@property (nonatomic, strong) ChatBubble *reasonBubble;
 
 @end
 
@@ -46,6 +49,9 @@
         [self.reasonButton setTitle:@"上榜理由" forState:UIControlStateNormal];
         [self.reasonButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.reasonButton];
+        
+        self.reasonBubble = [[ChatBubble alloc] initWithFrame:CGRectZero];
+        [self addSubview:self.reasonBubble];
     }
     return self;
 }
@@ -75,6 +81,7 @@
 {
     self.titleLabel.text = [self.book objectForKey:@"Title"];
     self.authorLabel.text = [self.book objectForKey:@"Author"];
+    self.reasonBubble.content = [self.book objectForKey:@"Comment"];
 }
 
 - (void)layoutSubviews
@@ -90,9 +97,17 @@
                                         TextHeightWithFont(MEDIUM_FONT));
     
     self.reasonButton.frame = CGRectMake(self.bounds.size.width - 80,
-                                         (self.frame.size.height - 25) / 2,
+                                         (GENERAL_CELL_HEIGHT * 1.5 - 25) / 2,
                                          70,
                                          25);
+    
+    self.reasonBubble.frame = CGRectMake(10.0,
+                                         GENERAL_CELL_HEIGHT * 1.5 + 5,
+                                         self.bounds.size.width - 20,
+                                         self.reasonBubble.calculatedHeight);
+    self.reasonBubble.style = CBStyleLight;
+    self.reasonBubble.font = MEDIUM_FONT;
+    self.reasonBubble.avatarLocation = CB_AvatarLocationNone;
 }
 
 - (void)buttonTapped:(UIButton *)sender

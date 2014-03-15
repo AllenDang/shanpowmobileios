@@ -20,6 +20,8 @@
 
 @property (nonatomic, assign) float avatarSize;
 
+@property (nonatomic, assign) CGFloat calculatedHeight;
+
 @end
 
 @implementation ChatBubble
@@ -134,9 +136,40 @@
     }
 }
 
+- (CGFloat)calculatedHeight
+{
+    return self.bubbleBkgImageView.frame.size.height;
+}
+
 #pragma mark - UI
+- (void)layoutSubviews
+{
+    [self updateUILayout];
+}
+
 - (void)updateUILayout
 {
+    if ([self.content length] > 0) {
+        self.contentLabel.frame = CGRectMake(self.avatarSize + 5 + 18.0,
+                                             5.0,
+                                             self.bounds.size.width - self.avatarSize - 5 - 18.0,
+                                             self.bounds.size.height - 5.0);
+        if (self.avatarLocation == CB_AvatarLocationNone) {
+            self.contentLabel.frame = CGRectMake(10.0,
+                                                 5.0,
+                                                 self.bounds.size.width - 20.0,
+                                                 self.bounds.size.height - 5);
+        }
+        
+        self.contentLabel.text = [NSString stringWithFormat:@"%@", self.content];
+        if (self.avatarLocation != CB_AvatarLocationNone && [self.contentLabel.text length] > 70) {
+            self.contentLabel.text = [[self.contentLabel.text substringToIndex:70] stringByAppendingString:@"..."];
+        }
+        self.contentLabel.numberOfLines = 0;
+        [self.contentLabel sizeToFit];
+        self.contentLabel.font = self.font ? self.font : MEDIUM_FONT;
+    }
+    
     if (self.avatarLocation == CB_AvatarLocationLeft) {
         self.avatarImageView.frame = CGRectMake(0.0,
                                                 0.0,
@@ -145,21 +178,22 @@
         self.bubbleBkgImageView.frame = CGRectMake(self.avatarSize + 5,
                                                    0.0,
                                                    self.bounds.size.width - self.avatarSize - 5,
-                                                   self.bounds.size.height);
+                                                   self.bounds.size.height + 5);
     } else if (self.avatarLocation == CB_AvatarLocationRight) {
         self.avatarImageView.frame = CGRectMake(self.bounds.size.width - self.avatarSize, 0.0, self.avatarSize, self.avatarSize);
+    } else if (self.avatarLocation == CB_AvatarLocationNone) {
+        self.avatarImageView.frame = CGRectZero;
+        self.bubbleBkgImageView.frame = CGRectMake(0.0,
+                                                   0.0,
+                                                   self.bounds.size.width,
+                                                   self.contentLabel.frame.size.height + 10);
+        self.bubbleBkgImageView.image = nil;
+        self.bubbleBkgImageView.layer.cornerRadius = 4;
+        self.bubbleBkgImageView.layer.borderWidth = 1;
+        self.bubbleBkgImageView.layer.borderColor = UIC_BRIGHT_GRAY(0.4).CGColor;
     }
-    self.bubbleBkgImageView.alpha = 0.3;
     
-    if ([self.content length] > 0) {
-        self.contentLabel.frame = CGRectMake(self.bubbleBkgImageView.frame.origin.x + 18.0,
-                                             self.bubbleBkgImageView.frame.origin.y + 3.0,
-                                             self.bubbleBkgImageView.frame.size.width - 18.0,
-                                             self.bubbleBkgImageView.frame.size.height - 6.0);
-        self.contentLabel.text = [NSString stringWithFormat:@"%@\n\n\n\n\n", self.content];
-        self.contentLabel.numberOfLines = 5;
-        self.contentLabel.font = self.font;
-    }
+    self.bubbleBkgImageView.alpha = 0.3;
 }
 
 @end

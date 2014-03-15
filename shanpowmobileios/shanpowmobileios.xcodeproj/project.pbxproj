@@ -126,9 +126,6 @@
 		6482D1BA18C59FA000D2DA8F /* ReadRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482D1B918C59FA000D2DA8F /* ReadRecordViewController.m */; };
 		6482D1BD18C5B11000D2DA8F /* ReadRecordRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482D1BC18C5B11000D2DA8F /* ReadRecordRootViewController.m */; };
 		6482D1C018C5B9D300D2DA8F /* ChatBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482D1BF18C5B9D300D2DA8F /* ChatBubble.m */; };
-		6492065618D1CB4800F62F80 /* UIImage+StackBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 6492065218D1CB4800F62F80 /* UIImage+StackBlur.m */; };
-		6492065718D1CB4800F62F80 /* zoomPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 6492065418D1CB4800F62F80 /* zoomPopup.m */; };
-		6492065818D1CB4800F62F80 /* zoomPopupClose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6492065518D1CB4800F62F80 /* zoomPopupClose@2x.png */; };
 		649311A51862C68C00315DB0 /* BookInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649311A41862C68C00315DB0 /* BookInfoView.m */; };
 		649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649BA57C185AA6350096DD8D /* RegisterViewController.m */; };
 		649F6EB918A8B8DE00E17B3E /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */; };
@@ -393,11 +390,6 @@
 		6482D1BC18C5B11000D2DA8F /* ReadRecordRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadRecordRootViewController.m; sourceTree = "<group>"; };
 		6482D1BE18C5B9D300D2DA8F /* ChatBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatBubble.h; sourceTree = "<group>"; };
 		6482D1BF18C5B9D300D2DA8F /* ChatBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatBubble.m; sourceTree = "<group>"; };
-		6492065118D1CB4800F62F80 /* UIImage+StackBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+StackBlur.h"; sourceTree = "<group>"; };
-		6492065218D1CB4800F62F80 /* UIImage+StackBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+StackBlur.m"; sourceTree = "<group>"; };
-		6492065318D1CB4800F62F80 /* zoomPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zoomPopup.h; sourceTree = "<group>"; };
-		6492065418D1CB4800F62F80 /* zoomPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zoomPopup.m; sourceTree = "<group>"; };
-		6492065518D1CB4800F62F80 /* zoomPopupClose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zoomPopupClose@2x.png"; sourceTree = "<group>"; };
 		649311A31862C68C00315DB0 /* BookInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoView.h; sourceTree = "<group>"; };
 		649311A41862C68C00315DB0 /* BookInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoView.m; sourceTree = "<group>"; };
 		649BA57B185AA6350096DD8D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -848,7 +840,6 @@
 		645FB9AA184C2BD000BB2325 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				6492065018D1CB4800F62F80 /* ZoomOutControl */,
 				64C515E218BF0FE30027292E /* MMDrawerController */,
 				64204AB318BC3E2200A684A7 /* AwesomeMenu */,
 				64D35F4318ADCE0800999CED /* AMRatingControl */,
@@ -996,18 +987,6 @@
 				64635846185B231E00172760 /* Login_TextField@2x.png */,
 			);
 			path = Login;
-			sourceTree = "<group>";
-		};
-		6492065018D1CB4800F62F80 /* ZoomOutControl */ = {
-			isa = PBXGroup;
-			children = (
-				6492065118D1CB4800F62F80 /* UIImage+StackBlur.h */,
-				6492065218D1CB4800F62F80 /* UIImage+StackBlur.m */,
-				6492065318D1CB4800F62F80 /* zoomPopup.h */,
-				6492065418D1CB4800F62F80 /* zoomPopup.m */,
-				6492065518D1CB4800F62F80 /* zoomPopupClose@2x.png */,
-			);
-			path = ZoomOutControl;
 			sourceTree = "<group>";
 		};
 		64AA338018C81670009E09F7 /* Chat */ = {
@@ -1237,7 +1216,6 @@
 				64CD28A218A9FA7C0050BE63 /* Wizard.png in Resources */,
 				646132C1184872F300A0BBF0 /* InfoPlist.strings in Resources */,
 				64AA338618C8199D009E09F7 /* BubbleLight@2x.png in Resources */,
-				6492065818D1CB4800F62F80 /* zoomPopupClose@2x.png in Resources */,
 				64D35F4B18ADF09E00999CED /* Star_Gray.png in Resources */,
 				6463584A185B231E00172760 /* Login_LoginButton@2x.png in Resources */,
 				642723E918AC7694002609F4 /* Plus@2x.png in Resources */,
@@ -1356,7 +1334,6 @@
 				64D35F4618ADCE0800999CED /* AMRatingControl.m in Sources */,
 				642BEB69184DF3F800E1A0B3 /* UIProgressView+AFNetworking.m in Sources */,
 				64B82A6918D0611C00F52941 /* RankingDetailCell.m in Sources */,
-				6492065718D1CB4800F62F80 /* zoomPopup.m in Sources */,
 				64AA338918C81D0F009E09F7 /* ReviewListRootViewController.m in Sources */,
 				642C790C1867DDB9007C61AD /* Book.m in Sources */,
 				64A80B0D186813F10039BBA2 /* BookInfoCell.m in Sources */,
@@ -1373,7 +1350,6 @@
 				64AA338F18C8415E009E09F7 /* CommentReviewCell.m in Sources */,
 				641D3B6118CD961C009F79E6 /* ResponseCell.m in Sources */,
 				6440D73718602BEA008D9C59 /* QQLogin.m in Sources */,
-				6492065618D1CB4800F62F80 /* UIImage+StackBlur.m in Sources */,
 				645FB9C0184C2C0C00BB2325 /* AFHTTPRequestOperationManager.m in Sources */,
 				6482D1BA18C59FA000D2DA8F /* ReadRecordViewController.m in Sources */,
 				642723F218ACBE2C002609F4 /* CreateBookListViewController.m in Sources */,
