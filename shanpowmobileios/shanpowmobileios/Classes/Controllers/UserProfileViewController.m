@@ -40,6 +40,8 @@
 @property (nonatomic, assign) BOOL followingMe;
 @property (nonatomic, assign) BOOL followedByMe;
 
+@property (nonatomic, assign) BOOL shouldCancelSelectUser;
+
 @property (nonatomic, assign) float avatarSectionHeight;
 
 @property (nonatomic, strong) NSDictionary *userBasicInfo;
@@ -88,6 +90,7 @@
     }
     
     self.title = @"用户信息";
+    self.shouldCancelSelectUser = NO;
     
     self.loadingView = [[SPLoadingView alloc] initWithFrame:CGRectZero];
     
@@ -154,7 +157,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectUser:) name:MSG_DID_SELECT_USER object:nil];
+    self.shouldCancelSelectUser = YES;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBasicUserInfo:) name:MSG_DID_GET_BASIC_USER_INFO object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailGetInfo:) name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
@@ -175,12 +178,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_FOLLOW_USER object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_FOLLOW_USER object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_UNFOLLOW_USER object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_UNFOLLOW_USER object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BASIC_USER_INFO object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [super viewWillDisappear:animated];
 }
@@ -487,6 +485,7 @@
     UserListViewController *userListController = [[UserListViewController alloc] initWithStyle:UITableViewStylePlain];
     userListController.users = users;
     
+    self.shouldCancelSelectUser = NO;
     [self pushViewController:userListController];
 }
 
@@ -502,13 +501,13 @@
 
 - (void)didSelectUser:(NSNotification *)notification
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_USER object:nil];
+    
     NSString *nickname = [[notification userInfo] objectForKey:@"Nickname"];
     
     UserProfileViewController *userProfileController = [[UserProfileViewController alloc] initWithUsername:nickname];
     
     [self pushViewController:userProfileController];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_USER object:nil];
 }
 
 - (void)didFollowUser:(NSNotification *)notification
@@ -560,6 +559,7 @@
         {
             UserFavBooksViewController *userFavBooksController = [[UserFavBooksViewController alloc] init];
             userFavBooksController.username = self.username;
+            self.shouldCancelSelectUser = YES;
             [self pushViewController:userFavBooksController];
             
             break;
@@ -569,7 +569,7 @@
             NSString *username = self.username;
             ReadRecordRootViewController *readRecordController = [[ReadRecordRootViewController alloc] initWithUserName:username];
             readRecordController.avatarUrl = [self.userBasicInfo objectForKey:@"AvatarUrl"];
-            
+            self.shouldCancelSelectUser = YES;
             [self pushViewController:readRecordController];
             
             break;
@@ -580,7 +580,7 @@
             booklistsController.title = @"创建的书单";
             booklistsController.dataSource = BLDS_CreateAuthor;
             booklistsController.userId = self.isSelf ? [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER_ID] : self.userId;
-            
+            self.shouldCancelSelectUser = YES;
             [self pushViewController:booklistsController];
             
             break;
@@ -591,7 +591,7 @@
             booklistsController.title = @"收藏的书单";
             booklistsController.dataSource = BLDS_FavedBy;
             booklistsController.userId = self.isSelf ? [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER_ID] : self.userId;
-            
+            self.shouldCancelSelectUser = YES;
             [self pushViewController:booklistsController];
             
             if (self.isSelf) {

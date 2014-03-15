@@ -61,6 +61,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nicknameTapped:) name:MSG_TAPPED_NICKNAME object:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_BOOK object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBook:) name:MSG_DID_SELECT_BOOK object:nil];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -195,6 +203,16 @@
     self.mm_drawerController.hidesBottomBarWhenPushed = YES;
     [self.mm_drawerController.navigationController pushViewController:userProfileController animated:YES];
     self.mm_drawerController.hidesBottomBarWhenPushed = NO;
+}
+
+- (void)didSelectBook:(NSNotification *)notification
+{
+    NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
+    
+    BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+    bookDetailController.bookId = bookId;
+    
+    [self pushViewController:bookDetailController];
 }
 
 #pragma mark - Table view delegate

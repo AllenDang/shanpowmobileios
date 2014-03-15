@@ -159,6 +159,8 @@
                          }];
     }
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [super viewWillDisappear:animated];
 }
 
@@ -481,6 +483,8 @@
 
 - (void)cmtUserTapped:(NSNotification *)notification
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_TAPPED_NICKNAME object:nil];
+    
     NSString *nickname = [[notification userInfo] objectForKey:@"Nickname"];
     NSString *userId = [[notification userInfo] objectForKey:@"Id"];
     
