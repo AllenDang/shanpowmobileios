@@ -182,7 +182,7 @@
     if (isReview) {
         commentReviewDetailController.reviewId = [review objectForKey:@"Id"];
     } else {
-        commentReviewDetailController.bookId = [review objectForKey:@"BookId"];
+        commentReviewDetailController.bookId = [review objectForKey:@"BookId"] ? [review objectForKey:@"BookId"] : self.bookId;
         commentReviewDetailController.authorId = [[review objectForKey:@"Author"] objectForKey:@"Id"];
     }
     

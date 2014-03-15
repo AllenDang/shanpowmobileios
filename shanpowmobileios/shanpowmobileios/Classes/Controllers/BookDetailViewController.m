@@ -659,6 +659,7 @@
                     reviewsController.bookId = self.bookId;
                     reviewsController.isComment = YES;
                     reviewsController.itemSum = [[self.bookInfo objectForKey:@"CommentSum"] integerValue];
+                    reviewsController.title = @"更多书评";
                     
                     [self pushViewController:reviewsController];
                 }
@@ -682,6 +683,7 @@
                     reviewsController.bookId = self.bookId;
                     reviewsController.isComment = NO;
                     reviewsController.itemSum = [[self.bookInfo objectForKey:@"ReviewSum"] integerValue];
+                    reviewsController.title = @"更多书评";
                     
                     [self pushViewController:reviewsController];
                 }

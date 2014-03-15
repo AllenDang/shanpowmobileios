@@ -48,6 +48,11 @@
     self.pageController.view.backgroundColor = UIC_BRIGHT_GRAY(1.0);
     [self.pageController setViewControllers:@[detailViewController] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {}];
     [self.view addSubview:self.pageController.view];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBook:) name:MSG_DID_SELECT_BOOK object:nil];
 }
