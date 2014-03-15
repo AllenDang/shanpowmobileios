@@ -182,11 +182,11 @@
     
     self.bookId = [self.reviewDetail objectForKey:@"BookId"];
     self.crView.comment = self.reviewDetail;
-    self.crView.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width, self.crView.calculatedHeight - 55);
+    self.crView.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width, self.crView.calculatedHeight);
     
     [self.mainTable reloadData];
     self.mainTable.frame = CGRectMake(0.0,
-                                      self.crView.calculatedHeight - 55,
+                                      self.crView.calculatedHeight,
                                       self.view.bounds.size.width,
                                       self.mainTable.contentSize.height);
 
