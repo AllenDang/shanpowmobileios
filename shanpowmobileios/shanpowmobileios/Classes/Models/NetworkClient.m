@@ -721,7 +721,7 @@ SINGLETON_GCD(NetworkClient);
                       }];
 }
 
-- (void)getReivewsByCategory:(NSString *)category channel:(FilterChannel)channel score:(NSInteger)score range:(NSRange)range
+- (void)getReviewsByCategory:(NSString *)category channel:(FilterChannel)channel score:(NSInteger)score range:(NSRange)range
 {
     NSDictionary *parameters = @{
                                  @"pageNum": @(range.location),
@@ -1294,6 +1294,68 @@ SINGLETON_GCD(NetworkClient);
                                      failure:^(NSDictionary *ErrorMsg) {
                                          [self handleFailureFromRequest:operation];
                                          [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_UNFOLLOW_USER
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)getMoreCommentsByBookId:(NSString *)bookId range:(NSRange)range
+{
+    NSDictionary *parameters = @{
+                                 @"pageNum": @(range.location),
+                                 @"numPerPage": @(range.length)
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"GET"
+                         path:[NSString stringWithFormat:@"/book/%@/morecomments", bookId]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_REVIEWS
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_REVIEWS
+                                                                                             object:me
+                                                                                           userInfo:ErrorMsg];
+                                     }];
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          [self handleError:error onRequest:operation];
+                      }];
+}
+
+- (void)getMoreReviewsByBookId:(NSString *)bookId range:(NSRange)range
+{
+    NSDictionary *parameters = @{
+                                 @"pageNum": @(range.location),
+                                 @"numPerPage": @(range.length)
+                                 };
+    
+    __block NetworkClient *me = [NetworkClient sharedNetworkClient];
+    
+    [self sendRequestWithType:@"GET"
+                         path:[NSString stringWithFormat:@"/book/%@/morereviews", bookId]
+                   parameters:parameters
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          [me handleResponse:responseObject
+                                     success:^(NSDictionary *data) {
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_REVIEWS
+                                                                                             object:me
+                                                                                           userInfo:data];
+                                     }
+                                     failure:^(NSDictionary *ErrorMsg) {
+                                         [self handleFailureFromRequest:operation];
+                                         [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_REVIEWS
                                                                                              object:me
                                                                                            userInfo:ErrorMsg];
                                      }];

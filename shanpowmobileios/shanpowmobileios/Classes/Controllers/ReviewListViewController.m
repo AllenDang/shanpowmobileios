@@ -88,7 +88,15 @@
     self.loadingView = [[SPLoadingView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.loadingView show];
     
-    [[NetworkClient sharedNetworkClient] getReivewsByCategory:self.currentCategory channel:self.currentChannel score:self.currentScore range:range];
+    if (self.bookId) {
+        if (self.isComment) {
+            [[NetworkClient sharedNetworkClient] getMoreCommentsByBookId:self.bookId range:range];
+        } else {
+            [[NetworkClient sharedNetworkClient] getMoreReviewsByBookId:self.bookId range:range];
+        }
+    } else {
+        [[NetworkClient sharedNetworkClient] getReviewsByCategory:self.currentCategory channel:self.currentChannel score:self.currentScore range:range];
+    }
 }
 
 #pragma mark - Event handler
@@ -147,11 +155,6 @@
     if (indexPath.row == [self.reviews count]) {
         return GENERAL_CELL_HEIGHT;
     } else {
-//        if ([[self.reviews objectAtIndex:indexPath.row] objectForKey:@"Title"] != nil && [[[self.reviews objectAtIndex:indexPath.row] objectForKey:@"Title"] length] >= 1) {
-//            return GENERAL_CELL_HEIGHT * 4 + TextHeightWithFont(LARGE_BOLD_FONT) + 5;
-//        } else {
-//            return GENERAL_CELL_HEIGHT * 4;
-//        }
         UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
         return cell.frame.size.height;
     }
@@ -202,7 +205,19 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return (self.reviews ? [self.reviews count] + 1 : 1);
+    NSInteger num = 0;
+    
+    if (self.reviews) {
+        num = [self.reviews count] + 1;
+    } else {
+        num = 1;
+    }
+    
+    if ([self.reviews count] == self.itemSum) {
+        num--;
+    }
+    
+    return num;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -228,10 +243,13 @@
         if (cell == nil) {
             cell = [[CommentReviewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier1];
         }
-        
-        cell.comment = [self.reviews objectAtIndex:indexPath.row];
-        cell.showBookInfo = YES;
+        if (self.bookId) {
+            cell.showBookInfo = NO;
+        } else {
+            cell.showBookInfo = YES;
+        }
         cell.showMegaInfo = YES;
+        cell.comment = [self.reviews objectAtIndex:indexPath.row];
         
         return cell;
     }

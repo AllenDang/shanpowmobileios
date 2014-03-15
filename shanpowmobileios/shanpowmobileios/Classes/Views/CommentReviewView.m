@@ -108,17 +108,6 @@
     return self;
 }
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-//- (void)drawRect:(CGRect)rect
-//{
-//    // Drawing code
-//    [super drawRect:rect];
-//
-//    [self updateUILayout];
-//    [self updateUIData];
-//}
-
 #pragma mark -
 -(void)setComment:(NSDictionary *)comment
 {
@@ -154,30 +143,27 @@
         self.thumbUpSum = [[self.comment objectForKey:@"LikeSum"] integerValue];
         self.thumbDownSum = [[self.comment objectForKey:@"DislikeSum"] integerValue];
         self.chatSum = [[self.comment objectForKey:@"ResponseSum"] integerValue];
-        
-        [self updateUILayout];
-        [self updateUIData];
-    };
+    }
+    
+    [self setNeedsLayout];
 }
 
 - (void)setShowBookInfo:(BOOL)showBookInfo
 {
     if (showBookInfo != _showBookInfo) {
         _showBookInfo = showBookInfo;
-        
-        [self updateUILayout];
-        [self updateUIData];
     }
+    
+    [self setNeedsLayout];
 }
 
 - (void)setShowMegaInfo:(BOOL)showMegaInfo
 {
     if (showMegaInfo != _showMegaInfo) {
         _showMegaInfo = showMegaInfo;
-        
-        [self updateUILayout];
-        [self updateUIData];
     }
+    
+    [self setNeedsLayout];
 }
 
 #pragma mark -
@@ -188,7 +174,15 @@
     
     CGFloat height = 0;
     
-    height = self.titleLabel.frame.size.height + self.avatarSize + self.contentLabel.frame.size.height + 55 + (TextHeightWithFont(self.thumbUpLabel.font)) + self.generalMargin * 5;
+    height = self.titleLabel.frame.size.height + self.avatarSize + self.contentLabel.frame.size.height + self.bookInfoBkgView.frame.size.height + (TextHeightWithFont(MEDIUM_FONT)) + self.generalMargin * 5;
+    
+    if (self.likeSum == 0 && self.disLikeSum == 0 && self.responseSum == 0) {
+        height = height - TextHeightWithFont(MEDIUM_FONT) - self.generalMargin;
+    }
+    
+    if (!self.isReview) {
+        height = height - self.generalMargin;
+    }
     
     return height;
 }
@@ -215,10 +209,22 @@
 }
 
 #pragma mark - UI
+- (void)layoutSubviews
+{
+    [self updateUIData];
+    [self updateUILayout];
+}
+
 - (void)updateUILayout
 {
     // Section 1
-    self.titleLabel.frame = self.isReview ? CGRectMake(self.generalMargin, self.generalMargin, self.frame.size.width - self.generalMargin * 2, TextHeightWithFont(MEDIUM_BOLD_FONT)) : CGRectZero;
+    self.titleLabel.frame = self.isReview ? CGRectMake(self.generalMargin,
+                                                       self.generalMargin,
+                                                       self.frame.size.width - self.generalMargin * 2,
+                                                       TextHeightWithFont(MEDIUM_BOLD_FONT)) : CGRectMake(self.generalMargin,
+                                                                                                          self.generalMargin,
+                                                                                                          0,
+                                                                                                          0);
     self.titleLabel.backgroundColor = [UIColor clearColor];
     self.titleLabel.font = LARGE_BOLD_FONT;
     self.titleLabel.textColor = UIC_BRIGHT_GRAY(1.0);
@@ -266,20 +272,29 @@
     self.bookInfoBkgView.frame = self.showBookInfo ? CGRectMake(0.0,
                                                                 self.contentLabel.frame.origin.y + self.contentLabel.frame.size.height + self.generalMargin,
                                                                 self.bounds.size.width,
-                                                                55) : CGRectZero;
+                                                                55) : CGRectMake(0.0,
+                                                                                 self.contentLabel.frame.origin.y + self.contentLabel.frame.size.height + self.generalMargin,
+                                                                                 0,
+                                                                                 0);
     self.bookInfoBkgView.backgroundColor = UIC_WHISPER(1.0);
     
     self.bookInfoBookTitleLabel.frame = self.showBookInfo ? CGRectMake(self.generalMargin,
                                                                        self.bookInfoBkgView.frame.origin.y + 8.0,
                                                                        self.bounds.size.width - self.generalMargin * 2,
-                                                                       20) : CGRectZero;
+                                                                       20) : CGRectMake(self.generalMargin,
+                                                                                        self.bookInfoBkgView.frame.origin.y + 8.0,
+                                                                                        0,
+                                                                                        0);
     self.bookInfoBookTitleLabel.font = MEDIUM_BOLD_FONT;
     self.bookInfoBookTitleLabel.backgroundColor = [UIColor clearColor];
     
     self.bookInfoBookCategoryLabel.frame = self.showBookInfo ? CGRectMake(self.generalMargin,
                                                                           self.bookInfoBkgView.frame.origin.y + self.bookInfoBkgView.frame.size.height - 8.0 - TextHeightWithFont(SMALL_FONT),
                                                                           self.bounds.size.width - self.generalMargin * 2,
-                                                                          20) : CGRectZero;
+                                                                          20) : CGRectMake(self.generalMargin,
+                                                                                           self.bookInfoBkgView.frame.origin.y + self.bookInfoBkgView.frame.size.height - 8.0 - TextHeightWithFont(SMALL_FONT),
+                                                                                           0,
+                                                                                           0);
     self.bookInfoBookCategoryLabel.font = SMALL_FONT;
     self.bookInfoBookCategoryLabel.textColor = UIC_BRIGHT_GRAY(0.5);
     self.bookInfoBookCategoryLabel.backgroundColor = [UIColor clearColor];

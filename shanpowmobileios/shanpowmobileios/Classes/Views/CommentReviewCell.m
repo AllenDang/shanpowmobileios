@@ -35,6 +35,14 @@
     // Configure the view for the selected state
 }
 
+- (void)layoutSubviews
+{
+    self.frame = CGRectMake(self.frame.origin.x,
+                            self.frame.origin.y,
+                            self.frame.size.width,
+                            self.commentReviewView.calculatedHeight);
+}
+
 #pragma mark - Setter
 - (void)setComment:(NSDictionary *)comment
 {
@@ -47,6 +55,8 @@
                                 self.frame.size.width,
                                 self.commentReviewView.calculatedHeight);
     }
+    
+    [self setNeedsLayout];
 }
 
 -(void)setFrame:(CGRect)rect
@@ -64,6 +74,8 @@
         
         self.commentReviewView.showBookInfo = showBookInfo;
     }
+    
+    [self setNeedsLayout];
 }
 
 - (void)setShowMegaInfo:(BOOL)showMegaInfo
@@ -73,6 +85,8 @@
         
         self.commentReviewView.showMegaInfo = showMegaInfo;
     }
+    
+    [self setNeedsLayout];
 }
 
 @end

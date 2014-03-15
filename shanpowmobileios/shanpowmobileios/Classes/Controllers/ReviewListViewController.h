@@ -12,4 +12,8 @@
 
 @interface ReviewListViewController : UITableViewController <FilterDataSource>
 
+@property (nonatomic, strong) NSString *bookId;
+@property (nonatomic, assign) BOOL isComment;
+@property (nonatomic, assign) NSInteger itemSum;
+
 @end

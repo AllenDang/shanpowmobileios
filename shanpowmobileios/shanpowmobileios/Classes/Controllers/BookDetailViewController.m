@@ -14,6 +14,7 @@
 #import "RightSubtitleCell.h"
 #import "CommentDetailViewController.h"
 #import "OtherBooksViewController.h"
+#import "ReviewListViewController.h"
 
 @interface BookDetailViewController ()
 
@@ -653,6 +654,13 @@
                     commentDetailController.authorId = [[[[self.bookInfo objectForKey:@"Comments"] objectAtIndex:indexPath.row] objectForKey:@"Author"] objectForKey:@"Id"];
                     
                     [self pushViewController:commentDetailController];
+                } else {
+                    ReviewListViewController *reviewsController = [[ReviewListViewController alloc] initWithStyle:UITableViewStylePlain];
+                    reviewsController.bookId = self.bookId;
+                    reviewsController.isComment = YES;
+                    reviewsController.itemSum = [[self.bookInfo objectForKey:@"CommentSum"] integerValue];
+                    
+                    [self pushViewController:reviewsController];
                 }
             }
             break;
@@ -669,6 +677,13 @@
                     commentDetailController.bookCategory = [self.bookInfo objectForKey:@"Category"];
                     
                     [self pushViewController:commentDetailController];
+                } else {
+                    ReviewListViewController *reviewsController = [[ReviewListViewController alloc] initWithStyle:UITableViewStylePlain];
+                    reviewsController.bookId = self.bookId;
+                    reviewsController.isComment = NO;
+                    reviewsController.itemSum = [[self.bookInfo objectForKey:@"ReviewSum"] integerValue];
+                    
+                    [self pushViewController:reviewsController];
                 }
             }
             

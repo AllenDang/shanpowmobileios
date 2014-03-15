@@ -65,9 +65,11 @@
 
 - (void)getReadRecordsByUserName:(NSString *)username markType:(NSInteger)markType range:(NSRange)range;
 
-- (void)getReivewsByCategory:(NSString *)category channel:(FilterChannel)channel score:(NSInteger)score range:(NSRange)range;
+- (void)getReviewsByCategory:(NSString *)category channel:(FilterChannel)channel score:(NSInteger)score range:(NSRange)range;
 - (void)getReviewDetailById:(NSString *)reviewId;
 - (void)getCommentDetailByBookId:(NSString *)bookId authorId:(NSString *)authorId;
+- (void)getMoreCommentsByBookId:(NSString *)bookId range:(NSRange)range;
+- (void)getMoreReviewsByBookId:(NSString *)bookId range:(NSRange)range;
 
 - (void)likeCommentByBookId:(NSString *)bookId authorId:(NSString *)authorId;
 - (void)dislikeCommentByBookId:(NSString *)bookId authorId:(NSString *)authorId;
