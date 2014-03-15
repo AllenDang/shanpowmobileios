@@ -11,7 +11,7 @@
 #import "ReadRecordRootViewController.h"
 #import "UserListViewController.h"
 #import "SPLoadingView.h"
-#import "BookGridViewController.h"
+#import "UserFavBooksViewController.h"
 
 @interface UserProfileViewController ()
 
@@ -167,11 +167,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserList:) name:MSG_DID_GET_USERLIST object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetUserList:) name:MSG_FAIL_GET_USERLIST object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooks:) name:MSG_DID_GET_BOOKS object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooks:) name:MSG_FAIL_GET_BOOKS object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBook:) name:MSG_DID_SELECT_BOOK object:nil];
     
     [self getUserBasicInfo];
     
@@ -461,13 +456,6 @@
     }
 }
 
-- (void)getFavBooks
-{
-    [self.loadingView show];
-    
-    [[NetworkClient sharedNetworkClient] getFavBooksByUser:self.username];
-}
-
 #pragma mark - Event handler
 
 - (void)didGetBasicUserInfo:(NSNotification *)notification
@@ -523,30 +511,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_USER object:nil];
 }
 
-- (void)didGetBooks:(NSNotification *)notification
-{
-    [self.loadingView hide];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BOOKS object:nil];
-    
-    NSArray *books = [[notification userInfo] objectForKey:@"data"];
-    
-    BookGridViewController *booksController = [[BookGridViewController alloc] initWithStyle:UITableViewStylePlain];
-    booksController.title = @"喜欢的书";
-    booksController.books = books;
-    booksController.isPlain = YES;
-    
-    [self pushViewController:booksController];
-}
-
-- (void)failGetBooks:(NSNotification *)notification
-{
-    [self.loadingView hide];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
-    [alert show];
-}
-
 - (void)didFollowUser:(NSNotification *)notification
 {
     [self.loadingView hide];
@@ -577,18 +541,6 @@
     [alert show];
 }
 
-- (void)didSelectBook:(NSNotification *)notification
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_BOOK object:nil];
-    
-    NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
-    
-    BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
-    bookDetailController.bookId = bookId;
-    
-    [self pushViewController:bookDetailController];
-}
-
 #pragma mark - Table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -606,7 +558,9 @@
     switch (indexPath.row) {
         case 1:
         {
-            [self getFavBooks];
+            UserFavBooksViewController *userFavBooksController = [[UserFavBooksViewController alloc] init];
+            userFavBooksController.username = self.username;
+            [self pushViewController:userFavBooksController];
             
             break;
         }

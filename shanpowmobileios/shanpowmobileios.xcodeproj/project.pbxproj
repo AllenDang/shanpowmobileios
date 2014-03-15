@@ -192,6 +192,7 @@
 		64D35F4D18ADF09E00999CED /* Star_Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4918ADF09E00999CED /* Star_Red.png */; };
 		64D35F4E18ADF09E00999CED /* Star_Red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4A18ADF09E00999CED /* Star_Red@2x.png */; };
 		64D4D57618C050BF0044A78E /* BooklistDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */; };
+		64DDEBEE18D41A2B002918F0 /* UserFavBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64DDEBED18D41A2B002918F0 /* UserFavBooksViewController.m */; };
 		64E5611618C0340F00A26F96 /* BookGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E5611518C0340F00A26F96 /* BookGridCell.m */; };
 		64E9897918C430C000554BDB /* BooklistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9897818C430C000554BDB /* BooklistCell.m */; };
 		64E9897C18C455FC00554BDB /* AddToBooklistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9897B18C455FC00554BDB /* AddToBooklistViewController.m */; };
@@ -484,6 +485,8 @@
 		64D35F4A18ADF09E00999CED /* Star_Red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Red@2x.png"; sourceTree = "<group>"; };
 		64D4D57418C050BF0044A78E /* BooklistDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistDetailViewController.h; sourceTree = "<group>"; };
 		64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooklistDetailViewController.m; sourceTree = "<group>"; };
+		64DDEBEC18D41A2B002918F0 /* UserFavBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFavBooksViewController.h; sourceTree = "<group>"; };
+		64DDEBED18D41A2B002918F0 /* UserFavBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFavBooksViewController.m; sourceTree = "<group>"; };
 		64E5611418C0340F00A26F96 /* BookGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookGridCell.h; sourceTree = "<group>"; };
 		64E5611518C0340F00A26F96 /* BookGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookGridCell.m; sourceTree = "<group>"; };
 		64E9897718C430C000554BDB /* BooklistCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistCell.h; sourceTree = "<group>"; };
@@ -788,6 +791,8 @@
 				641D3B6618CEAE93009F79E6 /* WizardResultViewController.m */,
 				64D35F4018ADC2B900999CED /* WriteCommentReviewViewController.h */,
 				64D35F4118ADC2B900999CED /* WriteCommentReviewViewController.m */,
+				64DDEBEC18D41A2B002918F0 /* UserFavBooksViewController.h */,
+				64DDEBED18D41A2B002918F0 /* UserFavBooksViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1359,6 +1364,7 @@
 				646132C7184872F300A0BBF0 /* AppDelegate.m in Sources */,
 				641D3B6718CEAE93009F79E6 /* WizardResultViewController.m in Sources */,
 				645FB9C1184C2C0C00BB2325 /* AFHTTPSessionManager.m in Sources */,
+				64DDEBEE18D41A2B002918F0 /* UserFavBooksViewController.m in Sources */,
 				64B82A6318D04E0600F52941 /* RankingDetailViewController.m in Sources */,
 				642BEB67184DF3F800E1A0B3 /* UIButton+AFNetworking.m in Sources */,
 				6482D1BD18C5B11000D2DA8F /* ReadRecordRootViewController.m in Sources */,

@@ -182,7 +182,8 @@
 
 - (void)failGetBooklistDetail:(NSNotification *)notification
 {
-    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
+    [alert show];
 }
 
 - (void)nicknameTapped:(NSNotification *)notification
