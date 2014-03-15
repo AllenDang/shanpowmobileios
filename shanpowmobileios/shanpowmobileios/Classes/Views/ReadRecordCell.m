@@ -112,7 +112,6 @@
             self.reviewBubble.content = [self.book objectForKey:@"CommentContent"];
         } else {
             self.reviewBubble.content = @"（没有留下任何评论）";
-            self.reviewBubble.textColor = UIC_BRIGHT_GRAY(0.5);
         }
     }
     
