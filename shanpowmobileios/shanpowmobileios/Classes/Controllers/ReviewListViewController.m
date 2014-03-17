@@ -57,9 +57,14 @@
         self.tableView.separatorInset = UIEdgeInsetsZero;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nicknameTapped:) name:MSG_TAPPED_NICKNAME object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetReviews:) name:MSG_DID_GET_REVIEWS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetReviews:) name:MSG_FAIL_GET_REVIEWS object:nil];
     
     [self getReviewsWithRange:NSMakeRange(1, self.currentNumPerPage)];
 }
@@ -69,6 +74,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.currentPageNum = 1;
+    self.reviews = nil;
+    [self.tableView reloadData];
     
     [super viewWillDisappear:animated];
 }
@@ -82,9 +89,6 @@
 #pragma mark -
 - (void)getReviewsWithRange:(NSRange)range
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetReviews:) name:MSG_DID_GET_REVIEWS object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetReviews:) name:MSG_FAIL_GET_REVIEWS object:nil];
-    
     self.loadingView = [[SPLoadingView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.loadingView show];
     
@@ -102,8 +106,6 @@
 #pragma mark - Event handler
 - (void)didGetReviews:(NSNotification *)notification
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_REVIEWS object:nil];
-    
     [self.loadingView hide];
     
     self.reviews = self.reviews ? [self.reviews arrayByAddingObjectsFromArray:[[notification userInfo] objectForKey:@"data"]] : [[notification userInfo] objectForKey:@"data"];
@@ -115,8 +117,6 @@
 
 - (void)failGetReviews:(NSNotification *)notification
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_REVIEWS object:nil];
-    
     [self.loadingView hide];
 }
 
@@ -171,7 +171,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (isLastCell(tableView, indexPath)) {
+    if (indexPath.row == [self.reviews count]) {
         [self getReviewsWithRange:NSMakeRange(self.currentPageNum, self.currentNumPerPage)];
         return;
     }
