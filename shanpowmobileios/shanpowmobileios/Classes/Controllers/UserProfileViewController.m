@@ -499,17 +499,6 @@
     [alert show];
 }
 
-- (void)didSelectUser:(NSNotification *)notification
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_USER object:nil];
-    
-    NSString *nickname = [[notification userInfo] objectForKey:@"Nickname"];
-    
-    UserProfileViewController *userProfileController = [[UserProfileViewController alloc] initWithUsername:nickname];
-    
-    [self pushViewController:userProfileController];
-}
-
 - (void)didFollowUser:(NSNotification *)notification
 {
     [self.loadingView hide];

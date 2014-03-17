@@ -77,7 +77,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-//    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_SELECT_USER object:self userInfo:@{@"Nickname": [[self.users objectAtIndex:indexPath.row] objectForKey:@"Nickname"]}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_SELECT_USER object:self userInfo:@{@"Nickname": [[self.users objectAtIndex:indexPath.row] objectForKey:@"Nickname"]}];
     
     UserProfileViewController *userProfileController = [[UserProfileViewController alloc] initWithUsername:[[self.users objectAtIndex:indexPath.row] objectForKey:@"Nickname"]];
     [self pushViewController:userProfileController];

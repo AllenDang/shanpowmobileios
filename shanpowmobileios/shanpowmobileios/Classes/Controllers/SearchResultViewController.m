@@ -1,4 +1,4 @@
-//
+
 //  SearchResultViewController.m
 //  shanpowmobileios
 //
@@ -63,10 +63,22 @@
     if (!self.categoryFilterSegment) {
         [self initSegmentedControl];
     }
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBook:) name:MSG_DID_SELECT_BOOK object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBooklist:) name:MSG_DID_SELECT_BOOKLIST object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectUser:) name:MSG_DID_SELECT_USER object:nil];
+    
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [super viewWillDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
