@@ -9,6 +9,7 @@
 #import "ReadRecordViewController.h"
 #import "ReadRecordCell.h"
 #import "NetworkClient.h"
+#import "BookDetailViewController.h"
 
 @interface ReadRecordViewController ()
 
@@ -70,6 +71,13 @@
 {
     [super viewDidAppear:animated];
     [self.tableView reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [super viewWillDisappear:animated];
 }
 
 #pragma mark -
@@ -161,6 +169,14 @@
     if (isLastCell(tableView, indexPath)) {
         [self getBooksWithRange:NSMakeRange(self.currentPageNum + 1, self.numPerPage)];
     }
+    
+    NSString *sectionTitle = [self.currentKeys objectAtIndex:indexPath.section - 1];
+    NSArray *books = [self.books objectForKey:sectionTitle];
+    NSString *bookId = [[books objectAtIndex:indexPath.row] objectForKey:@"BookId"];
+    
+    BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+    bookDetailController.bookId = bookId;
+    [self pushViewController:bookDetailController];
     
     return;
 }
