@@ -7,7 +7,6 @@
 //
 
 #import "ReviewListViewController.h"
-#import "NetworkClient.h"
 #import "SPLoadingView.h"
 #import "CommentReviewCell.h"
 #import "CommentDetailViewController.h"
@@ -15,8 +14,8 @@
 
 @interface ReviewListViewController ()
 
-@property (nonatomic, assign) NSInteger currentPageNum;
-@property (nonatomic, assign) NSInteger currentNumPerPage;
+@property (nonatomic, assign) NSUInteger currentPageNum;
+@property (nonatomic, assign) NSUInteger currentNumPerPage;
 @property (nonatomic, strong) NSString *currentCategory;
 @property (nonatomic, assign) NSInteger currentScore;
 @property (nonatomic, assign) FilterChannel currentChannel;
@@ -39,7 +38,7 @@
         // comment and review each 10
         self.currentNumPerPage = 10;
         self.currentScore = 0;
-        self.currentChannel = 0;
+        self.currentChannel = FilterChannelAll;
     }
     return self;
 }
@@ -161,8 +160,6 @@
         UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
         return cell.frame.size.height;
     }
-                                                            
-    return GENERAL_CELL_HEIGHT;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

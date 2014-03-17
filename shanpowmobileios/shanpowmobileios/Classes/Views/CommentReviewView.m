@@ -261,7 +261,7 @@
     self.timeStampLabel.font = MEDIUM_FONT;
     
     // Section 3
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, self.frame.size.width - 40, GENERAL_CELL_HEIGHT * 1.5)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, self.frame.size.width - self.generalMargin * 2, GENERAL_CELL_HEIGHT * 1.5)];
     label.font = MEDIUM_FONT;
     label.text = self.content;
     label.numberOfLines = 0;
@@ -375,8 +375,7 @@
     
     self.timeStampLabel.text = self.timeStamp;
     
-    self.contentLabel.text = [NSString stringWithFormat:@"%@", self.content];
-    [self.contentLabel sizeToFit];
+    self.contentLabel.text = self.content;
 
     self.bookInfoBookTitleLabel.text = self.bookTitle;
     

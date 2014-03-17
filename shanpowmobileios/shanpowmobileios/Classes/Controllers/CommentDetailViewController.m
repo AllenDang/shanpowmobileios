@@ -32,8 +32,6 @@
 
 @property (nonatomic, strong) NSDictionary *reviewDetail;
 
-@property (nonatomic, strong) CommentReviewView *reviewDetailInfoView;
-
 @end
 
 @implementation CommentDetailViewController
@@ -301,20 +299,20 @@
     CGRect keyboardBounds = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     [UIView animateWithDuration:0.25 animations:^{
-        self.container.frame = CGRectMake(self.container.frame.origin.x,
-                                          self.container.frame.origin.y,
-                                          self.container.frame.size.width,
-                                          self.container.frame.size.height - keyboardBounds.size.height);
-        
-        self.responseTextField.frame = CGRectMake(self.responseTextField.frame.origin.x,
-                                                  self.responseTextField.frame.origin.y - keyboardBounds.size.height,
+        self.responseTextField.frame = CGRectMake(keyboardBounds.origin.x,
+                                                  keyboardBounds.origin.y - self.responseTextField.frame.size.height - UINAVIGATIONBAR_HEIGHT - UISTATUSBAR_HEIGHT,
                                                   self.responseTextField.frame.size.width,
                                                   self.responseTextField.frame.size.height);
         
         self.replyButton.frame = CGRectMake(self.replyButton.frame.origin.x,
-                                                  self.responseTextField.frame.origin.y,
-                                                  self.replyButton.frame.size.width,
-                                                  self.replyButton.frame.size.height);
+                                            self.responseTextField.frame.origin.y,
+                                            self.replyButton.frame.size.width,
+                                            self.replyButton.frame.size.height);
+
+        self.container.frame = CGRectMake(self.container.frame.origin.x,
+                self.container.frame.origin.y,
+                self.container.frame.size.width,
+                keyboardBounds.origin.y - self.responseTextField.frame.size.height - UINAVIGATIONBAR_HEIGHT - UISTATUSBAR_HEIGHT);
     } completion:^(BOOL finished) {
         self.overlayButton.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.responseTextField.frame.origin.y);
         [self.view addSubview:self.overlayButton];
@@ -349,41 +347,13 @@
 - (void)didLike:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:[notification name] object:nil];
-    
-//    BOOL selfDislike = NO;
-//    NSString *currentUser = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER];
-//    
-//    for (NSDictionary *user in [self.reviewDetail objectForKey:@"UsersWhoDislikeIt"]) {
-//        if ([[user objectForKey:@"Nickname"] isEqualToString:currentUser]) {
-//            selfDislike = YES;
-//        }
-//    }
-//    
-//    if (selfDislike) {
-//        [self.thumbDownButton setTitle:[NSString stringWithFormat:@"%d", [self.thumbDownButton.currentTitle integerValue] - 1] forState:UIControlStateNormal];
-//    }
-//    [self.thumbUpButton setTitle:[NSString stringWithFormat:@"%d", [self.thumbUpButton.currentTitle integerValue] + 1] forState:UIControlStateNormal];
-    
+
     [self getCommentReviewDetail];
 }
 
 - (void)didDislike:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:[notification name] object:nil];
-    
-//    BOOL selfLike = NO;
-//    NSString *currentUser = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER];
-//    
-//    for (NSString *user in [self.reviewDetail objectForKey:@"UsersWhoLikeIt"]) {
-//        if ([user isEqualToString:currentUser]) {
-//            selfLike = YES;
-//        }
-//    }
-//    
-//    if (selfLike) {
-//        [self.thumbUpButton setTitle:[NSString stringWithFormat:@"%d", [self.thumbUpButton.currentTitle integerValue] - 1] forState:UIControlStateNormal];
-//    }
-//    [self.thumbDownButton setTitle:[NSString stringWithFormat:@"%d", [self.thumbDownButton.currentTitle integerValue] + 1] forState:UIControlStateNormal];
 
     [self getCommentReviewDetail];
 }
