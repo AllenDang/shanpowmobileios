@@ -1085,7 +1085,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"GET"
-                         path:@"/editor/gettitlesofbookbillboard"
+                         path:@"/billboard/gettitlesofbookbillboard"
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -1113,7 +1113,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"GET"
-                         path:[NSString stringWithFormat:@"/editor/getbookbillboardbyid/%@", rankingId]
+                         path:[NSString stringWithFormat:@"/billboard/getbookbillboardbyid/%@", rankingId]
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
@@ -1144,7 +1144,7 @@ SINGLETON_GCD(NetworkClient);
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
     
     [self sendRequestWithType:@"GET"
-                         path:@"/editor/getbookbillboardbytitleandversion"
+                         path:@"/billboard/getbookbillboardbytitleandversion"
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject
