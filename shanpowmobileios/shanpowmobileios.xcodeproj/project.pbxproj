@@ -83,6 +83,8 @@
 		6440D73718602BEA008D9C59 /* QQLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D73618602BEA008D9C59 /* QQLogin.m */; };
 		6440D73A1860537A008D9C59 /* QQRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D7391860537A008D9C59 /* QQRegisterViewController.m */; };
 		6440D74318606DF9008D9C59 /* WeiboLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6440D74218606DF9008D9C59 /* WeiboLogin.m */; };
+		6441B63818D7083E00AD7566 /* Logout.png in Resources */ = {isa = PBXBuildFile; fileRef = 6441B63618D7083E00AD7566 /* Logout.png */; };
+		6441B63918D7083E00AD7566 /* Logout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6441B63718D7083E00AD7566 /* Logout@2x.png */; };
 		6441B9DA18B373180061D00C /* DefaultUser50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6441B9D918B373180061D00C /* DefaultUser50@2x.png */; };
 		6441B9DC18B373240061D00C /* DefaultUser50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6441B9DB18B373240061D00C /* DefaultUser50.png */; };
 		64546E9B1869638D001CCE5B /* HC_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 64546E991869638D001CCE5B /* HC_Background.png */; };
@@ -105,11 +107,6 @@
 		646132C3184872F300A0BBF0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 646132C2184872F300A0BBF0 /* main.m */; };
 		646132C7184872F300A0BBF0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 646132C6184872F300A0BBF0 /* AppDelegate.m */; };
 		646132C9184872F300A0BBF0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 646132C8184872F300A0BBF0 /* Images.xcassets */; };
-		646132D0184872F300A0BBF0 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 646132CF184872F300A0BBF0 /* XCTest.framework */; };
-		646132D1184872F300A0BBF0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 646132B6184872F300A0BBF0 /* Foundation.framework */; };
-		646132D2184872F300A0BBF0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 646132BA184872F300A0BBF0 /* UIKit.framework */; };
-		646132DA184872F300A0BBF0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 646132D8184872F300A0BBF0 /* InfoPlist.strings */; };
-		646132DC184872F300A0BBF0 /* shanpowmobileiosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 646132DB184872F300A0BBF0 /* shanpowmobileiosTests.m */; };
 		6461C58618504981006D3736 /* HotBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6461C58518504981006D3736 /* HotBooksViewController.m */; };
 		64635847185B231E00172760 /* Login_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 64635841185B231E00172760 /* Login_Background.png */; };
 		64635848185B231E00172760 /* Login_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64635842185B231E00172760 /* Login_Background@2x.png */; };
@@ -202,16 +199,6 @@
 		64FC60CE18B59B3800D7D8E6 /* BookDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64FC60CD18B59B3800D7D8E6 /* BookDetailViewController.m */; };
 		64FFD93B185FEDD2002F93C0 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 64FFD93A185FEDD2002F93C0 /* NSData+Base64.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		646132D3184872F300A0BBF0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 646132AB184872F300A0BBF0 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 646132B2184872F300A0BBF0;
-			remoteInfo = shanpowmobileios;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6409DB7D18BB156A00313AE5 /* CommentReviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentReviewView.h; sourceTree = "<group>"; };
@@ -322,6 +309,8 @@
 		6440D7391860537A008D9C59 /* QQRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QQRegisterViewController.m; sourceTree = "<group>"; };
 		6440D74118606DF9008D9C59 /* WeiboLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboLogin.h; sourceTree = "<group>"; };
 		6440D74218606DF9008D9C59 /* WeiboLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiboLogin.m; sourceTree = "<group>"; };
+		6441B63618D7083E00AD7566 /* Logout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logout.png; sourceTree = "<group>"; };
+		6441B63718D7083E00AD7566 /* Logout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Logout@2x.png"; sourceTree = "<group>"; };
 		6441B9D918B373180061D00C /* DefaultUser50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DefaultUser50@2x.png"; sourceTree = "<group>"; };
 		6441B9DB18B373240061D00C /* DefaultUser50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultUser50.png; sourceTree = "<group>"; };
 		64546E991869638D001CCE5B /* HC_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HC_Background.png; sourceTree = "<group>"; };
@@ -359,11 +348,7 @@
 		646132C5184872F300A0BBF0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
 		646132C6184872F300A0BBF0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../AppDelegate.m; sourceTree = "<group>"; };
 		646132C8184872F300A0BBF0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		646132CE184872F300A0BBF0 /* shanpowmobileiosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shanpowmobileiosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		646132CF184872F300A0BBF0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		646132D7184872F300A0BBF0 /* shanpowmobileiosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "shanpowmobileiosTests-Info.plist"; sourceTree = "<group>"; };
-		646132D9184872F300A0BBF0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		646132DB184872F300A0BBF0 /* shanpowmobileiosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = shanpowmobileiosTests.m; sourceTree = "<group>"; };
 		6461C58418504981006D3736 /* HotBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotBooksViewController.h; sourceTree = "<group>"; };
 		6461C58518504981006D3736 /* HotBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotBooksViewController.m; sourceTree = "<group>"; };
 		64635841185B231E00172760 /* Login_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_Background.png; sourceTree = "<group>"; };
@@ -519,16 +504,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		646132CB184872F300A0BBF0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				646132D0184872F300A0BBF0 /* XCTest.framework in Frameworks */,
-				646132D2184872F300A0BBF0 /* UIKit.framework in Frameworks */,
-				646132D1184872F300A0BBF0 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -633,6 +608,8 @@
 		642723F318ACC3F0002609F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				6441B63618D7083E00AD7566 /* Logout.png */,
+				6441B63718D7083E00AD7566 /* Logout@2x.png */,
 				641D3B4D18CD6789009F79E6 /* Chat_CYAN.png */,
 				641D3B4E18CD6789009F79E6 /* Chat_CYAN@2x.png */,
 				641D3B4F18CD6789009F79E6 /* ThumbDown_CYAN.png */,
@@ -890,7 +867,6 @@
 			isa = PBXGroup;
 			children = (
 				646132BC184872F300A0BBF0 /* shanpowmobileios */,
-				646132D5184872F300A0BBF0 /* shanpowmobileiosTests */,
 				646132B5184872F300A0BBF0 /* Frameworks */,
 				646132B4184872F300A0BBF0 /* Products */,
 			);
@@ -900,7 +876,6 @@
 			isa = PBXGroup;
 			children = (
 				646132B3184872F300A0BBF0 /* shanpowmobileios.app */,
-				646132CE184872F300A0BBF0 /* shanpowmobileiosTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -946,24 +921,6 @@
 				646132BF184872F300A0BBF0 /* InfoPlist.strings */,
 				646132C2184872F300A0BBF0 /* main.m */,
 				646132C4184872F300A0BBF0 /* shanpowmobileios-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		646132D5184872F300A0BBF0 /* shanpowmobileiosTests */ = {
-			isa = PBXGroup;
-			children = (
-				646132DB184872F300A0BBF0 /* shanpowmobileiosTests.m */,
-				646132D6184872F300A0BBF0 /* Supporting Files */,
-			);
-			path = shanpowmobileiosTests;
-			sourceTree = "<group>";
-		};
-		646132D6184872F300A0BBF0 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				646132D7184872F300A0BBF0 /* shanpowmobileiosTests-Info.plist */,
-				646132D8184872F300A0BBF0 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1122,24 +1079,6 @@
 			productReference = 646132B3184872F300A0BBF0 /* shanpowmobileios.app */;
 			productType = "com.apple.product-type.application";
 		};
-		646132CD184872F300A0BBF0 /* shanpowmobileiosTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 646132E2184872F300A0BBF0 /* Build configuration list for PBXNativeTarget "shanpowmobileiosTests" */;
-			buildPhases = (
-				646132CA184872F300A0BBF0 /* Sources */,
-				646132CB184872F300A0BBF0 /* Frameworks */,
-				646132CC184872F300A0BBF0 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				646132D4184872F300A0BBF0 /* PBXTargetDependency */,
-			);
-			name = shanpowmobileiosTests;
-			productName = shanpowmobileiosTests;
-			productReference = 646132CE184872F300A0BBF0 /* shanpowmobileiosTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1151,9 +1090,6 @@
 				TargetAttributes = {
 					646132B2184872F300A0BBF0 = {
 						DevelopmentTeam = 3M2SL9S892;
-					};
-					646132CD184872F300A0BBF0 = {
-						TestTargetID = 646132B2184872F300A0BBF0;
 					};
 				};
 			};
@@ -1170,7 +1106,6 @@
 			projectRoot = "";
 			targets = (
 				646132B2184872F300A0BBF0 /* shanpowmobileios */,
-				646132CD184872F300A0BBF0 /* shanpowmobileiosTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1224,6 +1159,7 @@
 				642723E918AC7694002609F4 /* Plus@2x.png in Resources */,
 				64204AD118BC558200A684A7 /* bg-menuitem@2x.png in Resources */,
 				64CD289E18A9F9660050BE63 /* Hot.png in Resources */,
+				6441B63918D7083E00AD7566 /* Logout@2x.png in Resources */,
 				6423919D1884DEBC0049BE8B /* WeiboSDK.bundle in Resources */,
 				641D3B5718CD6789009F79E6 /* ThumbUp_CYAN.png in Resources */,
 				64CD289F18A9F9660050BE63 /* Hot@2x.png in Resources */,
@@ -1267,6 +1203,7 @@
 				641D3B5518CD6789009F79E6 /* ThumbDown_CYAN.png in Resources */,
 				641637C918AA0713009A774A /* User.png in Resources */,
 				64CD289B18A9F79B0050BE63 /* TitlePlaceholder@2x.png in Resources */,
+				6441B63818D7083E00AD7566 /* Logout.png in Resources */,
 				6463584B185B231E00172760 /* Login_TextField.png in Resources */,
 				64204AD718BC558200A684A7 /* icon-star@2x.png in Resources */,
 				64D35F4E18ADF09E00999CED /* Star_Red@2x.png in Resources */,
@@ -1275,14 +1212,6 @@
 				64C66390186D298F00B18236 /* Login_MailTextField@2x.png in Resources */,
 				64546E9C1869638D001CCE5B /* HC_Background@2x.png in Resources */,
 				641D3B5318CD6789009F79E6 /* Chat_CYAN.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		646132CC184872F300A0BBF0 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				646132DA184872F300A0BBF0 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1394,37 +1323,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		646132CA184872F300A0BBF0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				646132DC184872F300A0BBF0 /* shanpowmobileiosTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		646132D4184872F300A0BBF0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 646132B2184872F300A0BBF0 /* shanpowmobileios */;
-			targetProxy = 646132D3184872F300A0BBF0 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		646132BF184872F300A0BBF0 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				646132C0184872F300A0BBF0 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		646132D8184872F300A0BBF0 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				646132D9184872F300A0BBF0 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1564,46 +1469,6 @@
 			};
 			name = Release;
 		};
-		646132E3184872F300A0BBF0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/shanpowmobileios.app/shanpowmobileios";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "shanpowmobileios/shanpowmobileios-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "shanpowmobileiosTests/shanpowmobileiosTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		646132E4184872F300A0BBF0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/shanpowmobileios.app/shanpowmobileios";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "shanpowmobileios/shanpowmobileios-Prefix.pch";
-				INFOPLIST_FILE = "shanpowmobileiosTests/shanpowmobileiosTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1621,15 +1486,6 @@
 			buildConfigurations = (
 				646132E0184872F300A0BBF0 /* Debug */,
 				646132E1184872F300A0BBF0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		646132E2184872F300A0BBF0 /* Build configuration list for PBXNativeTarget "shanpowmobileiosTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				646132E3184872F300A0BBF0 /* Debug */,
-				646132E4184872F300A0BBF0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

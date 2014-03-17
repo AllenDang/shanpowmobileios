@@ -70,7 +70,7 @@
     self = [super init];
     if (self) {
         self.username = username;
-
+        
         if (isLogin()) {
             if ([[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CURRENT_USER] == username) {
                 self.isSelf = YES;
@@ -156,14 +156,14 @@
     self.sendMessageButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [self updateData];
-
-    self.logoutButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchView:)];
+    
+    self.logoutButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Logout"] style:UIBarButtonItemStylePlain target:self action:@selector(logout:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     self.shouldCancelSelectUser = YES;
-
+    
     if (isLogin()) {
         self.navigationItem.rightBarButtonItem = self.logoutButton;
     }
@@ -171,18 +171,18 @@
     if (!self.hasShown) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBasicUserInfo:) name:MSG_DID_GET_BASIC_USER_INFO object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailGetInfo:) name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
-
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFollowUser:) name:MSG_DID_FOLLOW_USER object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failFollowUser:) name:MSG_FAIL_FOLLOW_USER object:nil];
-
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didUnfollowUser:) name:MSG_DID_UNFOLLOW_USER object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failUnfollowUser:) name:MSG_FAIL_UNFOLLOW_USER object:nil];
-
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserList:) name:MSG_DID_GET_USERLIST object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetUserList:) name:MSG_FAIL_GET_USERLIST object:nil];
-
+        
         [self getUserBasicInfo];
-
+        
         self.hasShown = YES;
     }
     
@@ -193,7 +193,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.hasShown = NO;
-
+    
     [super viewWillDisappear:animated];
 }
 
@@ -235,8 +235,15 @@
 - (void)getUserBasicInfo
 {
     [self.loadingView show];
-
+    
     [[NetworkClient sharedNetworkClient] getBasicUserInfo:self.username];
+}
+
+- (void)logout:(UIBarButtonItem *)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"登出" message:@"确定要登出吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alert.tag = 1001;
+    [alert show];
 }
 
 - (void)updateData
@@ -483,7 +490,7 @@
 - (void)handleFailGetInfo:(NSNotification *)notification
 {
     [self.loadingView hide];
-
+    
     NSString *errorMsg = [[notification userInfo] objectForKey:@"ErrorMsg"];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:errorMsg delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
     [alert show];
@@ -511,6 +518,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_USERLIST object:nil];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
+    alert.tag = 1000;
     [alert show];
 }
 
@@ -542,6 +550,14 @@
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
     [alert show];
+}
+
+- (void)didLogout:(NSNotification *)notification
+{
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+    
+    self.tabBarController.selectedIndex = 0;
 }
 
 #pragma mark - Table view delegate
@@ -623,7 +639,7 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
+    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         if (indexPath.row == 0) {
@@ -648,8 +664,27 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1) {
-        [self getUserBasicInfo];
+    switch (alertView.tag) {
+        case 1000:
+        {
+            if (buttonIndex == 1) {
+                [self getUserBasicInfo];
+            }
+            
+            break;
+        }
+        case 1001:
+        {
+            if (buttonIndex == 1) {
+                [[NetworkClient sharedNetworkClient] logout];
+                
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout:) name:MSG_DID_LOGOUT object:nil];
+            }
+            
+            break;
+        }
+        default:
+            break;
     }
 }
 

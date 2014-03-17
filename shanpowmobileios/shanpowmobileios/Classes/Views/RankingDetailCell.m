@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *authorLabel;
-@property (nonatomic, strong) UIButton *reasonButton;
 
 @property (nonatomic, strong) ChatBubble *reasonBubble;
 
@@ -39,16 +38,6 @@
         self.authorLabel.textColor = UIC_BRIGHT_GRAY(0.5);
         self.authorLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:self.authorLabel];
-        
-        self.reasonButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.reasonButton.layer.cornerRadius = 4;
-        self.reasonButton.layer.borderWidth = 1;
-        self.reasonButton.layer.borderColor = UIC_CYAN(1.0).CGColor;
-        self.reasonButton.titleLabel.font = SMALL_FONT;
-        [self.reasonButton setTitleColor:UIC_CYAN(1.0) forState:UIControlStateNormal];
-        [self.reasonButton setTitle:@"上榜理由" forState:UIControlStateNormal];
-        [self.reasonButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:self.reasonButton];
         
         self.reasonBubble = [[ChatBubble alloc] initWithFrame:CGRectZero];
         [self addSubview:self.reasonBubble];
@@ -96,11 +85,6 @@
                                         self.bounds.size.width - 100,
                                         TextHeightWithFont(MEDIUM_FONT));
     
-    self.reasonButton.frame = CGRectMake(self.bounds.size.width - 80,
-                                         (GENERAL_CELL_HEIGHT * 1.5 - 25) / 2,
-                                         70,
-                                         25);
-    
     self.reasonBubble.frame = CGRectMake(10.0,
                                          GENERAL_CELL_HEIGHT * 1.5 + 5,
                                          self.bounds.size.width - 20,
@@ -108,14 +92,6 @@
     self.reasonBubble.style = CBStyleLight;
     self.reasonBubble.font = MEDIUM_FONT;
     self.reasonBubble.avatarLocation = CB_AvatarLocationNone;
-}
-
-- (void)buttonTapped:(UIButton *)sender
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_TAPPED_REASON object:self userInfo:@{
-                                                                                                        @"Sender": sender,
-                                                                                                        @"BookId":[self.book objectForKey:@"Id"]
-                                                                                                        }];
 }
 
 @end
