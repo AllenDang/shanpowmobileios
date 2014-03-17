@@ -113,7 +113,7 @@
 
 - (void)didSelectBooklist:(NSNotification *)notification
 {
-    NSString *booklistId = [[notification userInfo] objectForKey:@"booklistId"];
+    NSString *booklistId = [[notification userInfo] objectForKey:@"BooklistId"];
     
     [[NetworkClient sharedNetworkClient] addBook:self.bookIdToAdd toBooklist:booklistId];
 }
