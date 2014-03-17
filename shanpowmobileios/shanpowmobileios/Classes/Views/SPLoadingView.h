@@ -15,6 +15,5 @@
 
 - (void)show;
 - (void)hide;
-- (void)dismissWithDuration:(CGFloat)duration;
 
 @end

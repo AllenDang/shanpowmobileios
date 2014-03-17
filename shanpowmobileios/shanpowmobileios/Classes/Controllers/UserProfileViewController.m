@@ -34,11 +34,14 @@
 @property (nonatomic, strong) UIImageView *followIcon;
 @property (nonatomic, strong) UIButton *sendMessageButton;
 @property (nonatomic, strong) SPLoadingView *loadingView;
+@property (nonatomic, strong) UIBarButtonItem *logoutButton;
 
 @property (nonatomic, strong) NSArray *userMenuItems;
 
 @property (nonatomic, assign) BOOL followingMe;
 @property (nonatomic, assign) BOOL followedByMe;
+
+@property (nonatomic, assign) BOOL hasShown;
 
 @property (nonatomic, assign) BOOL shouldCancelSelectUser;
 
@@ -153,25 +156,35 @@
     self.sendMessageButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [self updateData];
+
+    self.logoutButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchView:)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     self.shouldCancelSelectUser = YES;
+
+    if (isLogin()) {
+        self.navigationItem.rightBarButtonItem = self.logoutButton;
+    }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBasicUserInfo:) name:MSG_DID_GET_BASIC_USER_INFO object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailGetInfo:) name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFollowUser:) name:MSG_DID_FOLLOW_USER object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failFollowUser:) name:MSG_FAIL_FOLLOW_USER object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didUnfollowUser:) name:MSG_DID_UNFOLLOW_USER object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failUnfollowUser:) name:MSG_FAIL_UNFOLLOW_USER object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserList:) name:MSG_DID_GET_USERLIST object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetUserList:) name:MSG_FAIL_GET_USERLIST object:nil];
-    
-    [self getUserBasicInfo];
+    if (!self.hasShown) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBasicUserInfo:) name:MSG_DID_GET_BASIC_USER_INFO object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleFailGetInfo:) name:MSG_FAIL_GET_BASIC_USER_INFO object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFollowUser:) name:MSG_DID_FOLLOW_USER object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failFollowUser:) name:MSG_FAIL_FOLLOW_USER object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didUnfollowUser:) name:MSG_DID_UNFOLLOW_USER object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failUnfollowUser:) name:MSG_FAIL_UNFOLLOW_USER object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetUserList:) name:MSG_DID_GET_USERLIST object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetUserList:) name:MSG_FAIL_GET_USERLIST object:nil];
+
+        [self getUserBasicInfo];
+
+        self.hasShown = YES;
+    }
     
     [super viewWillAppear:animated];
 }
@@ -179,7 +192,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+    self.hasShown = NO;
+
     [super viewWillDisappear:animated];
 }
 
@@ -221,7 +235,7 @@
 - (void)getUserBasicInfo
 {
     [self.loadingView show];
-    
+
     [[NetworkClient sharedNetworkClient] getBasicUserInfo:self.username];
 }
 
@@ -469,8 +483,9 @@
 - (void)handleFailGetInfo:(NSNotification *)notification
 {
     [self.loadingView hide];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
+
+    NSString *errorMsg = [[notification userInfo] objectForKey:@"ErrorMsg"];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:errorMsg delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
     [alert show];
 }
 
@@ -633,7 +648,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
+    if (buttonIndex == 1) {
         [self getUserBasicInfo];
     }
 }

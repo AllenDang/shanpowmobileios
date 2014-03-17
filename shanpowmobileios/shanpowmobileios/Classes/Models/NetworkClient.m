@@ -199,6 +199,9 @@ SINGLETON_GCD(NetworkClient);
                    parameters:parameters
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           [me handleResponse:responseObject success:^(NSDictionary *data) {
+                              NSString *nickname = [[data objectForKey:@"data"] objectForKey:@"Nickname"];
+                              [[NSUserDefaults standardUserDefaults] setObject:nickname forKey:SETTINGS_CURRENT_USER];
+                              [[NSUserDefaults standardUserDefaults] synchronize];
                               [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGIN object:self];
                           } failure:^(NSDictionary *ErrorMsg) {
                               NSString *errorMsg = [ErrorMsg objectForKey:@"ErrorMsg"];

@@ -85,15 +85,4 @@
                      }];
 }
 
-- (void)dismissWithDuration:(CGFloat)duration
-{
-    [UIView animateWithDuration:duration
-                     animations:^{
-                         self.alpha = 0.0;
-                     }
-                     completion:^(BOOL finished) {
-                         [self removeFromSuperview];
-                     }];
-}
-
 @end
