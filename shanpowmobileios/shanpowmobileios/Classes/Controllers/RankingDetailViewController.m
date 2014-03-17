@@ -163,18 +163,18 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[self.heightCheck objectAtIndex:indexPath.row] boolValue]) {
-        NSString *content = [[[self.rankingDetail objectForKey:@"Books"] objectAtIndex:indexPath.row] objectForKey:@"Comment"];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width - 40, GENERAL_CELL_HEIGHT * 1.5)];
-        label.font = MEDIUM_FONT;
-        label.text = content;
-        label.numberOfLines = 0;
-        [label sizeToFit];
-        return GENERAL_CELL_HEIGHT * 1.5 + label.frame.size.height + 20;
-    }else{
-        
-        return GENERAL_CELL_HEIGHT * 1.5;
-    }
+//    if ([[self.heightCheck objectAtIndex:indexPath.row] boolValue]) {
+    NSString *content = [[[self.rankingDetail objectForKey:@"Books"] objectAtIndex:indexPath.row] objectForKey:@"Comment"];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width - 40, GENERAL_CELL_HEIGHT * 1.5)];
+    label.font = MEDIUM_FONT;
+    label.text = content;
+    label.numberOfLines = 0;
+    [label sizeToFit];
+    return GENERAL_CELL_HEIGHT * 1.5 + label.frame.size.height + 20;
+//    }else{
+//
+//        return GENERAL_CELL_HEIGHT * 1.5;
+//    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -125,11 +125,12 @@
         self.nickname = [[self.comment objectForKey:@"Author"] objectForKey:@"Nickname"];
         self.timeStamp = [self.comment objectForKey:@"CreationTime"];
         self.score = [[self.comment objectForKey:@"Score"] floatValue];
-        
-        if ([[self.comment objectForKey:@"Content"] length] > 80) {
-            self.content = [[[self.comment objectForKey:@"Content"] substringToIndex:80] stringByAppendingString:@"..."];
-        } else {
-            self.content = [self.comment objectForKey:@"Content"];
+
+        self.content = [self.comment objectForKey:@"Content"];
+        if (!self.isDetailMode) {
+            if ([[self.comment objectForKey:@"Content"] length] > 80) {
+                self.content = [[[self.comment objectForKey:@"Content"] substringToIndex:80] stringByAppendingString:@"..."];
+            }
         }
         
         self.likeSum = [[self.comment objectForKey:@"LikeSum"] integerValue];
@@ -260,14 +261,19 @@
     self.timeStampLabel.font = MEDIUM_FONT;
     
     // Section 3
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, self.frame.size.width - 40, GENERAL_CELL_HEIGHT * 1.5)];
+    label.font = MEDIUM_FONT;
+    label.text = self.content;
+    label.numberOfLines = 0;
+    [label sizeToFit];
     self.contentLabel.frame = CGRectMake(self.generalMargin,
                                          self.avatar.frame.origin.y + self.avatarSize + self.generalMargin / 2,
                                          self.frame.size.width - self.generalMargin * 2,
-                                         heightForMultilineTextWithFont(self.content, self.isDetailMode ? MEDIUM_FONT : SMALL_FONT, self.bounds.size.width));
-    self.contentLabel.numberOfLines = self.isReview ? 4 : 7;
+                                         label.frame.size.height);
+    self.contentLabel.numberOfLines = self.isReview ? (self.isDetailMode ? INFINITY : 4) : 7;
     self.contentLabel.backgroundColor = [UIColor clearColor];
     self.contentLabel.font = self.isDetailMode ? MEDIUM_FONT : SMALL_FONT;
-    
+
     // Section 4
     self.bookInfoBkgView.frame = self.showBookInfo ? CGRectMake(0.0,
                                                                 self.contentLabel.frame.origin.y + self.contentLabel.frame.size.height + self.generalMargin,
@@ -283,6 +289,7 @@
                                                                        self.bookInfoBkgView.bounds.size.width - self.generalMargin * 2,
                                                                        20) : CGRectMake(self.generalMargin, 5.0, 0, 0);
     self.bookInfoBookTitleLabel.font = MEDIUM_BOLD_FONT;
+    self.bookInfoBookTitleLabel.textColor = UIC_BRIGHT_GRAY(0.8);
     self.bookInfoBookTitleLabel.backgroundColor = [UIColor clearColor];
     
     self.bookInfoBookCategoryLabel.frame = self.showBookInfo ? CGRectMake(self.generalMargin,
@@ -369,7 +376,8 @@
     self.timeStampLabel.text = self.timeStamp;
     
     self.contentLabel.text = [NSString stringWithFormat:@"%@", self.content];
-    
+    [self.contentLabel sizeToFit];
+
     self.bookInfoBookTitleLabel.text = self.bookTitle;
     
     self.bookInfoBookCategoryLabel.text = self.bookCategory;
