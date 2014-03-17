@@ -24,6 +24,8 @@
 
 @property (nonatomic, strong) NSArray *reviews;
 
+@property (nonatomic, assign) BOOL hasShown;
+
 @end
 
 @implementation ReviewListViewController
@@ -62,18 +64,24 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nicknameTapped:) name:MSG_TAPPED_NICKNAME object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetReviews:) name:MSG_DID_GET_REVIEWS object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetReviews:) name:MSG_FAIL_GET_REVIEWS object:nil];
-    
-    [self getReviewsWithRange:NSMakeRange(1, self.currentNumPerPage)];
+    if (!self.hasShown) {
+        self.hasShown = YES;
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nicknameTapped:) name:MSG_TAPPED_NICKNAME object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetReviews:) name:MSG_DID_GET_REVIEWS object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetReviews:) name:MSG_FAIL_GET_REVIEWS object:nil];
+
+        [self getReviewsWithRange:NSMakeRange(1, self.currentNumPerPage)];
+    }
     
     [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    self.hasShown = NO;
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.currentPageNum = 1;
