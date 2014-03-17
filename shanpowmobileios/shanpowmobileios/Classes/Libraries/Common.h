@@ -232,4 +232,8 @@ extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accu
 
 @end
 
+@interface UINavigationItem (BackButtonTitle)
+
+@end
+
 #pragma mark -

@@ -293,3 +293,12 @@ extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accu
 }
 
 @end
+
+#pragma mark - UINavigationItem category
+@implementation UINavigationItem (BackButtonTitle)
+
+- (UIBarButtonItem *)backBarButtonItem
+{
+    return [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
+}
+@end
