@@ -57,6 +57,8 @@
         self.tableView.separatorInset = UIEdgeInsetsZero;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
+    self.loadingView = [[SPLoadingView alloc] initWithFrame:[UIScreen mainScreen].bounds];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -67,6 +69,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetReviews:) name:MSG_FAIL_GET_REVIEWS object:nil];
     
     [self getReviewsWithRange:NSMakeRange(1, self.currentNumPerPage)];
+    
+    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -89,7 +93,6 @@
 #pragma mark -
 - (void)getReviewsWithRange:(NSRange)range
 {
-    self.loadingView = [[SPLoadingView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.loadingView show];
     
     if (self.bookId) {

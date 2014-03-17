@@ -90,8 +90,8 @@
         [self addSubview:self.timeStampLabel];
         [self addSubview:self.ratingStar];
         [self addSubview:self.bookInfoBkgView];
-        [self addSubview:self.bookInfoBookTitleLabel];
-        [self addSubview:self.bookInfoBookCategoryLabel];
+        [self.bookInfoBkgView addSubview:self.bookInfoBookTitleLabel];
+        [self.bookInfoBkgView addSubview:self.bookInfoBookCategoryLabel];
         [self addSubview:self.thumbUpImage];
         [self addSubview:self.thumbUpLabel];
         [self addSubview:self.thumbDownImage];
@@ -279,17 +279,14 @@
     self.bookInfoBkgView.backgroundColor = UIC_WHISPER(1.0);
     
     self.bookInfoBookTitleLabel.frame = self.showBookInfo ? CGRectMake(self.generalMargin,
-                                                                       self.bookInfoBkgView.frame.origin.y + 8.0,
-                                                                       self.bounds.size.width - self.generalMargin * 2,
-                                                                       20) : CGRectMake(self.generalMargin,
-                                                                                        self.bookInfoBkgView.frame.origin.y + 8.0,
-                                                                                        0,
-                                                                                        0);
+                                                                       5.0,
+                                                                       self.bookInfoBkgView.bounds.size.width - self.generalMargin * 2,
+                                                                       20) : CGRectMake(self.generalMargin, 5.0, 0, 0);
     self.bookInfoBookTitleLabel.font = MEDIUM_BOLD_FONT;
     self.bookInfoBookTitleLabel.backgroundColor = [UIColor clearColor];
     
     self.bookInfoBookCategoryLabel.frame = self.showBookInfo ? CGRectMake(self.generalMargin,
-                                                                          self.bookInfoBkgView.frame.origin.y + self.bookInfoBkgView.frame.size.height - 8.0 - TextHeightWithFont(SMALL_FONT),
+                                                                          self.bookInfoBkgView.bounds.size.height - TextHeightWithFont(SMALL_FONT) - 12.0,
                                                                           self.bounds.size.width - self.generalMargin * 2,
                                                                           20) : CGRectMake(self.generalMargin,
                                                                                            self.bookInfoBkgView.frame.origin.y + self.bookInfoBkgView.frame.size.height - 8.0 - TextHeightWithFont(SMALL_FONT),
