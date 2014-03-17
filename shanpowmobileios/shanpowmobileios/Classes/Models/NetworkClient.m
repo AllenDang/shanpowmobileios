@@ -237,6 +237,13 @@ SINGLETON_GCD(NetworkClient);
                          path:@"/account/mobilelogout"
                    parameters:nil
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+                          for (NSHTTPCookie *cookie in cookies) {
+                              if ([[cookie name] rangeOfString:@"REVEL"].length > 0) {
+                                  [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+                              }
+                          }
+
                           [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGOUT
                                                                               object:me
                                                                             userInfo:nil];
