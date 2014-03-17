@@ -177,7 +177,7 @@
     height = self.titleLabel.frame.size.height + self.avatarSize + self.contentLabel.frame.size.height + self.bookInfoBkgView.frame.size.height + (TextHeightWithFont(MEDIUM_FONT)) + self.generalMargin * 5;
     
     if (self.likeSum == 0 && self.disLikeSum == 0 && self.responseSum == 0) {
-        height = height - TextHeightWithFont(MEDIUM_FONT) - self.generalMargin;
+        height = height - TextHeightWithFont(MEDIUM_FONT) - self.generalMargin * 2;
     }
     
     if (!self.isReview) {
