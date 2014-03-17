@@ -373,7 +373,7 @@
     
     [self.ratingStar setRating:self.score];
     
-    self.timeStampLabel.text = self.timeStamp;
+    self.timeStampLabel.text = [self.timeStamp stringByAppendingString:@"前"];
     
     self.contentLabel.text = self.content;
 
