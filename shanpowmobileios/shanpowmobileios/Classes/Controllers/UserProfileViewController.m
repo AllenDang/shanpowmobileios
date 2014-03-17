@@ -567,6 +567,11 @@
     if (indexPath.row == 0) {
         return self.avatarSectionHeight;
     }
+
+    if (indexPath.row == 5) {
+        return 0;
+    }
+
     return 45.0;
 }
 
