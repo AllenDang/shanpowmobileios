@@ -370,7 +370,9 @@
             cell.backgroundColor = UIC_BRIGHT_GRAY(1.0);
             cell.textLabel.textColor = UIC_ALMOSTWHITE(1.0);
             cell.textLabel.font = MEDIUM_FONT;
-            [cell setTintColor:UIC_ALMOSTWHITE(1.0)];
+            if (IsSysVerGTE(7.0)) {
+                [cell setTintColor:UIC_ALMOSTWHITE(1.0)];
+            }
             
             if (indexPath.row == 0) {
                 cell.textLabel.text = @"全部";

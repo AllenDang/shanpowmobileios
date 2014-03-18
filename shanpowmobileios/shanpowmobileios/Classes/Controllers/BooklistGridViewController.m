@@ -97,7 +97,9 @@
         }
         
         currentCell.accessoryType = UITableViewCellAccessoryCheckmark;
-        currentCell.tintColor = UIC_CERULEAN(1.0);
+        if (IsSysVerGTE(7.0)) {
+            currentCell.tintColor = UIC_CERULEAN(1.0);
+        }
     }
     
     self.lastSelectedCell = currentCell;
