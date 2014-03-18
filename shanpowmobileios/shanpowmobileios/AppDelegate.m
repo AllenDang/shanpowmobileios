@@ -39,7 +39,7 @@
     
     // Prepare tab bar controller
     UITabBarItem *homeItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[UIImage imageNamed:@"Home"] tag:1];
-    UITabBarItem *userItem = [[UITabBarItem alloc] initWithTitle:@"用户" image:[UIImage imageNamed:@"User"] tag:2];
+    UITabBarItem *userItem = [[UITabBarItem alloc] initWithTitle:@"我的山坡" image:[UIImage imageNamed:@"User"] tag:2];
     
     self.mainMenuController.tabBarItem = homeItem;
     self.userProfileController.tabBarItem = userItem;

@@ -232,7 +232,7 @@ SINGLETON_GCD(NetworkClient);
     }
     
     __block NetworkClient *me = [NetworkClient sharedNetworkClient];
-    
+
     [self sendRequestWithType:@"GET"
                          path:@"/account/mobilelogout"
                    parameters:nil
