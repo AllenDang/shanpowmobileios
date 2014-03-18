@@ -40,7 +40,7 @@ CGFloat const UI_PLACEHOLDER_TEXT_CHANGED_ANIMATION_DURATION = 0.25;
     {
         if (_placeHolderLabel == nil )
         {
-            if ([self respondsToSelector:@selector(textContainerInset:)]) {
+            if ([super respondsToSelector:@selector(textContainerInset:)]) {
                 _placeHolderLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.textContainerInset.left + 5, self.textContainerInset.top, self.bounds.size.width,0)];
             } else {
                 _placeHolderLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, self.bounds.size.width,0)];

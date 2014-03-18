@@ -269,7 +269,7 @@
     self.contentLabel.frame = CGRectMake(self.generalMargin,
                                          self.avatar.frame.origin.y + self.avatarSize + self.generalMargin / 2,
                                          self.frame.size.width - self.generalMargin * 2,
-                                         label.frame.size.height);
+                                         MIN(label.frame.size.height, (self.isDetailMode ? label.frame.size.height : TextHeightWithFont((self.isDetailMode ? MEDIUM_FONT : SMALL_FONT)) * 4)));
     self.contentLabel.numberOfLines = self.isReview ? (self.isDetailMode ? INFINITY : 4) : 7;
     self.contentLabel.backgroundColor = [UIColor clearColor];
     self.contentLabel.font = self.isDetailMode ? MEDIUM_FONT : SMALL_FONT;
