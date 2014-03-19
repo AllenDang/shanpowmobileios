@@ -46,8 +46,6 @@
         self.tableView.separatorInset = UIEdgeInsetsZero;
     }
     
-    self.loadingView = [[SPLoadingView alloc] initWithFrame:CGRectZero];
-    
     self.channelSwitch = [[UISegmentedControl alloc] initWithItems:@[@"男生频道", @"女生频道"]];
     self.channelSwitch.frame = CGRectMake((self.view.bounds.size.width - 140) / 2,
                                           5.0,
@@ -87,15 +85,11 @@
 #pragma mark -
 - (void)getTitlesOfAllRankingList
 {
-    [self.loadingView show];
-    
     [[NetworkClient sharedNetworkClient] getTitlesOfAllRankingListForMan:(self.channelSwitch.selectedSegmentIndex == 0 ? YES : NO)];
 }
 
 - (void)didGetTitles:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     self.rankingLists = [[notification userInfo] objectForKey:@"data"];
     
     if (self.rankingLists == (id)[NSNull null]) {
@@ -107,12 +101,12 @@
 
 - (void)failGetTitles:(NSNotification *)notification
 {
-    [self.loadingView hide];
+
 }
 
 - (void)handleError:(NSNotification *)notification
 {
-    [self.loadingView hide];
+
 }
 
 #pragma mark - Table view delegate

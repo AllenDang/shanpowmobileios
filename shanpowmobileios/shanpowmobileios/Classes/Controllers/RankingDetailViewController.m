@@ -42,7 +42,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = UIC_ALMOSTWHITE(1.0);
-    self.loadingView = [[SPLoadingView alloc] initWithFrame:CGRectZero];
     if (IsSysVerGTE(7.0)) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
@@ -111,16 +110,12 @@
 
 - (void)getRankingDetail
 {
-    [self.loadingView show];
-    
     [[NetworkClient sharedNetworkClient] getRankingDetailByTitle:self.rankingTitle version:self.version];
 }
 
 #pragma mark - Event handler
 - (void)didGetRankingDetail:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     self.rankingDetail = [[notification userInfo] objectForKey:@"data"];
     self.isActive = [[self.rankingDetail objectForKey:@"IsActive"] boolValue];
     
@@ -133,12 +128,12 @@
 
 - (void)failGetRankingDetail:(NSNotification *)notification
 {
-    [self.loadingView hide];
+
 }
 
 - (void)handleError:(NSNotification *)notification
 {
-    [self.loadingView hide];
+
 }
 
 - (void)reasonTapped:(NSNotification *)notification

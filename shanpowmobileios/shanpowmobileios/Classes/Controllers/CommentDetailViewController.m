@@ -147,9 +147,6 @@
 #pragma mark -
 - (void)getCommentReviewDetail
 {
-    self.loadingView = [[SPLoadingView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [self.loadingView show];
-    
     if (self.isReview) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetDetail:) name:MSG_DID_GET_REVIEW_DETAIL object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetDetail:) name:MSG_FAIL_GET_REVIEW_DETAIL object:nil];
@@ -173,8 +170,6 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_REVIEW_DETAIL object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_COMMENT_DETAIL object:nil];
-    
-    [self.loadingView hide];
     
     self.reviewDetail = [[notification userInfo] objectForKey:@"data"];
     
@@ -200,8 +195,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_REVIEW_DETAIL object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_COMMENT_DETAIL object:nil];
     
-    [self.loadingView hide];
-    
     NSLog(@"%@", [notification userInfo]);
 }
 
@@ -214,8 +207,6 @@
 
 - (void)handleError:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     NSLog(@"%@", [notification userInfo]);
 }
 

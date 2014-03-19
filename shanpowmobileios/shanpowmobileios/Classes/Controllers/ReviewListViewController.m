@@ -58,8 +58,11 @@
         self.tableView.separatorInset = UIEdgeInsetsZero;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    
-    self.loadingView = [[SPLoadingView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -85,8 +88,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.currentPageNum = 1;
-    self.reviews = nil;
-    [self.tableView reloadData];
     
     [super viewWillDisappear:animated];
 }
@@ -100,8 +101,6 @@
 #pragma mark -
 - (void)getReviewsWithRange:(NSRange)range
 {
-    [self.loadingView show];
-    
     if (self.bookId) {
         if (self.isComment) {
             [[NetworkClient sharedNetworkClient] getMoreCommentsByBookId:self.bookId range:range];
@@ -116,8 +115,6 @@
 #pragma mark - Event handler
 - (void)didGetReviews:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     self.reviews = self.reviews ? [self.reviews arrayByAddingObjectsFromArray:[[notification userInfo] objectForKey:@"data"]] : [[notification userInfo] objectForKey:@"data"];
     
     [self.tableView reloadData];
@@ -127,12 +124,12 @@
 
 - (void)failGetReviews:(NSNotification *)notification
 {
-    [self.loadingView hide];
+
 }
 
 - (void)handleError:(NSNotification *)notification
 {
-    [self.loadingView hide];
+
 }
 
 - (void)nicknameTapped:(NSNotification *)notification

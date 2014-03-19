@@ -76,6 +76,11 @@
     [self.view addSubview:titlePlaceholder];
     
     self.searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showSearchView:)];
+    
+    self.searchController = [[SearchViewController alloc] init];
+    self.rankingListController = [[RankingListViewController alloc] init];
+    self.wizardController = [[WizardResultViewController alloc] init];
+    self.categoriesController = [[CategoriesViewController alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -97,33 +102,30 @@
 
 - (void)showSearchView:(id)sender
 {
-    self.searchController = [[SearchViewController alloc] init];
     [self pushViewController:self.searchController];
 }
 
 - (void)showHotBooks
 {
-    self.rankingListController = [[RankingListViewController alloc] init];
-    
     [self pushViewController:self.rankingListController];
 }
 
 - (void)showWizard
 {
-    self.wizardController = [[WizardResultViewController alloc] init];
-    
     [self pushViewController:self.wizardController];
 }
 
 - (void)showReviews
 {
-    self.reviewListController = [[ReviewListRootViewController alloc] init];
+    if (self.reviewListController == nil) {
+        self.reviewListController = [[ReviewListRootViewController alloc] init];
+    }
+    
     [self pushViewController:self.reviewListController];
 }
 
 - (void)showCategories
 {
-    self.categoriesController = [[CategoriesViewController alloc] init];
     [self pushViewController:self.categoriesController];
 }
 

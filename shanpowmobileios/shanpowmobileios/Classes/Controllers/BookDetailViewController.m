@@ -189,9 +189,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBookDetail:) name:MSG_DID_GET_BOOK_DETAIL object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBookDetail:) name:MSG_FAIL_GET_BOOK_DETAIL object:nil];
     
-    self.loadingView = [[SPLoadingView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [self.loadingView show];
-    
     [[NetworkClient sharedNetworkClient] getBookDetail:self.bookId];
 }
 
@@ -455,8 +452,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_BOOK_DETAIL object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_BOOK_DETAIL object:nil];
     
-    [self.loadingView hide];
-    
     self.bookInfo = [[notification userInfo] objectForKey:@"data"];
 }
 
@@ -468,7 +463,7 @@
 
 - (void)handleError:(NSNotification *)notification
 {
-    [self.loadingView hide];
+    
 }
 
 - (void)longPressOnLabel:(UIGestureRecognizer *)sender

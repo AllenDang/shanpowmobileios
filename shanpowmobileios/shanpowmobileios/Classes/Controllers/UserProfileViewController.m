@@ -95,8 +95,6 @@
     self.title = @"用户信息";
     self.shouldCancelSelectUser = NO;
     
-    self.loadingView = [[SPLoadingView alloc] initWithFrame:CGRectZero];
-    
     self.tableView.separatorColor = UIC_BRIGHT_GRAY(0.4);
     if (IsSysVerGTE(7.0)) {
         self.tableView.separatorInset = UIEdgeInsetsZero;
@@ -234,8 +232,6 @@
 
 - (void)getUserBasicInfo
 {
-    [self.loadingView show];
-    
     [[NetworkClient sharedNetworkClient] getBasicUserInfo:self.username];
 }
 
@@ -466,8 +462,6 @@
 
 - (void)getUserList:(BOOL)isFollowing
 {
-    [self.loadingView show];
-    
     if (isFollowing) {
         [[NetworkClient sharedNetworkClient] getFollowingsByUser:self.username];
     } else {
@@ -479,8 +473,6 @@
 
 - (void)didGetBasicUserInfo:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     self.userBasicInfo = [[notification userInfo] objectForKey:@"data"];
     
     [self updateUI];
@@ -489,7 +481,7 @@
 
 - (void)handleFailGetInfo:(NSNotification *)notification
 {
-    [self.loadingView hide];
+
     
     NSString *errorMsg = [[notification userInfo] objectForKey:@"ErrorMsg"];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:errorMsg delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
@@ -498,8 +490,6 @@
 
 - (void)didGetUserList:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_USERLIST object:nil];
     
     NSArray *users = [[notification userInfo] objectForKey:@"data"];
@@ -513,8 +503,6 @@
 
 - (void)failGetUserList:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_USERLIST object:nil];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
@@ -524,30 +512,22 @@
 
 - (void)didFollowUser:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     [self getUserBasicInfo];
 }
 
 - (void)failFollowUser:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
     [alert show];
 }
 
 - (void)didUnfollowUser:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     [self getUserBasicInfo];
 }
 
 - (void)failUnfollowUser:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
     [alert show];
 }

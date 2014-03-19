@@ -43,8 +43,6 @@
     self.bookGridController.view.frame = self.view.bounds;
     self.bookGridController.isPlain = YES;
     [self.view addSubview:self.bookGridController.view];
-    
-    self.loadingView = [[SPLoadingView alloc] initWithFrame:[UIScreen mainScreen].bounds];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -88,8 +86,6 @@
 #pragma mark - 
 - (void)getBooks
 {
-    [self.loadingView show];
-    
     if (self.bookId) {
         [[NetworkClient sharedNetworkClient] getSimilarBooksById:self.bookId];
     } else if (self.author) {
@@ -100,8 +96,6 @@
 #pragma mark - Event handler
 - (void)didGetSimilarBooks:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     self.bookGridController.books = [[notification userInfo] objectForKey:@"data"];
     
     [self.bookGridController.tableView reloadData];
@@ -109,12 +103,12 @@
 
 - (void)failGetSimilarBooks:(NSNotification *)notification
 {
-    [self.loadingView hide];
+
 }
 
 - (void)handleError:(NSNotification *)notification
 {
-    [self.loadingView hide];
+
 }
 
 - (void)didSelectBook:(NSNotification *)notification

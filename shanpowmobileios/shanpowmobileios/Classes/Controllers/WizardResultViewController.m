@@ -111,9 +111,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetWizardResult:) name:MSG_DID_GET_WIZARD_RESULT object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetWizardResult:) name:MSG_FAIL_GET_WIZARD_RESULT object:nil];
     
-    self.loadingView = [[SPLoadingView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [self.loadingView show];
-    
     [[NetworkClient sharedNetworkClient] getWizardResult];
 }
 
@@ -122,9 +119,7 @@
 - (void)didGetWizardResult:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_WIZARD_RESULT object:nil];
-    
-    [self.loadingView hide];
-    
+
     self.bookGridController.books = [[notification userInfo] objectForKey:@"data"];
     
     [self.bookGridController.tableView reloadData];
@@ -134,16 +129,12 @@
 - (void)failGetWizardResult:(NSNotification *)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_WIZARD_RESULT object:nil];
-    
-    [self.loadingView hide];
-    
+
     [self.bookGridController.refreshControl endRefreshing];
 }
 
 - (void)handleError:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     [self.bookGridController.refreshControl endRefreshing];
 }
 

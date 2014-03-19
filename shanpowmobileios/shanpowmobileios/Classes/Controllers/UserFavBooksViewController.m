@@ -38,8 +38,7 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     self.title = @"喜欢的书";
-    self.loadingView = [[SPLoadingView alloc] initWithFrame:CGRectZero];
-    
+
     self.bookGridController = [[BookGridViewController alloc] initWithStyle:UITableViewStylePlain];
     self.bookGridController.view.frame = self.view.bounds;
     [self.view addSubview:self.bookGridController.view];
@@ -72,8 +71,6 @@
 
 - (void)getFavBooks
 {
-    [self.loadingView show];
-    
     [[NetworkClient sharedNetworkClient] getFavBooksByUser:self.username];
 }
 
@@ -92,8 +89,6 @@
 
 - (void)didGetBooks:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     NSArray *books = [[notification userInfo] objectForKey:@"data"];
     
     self.bookGridController.books = books;
@@ -102,8 +97,6 @@
 
 - (void)failGetBooks:(NSNotification *)notification
 {
-    [self.loadingView hide];
-    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:ERR_FAIL_GET_DATA delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
     [alert show];
 }
