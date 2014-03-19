@@ -205,7 +205,7 @@
 		6409DB7D18BB156A00313AE5 /* CommentReviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentReviewView.h; sourceTree = "<group>"; };
 		6409DB7E18BB156A00313AE5 /* CommentReviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentReviewView.m; sourceTree = "<group>"; };
 		640CB15018CF0DB400549FFC /* RankingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingListViewController.h; sourceTree = "<group>"; };
-		640CB15118CF0DB400549FFC /* RankingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingListViewController.m; sourceTree = "<group>"; };
+		640CB15118CF0DB400549FFC /* RankingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RankingListViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		640CB15318CF122000549FFC /* AccessoryTypeDotTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessoryTypeDotTableViewCell.h; sourceTree = "<group>"; };
 		640CB15418CF122000549FFC /* AccessoryTypeDotTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessoryTypeDotTableViewCell.m; sourceTree = "<group>"; };
 		641637C418AA05EE009A774A /* User@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "User@2x.png"; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 		641D3B5F18CD961C009F79E6 /* ResponseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseCell.h; sourceTree = "<group>"; };
 		641D3B6018CD961C009F79E6 /* ResponseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseCell.m; sourceTree = "<group>"; };
 		641D3B6518CEAE93009F79E6 /* WizardResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WizardResultViewController.h; sourceTree = "<group>"; };
-		641D3B6618CEAE93009F79E6 /* WizardResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WizardResultViewController.m; sourceTree = "<group>"; };
+		641D3B6618CEAE93009F79E6 /* WizardResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = WizardResultViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		64204AB418BC3E2200A684A7 /* AwesomeMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwesomeMenu.h; sourceTree = "<group>"; };
 		64204AB518BC3E2200A684A7 /* AwesomeMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwesomeMenu.m; sourceTree = "<group>"; };
 		64204AB618BC3E2200A684A7 /* AwesomeMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwesomeMenuItem.h; sourceTree = "<group>"; };
@@ -260,7 +260,7 @@
 		6423919B1884DEBC0049BE8B /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = WeiboSDK.bundle; path = shanpowmobileios/Frameworks/WeiboSDK.bundle; sourceTree = SOURCE_ROOT; };
 		6423919C1884DEBC0049BE8B /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeiboSDK.h; path = shanpowmobileios/Frameworks/WeiboSDK.h; sourceTree = SOURCE_ROOT; };
 		642723DC18AC5F0C002609F4 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
-		642723DD18AC5F0C002609F4 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
+		642723DD18AC5F0C002609F4 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UserProfileViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		642723E318AC6578002609F4 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		642723E418AC6578002609F4 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		642723E618AC7694002609F4 /* Plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Plus.png; sourceTree = "<group>"; };
@@ -362,8 +362,8 @@
 		64635846185B231E00172760 /* Login_TextField@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_TextField@2x.png"; sourceTree = "<group>"; };
 		64641082186AA57F005D92F3 /* NSStringCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringCategory.h; sourceTree = "<group>"; };
 		64641083186AA57F005D92F3 /* NSStringCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringCategory.m; sourceTree = "<group>"; };
-		646529B3184C617000C3D613 /* NetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkClient.h; sourceTree = "<group>"; };
-		646529B4184C617000C3D613 /* NetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkClient.m; sourceTree = "<group>"; };
+		646529B3184C617000C3D613 /* NetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = NetworkClient.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		646529B4184C617000C3D613 /* NetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NetworkClient.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6468EFEC18B2F7D600A9DA92 /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
 		6468EFED18B2F7D600A9DA92 /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
 		6468EFEF18B3014F00A9DA92 /* BooklistGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistGridViewController.h; sourceTree = "<group>"; };
@@ -385,18 +385,18 @@
 		649F6EB718A8B8DE00E17B3E /* MainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuViewController.h; sourceTree = "<group>"; };
 		649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuViewController.m; sourceTree = "<group>"; };
 		64A7B44818C972AD008913D1 /* CommentDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentDetailViewController.h; sourceTree = "<group>"; };
-		64A7B44918C972AD008913D1 /* CommentDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentDetailViewController.m; sourceTree = "<group>"; };
+		64A7B44918C972AD008913D1 /* CommentDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CommentDetailViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		64A80B0B186813F10039BBA2 /* BookInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoCell.h; sourceTree = "<group>"; };
 		64A80B0C186813F10039BBA2 /* BookInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoCell.m; sourceTree = "<group>"; };
 		64A9189718D0006700724678 /* OtherBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherBooksViewController.h; sourceTree = "<group>"; };
-		64A9189818D0006700724678 /* OtherBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherBooksViewController.m; sourceTree = "<group>"; };
+		64A9189818D0006700724678 /* OtherBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OtherBooksViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		64AA338118C81670009E09F7 /* BubbleDark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleDark.png; sourceTree = "<group>"; };
 		64AA338218C81670009E09F7 /* BubbleDark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BubbleDark@2x.png"; sourceTree = "<group>"; };
 		64AA338518C8199D009E09F7 /* BubbleLight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BubbleLight@2x.png"; sourceTree = "<group>"; };
 		64AA338718C81D0F009E09F7 /* ReviewListRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewListRootViewController.h; sourceTree = "<group>"; };
 		64AA338818C81D0F009E09F7 /* ReviewListRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewListRootViewController.m; sourceTree = "<group>"; };
 		64AA338A18C81D62009E09F7 /* ReviewListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewListViewController.h; sourceTree = "<group>"; };
-		64AA338B18C81D62009E09F7 /* ReviewListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewListViewController.m; sourceTree = "<group>"; };
+		64AA338B18C81D62009E09F7 /* ReviewListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ReviewListViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		64AA338D18C8415E009E09F7 /* CommentReviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentReviewCell.h; sourceTree = "<group>"; };
 		64AA338E18C8415E009E09F7 /* CommentReviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentReviewCell.m; sourceTree = "<group>"; };
 		64AA339018C8577A009E09F7 /* Chat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chat.png; sourceTree = "<group>"; };
@@ -410,7 +410,7 @@
 		64B7C67418B5F99400B85E30 /* Star_Red_Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star_Red_Small.png; sourceTree = "<group>"; };
 		64B7C67518B5F99400B85E30 /* Star_Red_Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Red_Small@2x.png"; sourceTree = "<group>"; };
 		64B82A6118D04E0600F52941 /* RankingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingDetailViewController.h; sourceTree = "<group>"; };
-		64B82A6218D04E0600F52941 /* RankingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingDetailViewController.m; sourceTree = "<group>"; };
+		64B82A6218D04E0600F52941 /* RankingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RankingDetailViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		64B82A6718D0611C00F52941 /* RankingDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingDetailCell.h; sourceTree = "<group>"; };
 		64B82A6818D0611C00F52941 /* RankingDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingDetailCell.m; sourceTree = "<group>"; };
 		64B8DA5E18BDB4A300AA0A5D /* BooklistListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistListViewController.h; sourceTree = "<group>"; };
@@ -466,7 +466,7 @@
 		64D4D57418C050BF0044A78E /* BooklistDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistDetailViewController.h; sourceTree = "<group>"; };
 		64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooklistDetailViewController.m; sourceTree = "<group>"; };
 		64DDEBEC18D41A2B002918F0 /* UserFavBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFavBooksViewController.h; sourceTree = "<group>"; };
-		64DDEBED18D41A2B002918F0 /* UserFavBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserFavBooksViewController.m; sourceTree = "<group>"; };
+		64DDEBED18D41A2B002918F0 /* UserFavBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UserFavBooksViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		64E5611418C0340F00A26F96 /* BookGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookGridCell.h; sourceTree = "<group>"; };
 		64E5611518C0340F00A26F96 /* BookGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookGridCell.m; sourceTree = "<group>"; };
 		64E9897718C430C000554BDB /* BooklistCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistCell.h; sourceTree = "<group>"; };
@@ -474,15 +474,15 @@
 		64E9897A18C455FC00554BDB /* AddToBooklistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToBooklistViewController.h; sourceTree = "<group>"; };
 		64E9897B18C455FC00554BDB /* AddToBooklistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToBooklistViewController.m; sourceTree = "<group>"; };
 		64E9897D18C4782300554BDB /* SPLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLoadingView.h; sourceTree = "<group>"; };
-		64E9897E18C4782300554BDB /* SPLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLoadingView.m; sourceTree = "<group>"; };
+		64E9897E18C4782300554BDB /* SPLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SPLoadingView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		64EFCA3418C56F63002D59A9 /* ReadRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadRecordCell.h; sourceTree = "<group>"; };
 		64EFCA3518C56F63002D59A9 /* ReadRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadRecordCell.m; sourceTree = "<group>"; };
 		64F05CF1187506C000FB7A3A /* Calibri Bold Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold Italic.ttf"; sourceTree = "<group>"; };
 		64F05CF2187506C000FB7A3A /* Calibri Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Bold.ttf"; sourceTree = "<group>"; };
 		64F05CF3187506C000FB7A3A /* Calibri Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Calibri Italic.ttf"; sourceTree = "<group>"; };
 		64F05CF4187506C000FB7A3A /* Calibri.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Calibri.ttf; sourceTree = "<group>"; };
-		64FC60CC18B59B3800D7D8E6 /* BookDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookDetailViewController.h; sourceTree = "<group>"; };
-		64FC60CD18B59B3800D7D8E6 /* BookDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookDetailViewController.m; sourceTree = "<group>"; };
+		64FC60CC18B59B3800D7D8E6 /* BookDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BookDetailViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		64FC60CD18B59B3800D7D8E6 /* BookDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BookDetailViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		64FFD939185FEDD2002F93C0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		64FFD93A185FEDD2002F93C0 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */

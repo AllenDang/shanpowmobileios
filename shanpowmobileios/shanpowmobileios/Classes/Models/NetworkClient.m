@@ -121,7 +121,7 @@ SINGLETON_GCD(NetworkClient);
                                                                                  URLString:url
                                                                                 parameters:parameters];
     
-    id data = [CachedDownloadManager loadCache:[[request URL] absoluteString]];
+    id data = [[CachedDownloadManager sharedCachedDownloadManager] loadCache:[[request URL] absoluteString]];
     if (data != nil) {
         success([[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]], data);
     } else {
@@ -130,7 +130,7 @@ SINGLETON_GCD(NetworkClient);
         AFHTTPRequestOperation *op = [manager HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           if ([[responseObject objectForKey:@"Result"] boolValue]) {
-                                                                              [CachedDownloadManager saveCache:responseObject forKey:[[request URL] absoluteString]];
+                                                                              [[CachedDownloadManager sharedCachedDownloadManager] saveCache:responseObject forKey:[[request URL] absoluteString]];
                                                                           } 
                                                                           success(operation, responseObject);
                                                                       }

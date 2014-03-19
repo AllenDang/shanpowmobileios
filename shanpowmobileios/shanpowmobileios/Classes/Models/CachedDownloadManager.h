@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Common.h"
 #import "NSData+Base64.h"
 #import "NSStringCategory.h"
 
@@ -14,7 +15,10 @@
 
 @interface CachedDownloadManager : NSObject
 
-+ (BOOL)saveCache:(id<NSCoding>)data forKey:(NSString *)key;
-+ (id)loadCache:(NSString *)key;
++ (CachedDownloadManager *)sharedCachedDownloadManager;
+
+- (BOOL)saveCache:(id<NSCoding>)data forKey:(NSString *)key;
+- (id)loadCache:(NSString *)key;
+- (void)forceExpiredForNextRequest;
 
 @end

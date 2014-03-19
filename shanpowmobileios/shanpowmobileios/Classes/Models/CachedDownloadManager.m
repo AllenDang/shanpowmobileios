@@ -10,14 +10,20 @@
 
 @interface CachedDownloadManager ()
 
-@property (nonatomic, strong) NSDictionary *cacheDictionary;
-@property (nonatomic, strong) NSString *cacheDictionaryPath;
+@property (nonatomic, assign) BOOL forceExpired;
 
 @end
 
 @implementation CachedDownloadManager
 
-+ (BOOL)saveCache:(id<NSCoding>)data forKey:(NSString *)key
+SINGLETON_GCD(CachedDownloadManager);
+
+- (void)forceExpiredForNextRequest
+{
+    self.forceExpired = YES;
+}
+
+- (BOOL)saveCache:(id<NSCoding>)data forKey:(NSString *)key
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     
@@ -34,8 +40,13 @@
     return NO;
 }
 
-+ (id)loadCache:(NSString *)key
+- (id)loadCache:(NSString *)key
 {
+    if (self.forceExpired) {
+        self.forceExpired = NO;
+        return nil;
+    }
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     
     NSString *cachesDirectory = [paths objectAtIndex:0];
@@ -46,7 +57,7 @@
     
     NSTimeInterval stalenessLevel = [[[[NSFileManager defaultManager] attributesOfItemAtPath:cachePath error:nil] fileModificationDate] timeIntervalSinceNow];
     
-    if (stalenessLevel > CACHE_EXPIRE_DURATION) {
+    if (ABS(stalenessLevel) > CACHE_EXPIRE_DURATION) {
         return nil;
     }
     
