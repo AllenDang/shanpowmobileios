@@ -63,6 +63,20 @@
     // Configure the view for the selected state
 }
 
+- (void)selectCategory:(NSString *)category
+{
+    for (UIView *subView in [self subviews]) {
+        if ([subView isKindOfClass:[UIButton class]]) {
+            UIButton *btn = (UIButton *)subView;
+            
+            if ([[btn titleForState:UIControlStateNormal] isEqualToString:category]) {
+                [self categorySelected:btn];
+                return;
+            }
+        }
+    }
+}
+
 - (void)clearSelection
 {
     if (self.lastSelectedButton) {

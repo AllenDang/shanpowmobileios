@@ -25,9 +25,9 @@
 @property (nonatomic, assign) BOOL showReadStatus;
 @property (nonatomic, assign) BOOL showChannel;
 
-@property (nonatomic, readonly) BOOL showAll;
-@property (nonatomic, readonly) NSString *categoryToShow;
-@property (nonatomic, readonly) NSInteger scoreToShow;
-@property (nonatomic, readonly) FilterChannel channel;
+@property (nonatomic, assign) BOOL showAll;
+@property (nonatomic, strong) NSString *categoryToShow;
+@property (nonatomic, assign) NSInteger scoreToShow;
+@property (nonatomic, assign) FilterChannel channel;
 
 @end

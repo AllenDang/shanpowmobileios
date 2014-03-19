@@ -26,6 +26,7 @@
 @property (nonatomic, readonly) NSString *selectedCategory;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier cellHeight:(float)cellHeight width:(float)width;
+- (void)selectCategory:(NSString *)category;
 - (void)clearSelection;
 
 @end

@@ -14,11 +14,6 @@
 @property (nonatomic, strong) NSArray *readStatusTitles;
 @property (nonatomic, strong) NSArray *channelTitles;
 
-@property (nonatomic, assign) BOOL showAll;
-@property (nonatomic, strong) NSString *categoryToShow;
-@property (nonatomic, assign) NSInteger scoreToShow;
-@property (nonatomic, assign) FilterChannel channel;
-
 @property (nonatomic, assign) float cellHeight;
 
 @property (nonatomic, strong) UITableViewCell *lastReadStatusCell;
@@ -71,6 +66,42 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setShowAll:(BOOL)showAll
+{
+    if (showAll != _showAll) {
+        _showAll = showAll;
+    }
+    
+    [self.tableView reloadData];
+}
+
+- (void)setCategoryToShow:(NSString *)categoryToShow
+{
+    if (![_categoryToShow isEqualToString:categoryToShow]) {
+        _categoryToShow = categoryToShow;
+    }
+    
+    [self.tableView reloadData];
+}
+
+- (void)setChannel:(FilterChannel)channel
+{
+    if (channel != _channel) {
+        _channel = channel;
+    }
+    
+    [self.tableView reloadData];
+}
+
+- (void)setScoreToShow:(NSInteger)scoreToShow
+{
+    if (_scoreToShow != scoreToShow) {
+        _scoreToShow = scoreToShow;
+    }
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view delegate
@@ -256,7 +287,7 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 
-                if (indexPath.row == 0) {
+                if (indexPath.row == 0 || !self.showAll) {
                     cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     self.lastReadStatusCell = cell;
                 }
@@ -283,7 +314,7 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 
-                if (indexPath.row == 0) {
+                if (indexPath.row == 0 || indexPath.row == self.channel) {
                     cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     self.lastChannelCell = cell;
                 }
@@ -323,6 +354,14 @@
                         [cell setTintColor:UIC_ALMOSTWHITE(1.0)];
                     }
                     
+                    if ([self.categoryToShow isEqualToString:@"全部"]) {
+                        [self.categoriesCell clearSelection];
+                        
+                        [UIView animateWithDuration:0.25 animations:^{
+                            cell.backgroundColor = UIC_BRIGHT_GRAY(0.2);
+                        }];
+                    }
+                    
                     cell.textLabel.text = @"全部";
                     return cell;
                     break;
@@ -343,6 +382,9 @@
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     cell.delegate = self;
                     self.categoriesCell = cell;
+                    if (![self.categoryToShow isEqualToString:@"全部"]) {
+                        [cell selectCategory:self.categoryToShow];
+                    }
                     
                     return cell;
                     break;
@@ -361,7 +403,7 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
                 
-                if (indexPath.row == 0) {
+                if (indexPath.row == 0 || indexPath.row - 1 == self.scoreToShow) {
                     cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     self.lastScoreCell = cell;
                 }
