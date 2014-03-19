@@ -70,8 +70,22 @@
 
 - (void)show
 {
-    [[UIApplication sharedApplication].keyWindow addSubview:self];
-    [[UIApplication sharedApplication].keyWindow bringSubviewToFront:self];
+    NSEnumerator *frontToBackWindows = [[[UIApplication sharedApplication] windows] reverseObjectEnumerator];
+    
+    for (UIWindow *window in frontToBackWindows) {
+        if (window.windowLevel == UIWindowLevelNormal) {
+            [window addSubview:self];
+            break;
+        }
+    }
+    
+    [UIView animateWithDuration:0.25
+                     animations:^{
+                         self.alpha = 1.0;
+                     }
+                     completion:^(BOOL finished) {
+                         
+                     }];
 }
 
 - (void)hide

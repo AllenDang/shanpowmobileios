@@ -100,6 +100,7 @@
 		645FB9C5184C2C0C00BB2325 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9BA184C2C0C00BB2325 /* AFURLRequestSerialization.m */; };
 		645FB9C6184C2C0C00BB2325 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9BC184C2C0C00BB2325 /* AFURLResponseSerialization.m */; };
 		645FB9C7184C2C0C00BB2325 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9BE184C2C0C00BB2325 /* AFURLSessionManager.m */; };
+		6460B8FA18D95E9600E0E99F /* CachedDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6460B8F918D95E9600E0E99F /* CachedDownloadManager.m */; };
 		646132B7184872F300A0BBF0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 646132B6184872F300A0BBF0 /* Foundation.framework */; };
 		646132B9184872F300A0BBF0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 646132B8184872F300A0BBF0 /* CoreGraphics.framework */; };
 		646132BB184872F300A0BBF0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 646132BA184872F300A0BBF0 /* UIKit.framework */; };
@@ -337,6 +338,8 @@
 		645FB9BC184C2C0C00BB2325 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		645FB9BD184C2C0C00BB2325 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		645FB9BE184C2C0C00BB2325 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		6460B8F818D95E9600E0E99F /* CachedDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedDownloadManager.h; sourceTree = "<group>"; };
+		6460B8F918D95E9600E0E99F /* CachedDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedDownloadManager.m; sourceTree = "<group>"; };
 		646132B3184872F300A0BBF0 /* shanpowmobileios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shanpowmobileios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		646132B6184872F300A0BBF0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		646132B8184872F300A0BBF0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -773,6 +776,8 @@
 				642C790B1867DDB9007C61AD /* Book.m */,
 				646529B3184C617000C3D613 /* NetworkClient.h */,
 				646529B4184C617000C3D613 /* NetworkClient.m */,
+				6460B8F818D95E9600E0E99F /* CachedDownloadManager.h */,
+				6460B8F918D95E9600E0E99F /* CachedDownloadManager.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1261,6 +1266,7 @@
 				640CB15518CF122000549FFC /* AccessoryTypeDotTableViewCell.m in Sources */,
 				649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */,
 				64AA338C18C81D62009E09F7 /* ReviewListViewController.m in Sources */,
+				6460B8FA18D95E9600E0E99F /* CachedDownloadManager.m in Sources */,
 				64A9189918D0006700724678 /* OtherBooksViewController.m in Sources */,
 				64D4D57618C050BF0044A78E /* BooklistDetailViewController.m in Sources */,
 				64D35F4618ADCE0800999CED /* AMRatingControl.m in Sources */,

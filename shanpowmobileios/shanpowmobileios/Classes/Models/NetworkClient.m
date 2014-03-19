@@ -10,6 +10,7 @@
 
 @interface NetworkClient ()
 
+@property (nonatomic, strong) SPLoadingView *loadingView;
 @property (atomic, strong) NSMutableArray *pendingOperationQueue;
 
 - (void)handleResponse:(id)responseObject success:(void(^)(NSDictionary *data))success failure:(void(^)(NSDictionary *ErrorMsg))failure;
@@ -24,7 +25,7 @@
 
 SINGLETON_GCD(NetworkClient);
 
-- (id) init {
+- (id)init {
     if ( (self = [super init]) ) {
         self.baseURL = [NSURL URLWithString:BASE_URL];
         self.pendingOperationQueue = [NSMutableArray arrayWithCapacity:40];
@@ -32,6 +33,7 @@ SINGLETON_GCD(NetworkClient);
         if ([[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CSRF_TOKEN]) {
             self.csrfToken = [[NSUserDefaults standardUserDefaults] objectForKey:SETTINGS_CSRF_TOKEN];
         }
+        self.loadingView = [[SPLoadingView alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -40,6 +42,8 @@ SINGLETON_GCD(NetworkClient);
 
 - (void)handleResponse:(id)responseObject success:(void(^)(NSDictionary *data))success failure:(void(^)(NSDictionary *ErrorMsg))failure
 {
+    [self.loadingView hide];
+    
     BOOL result = [[responseObject objectForKey:@"Result"] boolValue];
     
     if (result) {
@@ -57,6 +61,8 @@ SINGLETON_GCD(NetworkClient);
 
 - (void)handleError:(NSError *)error onRequest:(AFHTTPRequestOperation *)request
 {
+    [self.loadingView hide];
+    
     if (request.response.statusCode == 403) {
         AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request.request];
         if (!op.isFinished) {
@@ -85,6 +91,8 @@ SINGLETON_GCD(NetworkClient);
 
 - (void)handleFailureFromRequest:(AFHTTPRequestOperation *)operation
 {
+    [self.loadingView hide];
+    
     if (!isLogin()) {
         [self.pendingOperationQueue addObject:operation];
         [self getCsrfToken];
@@ -100,6 +108,8 @@ SINGLETON_GCD(NetworkClient);
                     success:(void(^)(AFHTTPRequestOperation *operation, id responseObject))success
                     failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
+    NSString *url = [[NSURL URLWithString:[urlPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:self.baseURL] absoluteString];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSMutableDictionary *parameters = param ? [NSMutableDictionary dictionaryWithDictionary:param] : [NSMutableDictionary dictionaryWithCapacity:40];
@@ -107,21 +117,29 @@ SINGLETON_GCD(NetworkClient);
         [parameters setObject:self.csrfToken forKey:@"csrf_token"];
     }
     
-    NSString *url = [[NSURL URLWithString:[urlPath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] relativeToURL:self.baseURL] absoluteString];
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:[type uppercaseString]
                                                                                  URLString:url
                                                                                 parameters:parameters];
-    [request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
     
-    AFHTTPRequestOperation *op = [manager HTTPRequestOperationWithRequest:request
-                                                                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                      success(operation, responseObject);
-                                                                  }
-                                                                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                      failure(operation, error);
-                                                                  }];
-    
-    [manager.operationQueue addOperation:op];
+    id data = [CachedDownloadManager loadCache:[[request URL] absoluteString]];
+    if (data != nil) {
+        success([[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]], data);
+    } else {
+        [self.loadingView show];
+        
+        AFHTTPRequestOperation *op = [manager HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          if ([[responseObject objectForKey:@"Result"] boolValue]) {
+                                                                              [CachedDownloadManager saveCache:responseObject forKey:[[request URL] absoluteString]];
+                                                                          } 
+                                                                          success(operation, responseObject);
+                                                                      }
+                                                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          failure(operation, error);
+                                                                      }];
+        
+        [manager.operationQueue addOperation:op];
+    }
 }
 
 #pragma mark - Transform data with server
