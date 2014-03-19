@@ -7,7 +7,7 @@
 //
 
 #import "RankingListViewController.h"
-#import "SPLoadingView.h"
+
 #import "NetworkClient.h"
 #import "AccessoryTypeDotTableViewCell.h"
 #import "RankingViewController.h"

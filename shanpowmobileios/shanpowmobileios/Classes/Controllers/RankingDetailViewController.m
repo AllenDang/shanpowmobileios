@@ -8,7 +8,7 @@
 
 #import "RankingDetailViewController.h"
 #import "NetworkClient.h"
-#import "SPLoadingView.h"
+
 #import "RankingDetailCell.h"
 #import "BookDetailViewController.h"
 

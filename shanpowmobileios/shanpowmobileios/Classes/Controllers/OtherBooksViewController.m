@@ -9,7 +9,7 @@
 #import "OtherBooksViewController.h"
 #import "BookGridViewController.h"
 #import "NetworkClient.h"
-#import "SPLoadingView.h"
+
 #import "BookDetailViewController.h"
 
 @interface OtherBooksViewController ()

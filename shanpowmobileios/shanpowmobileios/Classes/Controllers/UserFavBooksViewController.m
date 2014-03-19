@@ -10,7 +10,7 @@
 #import "BookGridViewController.h"
 #import "BookDetailViewController.h"
 #import "NetworkClient.h"
-#import "SPLoadingView.h"
+
 
 @interface UserFavBooksViewController ()
 

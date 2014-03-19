@@ -7,7 +7,7 @@
 //
 
 #import "WizardResultViewController.h"
-#import "SPLoadingView.h"
+
 #import "NetworkClient.h"
 #import "BookGridViewController.h"
 #import "BookDetailViewController.h"
