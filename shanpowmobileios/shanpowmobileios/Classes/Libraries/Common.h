@@ -236,4 +236,10 @@ extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accu
 
 @end
 
+@interface NSObject (null)
+
+- (BOOL)isNull;
+
+@end
+
 #pragma mark -

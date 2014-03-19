@@ -302,3 +302,17 @@ extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accu
     return [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 @end
+
+#pragma mark - NSObject category
+@implementation NSObject (null)
+
+- (BOOL)isNull
+{
+    if (self == [NSNull null] || self == nil) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+@end
