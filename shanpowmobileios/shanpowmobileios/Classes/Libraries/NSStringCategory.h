@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonDigest.h>
 
 @interface NSString (Extended)
 
 - (CGSize)sizeWithFont:(UIFont *)font inRect:(CGRect)rect lineBreakMode:(NSLineBreakMode)lineBreakMode;
+
+- (NSString *)md5;
 
 @end
