@@ -54,11 +54,6 @@
     }
     
     self.currentShownStatus = 3;
-    
-    [self getBooksWithRange:NSMakeRange(1, self.numPerPage)];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetReadRecords:) name:MSG_DID_GET_READ_RECORD object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetReadRecords:) name:MSG_FAIL_GET_READ_RECORD object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,7 +65,11 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.tableView reloadData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetReadRecords:) name:MSG_DID_GET_READ_RECORD object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetReadRecords:) name:MSG_FAIL_GET_READ_RECORD object:nil];
+    
+    [self getBooksWithRange:NSMakeRange(1, self.numPerPage)];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -109,7 +108,7 @@
 {
     NSArray *data = [[notification userInfo] objectForKey:@"data"];
 
-    if ((id)data != (id)[NSNull null]) {
+    if ((id)data != (id)[NSNull null] && ![self.originalBooks isEqualToArray:data]) {
         self.originalBooks = self.originalBooks ? [self.originalBooks arrayByAddingObjectsFromArray:data] : data;
         
         self.books = arrangeBooksByTime(self.originalBooks, TAMonth);
