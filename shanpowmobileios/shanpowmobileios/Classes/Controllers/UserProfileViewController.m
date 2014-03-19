@@ -33,7 +33,7 @@
 @property (nonatomic, strong) SPLabel *followActionLabel;
 @property (nonatomic, strong) UIImageView *followIcon;
 @property (nonatomic, strong) UIButton *sendMessageButton;
-@property (nonatomic, strong) SPLoadingView *loadingView;
+
 @property (nonatomic, strong) UIBarButtonItem *logoutButton;
 
 @property (nonatomic, strong) NSArray *userMenuItems;

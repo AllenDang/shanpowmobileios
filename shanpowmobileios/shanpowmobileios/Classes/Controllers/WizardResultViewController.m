@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) NSArray *results;
 
-@property (nonatomic, strong) SPLoadingView *loadingView;
+
 @property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) BookGridViewController *bookGridController;
 

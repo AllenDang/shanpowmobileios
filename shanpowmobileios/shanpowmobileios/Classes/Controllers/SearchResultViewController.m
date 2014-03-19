@@ -106,7 +106,6 @@
                                        self.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height - self.categoryFilterSegment.frame.size.height - self.categoryFilterSegment.frame.origin.y * 2);
     if (self.bookGrid) {
         self.bookGrid.view.frame = resultListRect;
-        [self.view bringSubviewToFront:self.bookGrid.view];
     }
     
     if (self.booklistGrid) {
@@ -116,6 +115,8 @@
     if (self.userlistController) {
         self.userlistController.view.frame = resultListRect;
     }
+    
+    [self didChangeCategoryFilter:self.categoryFilterSegment];
 }
 
 - (void)setSearchResult:(NSDictionary *)searchResult

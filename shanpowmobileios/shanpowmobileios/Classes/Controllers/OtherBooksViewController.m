@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) BookGridViewController *bookGridController;
 
-@property (nonatomic, strong) SPLoadingView *loadingView;
+
 
 @end
 

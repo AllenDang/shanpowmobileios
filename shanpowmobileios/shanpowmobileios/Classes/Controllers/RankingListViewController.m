@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSArray *rankingLists;
 
 @property (nonatomic, strong) UISegmentedControl *channelSwitch;
-@property (nonatomic, strong) SPLoadingView *loadingView;
+
 
 @end
 

@@ -11,6 +11,7 @@
 #import "CommentReviewCell.h"
 #import "CommentDetailViewController.h"
 #import "UserProfileViewController.h"
+#import "CachedDownloadManager.h"
 
 @interface ReviewListViewController ()
 
@@ -19,8 +20,6 @@
 @property (nonatomic, strong) NSString *currentCategory;
 @property (nonatomic, assign) NSInteger currentScore;
 @property (nonatomic, assign) FilterChannel currentChannel;
-
-@property (nonatomic, strong) SPLoadingView *loadingView;
 
 @property (nonatomic, strong) NSArray *reviews;
 
@@ -58,6 +57,9 @@
         self.tableView.separatorInset = UIEdgeInsetsZero;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -115,6 +117,8 @@
 #pragma mark - Event handler
 - (void)didGetReviews:(NSNotification *)notification
 {
+    [self.refreshControl endRefreshing];
+    
     self.reviews = self.reviews ? [self.reviews arrayByAddingObjectsFromArray:[[notification userInfo] objectForKey:@"data"]] : [[notification userInfo] objectForKey:@"data"];
     
     [self.tableView reloadData];
@@ -124,12 +128,21 @@
 
 - (void)failGetReviews:(NSNotification *)notification
 {
-
+    [self.refreshControl endRefreshing];
 }
 
 - (void)handleError:(NSNotification *)notification
 {
+    [self.refreshControl endRefreshing];
+}
 
+- (void)refreshData:(UIRefreshControl *)refresh
+{
+    [[CachedDownloadManager sharedCachedDownloadManager] forceExpiredForNextRequest];
+    
+    if (refresh.refreshing) {
+        [self getReviewsWithRange:NSMakeRange(self.currentPageNum, self.currentNumPerPage)];
+    }
 }
 
 - (void)nicknameTapped:(NSNotification *)notification

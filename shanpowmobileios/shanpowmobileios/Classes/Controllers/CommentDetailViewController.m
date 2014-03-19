@@ -17,7 +17,7 @@
 @interface CommentDetailViewController ()
 
 @property (nonatomic, strong) UIScrollView *container;
-@property (nonatomic, strong) SPLoadingView *loadingView;
+
 @property (nonatomic, strong) CommentReviewView *crView;
 @property (nonatomic, strong) UITableView *mainTable;
 @property (nonatomic, strong) UITextField *responseTextField;

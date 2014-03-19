@@ -21,7 +21,7 @@
 @property (nonatomic, strong) NSArray *relatedInfoSectionItems;
 @property (nonatomic, strong) NSDictionary *bookInfo;
 
-@property (nonatomic, strong) SPLoadingView *loadingView;
+
 
 @property (nonatomic, assign) float generalMargin;
 @property (nonatomic, assign) float generalCellHeight;

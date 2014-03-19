@@ -14,7 +14,7 @@
 
 @interface RankingDetailViewController ()
 
-@property (nonatomic, strong) SPLoadingView *loadingView;
+
 @property (nonatomic, strong) UITableView *currentRankingTabel;
 @property (nonatomic, strong) UITableView *bookGrid;
 

@@ -14,7 +14,7 @@
 
 @interface UserFavBooksViewController ()
 
-@property (nonatomic, strong) SPLoadingView *loadingView;
+
 @property (nonatomic, strong) BookGridViewController *bookGridController;
 
 @end
