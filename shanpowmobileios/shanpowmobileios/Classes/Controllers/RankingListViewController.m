@@ -7,7 +7,7 @@
 //
 
 #import "RankingListViewController.h"
-
+#import "CachedDownloadManager.h"
 #import "NetworkClient.h"
 #import "AccessoryTypeDotTableViewCell.h"
 #import "RankingViewController.h"
@@ -55,6 +55,9 @@
     [self.channelSwitch addTarget:self action:@selector(getTitlesOfAllRankingList) forControlEvents:UIControlEventValueChanged];
 
     self.channelSwitch.selectedSegmentIndex = 0;
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -85,11 +88,19 @@
 #pragma mark -
 - (void)getTitlesOfAllRankingList
 {
-    [[NetworkClient sharedNetworkClient] getTitlesOfAllRankingListForMan:(self.channelSwitch.selectedSegmentIndex == 0 ? YES : NO)];
+    id data = [[CachedDownloadManager sharedCachedDownloadManager] loadCacheForKey:(self.channelSwitch.selectedSegmentIndex == 0 ? CACHE_RANK_MAN : CACHE_RANK_WOMAN)];
+    if (data) {
+        [self didGetTitles:[NSNotification notificationWithName:MSG_DID_GET_RANKINGLIST_TITLES object:self userInfo:@{@"data": data}]];
+    } else {
+        [[NetworkClient sharedNetworkClient] getTitlesOfAllRankingListForMan:(self.channelSwitch.selectedSegmentIndex == 0 ? YES : NO)];
+    }
+    
 }
 
 - (void)didGetTitles:(NSNotification *)notification
 {
+    [self.refreshControl endRefreshing];
+    
     self.rankingLists = [[notification userInfo] objectForKey:@"data"];
     
     if (self.rankingLists == (id)[NSNull null]) {
@@ -97,16 +108,28 @@
     }
     
     [self.tableView reloadData];
+    
+    [[CachedDownloadManager sharedCachedDownloadManager] saveCache:self.rankingLists forKey:(self.channelSwitch.selectedSegmentIndex == 0 ? CACHE_RANK_MAN : CACHE_RANK_WOMAN)];
 }
 
 - (void)failGetTitles:(NSNotification *)notification
 {
-
+    [self.refreshControl endRefreshing];
 }
 
 - (void)handleError:(NSNotification *)notification
 {
+    [self.refreshControl endRefreshing];
+}
 
+- (void)refreshData:(UIRefreshControl *)refresh
+{
+    if (refresh.refreshing) {
+        [[CachedDownloadManager sharedCachedDownloadManager] clearCacheForKey:CACHE_RANK_MAN];
+        [[CachedDownloadManager sharedCachedDownloadManager] clearCacheForKey:CACHE_RANK_WOMAN];
+        
+        [self getTitlesOfAllRankingList];
+    }
 }
 
 #pragma mark - Table view delegate

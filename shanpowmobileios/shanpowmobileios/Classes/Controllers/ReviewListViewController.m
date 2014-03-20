@@ -76,8 +76,13 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nicknameTapped:) name:MSG_TAPPED_NICKNAME object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetReviews:) name:MSG_DID_GET_REVIEWS object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetReviews:) name:MSG_FAIL_GET_REVIEWS object:nil];
-
-        [self getReviewsWithRange:NSMakeRange(1, self.currentNumPerPage)];
+        
+        id data = [[CachedDownloadManager sharedCachedDownloadManager] loadCacheForKey:CACHE_REVIEW];
+        if (data) {
+            [self didGetReviews:[NSNotification notificationWithName:MSG_DID_GET_REVIEWS object:self userInfo:@{@"data": data}]];
+         } else {
+            [self getReviewsWithRange:NSMakeRange(1, self.currentNumPerPage)];
+         }
     }
     
     [super viewDidAppear:animated];
@@ -90,6 +95,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     self.currentPageNum = 1;
+    
+    [[CachedDownloadManager sharedCachedDownloadManager] saveCache:self.reviews forKey:CACHE_REVIEW];
     
     [super viewWillDisappear:animated];
 }
@@ -138,8 +145,6 @@
 
 - (void)refreshData:(UIRefreshControl *)refresh
 {
-    [[CachedDownloadManager sharedCachedDownloadManager] forceExpiredForNextRequest];
-    
     if (refresh.refreshing) {
         [self getReviewsWithRange:NSMakeRange(self.currentPageNum, self.currentNumPerPage)];
     }

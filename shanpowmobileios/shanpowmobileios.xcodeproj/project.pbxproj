@@ -755,6 +755,8 @@
 				6468EFED18B2F7D600A9DA92 /* SearchResultViewController.m */,
 				641637D418AB201E009A774A /* SearchViewController.h */,
 				641637D518AB201E009A774A /* SearchViewController.m */,
+				64DDEBEC18D41A2B002918F0 /* UserFavBooksViewController.h */,
+				64DDEBED18D41A2B002918F0 /* UserFavBooksViewController.m */,
 				6468EFF218B3029100A9DA92 /* UserListViewController.h */,
 				6468EFF318B3029100A9DA92 /* UserListViewController.m */,
 				642723DC18AC5F0C002609F4 /* UserProfileViewController.h */,
@@ -763,8 +765,6 @@
 				641D3B6618CEAE93009F79E6 /* WizardResultViewController.m */,
 				64D35F4018ADC2B900999CED /* WriteCommentReviewViewController.h */,
 				64D35F4118ADC2B900999CED /* WriteCommentReviewViewController.m */,
-				64DDEBEC18D41A2B002918F0 /* UserFavBooksViewController.h */,
-				64DDEBED18D41A2B002918F0 /* UserFavBooksViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

@@ -7,10 +7,10 @@
 //
 
 #import "WizardResultViewController.h"
-
 #import "NetworkClient.h"
 #import "BookGridViewController.h"
 #import "BookDetailViewController.h"
+#import "CachedDownloadManager.h"
 
 @interface WizardResultViewController ()
 
@@ -72,22 +72,30 @@
     self.bookGridController.refreshControl = [[UIRefreshControl alloc] init];
     [self.bookGridController.refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
     self.bookGridController.refreshControl.layer.zPosition = self.bookGridController.view.layer.zPosition + 1;
-    
-    [self getResults];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBook:) name:MSG_DID_SELECT_BOOK object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetWizardResult:) name:MSG_DID_GET_WIZARD_RESULT object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetWizardResult:) name:MSG_FAIL_GET_WIZARD_RESULT object:nil];
+    
+    id data = [[CachedDownloadManager sharedCachedDownloadManager] loadCacheForKey:CACHE_WIZARD];
+    if (data) {
+        [self didGetWizardResult:[NSNotification notificationWithName:MSG_DID_GET_WIZARD_RESULT object:self userInfo:@{@"data": data}]];
+    } else {
+        [self getResults];
+    }
     
     [super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_ERROR object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_BOOK object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [[CachedDownloadManager sharedCachedDownloadManager] saveCache:self.bookGridController.books forKey:CACHE_WIZARD];
     
     [super viewWillDisappear:animated];
 }
@@ -108,9 +116,6 @@
 
 - (void)getResults
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetWizardResult:) name:MSG_DID_GET_WIZARD_RESULT object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetWizardResult:) name:MSG_FAIL_GET_WIZARD_RESULT object:nil];
-    
     [[NetworkClient sharedNetworkClient] getWizardResult];
 }
 
@@ -118,8 +123,6 @@
 
 - (void)didGetWizardResult:(NSNotification *)notification
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_WIZARD_RESULT object:nil];
-
     self.bookGridController.books = [[notification userInfo] objectForKey:@"data"];
     
     [self.bookGridController.tableView reloadData];
@@ -128,8 +131,6 @@
 
 - (void)failGetWizardResult:(NSNotification *)notification
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_WIZARD_RESULT object:nil];
-
     [self.bookGridController.refreshControl endRefreshing];
 }
 

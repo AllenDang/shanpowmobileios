@@ -16,9 +16,11 @@
 @interface CachedDownloadManager : NSObject
 
 + (CachedDownloadManager *)sharedCachedDownloadManager;
++ (void)clearAllCache;
 
 - (BOOL)saveCache:(id<NSCoding>)data forKey:(NSString *)key;
-- (id)loadCache:(NSString *)key;
+- (id)loadCacheForKey:(NSString *)key;
 - (void)forceExpiredForNextRequest;
+- (BOOL)clearCacheForKey:(NSString *)key;
 
 @end

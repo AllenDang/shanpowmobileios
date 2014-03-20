@@ -61,6 +61,13 @@
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
     [searchBar setShowsCancelButton:YES animated:YES];
+    
+    for (UIView *subView in searchBar.subviews){
+        if([subView isKindOfClass:[UIButton class]]){
+            [(UIButton*)subView setTitle:@"取消" forState:UIControlStateNormal];
+        }
+    }
+    
     return YES;
 }
 

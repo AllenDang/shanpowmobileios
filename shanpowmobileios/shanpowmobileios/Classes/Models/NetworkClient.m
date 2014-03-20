@@ -121,25 +121,17 @@ SINGLETON_GCD(NetworkClient);
                                                                                  URLString:url
                                                                                 parameters:parameters];
     
-    id data = [[CachedDownloadManager sharedCachedDownloadManager] loadCache:[[request URL] absoluteString]];
-    if (data != nil) {
-        success([[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]], data);
-    } else {
-        [self.loadingView show];
-        
-        AFHTTPRequestOperation *op = [manager HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          if ([[responseObject objectForKey:@"Result"] boolValue]) {
-                                                                              [[CachedDownloadManager sharedCachedDownloadManager] saveCache:responseObject forKey:[[request URL] absoluteString]];
-                                                                          } 
-                                                                          success(operation, responseObject);
-                                                                      }
-                                                                      failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                          failure(operation, error);
-                                                                      }];
-        
-        [manager.operationQueue addOperation:op];
-    }
+    [self.loadingView show];
+    
+    AFHTTPRequestOperation *op = [manager HTTPRequestOperationWithRequest:request
+                                                                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                      success(operation, responseObject);
+                                                                  }
+                                                                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                      failure(operation, error);
+                                                                  }];
+    
+    [manager.operationQueue addOperation:op];
 }
 
 #pragma mark - Transform data with server

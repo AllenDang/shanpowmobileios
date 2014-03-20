@@ -202,52 +202,52 @@
 
 - (void)initControls
 {
-    self.scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
-    self.scrollView.scrollsToTop = NO;
-    self.scrollView.scrollEnabled = YES;
-    self.scrollView.userInteractionEnabled = YES;
-    self.scrollView.contentSize = self.bounds.size;
-    self.scrollView.pagingEnabled = YES;
+    self.scrollView                                = [[UIScrollView alloc] initWithFrame:self.bounds];
+    self.scrollView.scrollsToTop                   = NO;
+    self.scrollView.scrollEnabled                  = YES;
+    self.scrollView.userInteractionEnabled         = YES;
+    self.scrollView.contentSize                    = self.bounds.size;
+    self.scrollView.pagingEnabled                  = YES;
     self.scrollView.showsHorizontalScrollIndicator = NO;
-    self.scrollView.showsVerticalScrollIndicator = NO;
-    self.scrollView.canCancelContentTouches = NO;
-    self.scrollView.bounces = YES;
-    self.scrollView.delegate = self;
+    self.scrollView.showsVerticalScrollIndicator   = NO;
+    self.scrollView.canCancelContentTouches        = NO;
+    self.scrollView.bounces                        = YES;
+    self.scrollView.delegate                       = self;
     [self addSubview:self.scrollView];
-    
-    self.hasBookDescription = NO;
-    self.hasBookComment = NO;
-    
-    self.basicInfoView = [[UIView alloc] initWithFrame:self.bounds];
+
+    self.hasBookDescription                        = NO;
+    self.hasBookComment                            = NO;
+
+    self.basicInfoView                             = [[UIView alloc] initWithFrame:self.bounds];
     [self.scrollView addSubview:self.basicInfoView];
-    
-    self.titleLabel = [[SPLabel alloc] initWithFrame:CGRectZero];
-    self.authorLabel = [[SPLabel alloc] initWithFrame:CGRectZero];
-    self.categoryLabel = [[SPLabel alloc] initWithFrame:CGRectZero];
-    self.scoreLabel = [[SPLabel alloc] initWithFrame:CGRectZero];
-    self.ratingSumLabel = [[SPLabel alloc] initWithFrame:CGRectZero];
-    self.descriptionLabel = [[SPLabel alloc] initWithFrame:CGRectZero];
-    self.commentContentLabel = [[SPLabel alloc] initWithFrame:CGRectZero];
-    self.commentAuthorLabel = [[SPLabel alloc] initWithFrame:CGRectZero];
-    
+
+    self.titleLabel                                = [[SPLabel alloc] initWithFrame:CGRectZero];
+    self.authorLabel                               = [[SPLabel alloc] initWithFrame:CGRectZero];
+    self.categoryLabel                             = [[SPLabel alloc] initWithFrame:CGRectZero];
+    self.scoreLabel                                = [[SPLabel alloc] initWithFrame:CGRectZero];
+    self.ratingSumLabel                            = [[SPLabel alloc] initWithFrame:CGRectZero];
+    self.descriptionLabel                          = [[SPLabel alloc] initWithFrame:CGRectZero];
+    self.commentContentLabel                       = [[SPLabel alloc] initWithFrame:CGRectZero];
+    self.commentAuthorLabel                        = [[SPLabel alloc] initWithFrame:CGRectZero];
+
     // Title label
-    self.titleLabel.backgroundColor = [UIColor clearColor];
-    self.titleLabel.edgeInsets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
+    self.titleLabel.backgroundColor                = [UIColor clearColor];
+    self.titleLabel.edgeInsets                     = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
     [self.basicInfoView addSubview:self.titleLabel];
-    
+
     // Author label
-    self.authorLabel.backgroundColor = [UIColor clearColor];
-    self.authorLabel.edgeInsets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
+    self.authorLabel.backgroundColor               = [UIColor clearColor];
+    self.authorLabel.edgeInsets                    = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
     [self.basicInfoView addSubview:self.authorLabel];
-    
+
     // Score label
-    self.scoreLabel.backgroundColor = [UIColor clearColor];
-    self.scoreLabel.edgeInsets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
+    self.scoreLabel.backgroundColor                = [UIColor clearColor];
+    self.scoreLabel.edgeInsets                     = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
     [self.basicInfoView addSubview:self.scoreLabel];
-    
+
     // RatingSum label
-    self.ratingSumLabel.backgroundColor = [UIColor clearColor];
-    self.ratingSumLabel.edgeInsets = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
+    self.ratingSumLabel.backgroundColor            = [UIColor clearColor];
+    self.ratingSumLabel.edgeInsets                 = UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
     [self.basicInfoView addSubview:self.ratingSumLabel];
 }
 

@@ -11,7 +11,6 @@
 #import "UIKit+AFNetworking.h"
 #import "Common.h"
 #import "NSData+Base64.h"
-#import "CachedDownloadManager.h"
 #import "SPLoadingView.h"
 
 @interface NetworkClient : NSObject

@@ -10,6 +10,7 @@
 #import "BooklistListViewController.h"
 #import "ReadRecordRootViewController.h"
 #import "UserListViewController.h"
+#import "CachedDownloadManager.h"
 
 #import "UserFavBooksViewController.h"
 
@@ -156,6 +157,9 @@
     [self updateData];
     
     self.logoutButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Logout"] style:UIBarButtonItemStylePlain target:self action:@selector(logout:)];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -232,7 +236,25 @@
 
 - (void)getUserBasicInfo
 {
-    [[NetworkClient sharedNetworkClient] getBasicUserInfo:self.username];
+    if (self.isSelf) {
+        id data = [[CachedDownloadManager sharedCachedDownloadManager] loadCacheForKey:CACHE_USER_INFO];
+        if (data) {
+            [self didGetBasicUserInfo:[NSNotification notificationWithName:MSG_DID_GET_BASIC_USER_INFO object:self userInfo:@{@"data": data}]];
+        } else {
+            [[NetworkClient sharedNetworkClient] getBasicUserInfo:self.username];
+        }
+    } else {
+        [[NetworkClient sharedNetworkClient] getBasicUserInfo:self.username];
+    }
+}
+
+- (void)refreshData:(UIRefreshControl *)refresh
+{
+    [[CachedDownloadManager sharedCachedDownloadManager] clearCacheForKey:CACHE_USER_INFO];
+    
+    if (refresh.refreshing) {
+        [self getUserBasicInfo];
+    }
 }
 
 - (void)logout:(UIBarButtonItem *)sender
@@ -473,15 +495,21 @@
 
 - (void)didGetBasicUserInfo:(NSNotification *)notification
 {
+    [self.refreshControl endRefreshing];
+    
     self.userBasicInfo = [[notification userInfo] objectForKey:@"data"];
     
     [self updateUI];
     [self updateData];
+    
+    if (self.isSelf) {
+        [[CachedDownloadManager sharedCachedDownloadManager] saveCache:self.userBasicInfo forKey:CACHE_USER_INFO];
+    }
 }
 
 - (void)handleFailGetInfo:(NSNotification *)notification
 {
-
+    [self.refreshControl endRefreshing];
     
     NSString *errorMsg = [[notification userInfo] objectForKey:@"ErrorMsg"];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ERR_TITLE message:errorMsg delegate:self cancelButtonTitle:@"好的" otherButtonTitles:@"重试", nil];
