@@ -11,14 +11,12 @@
 #import "NSData+Base64.h"
 #import "NSStringCategory.h"
 
-#define CACHE_EXPIRE_DURATION       600   // in seconds
-
 @interface CachedDownloadManager : NSObject
 
 + (CachedDownloadManager *)sharedCachedDownloadManager;
-+ (void)clearAllCache;
++ (BOOL)clearAllCache;
 
-- (BOOL)saveCache:(id<NSCoding>)data forKey:(NSString *)key;
+- (BOOL)saveCache:(id <NSCoding> )data forKey:(NSString *)key;
 - (id)loadCacheForKey:(NSString *)key;
 - (void)forceExpiredForNextRequest;
 - (BOOL)clearCacheForKey:(NSString *)key;

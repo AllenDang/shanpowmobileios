@@ -23,8 +23,8 @@
 - (void)sendRequestWithType:(NSString *)type
                        path:(NSString *)urlPath
                  parameters:(NSDictionary *)param
-                    success:(void(^)(AFHTTPRequestOperation *operation, id responseObject))success
-                    failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+                    success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 - (void)getCsrfToken;
 

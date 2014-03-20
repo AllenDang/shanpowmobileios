@@ -12,12 +12,12 @@
 #pragma mark - Singleton GCD Macro
 #ifndef SINGLETON_GCD
 #define SINGLETON_GCD(classname)                                         \
-  +(classname *)shared##classname {                                      \
-    static dispatch_once_t pred;                                         \
-    __strong static classname *shared##classname = nil;                  \
-    dispatch_once(&pred, ^{ shared##classname = [[self alloc] init]; }); \
-    return shared##classname;                                            \
-  }
+	+ (classname *)shared ## classname {                                      \
+		static dispatch_once_t pred;                                         \
+		__strong static classname *shared ## classname = nil;                  \
+		dispatch_once(&pred, ^{ shared ## classname = [[self alloc] init]; }); \
+		return shared ## classname;                                            \
+	}
 #endif
 
 #pragma mark - Disable NSLog on release
@@ -134,18 +134,18 @@
 
 #pragma mark - Type
 typedef enum {
-    TAYear = 4,
-    TAMonth = 7,
-    TADay = 10,
-    TAHour = 13,
-    TAMinute = 16,
-    TASecond = 19
+	TAYear             = 4,
+	TAMonth            = 7,
+	TADay              = 10,
+	TAHour             = 13,
+	TAMinute           = 16,
+	TASecond           = 19
 } TimeAccuracy;
 
 typedef enum {
-    FilterChannelAll = 0,
-    FilterChannelMan = 1,
-    FilterChannelWoman = 2
+	FilterChannelAll   = 0,
+	FilterChannelMan   = 1,
+	FilterChannelWoman = 2
 } FilterChannel;
 
 #pragma mark - Constants
@@ -162,23 +162,23 @@ typedef enum {
 
 #pragma mark - UI Related
 #pragma mark — Colors
-#define UIC_BLACK(x)                            [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:(x)]
-#define UIC_BRIGHT_GRAY(x)                      [UIColor colorWithRed:0.192 green:0.224 blue:0.267 alpha:(x)]
-#define UIC_CERULEAN(x)                         [UIColor colorWithRed:0.000 green:0.671 blue:0.839 alpha:(x)]
-#define UIC_CYAN(x)                             [UIColor colorWithRed:0.004 green:0.792 blue:1.000 alpha:(x)]
-#define UIC_WHISPER(x)                          [UIColor colorWithRed:0.953 green:0.945 blue:0.965 alpha:(x)]
-#define UIC_ALMOSTWHITE(x)                      [UIColor colorWithRed:0.996 green:0.996 blue:0.996 alpha:(x)]
-#define UIC_WHITE(x)                            [UIColor colorWithWhite:1.0 alpha:(x)]
+#define UIC_BLACK(x)                            [UIColor colorWithRed : 0.0 green : 0.0 blue : 0.0 alpha : (x)]
+#define UIC_BRIGHT_GRAY(x)                      [UIColor colorWithRed : 0.192 green : 0.224 blue : 0.267 alpha : (x)]
+#define UIC_CERULEAN(x)                         [UIColor colorWithRed : 0.000 green : 0.671 blue : 0.839 alpha : (x)]
+#define UIC_CYAN(x)                             [UIColor colorWithRed : 0.004 green : 0.792 blue : 1.000 alpha : (x)]
+#define UIC_WHISPER(x)                          [UIColor colorWithRed : 0.953 green : 0.945 blue : 0.965 alpha : (x)]
+#define UIC_ALMOSTWHITE(x)                      [UIColor colorWithRed : 0.996 green : 0.996 blue : 0.996 alpha : (x)]
+#define UIC_WHITE(x)                            [UIColor colorWithWhite : 1.0 alpha : (x)]
 
 #pragma mark — Apperance
 #define ADAPT_VIEW_TAG                          529
 #define SCREEN_RATIO                            (self.view.bounds.size.height / 568.0)
 #define MAIN_NAVIGATION_CONTROLLER              (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController
-    
+
 #define UINAVIGATIONBAR_HEIGHT                  44.0
 #define UISTATUSBAR_HEIGHT                      20.0
-    
-#pragma mark — UIFont   
+
+#pragma mark — UIFont
 #define SMALL_FONT                              [UIFont systemFontOfSize:14.0]
 #define SMALL_BOLD_FONT                         [UIFont boldSystemFontOfSize:14.0]
 #define MEDIUM_FONT                             [UIFont systemFontOfSize:16.0]
@@ -189,24 +189,24 @@ typedef enum {
 #define XLARGE_BOLD_FONT                        [UIFont boldSystemFontOfSize:24.0]
 #define XXLARGE_FONT                            [UIFont systemFontOfSize:36.0]
 #define XXLARGE_BOLD_FONT                       [UIFont boldSystemFontOfSize:36.0]
-#define FONT_WITH_SIZE(x)                       [UIFont systemFontOfSize:(x)]
-#define BOLD_FONT_WITH_SIZE(x)                  [UIFont boldSystemFontOfSize:(x)]
+#define FONT_WITH_SIZE(x)                       [UIFont systemFontOfSize : (x)]
+#define BOLD_FONT_WITH_SIZE(x)                  [UIFont boldSystemFontOfSize : (x)]
 
 #define DOTTED_LINE_ALPHA                       0.2
 #define GENERAL_CELL_HEIGHT                     55.0
 #define GENERAL_HEADER_HEIGHT                   40.0
-    
-#pragma mark - Global Functions 
-    
+
+#pragma mark - Global Functions
+
 #define IsSysVerGTE(ver)                        ([[[UIDevice currentDevice] systemVersion] floatValue] >= (ver))
 #define StarSize(x)                             MAX([UIImage imageNamed:(x)].size.width, [UIImage imageNamed:(x)].size.height)
-#define TextHeightWithFont(x)                   ([@"我" sizeWithFont:(x)].height)
+#define TextHeightWithFont(x)                   ([@"我" sizeWithFont : (x)].height)
 
 extern BOOL isLogin();
-extern CGFloat heightForMultilineTextWithFont(NSString* text, UIFont* font, CGFloat width);
-extern BOOL isLastCell(UITableView* tableView, NSIndexPath* indexPath);
-extern NSArray* arrangeBooksByCategories(NSArray* books, NSArray* categories);
-extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accuracy);
+extern CGFloat heightForMultilineTextWithFont(NSString *text, UIFont *font, CGFloat width);
+extern BOOL isLastCell(UITableView *tableView, NSIndexPath *indexPath);
+extern NSArray *arrangeBooksByCategories(NSArray *books, NSArray *categories);
+extern NSMutableDictionary *arrangeBooksByTime(NSArray *books, TimeAccuracy accuracy);
 
 #pragma mark - UIViewController category
 
@@ -219,10 +219,12 @@ extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accu
 
 @end
 
+#pragma mark - UIImage category
+
 @interface UIImage (extended)
 
 + (UIImage *)imageWithColor:(UIColor *)color;
-+ (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize;
++ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 - (UIImage *)makeRoundedImageWithRadius:(float)radius;
 - (UIImage *)scaledToSize:(CGSize)newSize;
 - (UIImage *)imageByApplyingAlpha:(CGFloat)alpha;
@@ -230,20 +232,24 @@ extern NSMutableDictionary* arrangeBooksByTime(NSArray* books, TimeAccuracy accu
 
 @end
 
+#pragma mark - UILabel category
+
 @interface UILabel (Clipboard)
 
-- (BOOL) canBecomeFirstResponder;
+- (BOOL)canBecomeFirstResponder;
 
 @end
+
+#pragma mark - UINavigationItem category
 
 @interface UINavigationItem (BackButtonTitle)
 
 @end
+
+#pragma mark - NSObject category
 
 @interface NSObject (null)
 
 - (BOOL)isNull;
 
 @end
-
-#pragma mark -
