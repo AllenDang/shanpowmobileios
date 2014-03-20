@@ -11,14 +11,14 @@
 #import "Common.h"
 
 typedef enum {
-    CB_AvatarLocationLeft = 0,
-    CB_AvatarLocationRight = 1,
-    CB_AvatarLocationNone = 2
+	CB_AvatarLocationLeft = 0,
+	CB_AvatarLocationRight = 1,
+	CB_AvatarLocationNone = 2
 } CBAvatarLocation;
 
 typedef enum {
-    CBStyleDark = 0,
-    CBStyleLight = 1
+	CBStyleDark = 0,
+	CBStyleLight = 1
 } CBStyle;
 
 @interface ChatBubble : UIView

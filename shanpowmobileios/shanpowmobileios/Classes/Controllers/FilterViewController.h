@@ -20,7 +20,7 @@
 
 @interface FilterViewController : UITableViewController <CategoriesCellDelegate>
 
-@property (nonatomic, strong) id<FilterDataSource> dataSource;
+@property (nonatomic, strong) id <FilterDataSource> dataSource;
 
 @property (nonatomic, assign) BOOL showReadStatus;
 @property (nonatomic, assign) BOOL showChannel;

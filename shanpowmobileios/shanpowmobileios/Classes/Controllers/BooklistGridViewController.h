@@ -10,8 +10,8 @@
 #import "Common.h"
 
 typedef enum {
-    BGM_DisplayMode = 0,
-    BGM_SelectionMode = 1
+	BGM_DisplayMode = 0,
+	BGM_SelectionMode = 1
 } BooklistGridMode;
 
 @interface BooklistGridViewController : UITableViewController

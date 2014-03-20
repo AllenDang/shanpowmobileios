@@ -12,17 +12,15 @@
 #import "SPLabel.h"
 #import "NSStringCategory.h"
 
-typedef enum
-{
-    BookInfoViewStyleMinimal = 0,
-    BookInfoViewStyleMedium = 1,
-    BookInfoViewStyleMaximum = 2
+typedef enum {
+	BookInfoViewStyleMinimal = 0,
+	BookInfoViewStyleMedium = 1,
+	BookInfoViewStyleMaximum = 2
 } BookInfoViewStyle;
 
-typedef enum
-{
-    BookInfoViewColorStyleDefault = 0,
-    BookInfoViewColorStyleWhiteFont = 1
+typedef enum {
+	BookInfoViewColorStyleDefault = 0,
+	BookInfoViewColorStyleWhiteFont = 1
 } BookInfoViewColorStyle;
 
 @interface BookInfoView : UIView <UIScrollViewDelegate>

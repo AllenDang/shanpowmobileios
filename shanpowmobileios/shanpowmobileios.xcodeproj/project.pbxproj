@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		640881E218DAE7CE00616C06 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 640881E018DAE7CE00616C06 /* checkmark.png */; };
+		640881E318DAE7CE00616C06 /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 640881E118DAE7CE00616C06 /* checkmark@2x.png */; };
 		6409DB7F18BB156A00313AE5 /* CommentReviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6409DB7E18BB156A00313AE5 /* CommentReviewView.m */; };
 		640CB15218CF0DB400549FFC /* RankingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 640CB15118CF0DB400549FFC /* RankingListViewController.m */; };
 		640CB15518CF122000549FFC /* AccessoryTypeDotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 640CB15418CF122000549FFC /* AccessoryTypeDotTableViewCell.m */; };
@@ -202,6 +204,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		640881E018DAE7CE00616C06 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
+		640881E118DAE7CE00616C06 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
 		6409DB7D18BB156A00313AE5 /* CommentReviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentReviewView.h; sourceTree = "<group>"; };
 		6409DB7E18BB156A00313AE5 /* CommentReviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentReviewView.m; sourceTree = "<group>"; };
 		640CB15018CF0DB400549FFC /* RankingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingListViewController.h; sourceTree = "<group>"; };
@@ -611,6 +615,8 @@
 		642723F318ACC3F0002609F4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				640881E018DAE7CE00616C06 /* checkmark.png */,
+				640881E118DAE7CE00616C06 /* checkmark@2x.png */,
 				6441B63618D7083E00AD7566 /* Logout.png */,
 				6441B63718D7083E00AD7566 /* Logout@2x.png */,
 				641D3B4D18CD6789009F79E6 /* Chat_CYAN.png */,
@@ -1130,6 +1136,7 @@
 				6423919A1884DE830049BE8B /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				64C6638B186D1EC800B18236 /* Login_LoginButton_Highlight.png in Resources */,
 				64C6638F186D298F00B18236 /* Login_MailTextField.png in Resources */,
+				640881E318DAE7CE00616C06 /* checkmark@2x.png in Resources */,
 				64C66388186D1C7400B18236 /* Login_PasswordTextField@2x.png in Resources */,
 				6441B9DA18B373180061D00C /* DefaultUser50@2x.png in Resources */,
 				641637C518AA05EE009A774A /* User@2x.png in Resources */,
@@ -1207,6 +1214,7 @@
 				64B7C67718B5F99400B85E30 /* Star_Gray_Small@2x.png in Resources */,
 				641D3B5518CD6789009F79E6 /* ThumbDown_CYAN.png in Resources */,
 				641637C918AA0713009A774A /* User.png in Resources */,
+				640881E218DAE7CE00616C06 /* checkmark.png in Resources */,
 				64CD289B18A9F79B0050BE63 /* TitlePlaceholder@2x.png in Resources */,
 				6441B63818D7083E00AD7566 /* Logout.png in Resources */,
 				6463584B185B231E00172760 /* Login_TextField.png in Resources */,

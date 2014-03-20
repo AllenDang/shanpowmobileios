@@ -14,28 +14,25 @@
 
 @implementation BookInfoCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-        self.bookInfoView = [[BookInfoView alloc] initWithStyle:BookInfoViewStyleMinimal frame:self.bounds];
-    }
-    return self;
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+	if (self) {
+		// Initialization code
+		self.bookInfoView = [[BookInfoView alloc] initWithStyle:BookInfoViewStyleMinimal frame:self.bounds];
+	}
+	return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+	[super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
+	// Configure the view for the selected state
 }
 
--(void)layoutSubviews
-{
-    self.bookInfoView.frame = CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height);
+- (void)layoutSubviews {
+	self.bookInfoView.frame = CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height);
 
-    [super layoutSubviews];
+	[super layoutSubviews];
 }
 
 @end

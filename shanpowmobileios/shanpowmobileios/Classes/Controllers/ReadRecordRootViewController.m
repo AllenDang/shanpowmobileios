@@ -17,94 +17,86 @@
 
 @implementation ReadRecordRootViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if (self) {
+		// Custom initialization
+	}
+	return self;
 }
 
-- (id)initWithUserName:(NSString *)username
-{
-    ReadRecordViewController *rrController = [[ReadRecordViewController alloc] initWithStyle:UITableViewStylePlain];
-    rrController.username = username;
-    rrController.avatarUrl = self.avatarUrl;
-    
-    FilterViewController *fController = [[FilterViewController alloc] initWithStyle:UITableViewStylePlain];
-    fController.showReadStatus = NO;
-    
-    self = [super initWithCenterViewController:rrController rightDrawerViewController:fController];
-    if (self) {
-        self.username = username;
-        
-        self.readRecordController = rrController;
-        self.filterController = fController;
-        self.filterController.dataSource = self.readRecordController;
-    }
-    return self;
+- (id)initWithUserName:(NSString *)username {
+	ReadRecordViewController *rrController = [[ReadRecordViewController alloc] initWithStyle:UITableViewStylePlain];
+	rrController.username = username;
+	rrController.avatarUrl = self.avatarUrl;
+
+	FilterViewController *fController = [[FilterViewController alloc] initWithStyle:UITableViewStylePlain];
+	fController.showReadStatus = NO;
+
+	self = [super initWithCenterViewController:rrController rightDrawerViewController:fController];
+	if (self) {
+		self.username = username;
+
+		self.readRecordController = rrController;
+		self.filterController = fController;
+		self.filterController.dataSource = self.readRecordController;
+	}
+	return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+- (void)viewDidLoad {
+	[super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.title = @"阅读记录和书评";
-    
+	self.title = @"阅读记录和书评";
+
 //    UIBarButtonItem *filterButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Filter"] style:UIBarButtonItemStylePlain target:self action:@selector(openFilter:)];
 //    [self.navigationItem setRightBarButtonItem:filterButton];
-    
-    if (IsSysVerGTE(7.0)) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
-    [self setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
-    [self setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
-    
-    [self setMaximumRightDrawerWidth:300.0];
+
+	if (IsSysVerGTE(7.0)) {
+		self.edgesForExtendedLayout = UIRectEdgeNone;
+	}
+	[self setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+	[self setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
+
+	[self setMaximumRightDrawerWidth:300.0];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)didReceiveMemoryWarning {
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
 #pragma mark -
-- (void)setUsername:(NSString *)username
-{
-    if (![username isEqualToString:_username]) {
-        _username = username;
-        
-        self.readRecordController.username = username;
-    }
+- (void)setUsername:(NSString *)username {
+	if (![username isEqualToString:_username]) {
+		_username = username;
+
+		self.readRecordController.username = username;
+	}
 }
 
-- (void)setAvatarUrl:(NSString *)avatarUrl
-{
-    if (![avatarUrl isEqualToString:_avatarUrl]) {
-        _avatarUrl = avatarUrl;
-        
-        self.readRecordController.avatarUrl = avatarUrl;
-    }
+- (void)setAvatarUrl:(NSString *)avatarUrl {
+	if (![avatarUrl isEqualToString:_avatarUrl]) {
+		_avatarUrl = avatarUrl;
+
+		self.readRecordController.avatarUrl = avatarUrl;
+	}
 }
 
 #pragma mark - Event handler
-- (void)openFilter:(UIBarButtonItem *)sender
-{
-    if ([self openSide] == MMDrawerSideRight) {
-        self.title = @"书单详情";
-        self.navigationItem.hidesBackButton = NO;
-        [self closeDrawerAnimated:YES completion:^(BOOL finished) {
-            
-        }];
-    } else {
-        self.title = @"过滤";
-        self.navigationItem.hidesBackButton = YES;
-        [self openDrawerSide:MMDrawerSideRight animated:YES completion:^(BOOL finished) {
-            
-        }];
-    }
+- (void)openFilter:(UIBarButtonItem *)sender {
+	if ([self openSide] == MMDrawerSideRight) {
+		self.title = @"书单详情";
+		self.navigationItem.hidesBackButton = NO;
+		[self closeDrawerAnimated:YES completion: ^(BOOL finished) {
+		}];
+	}
+	else {
+		self.title = @"过滤";
+		self.navigationItem.hidesBackButton = YES;
+		[self openDrawerSide:MMDrawerSideRight animated:YES completion: ^(BOOL finished) {
+		}];
+	}
 }
 
 @end

@@ -19,118 +19,106 @@
 
 @implementation HotBooksViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+	if (self) {
+		// Custom initialization
+	}
+	return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    self.title = @"热门书籍";
-    if (IsSysVerGTE(7.0)) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
-    
-    self.bookGridController = [[BookGridViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.bookGridController.view.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height);
-    self.bookGridController.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    self.bookGridController.refreshControl = [[UIRefreshControl alloc] init];
-    [self.bookGridController.refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
-    self.bookGridController.refreshControl.layer.zPosition = self.bookGridController.view.layer.zPosition + 1;
-    
-    [self.view addSubview:self.bookGridController.view];
-    
-    [self loadHotBooks];
+- (void)viewDidLoad {
+	[super viewDidLoad];
+
+	self.title = @"热门书籍";
+	if (IsSysVerGTE(7.0)) {
+		self.edgesForExtendedLayout = UIRectEdgeNone;
+	}
+
+	self.bookGridController = [[BookGridViewController alloc] initWithStyle:UITableViewStylePlain];
+	self.bookGridController.view.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height);
+	self.bookGridController.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+	self.bookGridController.refreshControl = [[UIRefreshControl alloc] init];
+	[self.bookGridController.refreshControl addTarget:self action:@selector(refreshData:) forControlEvents:UIControlEventValueChanged];
+	self.bookGridController.refreshControl.layer.zPosition = self.bookGridController.view.layer.zPosition + 1;
+
+	[self.view addSubview:self.bookGridController.view];
+
+	[self loadHotBooks];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleBookSelected:) name:MSG_DID_SELECT_BOOK object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetHotBooks:) name:MSG_DID_GET_HOTBOOKS object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetHotBooks:) name:MSG_FAIL_GET_HOTBOOKS object:nil];
+- (void)viewWillAppear:(BOOL)animated {
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleBookSelected:) name:MSG_DID_SELECT_BOOK object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetHotBooks:) name:MSG_DID_GET_HOTBOOKS object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetHotBooks:) name:MSG_FAIL_GET_HOTBOOKS object:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_ERROR object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_BOOK object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_HOTBOOKS object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_HOTBOOKS object:nil];
-    
-    [super viewWillDisappear:animated];
+- (void)viewWillDisappear:(BOOL)animated {
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_ERROR object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_BOOK object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_HOTBOOKS object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_FAIL_GET_HOTBOOKS object:nil];
+
+	[super viewWillDisappear:animated];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
+- (UIStatusBarStyle)preferredStatusBarStyle {
+	return UIStatusBarStyleLightContent;
 }
 
-- (void)refreshData:(UIRefreshControl *)refresh
-{
-    if (refresh.refreshing) {
-        [self loadHotBooks];
-    }
+- (void)refreshData:(UIRefreshControl *)refresh {
+	if (refresh.refreshing) {
+		[self loadHotBooks];
+	}
 }
 
-- (void)loadHotBooks
-{
-    [[NetworkClient sharedNetworkClient] getHotBooks];
+- (void)loadHotBooks {
+	[[NetworkClient sharedNetworkClient] getHotBooks];
 }
 
 #pragma mark - Event handler
 
-- (void)didGetHotBooks:(NSNotification *)notification
-{
-    self.bookGridController.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    
-    NSDictionary *userInfo = [notification userInfo];
-    NSArray *data = [[userInfo objectForKey:@"data"] class] == [NSNull class] ? nil : [userInfo objectForKey:@"data"];
-    self.bookGridController.books = data;
-    
-    [self.bookGridController.tableView reloadData];
-    [self.bookGridController.refreshControl endRefreshing];
+- (void)didGetHotBooks:(NSNotification *)notification {
+	self.bookGridController.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+
+	NSDictionary *userInfo = [notification userInfo];
+	NSArray *data = [[userInfo objectForKey:@"data"] class] == [NSNull class] ? nil : [userInfo objectForKey:@"data"];
+	self.bookGridController.books = data;
+
+	[self.bookGridController.tableView reloadData];
+	[self.bookGridController.refreshControl endRefreshing];
 }
 
-- (void)failGetHotBooks:(NSNotification *)notification
-{
-    [self.bookGridController.refreshControl endRefreshing];
-    
-    NSString *errorMsg = [[notification userInfo] objectForKey:@"ErrorMsg"];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络问题" message:errorMsg delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
-    [alert show];
+- (void)failGetHotBooks:(NSNotification *)notification {
+	[self.bookGridController.refreshControl endRefreshing];
+
+	NSString *errorMsg = [[notification userInfo] objectForKey:@"ErrorMsg"];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络问题" message:errorMsg delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
+	[alert show];
 }
 
-- (void)handleError:(NSNotification *)notification
-{
-    [self.bookGridController.refreshControl endRefreshing];
-    
-    NSString *errorMsg = [[notification userInfo] objectForKey:@"ErrorMsg"];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络问题" message:errorMsg delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
-    [alert show];
+- (void)handleError:(NSNotification *)notification {
+	[self.bookGridController.refreshControl endRefreshing];
+
+	NSString *errorMsg = [[notification userInfo] objectForKey:@"ErrorMsg"];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络问题" message:errorMsg delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
+	[alert show];
 }
 
-- (void)handleBookSelected:(NSNotification *)notification
-{    
-    NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
-    BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
-    bookDetailController.bookId = bookId;
-    [self pushViewController:bookDetailController];
+- (void)handleBookSelected:(NSNotification *)notification {
+	NSString *bookId = [[notification userInfo] objectForKey:@"BookId"];
+	BookDetailViewController *bookDetailController = [[BookDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+	bookDetailController.bookId = bookId;
+	[self pushViewController:bookDetailController];
 }
 
 #pragma mark -
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)didReceiveMemoryWarning {
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
 @end

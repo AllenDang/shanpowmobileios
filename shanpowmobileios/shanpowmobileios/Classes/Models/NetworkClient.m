@@ -122,13 +122,8 @@ SINGLETON_GCD(NetworkClient);
 	[self.loadingView show];
 
 	AFHTTPRequestOperation *op = [manager HTTPRequestOperationWithRequest:request
-	                                                              success: ^(AFHTTPRequestOperation *operation, id responseObject) {
-	    success(operation, responseObject);
-	}
-
-	                                                              failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    failure(operation, error);
-	}];
+	                                                              success: ^(AFHTTPRequestOperation *operation, id responseObject) { success(operation, responseObject); }
+	                                                              failure: ^(AFHTTPRequestOperation *operation, NSError *error) { failure(operation, error); }];
 
 	[manager.operationQueue addOperation:op];
 }
