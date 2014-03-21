@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AFNetworking.h"
+#import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate ()
 
@@ -83,6 +84,8 @@
 	[MobClick startWithAppkey:@"532ba4a756240b2cdd06693e" reportPolicy:BATCH channelId:@"TongBuTui"];
 	NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 	[MobClick setAppVersion:version];
+
+	[Crashlytics startWithAPIKey:@"a3c3f69407ffc63e5665c70ca72f6c34c2fb9057"];
 
 	return YES;
 }

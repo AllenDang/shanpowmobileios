@@ -190,6 +190,7 @@
 		64D35F4D18ADF09E00999CED /* Star_Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4918ADF09E00999CED /* Star_Red.png */; };
 		64D35F4E18ADF09E00999CED /* Star_Red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4A18ADF09E00999CED /* Star_Red@2x.png */; };
 		64D4D57618C050BF0044A78E /* BooklistDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */; };
+		64DBCD4E18DBF8AB00B4DB3B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64DBCD4D18DBF8AB00B4DB3B /* Crashlytics.framework */; };
 		64DDEBEE18D41A2B002918F0 /* UserFavBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64DDEBED18D41A2B002918F0 /* UserFavBooksViewController.m */; };
 		64E5611618C0340F00A26F96 /* BookGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E5611518C0340F00A26F96 /* BookGridCell.m */; };
 		64E9897918C430C000554BDB /* BooklistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9897818C430C000554BDB /* BooklistCell.m */; };
@@ -472,6 +473,7 @@
 		64D35F4A18ADF09E00999CED /* Star_Red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Red@2x.png"; sourceTree = "<group>"; };
 		64D4D57418C050BF0044A78E /* BooklistDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistDetailViewController.h; sourceTree = "<group>"; };
 		64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooklistDetailViewController.m; sourceTree = "<group>"; };
+		64DBCD4D18DBF8AB00B4DB3B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		64DDEBEC18D41A2B002918F0 /* UserFavBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFavBooksViewController.h; sourceTree = "<group>"; };
 		64DDEBED18D41A2B002918F0 /* UserFavBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UserFavBooksViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		64E5611418C0340F00A26F96 /* BookGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookGridCell.h; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 				6440D730186028FB008D9C59 /* libstdc++.dylib in Frameworks */,
 				6440D72E186028F0008D9C59 /* CoreTelephony.framework in Frameworks */,
 				6440D72C186028E5008D9C59 /* libsqlite3.dylib in Frameworks */,
+				64DBCD4E18DBF8AB00B4DB3B /* Crashlytics.framework in Frameworks */,
 				6440D72A186028D9008D9C59 /* SystemConfiguration.framework in Frameworks */,
 				6440D728186028C9008D9C59 /* libiconv.dylib in Frameworks */,
 				642391971884D5350049BE8B /* libWeiboSDK.a in Frameworks */,
@@ -908,6 +911,7 @@
 		646132B5184872F300A0BBF0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				64DBCD4D18DBF8AB00B4DB3B /* Crashlytics.framework */,
 				642391981884DE6E0049BE8B /* TencentOpenApi_IOS_Bundle.bundle */,
 				642391941884D4EC0049BE8B /* TencentOpenAPI.framework */,
 				6440D73118602904008D9C59 /* libz.dylib */,
@@ -1256,7 +1260,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./shanpowmobileios/buildIncrementer ./shanpowmobileios/version.xconfig";
+			shellScript = "./shanpowmobileios/buildIncrementer ./shanpowmobileios/version.xconfig\n./Crashlytics.framework/run a3c3f69407ffc63e5665c70ca72f6c34c2fb9057 847f4942b25711ee5353cf305aeb26e9bf3402e7076acd00313234a58ca91bed";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1447,6 +1451,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"./shanpowmobileios/Frameworks/**",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shanpowmobileios/shanpowmobileios-Prefix.pch";
@@ -1479,6 +1484,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"./shanpowmobileios/Frameworks/**",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shanpowmobileios/shanpowmobileios-Prefix.pch";
