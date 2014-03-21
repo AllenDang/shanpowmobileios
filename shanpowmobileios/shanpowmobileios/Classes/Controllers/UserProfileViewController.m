@@ -400,7 +400,7 @@
 
 	if (!self.isSelf) {
 		if (self.followedByMe) {
-			self.followIcon.image = [UIImage imageNamed:@"CheckMark"];
+			self.followIcon.image = [UIImage imageNamed:@"CheckMark_Big"];
 		}
 		else {
 			self.followIcon.image = [UIImage imageNamed:@"Plus"];

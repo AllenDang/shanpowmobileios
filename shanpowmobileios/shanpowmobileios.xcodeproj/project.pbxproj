@@ -58,8 +58,8 @@
 		642723E518AC6578002609F4 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 642723E418AC6578002609F4 /* UIImage+ImageEffects.m */; };
 		642723E818AC7694002609F4 /* Plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723E618AC7694002609F4 /* Plus.png */; };
 		642723E918AC7694002609F4 /* Plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723E718AC7694002609F4 /* Plus@2x.png */; };
-		642723EE18ACA54C002609F4 /* CheckMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723EC18ACA54C002609F4 /* CheckMark.png */; };
-		642723EF18ACA54C002609F4 /* CheckMark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723ED18ACA54C002609F4 /* CheckMark@2x.png */; };
+		642723EE18ACA54C002609F4 /* CheckMark_Big.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723EC18ACA54C002609F4 /* CheckMark_Big.png */; };
+		642723EF18ACA54C002609F4 /* CheckMark_Big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723ED18ACA54C002609F4 /* CheckMark_Big@2x.png */; };
 		642723F218ACBE2C002609F4 /* CreateBookListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642723F118ACBE2C002609F4 /* CreateBookListViewController.m */; };
 		642723F618ACC3F0002609F4 /* Dot.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723F418ACC3F0002609F4 /* Dot.png */; };
 		642723F718ACC3F0002609F4 /* Dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 642723F518ACC3F0002609F4 /* Dot@2x.png */; };
@@ -271,8 +271,8 @@
 		642723E418AC6578002609F4 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		642723E618AC7694002609F4 /* Plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Plus.png; sourceTree = "<group>"; };
 		642723E718AC7694002609F4 /* Plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Plus@2x.png"; sourceTree = "<group>"; };
-		642723EC18ACA54C002609F4 /* CheckMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CheckMark.png; sourceTree = "<group>"; };
-		642723ED18ACA54C002609F4 /* CheckMark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CheckMark@2x.png"; sourceTree = "<group>"; };
+		642723EC18ACA54C002609F4 /* CheckMark_Big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CheckMark_Big.png; sourceTree = "<group>"; };
+		642723ED18ACA54C002609F4 /* CheckMark_Big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CheckMark_Big@2x.png"; sourceTree = "<group>"; };
 		642723F018ACBE2C002609F4 /* CreateBookListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateBookListViewController.h; sourceTree = "<group>"; };
 		642723F118ACBE2C002609F4 /* CreateBookListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateBookListViewController.m; sourceTree = "<group>"; };
 		642723F418ACC3F0002609F4 /* Dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dot.png; sourceTree = "<group>"; };
@@ -602,8 +602,8 @@
 			children = (
 				6441B9DB18B373240061D00C /* DefaultUser50.png */,
 				6441B9D918B373180061D00C /* DefaultUser50@2x.png */,
-				642723EC18ACA54C002609F4 /* CheckMark.png */,
-				642723ED18ACA54C002609F4 /* CheckMark@2x.png */,
+				642723EC18ACA54C002609F4 /* CheckMark_Big.png */,
+				642723ED18ACA54C002609F4 /* CheckMark_Big@2x.png */,
 				642723E618AC7694002609F4 /* Plus.png */,
 				642723E718AC7694002609F4 /* Plus@2x.png */,
 			);
@@ -1227,7 +1227,7 @@
 				641D3B5618CD6789009F79E6 /* ThumbDown_CYAN@2x.png in Resources */,
 				64635847185B231E00172760 /* Login_Background.png in Resources */,
 				641D3B5818CD6789009F79E6 /* ThumbUp_CYAN@2x.png in Resources */,
-				642723EE18ACA54C002609F4 /* CheckMark.png in Resources */,
+				642723EE18ACA54C002609F4 /* CheckMark_Big.png in Resources */,
 				64CD28A618A9FB1E0050BE63 /* MinNa.png in Resources */,
 				64B7C67718B5F99400B85E30 /* Star_Gray_Small@2x.png in Resources */,
 				641D3B5518CD6789009F79E6 /* ThumbDown_CYAN.png in Resources */,
@@ -1238,7 +1238,7 @@
 				6463584B185B231E00172760 /* Login_TextField.png in Resources */,
 				64204AD718BC558200A684A7 /* icon-star@2x.png in Resources */,
 				64D35F4E18ADF09E00999CED /* Star_Red@2x.png in Resources */,
-				642723EF18ACA54C002609F4 /* CheckMark@2x.png in Resources */,
+				642723EF18ACA54C002609F4 /* CheckMark_Big@2x.png in Resources */,
 				64AA339918C8577A009E09F7 /* ThumbDown@2x.png in Resources */,
 				64C66390186D298F00B18236 /* Login_MailTextField@2x.png in Resources */,
 				64546E9C1869638D001CCE5B /* HC_Background@2x.png in Resources */,
