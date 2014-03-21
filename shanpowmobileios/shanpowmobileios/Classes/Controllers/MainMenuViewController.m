@@ -86,7 +86,15 @@
 		[self.navigationItem setRightBarButtonItem:self.searchButton];
 	}
 
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+
 	[super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 }
 
 - (void)didReceiveMemoryWarning {

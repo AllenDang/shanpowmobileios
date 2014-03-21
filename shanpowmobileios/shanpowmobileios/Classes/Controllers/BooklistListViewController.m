@@ -13,6 +13,7 @@
 #import "BooklistDetailViewController.h"
 #import "BooklistDetailInfoViewController.h"
 #import "FilterViewController.h"
+#import "MobClick.h"
 
 @interface BooklistListViewController ()
 
@@ -49,6 +50,8 @@
 
 	[self getBooklists];
 
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+
 	[super viewDidAppear:animated];
 }
 
@@ -56,6 +59,8 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
 	[super viewWillDisappear:animated];
+
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 }
 
 - (void)didReceiveMemoryWarning {

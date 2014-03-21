@@ -118,6 +118,8 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 
@@ -129,6 +131,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 
 	[super viewWillDisappear:animated];
 }

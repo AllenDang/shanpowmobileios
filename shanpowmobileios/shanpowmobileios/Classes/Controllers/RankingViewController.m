@@ -51,11 +51,15 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didSelectBook:) name:MSG_DID_SELECT_BOOK object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 
 	[super viewWillDisappear:animated];
 }

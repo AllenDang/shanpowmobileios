@@ -51,10 +51,14 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooks:) name:MSG_FAIL_GET_BOOKS object:nil];
 
 	[self getFavBooks];
+
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 
 	[super viewWillDisappear:animated];
 }

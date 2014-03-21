@@ -49,13 +49,19 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleBookSelected:) name:MSG_DID_SELECT_BOOK object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetHotBooks:) name:MSG_DID_GET_HOTBOOKS object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetHotBooks:) name:MSG_FAIL_GET_HOTBOOKS object:nil];
+
+	[super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_ERROR object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_SELECT_BOOK object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:MSG_DID_GET_HOTBOOKS object:nil];

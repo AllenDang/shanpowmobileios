@@ -91,6 +91,7 @@
 		6441B9DC18B373240061D00C /* DefaultUser50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6441B9DB18B373240061D00C /* DefaultUser50.png */; };
 		64546E9B1869638D001CCE5B /* HC_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 64546E991869638D001CCE5B /* HC_Background.png */; };
 		64546E9C1869638D001CCE5B /* HC_Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64546E9A1869638D001CCE5B /* HC_Background@2x.png */; };
+		6455C58118DBDCB900262BF9 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6455C57F18DBDCB900262BF9 /* libMobClickLibrary.a */; };
 		64579B7518D14A9B00D9F513 /* RankingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64579B7418D14A9B00D9F513 /* RankingViewController.m */; };
 		645E043218D2D2F500C35CB0 /* buildIncrementer in Resources */ = {isa = PBXBuildFile; fileRef = 645E043118D2D2F500C35CB0 /* buildIncrementer */; };
 		645FB9BF184C2C0C00BB2325 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 645FB9AD184C2C0C00BB2325 /* AFHTTPRequestOperation.m */; };
@@ -320,6 +321,8 @@
 		6441B9DB18B373240061D00C /* DefaultUser50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultUser50.png; sourceTree = "<group>"; };
 		64546E991869638D001CCE5B /* HC_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HC_Background.png; sourceTree = "<group>"; };
 		64546E9A1869638D001CCE5B /* HC_Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HC_Background@2x.png"; sourceTree = "<group>"; };
+		6455C57F18DBDCB900262BF9 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		6455C58018DBDCB900262BF9 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		64579B7318D14A9B00D9F513 /* RankingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingViewController.h; sourceTree = "<group>"; };
 		64579B7418D14A9B00D9F513 /* RankingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingViewController.m; sourceTree = "<group>"; };
 		645E043118D2D2F500C35CB0 /* buildIncrementer */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = buildIncrementer; sourceTree = "<group>"; };
@@ -498,6 +501,7 @@
 			files = (
 				6440D73218602904008D9C59 /* libz.dylib in Frameworks */,
 				642391951884D4EC0049BE8B /* TencentOpenAPI.framework in Frameworks */,
+				6455C58118DBDCB900262BF9 /* libMobClickLibrary.a in Frameworks */,
 				6440D730186028FB008D9C59 /* libstdc++.dylib in Frameworks */,
 				6440D72E186028F0008D9C59 /* CoreTelephony.framework in Frameworks */,
 				6440D72C186028E5008D9C59 /* libsqlite3.dylib in Frameworks */,
@@ -691,6 +695,15 @@
 			path = HotCategories;
 			sourceTree = "<group>";
 		};
+		6455C57B18DBD3FF00262BF9 /* umeng */ = {
+			isa = PBXGroup;
+			children = (
+				6455C57F18DBDCB900262BF9 /* libMobClickLibrary.a */,
+				6455C58018DBDCB900262BF9 /* MobClick.h */,
+			);
+			path = umeng;
+			sourceTree = "<group>";
+		};
 		645FB989184C2AF500BB2325 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -828,6 +841,7 @@
 		645FB9AA184C2BD000BB2325 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				6455C57B18DBD3FF00262BF9 /* umeng */,
 				64C515E218BF0FE30027292E /* MMDrawerController */,
 				64204AB318BC3E2200A684A7 /* AwesomeMenu */,
 				64D35F4318ADCE0800999CED /* AMRatingControl */,
@@ -1441,6 +1455,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"./shanpowmobileios/Frameworks/**",
+					"$(PROJECT_DIR)/shanpowmobileios/Classes/Libraries/umeng",
 				);
 				OTHER_LDFLAGS = (
 					"-fobjc-arc",
@@ -1472,6 +1487,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"./shanpowmobileios/Frameworks/**",
+					"$(PROJECT_DIR)/shanpowmobileios/Classes/Libraries/umeng",
 				);
 				OTHER_LDFLAGS = (
 					"-fobjc-arc",

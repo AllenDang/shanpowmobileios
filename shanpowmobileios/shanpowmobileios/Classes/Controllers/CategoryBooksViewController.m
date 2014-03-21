@@ -63,6 +63,8 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetBooks:) name:MSG_DID_GET_BOOKS object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetBooks:) name:MSG_FAIL_GET_BOOKS object:nil];
 
@@ -76,6 +78,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 
 	[super viewWillDisappear:animated];
 }

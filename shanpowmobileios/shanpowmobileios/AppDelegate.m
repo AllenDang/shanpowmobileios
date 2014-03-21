@@ -80,6 +80,10 @@
 #endif
 	[WeiboSDK registerApp:weiboAppKey];
 
+	[MobClick startWithAppkey:@"532ba4a756240b2cdd06693e" reportPolicy:BATCH channelId:@"TongBuTui"];
+	NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+	[MobClick setAppVersion:version];
+
 	return YES;
 }
 

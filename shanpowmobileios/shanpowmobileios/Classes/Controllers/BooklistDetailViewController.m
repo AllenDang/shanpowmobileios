@@ -7,6 +7,7 @@
 //
 
 #import "BooklistDetailViewController.h"
+#import "MobClick.h"
 
 @interface BooklistDetailViewController ()
 
@@ -59,6 +60,18 @@
 	[self setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
 
 	[self setMaximumRightDrawerWidth:300.0];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 }
 
 - (void)didReceiveMemoryWarning {

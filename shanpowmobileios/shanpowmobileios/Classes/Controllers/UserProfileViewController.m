@@ -186,12 +186,16 @@
 		self.hasShown = YES;
 	}
 
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+
 	[super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	self.hasShown = NO;
+
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 
 	[super viewWillDisappear:animated];
 }

@@ -62,6 +62,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -86,6 +88,8 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+	[MobClick endLogPageView:NSStringFromClass([self class])];
+
 	self.hasShown = NO;
 
 	[[NSNotificationCenter defaultCenter] removeObserver:self];

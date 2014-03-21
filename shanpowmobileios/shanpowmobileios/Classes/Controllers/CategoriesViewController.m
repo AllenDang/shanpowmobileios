@@ -9,6 +9,7 @@
 #import "CategoriesViewController.h"
 #import "NetworkClient.h"
 #import "CategoryBooksViewController.h"
+#import "MobClick.h"
 
 @interface CategoriesViewController ()
 
@@ -48,6 +49,18 @@
 		self.tableView.separatorInset = UIEdgeInsetsZero;
 	}
 	self.tableView.separatorColor = UIC_BRIGHT_GRAY(0.4);
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 }
 
 - (void)didReceiveMemoryWarning {

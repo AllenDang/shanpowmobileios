@@ -53,11 +53,15 @@
 
 	[self getBooks];
 
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+
 	[super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 
 	[super viewWillDisappear:animated];
 }

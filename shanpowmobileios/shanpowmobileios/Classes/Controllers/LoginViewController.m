@@ -172,11 +172,21 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
 	[UIView animateWithDuration:0.25 animations: ^{
 	    [self.registerViewController clearControls];
 	    [self.registerViewController.view setFrame:CGRectMake(0.0, self.view.frame.size.height, 320.0, self.view.frame.size.height)];
 	}];
+
+	[MobClick endLogPageView:NSStringFromClass([self class])];
+
+	[super viewWillDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning {

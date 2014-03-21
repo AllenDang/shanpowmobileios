@@ -15,6 +15,7 @@
 #import "CommentDetailViewController.h"
 #import "OtherBooksViewController.h"
 #import "ReviewListViewController.h"
+#import "MobClick.h"
 
 @interface BookDetailViewController ()
 
@@ -125,6 +126,12 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
 	if (isLogin()) {
 		[self.view.window addSubview:self.actionMenu];
@@ -160,6 +167,8 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
 	[super viewWillDisappear:animated];
+
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 }
 
 - (void)didReceiveMemoryWarning {

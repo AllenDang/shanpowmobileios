@@ -8,7 +8,6 @@
 
 #import "RankingDetailViewController.h"
 #import "NetworkClient.h"
-
 #import "RankingDetailCell.h"
 #import "BookDetailViewController.h"
 
@@ -59,6 +58,8 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:YES];
 
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetRankingDetail:) name:MSG_DID_GET_RANKINGLIST_DETAIL object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failGetRankingDetail:) name:MSG_FAIL_GET_RANKINGLIST_DETAIL object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
@@ -70,6 +71,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 
 	[super viewWillDisappear:animated];
 }

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "MobClick.h"
 
 #pragma mark - Singleton GCD Macro
 #ifndef SINGLETON_GCD

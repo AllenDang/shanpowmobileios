@@ -10,6 +10,7 @@
 #import "BooklistGridViewController.h"
 #import "NetworkClient.h"
 #import "CreateBookListViewController.h"
+#import "MobClick.h"
 
 @interface AddToBooklistViewController ()
 
@@ -57,6 +58,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
 	[self getBooklists];
 }
 
@@ -64,6 +66,12 @@
 	[self.booklistsController.tableView reloadData];
 
 	[super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 }
 
 #pragma mark -

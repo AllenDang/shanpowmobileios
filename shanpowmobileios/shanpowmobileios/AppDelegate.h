@@ -16,6 +16,7 @@
 #import "MainMenuViewController.h"
 #import "UserProfileViewController.h"
 #import "LoginViewController.h"
+#import "MobClick.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 

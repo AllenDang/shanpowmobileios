@@ -85,12 +85,15 @@
 		[self getResults];
 	}
 
+	[MobClick beginLogPageView:NSStringFromClass([self class])];
+
 	[super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 
+	[MobClick endLogPageView:NSStringFromClass([self class])];
 	[[CachedDownloadManager sharedCachedDownloadManager] saveCache:self.bookGridController.books forKey:CACHE_WIZARD];
 
 	[super viewWillDisappear:animated];
