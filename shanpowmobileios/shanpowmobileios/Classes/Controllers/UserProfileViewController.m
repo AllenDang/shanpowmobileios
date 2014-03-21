@@ -643,7 +643,7 @@
 			[cell addSubview:self.followActionButton];
 		}
 		else if (indexPath.row == [tableView numberOfRowsInSection:0] - 1) {
-			[cell addSubview:self.sendMessageButton];
+//			[cell addSubview:self.sendMessageButton];
 		}
 		else {
 			cell.textLabel.text = [self.userMenuItems objectAtIndex:indexPath.row - 1];
