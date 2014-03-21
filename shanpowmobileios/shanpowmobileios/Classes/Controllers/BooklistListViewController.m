@@ -120,11 +120,13 @@
 
 	NSMutableArray *filteredBooklist = [NSMutableArray arrayWithCapacity:40];
 
-	for (NSDictionary *booklist in booklists) {
-		if (![[booklist objectForKey:@"Id"] isEqualToString:self.filterId]) {
-			[filteredBooklist addObject:booklist];
-		}
-	}
+	if (![booklists isNull]) {
+        for (NSDictionary *booklist in booklists) {
+            if (![[booklist objectForKey:@"Id"] isEqualToString:self.filterId]) {
+                [filteredBooklist addObject:booklist];
+            }
+        }
+    }
 
 	self.booklistsController.booklists = filteredBooklist;
 }
