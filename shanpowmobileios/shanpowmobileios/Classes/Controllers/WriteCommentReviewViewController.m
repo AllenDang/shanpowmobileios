@@ -426,7 +426,7 @@
 
 #pragma mark - UITextView delegate
 - (BOOL)textView:(UITextView *)tView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-	CGRect textRect = [tView.layoutManager usedRectForTextContainer:tView.textContainer];
+	CGRect textRect = IsSysVerGTE(7.0) ? [tView.layoutManager usedRectForTextContainer:tView.textContainer] : CGRectMake(0.0, 0.0, [text sizeWithFont:tView.font].width, [text sizeWithFont:tView.font].height);
 	CGFloat sizeAdjustment = tView.font.lineHeight * [UIScreen mainScreen].scale;
 
 	if (textRect.size.height >= tView.frame.size.height - sizeAdjustment) {
