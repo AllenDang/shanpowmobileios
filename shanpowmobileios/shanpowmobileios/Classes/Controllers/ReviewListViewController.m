@@ -7,7 +7,6 @@
 //
 
 #import "ReviewListViewController.h"
-
 #import "CommentReviewCell.h"
 #import "CommentDetailViewController.h"
 #import "UserProfileViewController.h"
@@ -78,6 +77,7 @@
 		id data = [[CachedDownloadManager sharedCachedDownloadManager] loadCacheForKey:CACHE_REVIEW];
 		if (data) {
 			[self didGetReviews:[NSNotification notificationWithName:MSG_DID_GET_REVIEWS object:self userInfo:@{ @"data": data }]];
+			self.currentPageNum = [data count] / 20 + 1;
 		}
 		else {
 			[self getReviewsWithRange:NSMakeRange(1, self.currentNumPerPage)];
@@ -142,7 +142,11 @@
 
 - (void)refreshData:(UIRefreshControl *)refresh {
 	if (refresh.refreshing) {
-		[self getReviewsWithRange:NSMakeRange(self.currentPageNum, self.currentNumPerPage)];
+		[[CachedDownloadManager sharedCachedDownloadManager] clearCacheForKey:CACHE_REVIEW];
+
+		self.reviews = nil;
+		self.currentPageNum--;
+		[self getReviewsWithRange:NSMakeRange(1, self.currentNumPerPage * self.currentPageNum)];
 	}
 }
 
