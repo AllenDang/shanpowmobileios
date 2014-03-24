@@ -127,6 +127,7 @@
 		6482D1BA18C59FA000D2DA8F /* ReadRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482D1B918C59FA000D2DA8F /* ReadRecordViewController.m */; };
 		6482D1BD18C5B11000D2DA8F /* ReadRecordRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482D1BC18C5B11000D2DA8F /* ReadRecordRootViewController.m */; };
 		6482D1C018C5B9D300D2DA8F /* ChatBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 6482D1BF18C5B9D300D2DA8F /* ChatBubble.m */; };
+		6483308818DFD276007DB576 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6483308718DFD276007DB576 /* Crashlytics.framework */; };
 		649311A51862C68C00315DB0 /* BookInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649311A41862C68C00315DB0 /* BookInfoView.m */; };
 		649BA57D185AA6350096DD8D /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649BA57C185AA6350096DD8D /* RegisterViewController.m */; };
 		649F6EB918A8B8DE00E17B3E /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649F6EB818A8B8DE00E17B3E /* MainMenuViewController.m */; };
@@ -190,7 +191,6 @@
 		64D35F4D18ADF09E00999CED /* Star_Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4918ADF09E00999CED /* Star_Red.png */; };
 		64D35F4E18ADF09E00999CED /* Star_Red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 64D35F4A18ADF09E00999CED /* Star_Red@2x.png */; };
 		64D4D57618C050BF0044A78E /* BooklistDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */; };
-		64DBCD4E18DBF8AB00B4DB3B /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64DBCD4D18DBF8AB00B4DB3B /* Crashlytics.framework */; };
 		64DDEBEE18D41A2B002918F0 /* UserFavBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64DDEBED18D41A2B002918F0 /* UserFavBooksViewController.m */; };
 		64E5611618C0340F00A26F96 /* BookGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E5611518C0340F00A26F96 /* BookGridCell.m */; };
 		64E9897918C430C000554BDB /* BooklistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 64E9897818C430C000554BDB /* BooklistCell.m */; };
@@ -386,6 +386,7 @@
 		6482D1BC18C5B11000D2DA8F /* ReadRecordRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadRecordRootViewController.m; sourceTree = "<group>"; };
 		6482D1BE18C5B9D300D2DA8F /* ChatBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatBubble.h; sourceTree = "<group>"; };
 		6482D1BF18C5B9D300D2DA8F /* ChatBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatBubble.m; sourceTree = "<group>"; };
+		6483308718DFD276007DB576 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = shanpowmobileios/Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		649311A31862C68C00315DB0 /* BookInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoView.h; sourceTree = "<group>"; };
 		649311A41862C68C00315DB0 /* BookInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoView.m; sourceTree = "<group>"; };
 		649BA57B185AA6350096DD8D /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -473,7 +474,6 @@
 		64D35F4A18ADF09E00999CED /* Star_Red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Red@2x.png"; sourceTree = "<group>"; };
 		64D4D57418C050BF0044A78E /* BooklistDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BooklistDetailViewController.h; sourceTree = "<group>"; };
 		64D4D57518C050BF0044A78E /* BooklistDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BooklistDetailViewController.m; sourceTree = "<group>"; };
-		64DBCD4D18DBF8AB00B4DB3B /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		64DDEBEC18D41A2B002918F0 /* UserFavBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserFavBooksViewController.h; sourceTree = "<group>"; };
 		64DDEBED18D41A2B002918F0 /* UserFavBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = UserFavBooksViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		64E5611418C0340F00A26F96 /* BookGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookGridCell.h; sourceTree = "<group>"; };
@@ -507,7 +507,7 @@
 				6440D730186028FB008D9C59 /* libstdc++.dylib in Frameworks */,
 				6440D72E186028F0008D9C59 /* CoreTelephony.framework in Frameworks */,
 				6440D72C186028E5008D9C59 /* libsqlite3.dylib in Frameworks */,
-				64DBCD4E18DBF8AB00B4DB3B /* Crashlytics.framework in Frameworks */,
+				6483308818DFD276007DB576 /* Crashlytics.framework in Frameworks */,
 				6440D72A186028D9008D9C59 /* SystemConfiguration.framework in Frameworks */,
 				6440D728186028C9008D9C59 /* libiconv.dylib in Frameworks */,
 				642391971884D5350049BE8B /* libWeiboSDK.a in Frameworks */,
@@ -911,7 +911,7 @@
 		646132B5184872F300A0BBF0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				64DBCD4D18DBF8AB00B4DB3B /* Crashlytics.framework */,
+				6483308718DFD276007DB576 /* Crashlytics.framework */,
 				642391981884DE6E0049BE8B /* TencentOpenApi_IOS_Bundle.bundle */,
 				642391941884D4EC0049BE8B /* TencentOpenAPI.framework */,
 				6440D73118602904008D9C59 /* libz.dylib */,
@@ -1260,7 +1260,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./shanpowmobileios/buildIncrementer ./shanpowmobileios/version.xconfig\n./Crashlytics.framework/run a3c3f69407ffc63e5665c70ca72f6c34c2fb9057 847f4942b25711ee5353cf305aeb26e9bf3402e7076acd00313234a58ca91bed";
+			shellScript = "./shanpowmobileios/buildIncrementer ./shanpowmobileios/version.xconfig\n./shanpowmobileios/Frameworks/Crashlytics.framework/run a3c3f69407ffc63e5665c70ca72f6c34c2fb9057 847f4942b25711ee5353cf305aeb26e9bf3402e7076acd00313234a58ca91bed";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1452,6 +1452,7 @@
 					"$(inherited)",
 					"./shanpowmobileios/Frameworks/**",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/shanpowmobileios/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shanpowmobileios/shanpowmobileios-Prefix.pch";
@@ -1485,6 +1486,7 @@
 					"$(inherited)",
 					"./shanpowmobileios/Frameworks/**",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/shanpowmobileios/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shanpowmobileios/shanpowmobileios-Prefix.pch";

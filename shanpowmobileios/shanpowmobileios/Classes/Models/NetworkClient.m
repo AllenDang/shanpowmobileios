@@ -41,8 +41,6 @@ SINGLETON_GCD(NetworkClient);
 #pragma mark - Handle response from server
 
 - (void)handleResponse:(id)responseObject success:(void (^)(NSDictionary *data))success failure:(void (^)(NSDictionary *ErrorMsg))failure {
-	[self.loadingView hide];
-
 	BOOL result = [[responseObject objectForKey:@"Result"] boolValue];
 
 	if (result) {
@@ -60,8 +58,6 @@ SINGLETON_GCD(NetworkClient);
 }
 
 - (void)handleError:(NSError *)error onRequest:(AFHTTPRequestOperation *)request {
-	[self.loadingView hide];
-
 	if (request.response.statusCode == 403) {
 		AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request.request];
 		if (!op.isFinished) {
@@ -79,7 +75,7 @@ SINGLETON_GCD(NetworkClient);
 	NSDictionary *errInfo = @{};
 	switch (error.code) {
 		case -1004:
-			errInfo = @{ @"ErrorMsg": ERR_CANT_CONNECT_TO_SERVER };
+			errInfo = @{ @"ErrorMsg" : ERR_CANT_CONNECT_TO_SERVER };
 			break;
 
 		default:
@@ -90,8 +86,6 @@ SINGLETON_GCD(NetworkClient);
 }
 
 - (void)handleFailureFromRequest:(AFHTTPRequestOperation *)operation {
-	[self.loadingView hide];
-
 	if (!isLogin()) {
 		[self.pendingOperationQueue addObject:operation];
 		[self getCsrfToken];
@@ -115,15 +109,20 @@ SINGLETON_GCD(NetworkClient);
 		[parameters setObject:self.csrfToken forKey:@"csrf_token"];
 	}
 
-	NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:[type uppercaseString]
-	                                                                             URLString:url
-	                                                                            parameters:parameters];
+	NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:[type uppercaseString] URLString:url parameters:parameters];
 
 	[self.loadingView show];
 
 	AFHTTPRequestOperation *op = [manager HTTPRequestOperationWithRequest:request
-	                                                              success: ^(AFHTTPRequestOperation *operation, id responseObject) { success(operation, responseObject); }
-	                                                              failure: ^(AFHTTPRequestOperation *operation, NSError *error) { failure(operation, error); }];
+	                                                              success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+	    [self.loadingView hide];
+	    success(operation, responseObject);
+	}
+
+	                                                              failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+	    [self.loadingView hide];
+	    failure(operation, error);
+	}];
 
 	[manager.operationQueue addOperation:op];
 }
@@ -138,7 +137,7 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:nil
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
+	               success: ^(NSDictionary *data) {
 	        NSString *token = [data objectForKey:@"data"];
 	        [me setCsrfToken:token];
 	        // Save token for later use
@@ -148,19 +147,19 @@ SINGLETON_GCD(NetworkClient);
 	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_GOT_TOKEN object:me];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
 	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_TOKEN object:me];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)loginWithLoginname:(NSString *)loginname password:(NSString *)password {
-	NSDictionary *parameters = @{ @"email": loginname, @"password": password };
+	NSDictionary *parameters = @{ @"email" : loginname, @"password" : password };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -169,7 +168,7 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
+	               success: ^(NSDictionary *data) {
 	        NSString *nickname = [[data objectForKey:@"data"] objectForKey:@"Nickname"];
 	        NSString *userId = [[data objectForKey:@"data"] objectForKey:@"Id"];
 	        [[NSUserDefaults standardUserDefaults] setObject:nickname forKey:SETTINGS_CURRENT_USER];
@@ -177,25 +176,19 @@ SINGLETON_GCD(NetworkClient);
 	        [[NSUserDefaults standardUserDefaults] setObject:userId forKey:SETTINGS_CURRENT_USER_ID];
 	        [[NSUserDefaults standardUserDefaults] synchronize];
 
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGIN
-	                                                            object:me
-	                                                          userInfo:data];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGIN object:me userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_LOGIN
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
-		}];
+	               failure:
+	     ^(NSDictionary *ErrorMsg) { [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_LOGIN object:me userInfo:ErrorMsg]; }];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)loginWithQQOpenId:(NSString *)openId {
-	NSDictionary *parameters = @{ @"openId": openId };
+	NSDictionary *parameters = @{ @"openId" : openId };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -208,7 +201,10 @@ SINGLETON_GCD(NetworkClient);
 	        [[NSUserDefaults standardUserDefaults] setObject:nickname forKey:SETTINGS_CURRENT_USER];
 	        [[NSUserDefaults standardUserDefaults] synchronize];
 	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGIN object:self];
-		} failure: ^(NSDictionary *ErrorMsg) {
+		}
+
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        NSString *errorMsg = [ErrorMsg objectForKey:@"ErrorMsg"];
 	        if ([errorMsg isEqualToString:@"not found"]) {
 	            [[NSNotificationCenter defaultCenter] postNotificationName:MSG_QQ_LOGIN_NOT_FOUND object:me];
@@ -216,9 +212,8 @@ SINGLETON_GCD(NetworkClient);
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)relogin {
@@ -248,12 +243,11 @@ SINGLETON_GCD(NetworkClient);
 			}
 		}
 
-	    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGOUT
-	                                                        object:me
-	                                                      userInfo:nil];
-	} failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	    [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LOGOUT object:me userInfo:nil];
+	}
+
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getHotBooks {
@@ -264,32 +258,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:nil
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_HOTBOOKS
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_HOTBOOKS
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_HOTBOOKS
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_HOTBOOKS object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)registerWithNickname:(NSString *)nickname email:(NSString *)email password:(NSString *)password gender:(BOOL)isMan {
-	NSDictionary *parameters = @{
-		@"nickname": nickname,
-		@"email": email,
-		@"password": password,
-		@"sex": isMan ? @YES : @NO
-	};
+	NSDictionary *parameters = @{ @"nickname" : nickname, @"email" : email, @"password" : password, @"sex" : isMan ? @YES : @NO };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -298,34 +286,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_REGISTER
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_REGISTER
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_REGISTER
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_REGISTER object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)registerWithQQNickname:(NSString *)nickname email:(NSString *)email openId:(NSString *)openId accessToken:(NSString *)accessToken avatarUrl:(NSString *)avatarUrl sex:(BOOL)isMan {
-	NSDictionary *parameters = @{
-		@"nickname": nickname,
-		@"email": email,
-		@"openId": openId,
-		@"accessToken": accessToken,
-		@"avatarUrl": avatarUrl,
-		@"sex": isMan ? @YES : @NO
-	};
+	NSDictionary *parameters = @{ @"nickname" : nickname, @"email" : email, @"openId" : openId, @"accessToken" : accessToken, @"avatarUrl" : avatarUrl, @"sex" : isMan ? @YES : @NO };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -334,29 +314,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_REGISTER
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_REGISTER
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_REGISTER
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_REGISTER object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)searchWithKeyword:(NSString *)keyword {
-	NSDictionary *parameters = @{
-		@"q": keyword
-	};
+	NSDictionary *parameters = @{ @"q" : keyword };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -365,23 +342,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_SEARCH_RESULT
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_SEARCH_RESULT
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_SEARCH_RESULT
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_SEARCH_RESULT object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getBasicUserInfo:(NSString *)username {
@@ -394,23 +370,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BASIC_USER_INFO
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_BASIC_USER_INFO
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BASIC_USER_INFO
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BASIC_USER_INFO object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getBookDetail:(NSString *)bookId {
@@ -423,33 +398,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOK_DETAIL
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_BOOK_DETAIL
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOK_DETAIL
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOK_DETAIL object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)markBookWithBookId:(NSString *)bookId markType:(NSString *)markType score:(NSInteger)score content:(NSString *)content isShareToQQ:(BOOL)shareToQQ isShareToWeibo:(BOOL)shareToWeibo {
-	NSDictionary *parameters = @{
-		@"markType": markType,
-		@"score": [NSNumber numberWithInteger:score],
-		@"content": content,
-		@"isShareToQQ": [NSNumber numberWithBool:shareToQQ],
-		@"isShareToWeibo": [NSNumber numberWithBool:shareToWeibo]
-	};
+	NSDictionary *parameters = @{ @"markType" : markType, @"score" : [NSNumber numberWithInteger:score], @"content" : content, @"isShareToQQ" : [NSNumber numberWithBool:shareToQQ], @"isShareToWeibo" : [NSNumber numberWithBool:shareToWeibo] };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -458,23 +426,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_MARK_BOOK
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_MARK_BOOK
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_MARK_BOOK
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_MARK_BOOK object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)postReviewWithBookId:(NSString *)bookId params:(NSDictionary *)options {
@@ -487,23 +454,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_POST_REVIEW
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_POST_REVIEW
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_POST_REVIEW
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_POST_REVIEW object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getBooklistsByAuthorId:(NSString *)authorId {
@@ -516,23 +482,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOKLISTS
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_BOOKLISTS
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKLISTS
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKLISTS object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getBooklistsBySubscriberId:(NSString *)subscriberId {
@@ -545,23 +510,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOKLISTS
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_BOOKLISTS
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKLISTS
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKLISTS object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getBooklistsByBookId:(NSString *)bookId {
@@ -574,23 +538,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOKLISTS
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_BOOKLISTS
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKLISTS
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKLISTS object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getBooklistDetailById:(NSString *)booklistId {
@@ -603,29 +566,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOKLIST_DETAIL
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_BOOKLIST_DETAIL
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKLIST_DETAIL
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKLIST_DETAIL object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)addBook:(NSString *)bookId toBooklist:(NSString *)booklistId {
-	NSDictionary *parameters = @{
-		@"bookId": bookId
-	};
+	NSDictionary *parameters = @{ @"bookId" : bookId };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -634,31 +594,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_ADD_BOOK_TO_BOOKLIST
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_ADD_BOOK_TO_BOOKLIST
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_ADD_BOOK_TO_BOOKLIST
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_ADD_BOOK_TO_BOOKLIST object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)createBooklistWithTitle:(NSString *)title description:(NSString *)description {
-	NSDictionary *parameters = @{
-		@"bookId": @"",
-		@"title": title,
-		@"description": description
-	};
+	NSDictionary *parameters = @{ @"bookId" : @"", @"title" : title, @"description" : description };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -667,31 +622,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_CREATE_BOOKLIST
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_CREATE_BOOKLIST
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_CREATE_BOOKLIST
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_CREATE_BOOKLIST object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getReadRecordsByUserName:(NSString *)username markType:(NSInteger)markType range:(NSRange)range {
-	NSDictionary *parameters = @{
-		@"pageNum": @(range.location),
-		@"numPerPage": @(range.length),
-		@"markType": @(markType)
-	};
+	NSDictionary *parameters = @{ @"pageNum" : @(range.location), @"numPerPage" : @(range.length), @"markType" : @(markType) };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -700,30 +650,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_READ_RECORD
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_READ_RECORD
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_READ_RECORD
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_READ_RECORD object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getBooksByCategory:(NSString *)category range:(NSRange)range {
-	NSDictionary *parameters = @{
-		@"pageNum": @(range.location),
-		@"numPerPage": @(range.length)
-	};
+	NSDictionary *parameters = @{ @"pageNum" : @(range.location), @"numPerPage" : @(range.length) };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -732,33 +678,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOKS
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_BOOKS
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKS
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKS object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getReviewsByCategory:(NSString *)category channel:(FilterChannel)channel score:(NSInteger)score range:(NSRange)range {
-	NSDictionary *parameters = @{
-		@"pageNum": @(range.location),
-		@"numPerPage": @(range.length),
-		@"category": category,
-		@"score": @(score),
-		@"reviewType": @(channel)
-	};
+	NSDictionary *parameters = @{ @"pageNum" : @(range.location), @"numPerPage" : @(range.length), @"category" : category, @"score" : @(score), @"reviewType" : @(channel) };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -767,23 +706,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_REVIEWS
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_REVIEWS
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_REVIEWS
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_REVIEWS object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getReviewDetailById:(NSString *)reviewId {
@@ -796,23 +734,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_REVIEW_DETAIL
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_REVIEW_DETAIL
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_REVIEW_DETAIL
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_REVIEW_DETAIL object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getCommentDetailByBookId:(NSString *)bookId authorId:(NSString *)authorId {
@@ -825,29 +762,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_COMMENT_DETAIL
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_COMMENT_DETAIL
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_COMMENT_DETAIL
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_COMMENT_DETAIL object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)likeCommentByBookId:(NSString *)bookId authorId:(NSString *)authorId {
-	NSDictionary *parameters = @{
-		@"authorId": authorId
-	};
+	NSDictionary *parameters = @{ @"authorId" : authorId };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -856,29 +790,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LIKE_COMMENT
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_LIKE_COMMENT
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_LIKE_COMMENT
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_LIKE_COMMENT object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)dislikeCommentByBookId:(NSString *)bookId authorId:(NSString *)authorId {
-	NSDictionary *parameters = @{
-		@"authorId": authorId
-	};
+	NSDictionary *parameters = @{ @"authorId" : authorId };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -887,29 +818,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_DISLIKE_COMMENT
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_DISLIKE_COMMENT
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_DISLIKE_COMMENT
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_DISLIKE_COMMENT object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)likeReviewByBookId:(NSString *)bookId reviewId:(NSString *)reviewId {
-	NSDictionary *parameters = @{
-		@"bookId": bookId
-	};
+	NSDictionary *parameters = @{ @"bookId" : bookId };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -918,29 +846,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_LIKE_REVIEW
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_LIKE_REVIEW
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_LIKE_REVIEW
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_LIKE_REVIEW object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)dislikeReviewByBookId:(NSString *)bookId reviewId:(NSString *)reviewId {
-	NSDictionary *parameters = @{
-		@"bookId": bookId
-	};
+	NSDictionary *parameters = @{ @"bookId" : bookId };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -949,29 +874,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_DISLIKE_REVIEW
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_DISLIKE_REVIEW
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_DISLIKE_REVIEW
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_DISLIKE_REVIEW object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)responseToComment:(NSString *)content bookId:(NSString *)bookId commentAuthorId:(NSString *)authorId {
-	NSDictionary *parameters = @{
-		@"content": content
-	};
+	NSDictionary *parameters = @{ @"content" : content };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -980,30 +902,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_RESPONSE_TO_COMMENT
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_RESPONSE_TO_COMMENT
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_RESPONSE_TO_COMMENT
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_RESPONSE_TO_COMMENT object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)responseToReview:(NSString *)content bookId:(NSString *)bookId reviewId:(NSString *)reviewId {
-	NSDictionary *parameters = @{
-		@"content": content,
-		@"bookId": bookId
-	};
+	NSDictionary *parameters = @{ @"content" : content, @"bookId" : bookId };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -1012,23 +930,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_RESPONSE_TO_REVIEW
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_RESPONSE_TO_REVIEW
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_RESPONSE_TO_REVIEW
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_RESPONSE_TO_REVIEW object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getWizardResult {
@@ -1041,23 +958,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_WIZARD_RESULT
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_WIZARD_RESULT
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_WIZARD_RESULT
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_WIZARD_RESULT object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getSimilarBooksById:(NSString *)bookId {
@@ -1070,23 +986,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOKS
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_BOOKS
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKS
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKS object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getBooksBySameAuthor:(NSString *)author {
@@ -1099,29 +1014,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOKS
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_BOOKS
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKS
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKS object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getTitlesOfAllRankingListForMan:(BOOL)forMan {
-	NSDictionary *parameters = @{
-		@"isForMan": [NSNumber numberWithBool:forMan]
-	};
+	NSDictionary *parameters = @{ @"isForMan" : [NSNumber numberWithBool:forMan] };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -1130,23 +1042,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_RANKINGLIST_TITLES
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_RANKINGLIST_TITLES
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_RANKINGLIST_TITLES
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_RANKINGLIST_TITLES object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getRankingDetailById:(NSString *)rankingId {
@@ -1159,30 +1070,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_RANKINGLIST_DETAIL
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_RANKINGLIST_DETAIL
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_RANKINGLIST_DETAIL
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_RANKINGLIST_DETAIL object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getRankingDetailByTitle:(NSString *)title version:(NSString *)ver {
-	NSDictionary *parameters = @{
-		@"title": title,
-		@"version": ver
-	};
+	NSDictionary *parameters = @{ @"title" : title, @"version" : ver };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -1191,23 +1098,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_RANKINGLIST_DETAIL
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_RANKINGLIST_DETAIL
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_RANKINGLIST_DETAIL
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_RANKINGLIST_DETAIL object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getFavBooksByUser:(NSString *)username {
@@ -1220,23 +1126,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_BOOKS
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_BOOKS
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKS
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_BOOKS object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getFollowersByUser:(NSString *)username {
@@ -1249,23 +1154,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_USERLIST
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_USERLIST
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_USERLIST
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_USERLIST object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getFollowingsByUser:(NSString *)username {
@@ -1278,23 +1182,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_USERLIST
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_USERLIST
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_USERLIST
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_USERLIST object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)followUser:(NSString *)username {
@@ -1307,23 +1210,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_FOLLOW_USER
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_FOLLOW_USER
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_FOLLOW_USER
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_FOLLOW_USER object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)unfollowUser:(NSString *)username {
@@ -1336,30 +1238,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_UNFOLLOW_USER
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_UNFOLLOW_USER
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_UNFOLLOW_USER
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_UNFOLLOW_USER object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getMoreCommentsByBookId:(NSString *)bookId range:(NSRange)range {
-	NSDictionary *parameters = @{
-		@"pageNum": @(range.location),
-		@"numPerPage": @(range.length)
-	};
+	NSDictionary *parameters = @{ @"pageNum" : @(range.location), @"numPerPage" : @(range.length) };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -1368,30 +1266,26 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_REVIEWS
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_REVIEWS
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_REVIEWS
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_REVIEWS object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 - (void)getMoreReviewsByBookId:(NSString *)bookId range:(NSRange)range {
-	NSDictionary *parameters = @{
-		@"pageNum": @(range.location),
-		@"numPerPage": @(range.length)
-	};
+	NSDictionary *parameters = @{ @"pageNum" : @(range.location), @"numPerPage" : @(range.length) };
 
 	__block NetworkClient *me = [NetworkClient sharedNetworkClient];
 
@@ -1400,23 +1294,22 @@ SINGLETON_GCD(NetworkClient);
 	               parameters:parameters
 	                  success: ^(AFHTTPRequestOperation *operation, id responseObject) {
 	    [me handleResponse:responseObject
-	                       success: ^(NSDictionary *data) {
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_DID_GET_REVIEWS
-	                                                            object:me
-	                                                          userInfo:data];
+	               success: ^(NSDictionary *data) {
+	        [[NSNotificationCenter defaultCenter]
+	         postNotificationName:MSG_DID_GET_REVIEWS
+	                       object:me
+	                     userInfo:data];
 		}
 
-	                       failure: ^(NSDictionary *ErrorMsg) {
+	               failure:
+	     ^(NSDictionary *ErrorMsg) {
 	        [self handleFailureFromRequest:operation];
-	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_REVIEWS
-	                                                            object:me
-	                                                          userInfo:ErrorMsg];
+	        [[NSNotificationCenter defaultCenter] postNotificationName:MSG_FAIL_GET_REVIEWS object:me userInfo:ErrorMsg];
 		}];
 	}
 
-	                  failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-	    [self handleError:error onRequest:operation];
-	}];
+	                  failure:
+	 ^(AFHTTPRequestOperation *operation, NSError *error) { [self handleError:error onRequest:operation]; }];
 }
 
 #pragma mark - Event handler
