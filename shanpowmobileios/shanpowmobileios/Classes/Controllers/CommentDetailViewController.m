@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong) CommentReviewView *crView;
 @property (nonatomic, strong) UITableView *mainTable;
-@property (nonatomic, strong) UITextField *responseTextField;
+@property (nonatomic, strong) SPTextView *responseTextField;
 @property (nonatomic, strong) UIButton *replyButton;
 @property (nonatomic, strong) UIButton *overlayButton;
 @property (nonatomic, strong) UIButton *thumbUpButton;
@@ -31,6 +31,9 @@
 @property (nonatomic, assign) BOOL shouldScrollToLastResponse;
 
 @property (nonatomic, strong) NSDictionary *reviewDetail;
+
+@property (nonatomic, assign) CGFloat textViewY;
+@property (nonatomic, assign) CGSize oriSize;
 
 @end
 
@@ -66,7 +69,7 @@
 	self.container = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0,
 	                                                                0.0,
 	                                                                self.view.bounds.size.width,
-	                                                                self.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height - 40 - 20)];
+	                                                                self.view.bounds.size.height - UINAVIGATIONBAR_HEIGHT - (IsSysVerGTE(7.0) ? UISTATUSBAR_HEIGHT : 0) - 45)];
 	[self.view addSubview:self.container];
 
 	self.crView = [[CommentReviewView alloc] initWithFrame:self.view.bounds];
@@ -92,13 +95,16 @@
 	[self updateContainerContentSize];
 
 	if (isLogin()) {
-		self.responseTextField = [[UITextField alloc] initWithFrame:CGRectMake(0.0,
-		                                                                       self.container.frame.size.height,
-		                                                                       self.view.frame.size.width - 70.0,
-		                                                                       45.0)];
+		self.responseTextField = [[SPTextView alloc] initWithFrame:CGRectMake(0.0,
+		                                                                      self.container.frame.size.height,
+		                                                                      self.view.frame.size.width - 70.0,
+		                                                                      45.0)];
 		self.responseTextField.backgroundColor = UIC_CERULEAN(1.0);
 		self.responseTextField.textColor = UIC_ALMOSTWHITE(1.0);
 		self.responseTextField.placeholder = @"输入回复内容";
+		self.responseTextField.placeholderColor = UIC_ALMOSTWHITE(0.6);
+		self.responseTextField.delegate = self;
+		self.responseTextField.font = LARGE_FONT;
 		[self.view addSubview:self.responseTextField];
 
 		self.replyButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -115,6 +121,8 @@
 		[self.overlayButton addTarget:self action:@selector(overlayButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
 		[self.overlayButton setBackgroundColor:[UIColor clearColor]];
 	}
+
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChanged:) name:UITextViewTextDidChangeNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -125,6 +133,8 @@
 
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseAuthorNameTapped:) name:MSG_TAPPED_NICKNAME object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleError:) name:MSG_ERROR object:nil];
+
+	self.shouldScrollToLastResponse = NO;
 
 	[self getCommentReviewDetail];
 }
@@ -181,7 +191,10 @@
 	[self updateContainerContentSize];
 
 	if (self.shouldScrollToLastResponse) {
-		[self.container scrollRectToVisible:CGRectMake(0.0, self.container.contentSize.height, 1.0, 1.0) animated:YES];
+		if (self.container.contentSize.height > self.container.bounds.size.height) {
+			CGPoint bottomOffset = CGPointMake(0, self.container.contentSize.height - self.container.bounds.size.height);
+			[self.container setContentOffset:bottomOffset animated:YES];
+		}
 	}
 }
 
@@ -289,14 +302,12 @@
 	                                        self.responseTextField.frame.origin.y,
 	                                        self.replyButton.frame.size.width,
 	                                        self.replyButton.frame.size.height);
-
-	    self.container.frame = CGRectMake(self.container.frame.origin.x,
-	                                      self.container.frame.origin.y,
-	                                      self.container.frame.size.width,
-	                                      keyboardBounds.origin.y - self.responseTextField.frame.size.height - UINAVIGATIONBAR_HEIGHT - UISTATUSBAR_HEIGHT);
 	} completion: ^(BOOL finished) {
 	    self.overlayButton.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.responseTextField.frame.origin.y);
 	    [self.view addSubview:self.overlayButton];
+	    if (self.textViewY <= 0) {
+	        self.textViewY = self.responseTextField.frame.origin.y;
+		}
 	}];
 }
 
@@ -305,15 +316,15 @@
 	CGRect keyboardBounds = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
 
 	[UIView animateWithDuration:0.25 animations: ^{
+	    self.responseTextField.frame = CGRectMake(self.responseTextField.frame.origin.x,
+	                                              ([self.responseTextField.text length] > 0 ? self.responseTextField.frame.origin.y : self.textViewY) + keyboardBounds.size.height,
+	                                              self.responseTextField.frame.size.width,
+	                                              ([self.responseTextField.text length] > 0 ? self.responseTextField.frame.size.height : 45));
+
 	    self.container.frame = CGRectMake(self.container.frame.origin.x,
 	                                      self.container.frame.origin.y,
 	                                      self.container.frame.size.width,
-	                                      self.container.frame.size.height + keyboardBounds.size.height);
-
-	    self.responseTextField.frame = CGRectMake(self.responseTextField.frame.origin.x,
-	                                              self.responseTextField.frame.origin.y + keyboardBounds.size.height,
-	                                              self.responseTextField.frame.size.width,
-	                                              self.responseTextField.frame.size.height);
+	                                      self.view.bounds.size.height - self.responseTextField.frame.size.height);
 
 	    self.replyButton.frame = CGRectMake(self.replyButton.frame.origin.x,
 	                                        self.responseTextField.frame.origin.y,
@@ -361,6 +372,46 @@
 	NSString *err = [[notification userInfo] objectForKey:@"ErrorMsg"];
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"出错啦" message:err delegate:self cancelButtonTitle:@"好的" otherButtonTitles:nil];
 	[alert show];
+}
+
+#pragma mark - UITextView delegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+	if ([text isEqualToString:@"\n"]) {
+		[textView resignFirstResponder];
+		[self replyButtonTapped:self.replyButton];
+
+		return NO;
+	}
+	else {
+		if (self.textViewY <= 0) {
+			self.oriSize = textView.contentSize;
+			self.textViewY = textView.frame.origin.y;
+		}
+	}
+
+	return YES;
+}
+
+- (void)textChanged:(NSNotification *)notification {
+	SPTextView *textView = [notification object];
+
+	if (self.oriSize.height != textView.contentSize.height) {
+		[UIView animateWithDuration:0.15
+		                 animations: ^{
+		    CGRect newFrame = CGRectZero;
+
+		    newFrame = CGRectMake(textView.frame.origin.x,
+		                          MAX((self.textViewY - MAX(textView.contentSize.height, 45) + 45), 0),
+		                          textView.frame.size.width,
+		                          MIN((MAX(textView.contentSize.height, 45)), self.textViewY + 45));
+		    self.responseTextField.frame = newFrame;
+
+		    self.replyButton.frame = CGRectMake(self.replyButton.frame.origin.x,
+		                                        self.responseTextField.frame.origin.y,
+		                                        self.replyButton.frame.size.width,
+		                                        self.responseTextField.frame.size.height);
+		}];
+	}
 }
 
 #pragma mark - Table view delegate

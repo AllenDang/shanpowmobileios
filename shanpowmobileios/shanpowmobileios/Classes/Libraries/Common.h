@@ -176,7 +176,7 @@ typedef enum {
 #define SCREEN_RATIO                            (self.view.bounds.size.height / 568.0)
 #define MAIN_NAVIGATION_CONTROLLER              (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController
 
-#define UINAVIGATIONBAR_HEIGHT                  44.0
+#define UINAVIGATIONBAR_HEIGHT                  self.navigationController.navigationBar.frame.size.height
 #define UISTATUSBAR_HEIGHT                      20.0
 
 #pragma mark — UIFont

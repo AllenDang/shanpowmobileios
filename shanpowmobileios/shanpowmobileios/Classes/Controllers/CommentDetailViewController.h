@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Common.h"
 
-@interface CommentDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface CommentDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong) NSString *reviewId;
 @property (nonatomic, strong) NSString *bookId;
