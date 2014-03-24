@@ -62,34 +62,6 @@
 
 #pragma mark - UISearchBar delegate
 
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-	[searchBar setShowsCancelButton:YES animated:YES];
-
-	for (UIView *subView in searchBar.subviews) {
-		if ([subView isKindOfClass:[UIButton class]]) {
-			[(UIButton *)subView setTitle : @"取消" forState : UIControlStateNormal];
-		}
-	}
-
-	return YES;
-}
-
-- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar {
-	[searchBar setShowsCancelButton:NO animated:YES];
-	if (searchBar.text.length <= 0) {
-		return NO;
-	}
-	return YES;
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-	[searchBar resignFirstResponder];
-}
-
-- (void)searchBarResultsListButtonClicked:(UISearchBar *)searchBar {
-	[searchBar resignFirstResponder];
-}
-
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didGetSearchResult:) name:MSG_DID_GET_SEARCH_RESULT object:nil];
 
