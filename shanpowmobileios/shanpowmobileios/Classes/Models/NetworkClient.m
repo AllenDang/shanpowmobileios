@@ -108,8 +108,8 @@ SINGLETON_GCD(NetworkClient);
 	if (self.csrfToken) {
 		[parameters setObject:self.csrfToken forKey:@"csrf_token"];
 	}
-
 	NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:[type uppercaseString] URLString:url parameters:parameters];
+	[request addValue:@"http://www.shanpow.com" forHTTPHeaderField:@"Referer"];
 
 	[self.loadingView show];
 

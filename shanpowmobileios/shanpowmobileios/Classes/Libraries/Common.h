@@ -30,7 +30,7 @@
 
 #pragma mark - Basic                    settings
 #ifdef                                  DEBUG
-#   define BASE_URL                     @"http://www.shanpow.com"
+#   define BASE_URL                     @"http://127.0.0.1"
 #else
 #   define BASE_URL                     @"http://www.shanpow.com"
 #endif
